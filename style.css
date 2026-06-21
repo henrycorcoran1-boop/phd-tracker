@@ -415,3 +415,26 @@ footer{border-top:1px solid var(--border);padding:64px 0 0;background:var(--bg-2
   .reveal{opacity:1!important;transform:none!important}
   #bg-canvas{display:none}
 }
+
+/* ---------- per-page header banner (construction imagery) ---------- */
+.phero{position:relative;overflow:hidden;border-bottom:1px solid var(--border);padding:150px 0 60px}
+.phero .content{position:relative;z-index:2;max-width:760px}
+.phero .content h1{font-size:clamp(32px,5vw,56px);text-transform:uppercase;letter-spacing:.02em;margin:18px 0 16px;color:var(--ink)}
+.phero .content p{color:var(--text-sub);font-size:16px;max-width:560px}
+.phero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:saturate(.95) contrast(1.02);transform:scale(1.06);
+  animation:kenburns 26s ease-in-out infinite alternate;will-change:transform}
+.phero-veil{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(180deg,rgba(255,255,255,.80),rgba(255,255,255,.9) 58%,#FFFFFF 100%),
+  linear-gradient(90deg,rgba(255,255,255,.92),rgba(255,255,255,.5) 78%)}
+.phero + .section{padding-top:58px}
+.hero{overflow:hidden}
+.hero>.wrap{position:relative;z-index:2}
+.hero .phero-veil{background:
+  linear-gradient(180deg,rgba(255,255,255,.74),rgba(255,255,255,.84) 55%,rgba(255,255,255,.96) 100%),
+  linear-gradient(90deg,rgba(255,255,255,.93),rgba(255,255,255,.45) 72%)}
+
+/* contact CTA with construction image behind navy veil */
+.cta-box .phero-img{filter:saturate(.9) contrast(1.05) brightness(.85);animation:kenburns 28s ease-in-out infinite alternate}
+.cta-veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,rgba(14,36,112,.90),rgba(43,79,192,.80))}
+.cta-box>*:not(.phero-img):not(.cta-veil){position:relative;z-index:2}
