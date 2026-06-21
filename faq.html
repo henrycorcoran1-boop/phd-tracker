@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Arya Estimating — real-time procurement intelligence and quantity surveying for the Irish construction market. Investor-grade tender estimates in minutes.">
+<meta name="theme-color" content="#FFFFFF">
+<title>FAQ · Arya Estimating</title>
+<link rel="icon" href="arya-mark.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a href="#main" class="sr-skip">Skip to content</a>
+<div id="progress"></div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="estimate.html" class="brand" aria-label="Arya Estimating home">
+      <img src="arya-mark.png" alt="Arya Estimating logo">
+      <span class="wordmark"><span class="w1">ARYA</span><span class="w2">Estimating</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="valuation.html">Valuation</a>
+      <a href="process.html">Process</a>
+      <a href="suppliers.html">Suppliers</a>
+      <a href="value-engineering.html">Value Engineering</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-ghost">Request Demo</a>
+      <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu">
+    <a href="valuation.html">Valuation Suite</a>
+    <a href="process.html">Process</a>
+    <a href="suppliers.html">Suppliers</a>
+    <a href="value-engineering.html">Value Engineering</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="btn btn-primary">Request Demo</a>
+  </div>
+</nav>
+<main id="main">
+<section class="section alt" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin:0 auto 56px;text-align:center">
+      <span class="eyebrow"><span class="dot"></span> Clarifications</span>
+      <h1>Frequently Asked</h1>
+    </div>
+    <div class="faq">
+      <details class="reveal"><summary>How current is the merchant pricing data?<span class="pm"></span></summary>
+        <div class="ans">Validation sweeps run daily across active merchant frameworks, so baseline procurement receipts reflect live, localized rates rather than outdated national average cost books.</div></details>
+      <details class="reveal"><summary>Which drawing formats can Arya Estimating ingest?<span class="pm"></span></summary>
+        <div class="ans">Vector PDFs, DWG/DXF CAD exports, and NBS-structured specification documents. Structural parsing isolates volumes and material grades automatically.</div></details>
+      <details class="reveal"><summary>Is my project data kept confidential?<span class="pm"></span></summary>
+        <div class="ans">All drawings and ledgers are encrypted in transit and at rest. Your project data is never used to price competitors' tenders, and enterprise tiers add SSO and full audit controls.</div></details>
+      <details class="reveal"><summary>Do you cover regions outside Leinster?<span class="pm"></span></summary>
+        <div class="ans">The national merchant index on Consultancy and Enterprise tiers extends coverage across all Irish provinces, with bespoke regional integrations available on request.</div></details>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand">
+          <img src="arya-mark.png" alt="Arya Estimating logo" style="height:42px;width:auto">
+          <span class="wordmark"><span class="w1" style="font-size:19px;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);font-weight:600">ARYA</span><span class="w2" style="font-size:9px;letter-spacing:.36em;text-transform:uppercase;color:var(--blue);font-weight:500;margin-top:3px">Estimating</span></span>
+        </div>
+        <p class="bl">Real-time procurement intelligence and quantity surveying for the Irish construction market.</p>
+      </div>
+      <div class="foot-col"><h5>Platform</h5><a href="valuation.html">Valuation Suite</a><a href="process.html">Process</a><a href="value-engineering.html">Value Engineering</a></div>
+      <div class="foot-col"><h5>Company</h5><a href="pricing.html">Pricing</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+      <div class="foot-col"><h5>Contact</h5><a href="mailto:hello@aryaestimating.com">hello@aryaestimating.com</a><li>Dublin, Ireland</li></div>
+    </div>
+    <div class="foot-bar"><span>© 2026 Arya Estimating · All rights reserved</span><span>Calibrated in the Republic of Ireland</span></div>
+  </div>
+</footer>
+
+<button id="totop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script src="app.js"></script>
+</body>
+</html>
