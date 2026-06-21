@@ -354,6 +354,58 @@ footer{border-top:1px solid var(--glass-brd);padding:64px 0 0;background:rgba(5,
 @keyframes marquee{to{transform:translateX(-50%)}}
 @keyframes growbar{from{transform:scaleY(0)}}
 @keyframes scan{0%{top:-46px}100%{top:100%}}
+@keyframes scbig{0%{top:-160px}100%{top:100%}}
+@keyframes kenburns{from{transform:scale(1.12) translateY(0)}to{transform:scale(1.2) translateY(-2%)}}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(-12%,8%)}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ---------- showcase (cinematic image + motion) ---------- */
+.showcase{position:relative;min-height:600px;display:flex;align-items:flex-end;overflow:hidden;
+  border-top:1px solid var(--glass-brd);border-bottom:1px solid var(--glass-brd);
+  background:linear-gradient(160deg,#0A1428,#05080F)}
+.showcase .sc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:saturate(.55) contrast(1.05) brightness(.42);transform:scale(1.12);
+  animation:kenburns 24s ease-in-out infinite alternate;will-change:transform}
+.showcase .sc-tint{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,11,22,.62) 0%,rgba(6,11,22,.30) 42%,rgba(6,11,22,.94) 100%),
+            linear-gradient(90deg,rgba(8,18,40,.88),transparent 62%)}
+.showcase .sc-spot{position:absolute;inset:-25%;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(38% 40% at 68% 28%,rgba(79,140,255,.36),transparent 60%);
+  animation:drift 16s ease-in-out infinite alternate}
+.showcase .sc-scan{position:absolute;left:0;right:0;height:160px;pointer-events:none;top:-160px;
+  background:linear-gradient(180deg,transparent,rgba(51,224,230,.10),transparent);
+  animation:scbig 7.5s linear infinite}
+.showcase .content{position:relative;z-index:3;padding:64px 0}
+.showcase .eyebrow{margin-bottom:18px}
+.showcase h2{font-size:clamp(28px,4.4vw,52px);text-transform:uppercase;letter-spacing:.01em;max-width:700px;line-height:1.08}
+.showcase p{color:var(--mist);max-width:520px;margin-top:18px;font-size:15px}
+.chip{position:absolute;z-index:3;display:inline-flex;align-items:center;gap:10px;padding:12px 16px;
+  border-radius:13px;background:rgba(8,15,30,.62);border:1px solid var(--glass-brd-2);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:var(--shadow);
+  animation:floaty 6s ease-in-out infinite}
+.chip .lab{color:var(--slate);text-transform:uppercase;letter-spacing:.12em;font-size:9px;display:block}
+.chip b{font-size:14px;color:#fff;font-weight:500;font-variant-numeric:tabular-nums}
+.chip .up{color:#46e0b0;font-size:11px}
+.chip .ld{width:7px;height:7px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 10px var(--accent-2);animation:pulse 1.8s infinite}
+.chip.c1{top:16%;right:7%;animation-delay:0s}
+.chip.c2{top:40%;right:17%;animation-delay:1.4s}
+.chip.c3{bottom:24%;right:10%;animation-delay:.7s}
+
+/* ---------- split media band ---------- */
+.media-band{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+.media-figs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.figure{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--glass-brd);
+  aspect-ratio:3/4;background:var(--navy-750)}
+.figure img{width:100%;height:100%;object-fit:cover;filter:saturate(.6) brightness(.66) contrast(1.05);
+  transform:scale(1.03);transition:transform .9s ease,filter .9s ease}
+.figure:hover img{transform:scale(1.12);filter:saturate(.9) brightness(.85)}
+.figure::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(160deg,rgba(79,140,255,.14),transparent 48%,rgba(6,11,22,.7))}
+.figure .cap{position:absolute;left:15px;bottom:13px;z-index:2;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:#fff;font-weight:500}
+.media-copy .feat-list{list-style:none;margin-top:24px;display:flex;flex-direction:column;gap:14px}
+.media-copy .feat-list li{display:flex;gap:12px;font-size:14px;color:var(--mist)}
+.media-copy .feat-list svg{width:18px;height:18px;stroke:var(--accent-2);fill:none;stroke-width:2;flex-shrink:0;margin-top:2px}
 
 /* ---------- responsive ---------- */
 @media(max-width:1024px){
@@ -372,6 +424,10 @@ footer{border-top:1px solid var(--glass-brd);padding:64px 0 0;background:rgba(5,
   .file-row{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr;gap:30px}
   .wrap{padding:0 20px}
+  .media-band{grid-template-columns:1fr;gap:30px}
+  .chip{display:none}
+  .showcase{min-height:440px}
+  .showcase .content{padding:44px 0}
 }
 @media(max-width:460px){ .stats{grid-template-columns:1fr} }
 
@@ -484,6 +540,23 @@ footer{border-top:1px solid var(--glass-brd);padding:64px 0 0;background:rgba(5,
     <div class="stat reveal"><div class="num" data-count="2400" data-suffix="+">0</div><div class="lbl">Merchant Price Feeds</div></div>
     <div class="stat reveal"><div class="num" data-count="98.6" data-suffix="%" data-dec="1">0</div><div class="lbl">Take-Off Accuracy</div></div>
     <div class="stat reveal"><div class="num" data-count="32" data-suffix="%">0</div><div class="lbl">Avg. Margin Protected</div></div>
+  </div>
+</section>
+
+<!-- ===== SHOWCASE (cinematic image + motion) ===== -->
+<section class="showcase" aria-label="EstiMate AI in the field">
+  <img class="sc-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=70"
+       alt="Modern glass towers viewed from below at dusk" loading="lazy" decoding="async" onerror="this.style.display='none'">
+  <div class="sc-tint"></div>
+  <div class="sc-spot"></div>
+  <div class="sc-scan"></div>
+  <span class="chip c1"><span class="ld"></span><span><span class="lab">Leinster index</span><b>Live</b></span></span>
+  <span class="chip c2"><span><span class="lab">Readymix C30</span><b>€124.50/m³ <span class="up">▲ 0.8%</span></b></span></span>
+  <span class="chip c3"><span><span class="lab">Take-off accuracy</span><b>98.6%</b></span></span>
+  <div class="wrap content reveal">
+    <span class="eyebrow"><span class="dot"></span> Field Intelligence</span>
+    <h2>Built for the Realities of<br>Irish Construction</h2>
+    <p>From foundation to final fix, EstiMate AI prices every element against live merchant data — so your tender reflects today's market, not last year's cost book.</p>
   </div>
 </section>
 
@@ -634,6 +707,34 @@ footer{border-top:1px solid var(--glass-brd);padding:64px 0 0;background:rgba(5,
       <div class="ve reveal"><div class="top"><h3>Logistics Balancing</h3><span class="pct">5–9%</span></div>
         <p>Optimized fleet parameters match material arrivals to active construction phases, controlling heavy-plant idling penalties.</p>
         <div class="track"><i data-w="44%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ON THE GROUND (media band) ===== -->
+<section class="section" id="ground" style="padding-top:0">
+  <div class="wrap media-band">
+    <div class="media-figs reveal">
+      <div class="figure">
+        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=700&q=70"
+             alt="Architectural drawings and plans on a desk" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <span class="cap">Drawing Take-Off</span>
+      </div>
+      <div class="figure">
+        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=700&q=70"
+             alt="Engineer reviewing data on site" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <span class="cap">On-Site Intelligence</span>
+      </div>
+    </div>
+    <div class="media-copy reveal">
+      <span class="eyebrow"><span class="dot"></span> On The Ground</span>
+      <h2 style="font-size:clamp(28px,4vw,46px);text-transform:uppercase;letter-spacing:.02em;margin:18px 0 14px">Precision, From Plan to Pour</h2>
+      <p style="color:var(--slate);font-size:15px;max-width:520px">EstiMate AI sits between your drawing board and the merchant yard — translating every line of architecture into a live, defensible cost the moment it lands.</p>
+      <ul class="feat-list">
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Automated structural take-off from vector drawings</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Daily-swept merchant pricing across Irish provinces</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Audit-ready dossiers your clients can't dispute</li>
+      </ul>
     </div>
   </div>
 </section>
