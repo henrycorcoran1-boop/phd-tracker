@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EstiMate AI — elite procurement intelligence and real-time quantity surveying for the Irish construction market. Calibrated, executive-grade tender estimates in minutes.">
+    <meta name="theme-color" content="#002416">
+    <title>EstiMate AI — Elite Procurement Intelligence</title>
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23002416'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' fill='%23C5A059' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: {
+                            core: '#004B2F',
+                            deep: '#002416',
+                            card: '#002D1C',
+                            ink:  '#001A10',
+                        },
+                        gold: {
+                            DEFAULT: '#C5A059',
+                            soft:    '#b38f4b',
+                        },
+                    },
+                    fontFamily: {
+                        serif: ['Marcellus', 'serif'],
+                        sans:  ['Montserrat', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+        html { scroll-behavior: smooth; scroll-padding-top: 7rem; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #004B2F; overflow-x: hidden; }
+
+        .serif-luxury { font-family: 'Marcellus', serif; letter-spacing: -0.02em; }
+
+        .rolex-dark-section { background-color: #002416; }
+        .rolex-card-gradient { background: linear-gradient(135deg, #002D1C 0%, #001A10 100%); }
+        .luxury-border { border: 1px solid rgba(197, 160, 89, 0.2); }
+
+        /* Self-contained architectural visuals (no external image files) */
+        .blueprint {
+            background-color: #001A10;
+            background-image:
+                linear-gradient(135deg, rgba(197,160,89,0.16) 0%, rgba(0,26,16,0) 55%),
+                linear-gradient(rgba(197,160,89,0.10) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(197,160,89,0.10) 1px, transparent 1px);
+            background-size: 100% 100%, 28px 28px, 28px 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .blueprint::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(120% 80% at 80% 10%, rgba(197,160,89,0.22), transparent 60%),
+                linear-gradient(to top, rgba(0,36,22,0.9), transparent 45%);
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type="number"] { -moz-appearance: textfield; }
+
+        .tabular { font-variant-numeric: tabular-nums; }
+
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease-out, transform .7s ease-out; }
+        .reveal.is-visible { opacity: 1; transform: none; }
+
+        /* Accessible focus */
+        a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+            outline: 2px solid #C5A059; outline-offset: 3px; border-radius: 2px;
+        }
+
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] .faq-icon { transform: rotate(45deg); }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+        }
+    </style>
+</head>
+<body class="text-stone-100 antialiased min-h-screen bg-forest-core selection:bg-gold selection:text-black">
+
+    <a href="#platform" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-gold focus:text-black focus:px-5 focus:py-3 focus:text-xs focus:uppercase focus:tracking-widest">Skip to content</a>
+
+    <!-- ============ NAVIGATION ============ -->
+    <nav class="w-full border-b border-white/10 bg-forest-deep/90 backdrop-blur-xl fixed top-0 left-0 z-50">
+        <div class="max-w-7xl mx-auto h-20 md:h-24 px-6 md:px-16 flex items-center justify-between">
+            <a href="#platform" class="flex items-center space-x-4">
+                <span class="w-6 h-6 flex items-center justify-center text-gold text-base" aria-hidden="true">
+                    <i class="fa-solid fa-gavel opacity-90"></i>
+                </span>
+                <span class="text-base md:text-lg font-medium tracking-[0.25em] text-white uppercase serif-luxury">ESTIMATE <span class="text-gold font-light">AI</span></span>
+            </a>
+
+            <div class="hidden xl:flex items-center space-x-10 text-[11px] font-medium tracking-[0.2em] text-stone-300 uppercase">
+                <a href="#valuation" class="hover:text-gold transition-colors duration-300">Valuation Suite</a>
+                <a href="#process" class="hover:text-gold transition-colors duration-300">Process</a>
+                <a href="#suppliers" class="hover:text-gold transition-colors duration-300">Irish Suppliers</a>
+                <a href="#savings" class="hover:text-gold transition-colors duration-300">Value Engineering</a>
+                <a href="#pricing" class="hover:text-gold transition-colors duration-300">Pricing</a>
+                <a href="#faq" class="hover:text-gold transition-colors duration-300">FAQ</a>
+            </div>
+
+            <div class="hidden xl:flex">
+                <a href="#valuation" class="bg-gold/10 border border-gold/40 text-gold hover:bg-gold hover:text-black transition-all duration-300 px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-medium">Request Demo</a>
+            </div>
+
+            <button id="menu-toggle" class="xl:hidden w-11 h-11 flex items-center justify-center text-white" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+                <i class="fa-solid fa-bars text-lg" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden xl:hidden border-t border-white/10 bg-forest-deep/98 backdrop-blur-xl">
+            <div class="px-6 py-6 flex flex-col space-y-1 text-xs tracking-[0.2em] uppercase text-stone-200">
+                <a href="#valuation" class="py-3 hover:text-gold transition-colors">Valuation Suite</a>
+                <a href="#process" class="py-3 hover:text-gold transition-colors">Process</a>
+                <a href="#suppliers" class="py-3 hover:text-gold transition-colors">Irish Suppliers</a>
+                <a href="#savings" class="py-3 hover:text-gold transition-colors">Value Engineering</a>
+                <a href="#pricing" class="py-3 hover:text-gold transition-colors">Pricing</a>
+                <a href="#faq" class="py-3 hover:text-gold transition-colors">FAQ</a>
+                <a href="#valuation" class="mt-3 bg-gold text-black text-center py-4 font-semibold">Request Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <header id="platform" class="pt-36 md:pt-52 pb-24 md:pb-32 px-6 md:px-16 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-center">
+        <div class="lg:col-span-7 space-y-8 md:space-y-10 reveal">
+            <div class="inline-flex items-center space-x-3 text-[10px] tracking-[0.25em] uppercase text-gold font-medium">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold" aria-hidden="true"></span>
+                <span>Bespoke Structural Intelligence Platform</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-normal tracking-tight text-white leading-[1.1] uppercase serif-luxury">
+                Quantum Quantity Surveying.<br>Calibrated in Real Time.
+            </h1>
+            <p class="text-stone-200/80 text-sm md:text-base font-light max-w-xl leading-relaxed tracking-wide">
+                EstiMate AI elevates baseline drawing architecture into precise, executive-grade financial assessments. By continuously tracking raw vendor distributions across the Leinster region, our system delivers unparalleled stability in volatile markets.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                <a href="#valuation" class="inline-flex items-center justify-center space-x-5 bg-gradient-to-r from-gold to-gold-soft hover:from-white hover:to-white text-black font-semibold px-10 py-5 text-xs tracking-[0.2em] uppercase transition-all duration-500 shadow-xl shadow-black/30">
+                    <span>Enter Valuation Suite</span>
+                    <i class="fa-solid fa-arrow-right-long text-[11px]" aria-hidden="true"></i>
+                </a>
+                <a href="#process" class="inline-flex items-center justify-center border border-white/20 text-stone-200 hover:border-gold hover:text-gold font-medium px-10 py-5 text-xs tracking-[0.2em] uppercase transition-all duration-300">
+                    See How It Works
+                </a>
+            </div>
+        </div>
+        <div class="lg:col-span-5 reveal">
+            <div class="luxury-border p-2 bg-forest-deep/40 relative shadow-2xl">
+                <div class="blueprint w-full h-[360px] md:h-[400px]" role="img" aria-label="Abstract architectural blueprint grid representing a live infrastructure data stream"></div>
+                <div class="absolute bottom-6 left-6 right-6 bg-forest-deep/95 backdrop-blur-md border border-white/10 p-5">
+                    <span class="text-[9px] tracking-[0.2em] text-gold block mb-1 uppercase font-medium">System Record</span>
+                    <h2 class="text-xs font-semibold text-white uppercase tracking-wide">Infrastructure Matrix Stream</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============ TRUST / STATS ============ -->
+    <section aria-label="Key metrics" class="rolex-dark-section border-y border-white/10">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 py-14 grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
+            <div class="reveal text-center lg:text-left">
+                <p class="text-3xl md:text-4xl text-white serif-luxury tabular">€48M+</p>
+                <p class="text-[10px] md:text-[11px] text-stone-400 uppercase tracking-[0.18em] mt-2">Tenders Processed</p>
+            </div>
+            <div class="reveal text-center lg:text-left">
+                <p class="text-3xl md:text-4xl text-white serif-luxury tabular">2,400+</p>
+                <p class="text-[10px] md:text-[11px] text-stone-400 uppercase tracking-[0.18em] mt-2">Merchant Price Feeds</p>
+            </div>
+            <div class="reveal text-center lg:text-left">
+                <p class="text-3xl md:text-4xl text-white serif-luxury tabular">98.6%</p>
+                <p class="text-[10px] md:text-[11px] text-stone-400 uppercase tracking-[0.18em] mt-2">Take-Off Accuracy</p>
+            </div>
+            <div class="reveal text-center lg:text-left">
+                <p class="text-3xl md:text-4xl text-white serif-luxury tabular">11 min</p>
+                <p class="text-[10px] md:text-[11px] text-stone-400 uppercase tracking-[0.18em] mt-2">Avg. Estimate Time</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ VALUATION SUITE ============ -->
+    <section id="valuation" class="py-24 md:py-32 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 space-y-14 md:space-y-16">
+
+            <div class="text-center md:text-left space-y-3 reveal">
+                <span class="text-xs font-medium text-gold tracking-[0.25em] block uppercase">Platform Interface</span>
+                <h2 class="text-3xl md:text-4xl font-normal text-white uppercase tracking-tight serif-luxury">Executive Valuation Suite</h2>
+                <p class="text-stone-300/80 text-sm font-light max-w-xl mx-auto md:mx-0">Calibrate live rate parameters and compile a defensible tender estimate against localized merchant registers.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+                <div class="lg:col-span-7 space-y-12 reveal">
+
+                    <div class="space-y-4">
+                        <span class="text-[11px] font-medium tracking-[0.2em] text-stone-400 uppercase block">01 / Drawing Registry</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="luxury-border bg-forest-card/40 p-6 flex items-center justify-between group hover:border-gold/50 transition-all duration-300">
+                                <div>
+                                    <h3 class="text-xs font-semibold text-white uppercase tracking-wider">Commercial_Takeoff_Plan.pdf</h3>
+                                    <p class="text-[11px] text-stone-400 mt-1">Vector blueprint architectural layout</p>
+                                </div>
+                                <i class="fa-solid fa-file-pdf text-gold/50 group-hover:text-gold transition-colors text-sm" aria-hidden="true"></i>
+                            </div>
+                            <div class="luxury-border bg-forest-card/40 p-6 flex items-center justify-between group hover:border-gold/50 transition-all duration-300">
+                                <div>
+                                    <h3 class="text-xs font-semibold text-white uppercase tracking-wider">Structural_Spec.docx</h3>
+                                    <p class="text-[11px] text-stone-400 mt-1">NBS integrated framework conditions</p>
+                                </div>
+                                <i class="fa-solid fa-file-word text-gold/50 group-hover:text-gold transition-colors text-sm" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8">
+                        <span class="text-[11px] font-medium tracking-[0.2em] text-stone-400 uppercase block">02 / Financial Model Calibration</span>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                            <div class="space-y-5">
+                                <h3 class="text-[11px] tracking-[0.15em] uppercase text-gold font-medium border-b border-white/10 pb-2">Operational Labour</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="rate-carpenter" class="block text-[11px] text-stone-300 uppercase tracking-wide mb-1.5">Senior Carpentry / hr</label>
+                                        <div class="relative border-b border-white/20 focus-within:border-gold transition-all py-1">
+                                            <span class="absolute left-0 top-1.5 text-gold/60 text-xs font-light" aria-hidden="true">€</span>
+                                            <input type="number" inputmode="decimal" min="0" step="0.5" id="rate-carpenter" value="48.00" class="w-full bg-transparent pl-5 text-xs text-white focus:outline-none font-medium tabular">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="rate-labourer" class="block text-[11px] text-stone-300 uppercase tracking-wide mb-1.5">General Operative / hr</label>
+                                        <div class="relative border-b border-white/20 focus-within:border-gold transition-all py-1">
+                                            <span class="absolute left-0 top-1.5 text-gold/60 text-xs font-light" aria-hidden="true">€</span>
+                                            <input type="number" inputmode="decimal" min="0" step="0.5" id="rate-labourer" value="26.50" class="w-full bg-transparent pl-5 text-xs text-white focus:outline-none font-medium tabular">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-5">
+                                <h3 class="text-[11px] tracking-[0.15em] uppercase text-gold font-medium border-b border-white/10 pb-2">Logistics &amp; Plant</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="rate-digger" class="block text-[11px] text-stone-300 uppercase tracking-wide mb-1.5">Excavator / day</label>
+                                        <div class="relative border-b border-white/20 focus-within:border-gold transition-all py-1">
+                                            <span class="absolute left-0 top-1.5 text-gold/60 text-xs font-light" aria-hidden="true">€</span>
+                                            <input type="number" inputmode="decimal" min="0" step="5" id="rate-digger" value="195.00" class="w-full bg-transparent pl-5 text-xs text-white focus:outline-none font-medium tabular">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="rate-skip" class="block text-[11px] text-stone-300 uppercase tracking-wide mb-1.5">Waste Skip Unit</label>
+                                        <div class="relative border-b border-white/20 focus-within:border-gold transition-all py-1">
+                                            <span class="absolute left-0 top-1.5 text-gold/60 text-xs font-light" aria-hidden="true">€</span>
+                                            <input type="number" inputmode="decimal" min="0" step="5" id="rate-skip" value="280.00" class="w-full bg-transparent pl-5 text-xs text-white focus:outline-none font-medium tabular">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-5">
+                                <h3 class="text-[11px] tracking-[0.15em] uppercase text-gold font-medium border-b border-white/10 pb-2">Margin Protections</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="rate-markup" class="block text-[11px] text-stone-300 uppercase tracking-wide mb-1.5">Target Net Yield</label>
+                                        <div class="relative border-b border-white/20 focus-within:border-gold transition-all py-1">
+                                            <input type="number" inputmode="decimal" min="0" step="0.5" id="rate-markup" value="15.0" class="w-full bg-transparent pr-5 text-xs text-white focus:outline-none font-medium tabular">
+                                            <span class="absolute right-0 top-1.5 text-gold/60 text-xs" aria-hidden="true">%</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="rate-contingency" class="block text-[11px] text-stone-300 uppercase tracking-wide mb-1.5">Risk Provision</label>
+                                        <div class="relative border-b border-white/20 focus-within:border-gold transition-all py-1">
+                                            <input type="number" inputmode="decimal" min="0" step="0.5" id="rate-contingency" value="5.0" class="w-full bg-transparent pr-5 text-xs text-white focus:outline-none font-medium tabular">
+                                            <span class="absolute right-0 top-1.5 text-gold/60 text-xs" aria-hidden="true">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/10">
+                            <p class="text-[11px] tracking-wide text-stone-400">Parameters ready for calculation alignment matrix.</p>
+                            <button type="button" id="calc-btn" onclick="processLuxuryValuation()" class="w-full sm:w-auto bg-gold hover:bg-white text-black font-semibold px-10 py-4 text-xs tracking-[0.2em] uppercase transition-all duration-300 disabled:opacity-50">
+                                Calculate Valuation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis panel -->
+                <div class="lg:col-span-5 reveal">
+                    <div class="luxury-border rolex-card-gradient min-h-[500px] flex flex-col justify-between p-7 md:p-8 relative shadow-2xl lg:sticky lg:top-28">
+
+                        <div class="flex items-center justify-between text-[10px] tracking-[0.15em] text-stone-400 border-b border-white/10 pb-4 mb-8">
+                            <span class="uppercase font-medium">Valuation Analysis</span>
+                            <span id="status-badge" class="text-stone-500 tracking-widest font-semibold">STANDBY</span>
+                        </div>
+
+                        <div class="flex-1 flex flex-col justify-center" aria-live="polite">
+                            <div class="text-center space-y-4 max-w-xs mx-auto" id="panel-standby">
+                                <h3 class="text-xs font-semibold text-stone-300 uppercase tracking-widest">System Awaiting Execution</h3>
+                                <p class="text-[11px] text-stone-400 leading-relaxed tracking-wide">Initialise the calculation core to cross-reference structural properties against localized merchant registers.</p>
+                            </div>
+
+                            <div class="hidden text-center space-y-4" id="panel-loading">
+                                <span class="block w-4 h-4 border border-white/20 border-t-gold rounded-full animate-spin mx-auto" aria-hidden="true"></span>
+                                <p class="text-[11px] text-gold tracking-[0.2em] uppercase" id="loading-text">Resolving physical architectural volumes…</p>
+                            </div>
+
+                            <div class="hidden space-y-6 text-[11px]" id="panel-results">
+                                <div class="bg-forest-deep border border-white/10 p-5 mb-2">
+                                    <span class="text-[9px] tracking-[0.2em] text-gold block uppercase font-semibold">Verified Ledger Sheet</span>
+                                    <h3 class="text-xs font-semibold text-white uppercase mt-1 tracking-wide">Leinster Quantity Matrix</h3>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                                        <div><span class="text-white font-medium block">Concrete Substructure</span><span class="text-[10px] text-stone-400 block mt-0.5">45m³ Readymix Volume</span></div>
+                                        <span class="text-white font-semibold tabular" id="val-sub">€0.00</span>
+                                    </div>
+                                    <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                                        <div><span class="text-white font-medium block">Roof Framing Timber</span><span class="text-[10px] text-stone-400 block mt-0.5">C24 Certified Grade Sawn</span></div>
+                                        <span class="text-white font-semibold tabular" id="val-timber">€0.00</span>
+                                    </div>
+                                    <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                                        <div><span class="text-white font-medium block">Site Production Labour</span><span class="text-[10px] text-stone-400 block mt-0.5">Aggregated Contractor Allocation</span></div>
+                                        <span class="text-white font-semibold tabular" id="val-labor">€0.00</span>
+                                    </div>
+                                    <div class="flex justify-between items-center pb-1">
+                                        <div><span class="text-white font-medium block">Support Logistics</span><span class="text-[10px] text-stone-400 block mt-0.5">Excavation &amp; Disposal</span></div>
+                                        <span class="text-white font-semibold tabular" id="val-plant">€0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="panel-footer" class="hidden border-t border-white/10 pt-6 mt-8">
+                            <div class="flex justify-between items-end mb-6">
+                                <div>
+                                    <span class="text-[9px] text-stone-400 uppercase tracking-[0.15em] font-medium block">Definitive Tender Estimate</span>
+                                    <span class="text-3xl font-normal text-white tracking-tight serif-luxury tabular" id="val-total">€0,000.00</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[9px] text-stone-400 block uppercase tracking-wide">Margin Pool</span>
+                                    <span class="text-xs text-gold font-semibold tabular" id="val-margin-calc">€0.00</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 text-[10px] font-medium tracking-[0.2em] uppercase">
+                                <button type="button" class="border border-white/20 text-stone-200 hover:text-white hover:border-white/40 py-4 transition-all duration-300">Export Ledger</button>
+                                <button type="button" class="bg-white text-black hover:bg-gold py-4 transition-all duration-300 font-semibold">Compile Dossier</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PROCESS ============ -->
+    <section id="process" class="py-24 md:py-32 rolex-dark-section border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 space-y-14 md:space-y-16">
+            <div class="space-y-3 reveal">
+                <span class="text-xs font-medium text-gold tracking-[0.25em] block uppercase">Operational Workflow</span>
+                <h2 class="text-3xl md:text-4xl font-normal text-white uppercase tracking-tight serif-luxury">From Drawing to Dossier</h2>
+                <p class="text-stone-300/80 text-sm font-light max-w-xl">Three calibrated stages convert raw architecture into a defensible, executive-grade tender.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="luxury-border bg-forest-card/30 p-8 space-y-5 reveal">
+                    <div class="flex items-center justify-between">
+                        <i class="fa-solid fa-file-arrow-up text-gold text-xl" aria-hidden="true"></i>
+                        <span class="serif-luxury text-2xl text-white/20">01</span>
+                    </div>
+                    <h3 class="text-sm font-semibold text-white uppercase tracking-wider">Ingest Architecture</h3>
+                    <p class="text-xs text-stone-300 font-light leading-relaxed">Upload vector drawings and NBS specifications. Structural parsing isolates volumes, areas, and material grades automatically.</p>
+                </div>
+                <div class="luxury-border bg-forest-card/30 p-8 space-y-5 reveal">
+                    <div class="flex items-center justify-between">
+                        <i class="fa-solid fa-scale-balanced text-gold text-xl" aria-hidden="true"></i>
+                        <span class="serif-luxury text-2xl text-white/20">02</span>
+                    </div>
+                    <h3 class="text-sm font-semibold text-white uppercase tracking-wider">Calibrate &amp; Cross-Reference</h3>
+                    <p class="text-xs text-stone-300 font-light leading-relaxed">Live merchant feeds align quantities to localized Leinster pricing, with your own labour, plant, and margin parameters layered in.</p>
+                </div>
+                <div class="luxury-border bg-forest-card/30 p-8 space-y-5 reveal">
+                    <div class="flex items-center justify-between">
+                        <i class="fa-solid fa-file-contract text-gold text-xl" aria-hidden="true"></i>
+                        <span class="serif-luxury text-2xl text-white/20">03</span>
+                    </div>
+                    <h3 class="text-sm font-semibold text-white uppercase tracking-wider">Compile Dossier</h3>
+                    <p class="text-xs text-stone-300 font-light leading-relaxed">Export a verified ledger and tender dossier — fully itemized, audit-ready, and defensible against client scrutiny.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SUPPLIERS ============ -->
+    <section id="suppliers" class="py-24 md:py-32 border-t border-white/10 max-w-7xl mx-auto px-6 md:px-16 space-y-12">
+        <div class="space-y-3 reveal">
+            <span class="text-xs font-medium text-gold tracking-[0.25em] block uppercase">Network Infrastructure</span>
+            <h2 class="text-3xl md:text-4xl font-normal text-white uppercase tracking-tight serif-luxury">Irish Merchant Networks</h2>
+            <p class="text-stone-300/80 text-sm font-light max-w-xl">Direct connections to premium commercial supply distributors operating within the Irish jurisdiction.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <a href="https://www.chadwicks.ie" target="_blank" rel="noopener noreferrer" class="luxury-border bg-forest-deep/40 p-6 space-y-4 hover:border-gold transition-all duration-300 group block reveal">
+                <div class="flex justify-between items-start">
+                    <span class="text-[10px] font-bold text-gold tracking-wider uppercase">Chadwicks</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-stone-600 group-hover:text-white transition-colors" aria-hidden="true"></i>
+                </div>
+                <p class="text-xs text-stone-300 font-light leading-relaxed">Ireland's premier builder's merchant network supplying structural materials nationwide.</p>
+            </a>
+            <a href="https://www.brooks.ie" target="_blank" rel="noopener noreferrer" class="luxury-border bg-forest-deep/40 p-6 space-y-4 hover:border-gold transition-all duration-300 group block reveal">
+                <div class="flex justify-between items-start">
+                    <span class="text-[10px] font-bold text-gold tracking-wider uppercase">Brooks Timber</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-stone-600 group-hover:text-white transition-colors" aria-hidden="true"></i>
+                </div>
+                <p class="text-xs text-stone-300 font-light leading-relaxed">High-specification structural timber distribution chains and building accessories.</p>
+            </a>
+            <a href="https://www.heitonbuckley.ie" target="_blank" rel="noopener noreferrer" class="luxury-border bg-forest-deep/40 p-6 space-y-4 hover:border-gold transition-all duration-300 group block reveal">
+                <div class="flex justify-between items-start">
+                    <span class="text-[10px] font-bold text-gold tracking-wider uppercase">Heiton Buckley</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-stone-600 group-hover:text-white transition-colors" aria-hidden="true"></i>
+                </div>
+                <p class="text-xs text-stone-300 font-light leading-relaxed">Comprehensive commercial supplies, plumbing systems, and civil infrastructure lines.</p>
+            </a>
+            <a href="https://murdockbuildersmerchants.com" target="_blank" rel="noopener noreferrer" class="luxury-border bg-forest-deep/40 p-6 space-y-4 hover:border-gold transition-all duration-300 group block reveal">
+                <div class="flex justify-between items-start">
+                    <span class="text-[10px] font-bold text-gold tracking-wider uppercase">Murdock's</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-stone-600 group-hover:text-white transition-colors" aria-hidden="true"></i>
+                </div>
+                <p class="text-xs text-stone-300 font-light leading-relaxed">Prominent regional supplier of architectural roofing arrays and foundation products.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- ============ VALUE ENGINEERING ============ -->
+    <section id="savings" class="py-24 md:py-32 rolex-dark-section border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 space-y-14 md:space-y-16">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-3 reveal">
+                    <span class="text-xs font-medium text-gold tracking-[0.25em] block uppercase">Financial Efficiencies</span>
+                    <h2 class="text-3xl md:text-4xl font-normal text-white uppercase tracking-tight serif-luxury">Value Engineering Model</h2>
+                    <p class="text-stone-400 text-sm font-light max-w-xl">Expected capital improvements achieved through machine-learning error minimization and live pricing optimization loops.</p>
+                </div>
+                <div class="lg:col-span-5 reveal">
+                    <div class="luxury-border p-1 bg-forest-deep/40 shadow-xl">
+                        <div class="blueprint w-full h-36" role="img" aria-label="Subsurface civil infrastructure pipeline network, stylized"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="luxury-border bg-forest-card/30 p-8 space-y-6 reveal">
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider text-gold">Geometric Ingestion</h3>
+                        <span class="text-3xl font-light text-white serif-luxury tabular">12–18%</span>
+                    </div>
+                    <p class="text-xs text-stone-300 font-light leading-relaxed">Automated structural parsing minimizes calculation discrepancies in multi-layered CAD take-offs, preventing downstream over-ordering.</p>
+                </div>
+                <div class="luxury-border bg-forest-card/30 p-8 space-y-6 reveal">
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider text-gold">Index Arbitrage</h3>
+                        <span class="text-3xl font-light text-white serif-luxury tabular">8–14%</span>
+                    </div>
+                    <p class="text-xs text-stone-300 font-light leading-relaxed">Cross-comparing merchant logs isolates localized variances in raw component rates, passing wholesale volume advantages to your team.</p>
+                </div>
+                <div class="luxury-border bg-forest-card/30 p-8 space-y-6 reveal">
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider text-gold">Logistics Balancing</h3>
+                        <span class="text-3xl font-light text-white serif-luxury tabular">5–9%</span>
+                    </div>
+                    <p class="text-xs text-stone-300 font-light leading-relaxed">Optimized fleet parameters match material arrivals precisely to active construction phases, controlling heavy plant idling penalties.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <section id="pricing" class="py-24 md:py-32 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 space-y-14 md:space-y-16">
+            <div class="text-center space-y-3 reveal">
+                <span class="text-xs font-medium text-gold tracking-[0.25em] block uppercase">Engagement Tiers</span>
+                <h2 class="text-3xl md:text-4xl font-normal text-white uppercase tracking-tight serif-luxury">Procurement Licensing</h2>
+                <p class="text-stone-300/80 text-sm font-light max-w-xl mx-auto">Transparent tiers for contractors, consultancies, and enterprise frameworks.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <div class="luxury-border bg-forest-deep/40 p-8 flex flex-col space-y-6 reveal">
+                    <div>
+                        <h3 class="text-sm font-semibold text-white uppercase tracking-wider">Practitioner</h3>
+                        <p class="text-[11px] text-stone-400 mt-1">Independent surveyors</p>
+                    </div>
+                    <p class="serif-luxury text-4xl text-white tabular">€340<span class="text-sm text-stone-400">/mo</span></p>
+                    <ul class="space-y-3 text-xs text-stone-300 font-light flex-1">
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-gold mt-0.5" aria-hidden="true"></i> Up to 15 valuations / month</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-gold mt-0.5" aria-hidden="true"></i> Leinster merchant index</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-gold mt-0.5" aria-hidden="true"></i> PDF ledger export</li>
+                    </ul>
+                    <a href="#contact" class="text-center border border-white/20 text-stone-200 hover:border-gold hover:text-gold py-4 text-[11px] tracking-[0.2em] uppercase transition-all duration-300">Select</a>
+                </div>
+
+                <div class="luxury-border border-gold/50 bg-forest-card/50 p-8 flex flex-col space-y-6 relative shadow-2xl reveal">
+                    <span class="absolute -top-3 left-8 bg-gold text-black text-[9px] tracking-[0.2em] uppercase font-semibold px-3 py-1">Most Selected</span>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white uppercase tracking-wider">Consultancy</h3>
+                        <p class="text-[11px] text-stone-400 mt-1">Practices &amp; contractors</p>
+                    </div>
+                    <p class="serif-luxury text-4xl text-white tabular">€890<span class="text-sm text-stone-400">/mo</span></p>
+                    <ul class="space-y-3 text-xs text-stone-300 font-light flex-1">
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-gold mt-0.5" aria-hidden="true"></i> Unlimited valuations</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-gold mt-0.5" aria-hidden="true"></i> National merchant index</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-gold mt-0.5" aria-hidden="true"></i> Tender dossier compiler</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-gold mt-0.5" aria-hidden="true"></i> 5 seats included</li>
+                    </ul>
+                    <a href="#contact" class="text-center bg-gold text-black hover:bg-white py-4 text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300">Select</a>
+                </div>
+
+                <div class="luxury-border bg-forest-deep/40 p-8 flex flex-col space-y-6 reveal">
+                    <div>
+                        <h3 class="text-sm font-semibold text-white uppercase tracking-wider">Enterprise</h3>
+                        <p class="text-[11px] text-stone-400 mt-1">Frameworks &amp; groups</p>
+                    </div>
+                    <p class="serif-luxury text-4xl text-white">Bespoke</p>
+                    <ul class="space-y-3 text-xs text-stone-300 font-light flex-1">
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-gold mt-0.5" aria-hidden="true"></i> Custom index integrations</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-gold mt-0.5" aria-hidden="true"></i> Dedicated success manager</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-gold mt-0.5" aria-hidden="true"></i> SSO &amp; audit controls</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-gold mt-0.5" aria-hidden="true"></i> Unlimited seats</li>
+                    </ul>
+                    <a href="#contact" class="text-center border border-white/20 text-stone-200 hover:border-gold hover:text-gold py-4 text-[11px] tracking-[0.2em] uppercase transition-all duration-300">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section id="faq" class="py-24 md:py-32 rolex-dark-section border-t border-white/10">
+        <div class="max-w-3xl mx-auto px-6 md:px-16 space-y-12">
+            <div class="text-center space-y-3 reveal">
+                <span class="text-xs font-medium text-gold tracking-[0.25em] block uppercase">Clarifications</span>
+                <h2 class="text-3xl md:text-4xl font-normal text-white uppercase tracking-tight serif-luxury">Frequently Asked</h2>
+            </div>
+            <div class="space-y-4">
+                <details class="luxury-border bg-forest-card/30 px-6 py-5 reveal">
+                    <summary class="flex items-center justify-between text-sm font-medium text-white">
+                        <span>How current is the merchant pricing data?</span>
+                        <i class="fa-solid fa-plus text-gold faq-icon transition-transform duration-300" aria-hidden="true"></i>
+                    </summary>
+                    <p class="text-xs text-stone-300 font-light leading-relaxed mt-4">Validation sweeps run daily across active merchant frameworks, so baseline procurement receipts reflect live, localized rates rather than outdated national average cost books.</p>
+                </details>
+                <details class="luxury-border bg-forest-card/30 px-6 py-5 reveal">
+                    <summary class="flex items-center justify-between text-sm font-medium text-white">
+                        <span>Which drawing formats can EstiMate AI ingest?</span>
+                        <i class="fa-solid fa-plus text-gold faq-icon transition-transform duration-300" aria-hidden="true"></i>
+                    </summary>
+                    <p class="text-xs text-stone-300 font-light leading-relaxed mt-4">Vector PDFs, DWG/DXF CAD exports, and NBS-structured specification documents are supported. Structural parsing isolates volumes and material grades automatically.</p>
+                </details>
+                <details class="luxury-border bg-forest-card/30 px-6 py-5 reveal">
+                    <summary class="flex items-center justify-between text-sm font-medium text-white">
+                        <span>Is my project data kept confidential?</span>
+                        <i class="fa-solid fa-plus text-gold faq-icon transition-transform duration-300" aria-hidden="true"></i>
+                    </summary>
+                    <p class="text-xs text-stone-300 font-light leading-relaxed mt-4">All drawings and ledgers are encrypted in transit and at rest. Your project data is never used to price competitors' tenders, and enterprise tiers add SSO and full audit controls.</p>
+                </details>
+                <details class="luxury-border bg-forest-card/30 px-6 py-5 reveal">
+                    <summary class="flex items-center justify-between text-sm font-medium text-white">
+                        <span>Do you cover regions outside Leinster?</span>
+                        <i class="fa-solid fa-plus text-gold faq-icon transition-transform duration-300" aria-hidden="true"></i>
+                    </summary>
+                    <p class="text-xs text-stone-300 font-light leading-relaxed mt-4">The national merchant index on the Consultancy and Enterprise tiers extends coverage across all Irish provinces, with bespoke regional integrations available on request.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA / CONTACT ============ -->
+    <section id="contact" class="py-24 md:py-32 border-t border-white/10">
+        <div class="max-w-4xl mx-auto px-6 md:px-16 text-center space-y-8 reveal">
+            <span class="text-xs font-medium text-gold tracking-[0.25em] block uppercase">Begin Engagement</span>
+            <h2 class="text-3xl md:text-5xl font-normal text-white uppercase tracking-tight serif-luxury leading-[1.1]">Calibrate Your Next Tender With Confidence</h2>
+            <p class="text-stone-300/80 text-sm font-light max-w-xl mx-auto">Request a guided demonstration and receive a complimentary benchmarked valuation on one of your live projects.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+                <a href="mailto:hello@estimate.ai" class="inline-flex items-center justify-center space-x-4 bg-gradient-to-r from-gold to-gold-soft hover:from-white hover:to-white text-black font-semibold px-10 py-5 text-xs tracking-[0.2em] uppercase transition-all duration-500 shadow-xl shadow-black/30">
+                    <i class="fa-solid fa-envelope text-[11px]" aria-hidden="true"></i>
+                    <span>Request a Demo</span>
+                </a>
+                <a href="#valuation" class="inline-flex items-center justify-center border border-white/20 text-stone-200 hover:border-gold hover:text-gold font-medium px-10 py-5 text-xs tracking-[0.2em] uppercase transition-all duration-300">Try the Valuation Suite</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="rolex-dark-section border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="space-y-4 md:col-span-1">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-gavel text-gold" aria-hidden="true"></i>
+                    <span class="text-base font-medium tracking-[0.25em] text-white uppercase serif-luxury">ESTIMATE <span class="text-gold font-light">AI</span></span>
+                </div>
+                <p class="text-[11px] text-stone-400 font-light leading-relaxed">Elite procurement intelligence for the Irish construction market.</p>
+            </div>
+            <div class="space-y-3">
+                <h3 class="text-[10px] uppercase tracking-[0.2em] text-gold font-medium">Platform</h3>
+                <ul class="space-y-2 text-[11px] text-stone-400 font-light">
+                    <li><a href="#valuation" class="hover:text-white transition-colors">Valuation Suite</a></li>
+                    <li><a href="#process" class="hover:text-white transition-colors">Process</a></li>
+                    <li><a href="#savings" class="hover:text-white transition-colors">Value Engineering</a></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h3 class="text-[10px] uppercase tracking-[0.2em] text-gold font-medium">Company</h3>
+                <ul class="space-y-2 text-[11px] text-stone-400 font-light">
+                    <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+                    <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+                    <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h3 class="text-[10px] uppercase tracking-[0.2em] text-gold font-medium">Contact</h3>
+                <ul class="space-y-2 text-[11px] text-stone-400 font-light">
+                    <li><a href="mailto:hello@estimate.ai" class="hover:text-white transition-colors">hello@estimate.ai</a></li>
+                    <li>Dublin, Ireland</li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-6 md:px-16 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] text-stone-500 uppercase tracking-[0.18em]">
+                <span>© 2026 EstiMate AI. All rights reserved.</span>
+                <span>Calibrated in the Republic of Ireland</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button id="to-top" class="fixed bottom-6 right-6 z-40 w-12 h-12 bg-gold text-black flex items-center justify-center shadow-xl opacity-0 pointer-events-none transition-opacity duration-300" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up text-sm" aria-hidden="true"></i>
+    </button>
+
+    <script>
+        // ---- Mobile menu ----
+        (function () {
+            const toggle = document.getElementById('menu-toggle');
+            const menu = document.getElementById('mobile-menu');
+            const icon = toggle.querySelector('i');
+            function close() {
+                menu.classList.add('hidden');
+                toggle.setAttribute('aria-expanded', 'false');
+                icon.className = 'fa-solid fa-bars text-lg';
+            }
+            toggle.addEventListener('click', function () {
+                const open = menu.classList.toggle('hidden') === false;
+                toggle.setAttribute('aria-expanded', String(open));
+                icon.className = open ? 'fa-solid fa-xmark text-lg' : 'fa-solid fa-bars text-lg';
+            });
+            menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+        })();
+
+        // ---- Scroll reveal (respects reduced motion) ----
+        (function () {
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const els = document.querySelectorAll('.reveal');
+            if (reduce || !('IntersectionObserver' in window)) {
+                els.forEach(el => el.classList.add('is-visible'));
+                return;
+            }
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+            els.forEach(el => io.observe(el));
+        })();
+
+        // ---- Back to top ----
+        (function () {
+            const btn = document.getElementById('to-top');
+            window.addEventListener('scroll', () => {
+                const show = window.scrollY > 600;
+                btn.style.opacity = show ? '1' : '0';
+                btn.style.pointerEvents = show ? 'auto' : 'none';
+            }, { passive: true });
+            btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        })();
+
+        // ---- Valuation engine ----
+        const euro = (n) => '€' + n.toLocaleString('en-IE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        function processLuxuryValuation() {
+            const standby = document.getElementById('panel-standby');
+            const loading = document.getElementById('panel-loading');
+            const results = document.getElementById('panel-results');
+            const footer  = document.getElementById('panel-footer');
+            const badge   = document.getElementById('status-badge');
+            const loadText = document.getElementById('loading-text');
+            const btn     = document.getElementById('calc-btn');
+            const reduce  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            standby.classList.add('hidden');
+            results.classList.add('hidden');
+            footer.classList.add('hidden');
+            loading.classList.remove('hidden');
+            btn.disabled = true;
+
+            badge.innerText = 'COMPUTING';
+            badge.className = 'text-gold tracking-widest font-semibold';
+
+            const compute = () => {
+                const v = (id) => parseFloat(document.getElementById(id).value) || 0;
+                const carpenterRate = v('rate-carpenter');
+                const laborRate     = v('rate-labourer');
+                const diggerRate    = v('rate-digger');
+                const skipRate      = v('rate-skip');
+                const markupPct     = v('rate-markup');
+                const contingencyPct = v('rate-contingency');
+
+                const concrete = 6420.00;
+                const timber   = 4150.00;
+                const calculatedLabor = (carpenterRate * 64) + (laborRate * 70);
+                const calculatedPlant = (diggerRate * 3) + (skipRate * 2);
+
+                const rawSubtotal = concrete + timber + calculatedLabor + calculatedPlant;
+                const grandTotal  = rawSubtotal * (1 + ((markupPct + contingencyPct) / 100));
+                const margin      = grandTotal - rawSubtotal;
+
+                document.getElementById('val-sub').innerText    = euro(concrete);
+                document.getElementById('val-timber').innerText = euro(timber);
+                document.getElementById('val-labor').innerText  = euro(calculatedLabor);
+                document.getElementById('val-plant').innerText  = euro(calculatedPlant);
+                document.getElementById('val-total').innerText  = euro(grandTotal);
+                document.getElementById('val-margin-calc').innerText = euro(margin);
+
+                loading.classList.add('hidden');
+                results.classList.remove('hidden');
+                footer.classList.remove('hidden');
+                btn.disabled = false;
+                badge.innerText = 'VERIFIED';
+                badge.className = 'text-white tracking-widest font-semibold';
+            };
+
+            if (reduce) { compute(); return; }
+            setTimeout(() => { loadText.innerText = 'Cross-referencing Leinster trade indexes…'; }, 1000);
+            setTimeout(compute, 2200);
+        }
+    </script>
+</body>
+</html>
