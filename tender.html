@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0F172A">
+<title>TenderAI · Construction Pricing</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#F97316;--primary-dk:#C2410C;--primary-lt:rgba(249,115,22,.12);
+  --blue:#0EA5E9;--green:#22C55E;--warn:#EAB308;--danger:#EF4444;
+  --bg:#0F172A;--s1:#1E293B;--s2:#263447;--s3:#334155;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.04);
+  --txt:#F1F5F9;--sub:#94A3B8;--muted:#475569;
+  --font:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r:12px;--r-sm:8px;
+}
+html,body{height:100%;background:var(--bg);color:var(--txt);font-family:var(--font);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+#app{display:flex;flex-direction:column;min-height:100dvh}
+
+/* HEADER */
+#hdr{background:var(--s1);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-box{width:36px;height:36px;background:var(--primary);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.logo-name{font-size:17px;font-weight:800;letter-spacing:-.3px}
+.logo-name span{color:var(--primary)}
+#ai-btn{background:var(--s3);border:1px solid var(--border);color:var(--sub);padding:7px 14px;border-radius:var(--r-sm);cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:6px}
+#ai-btn:hover{border-color:var(--primary);color:var(--primary)}
+#ai-btn.ok{border-color:var(--green);color:var(--green)}
+
+/* NAV */
+#nav{background:var(--s1);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none}
+#nav::-webkit-scrollbar{display:none}
+.tab{padding:12px 18px;border:none;background:none;color:var(--sub);font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:6px;font-family:var(--font)}
+.tab:hover{color:var(--txt)}
+.tab.on{color:var(--primary);border-bottom-color:var(--primary)}
+.tab .n{background:var(--primary);color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:700}
+
+/* PAGES */
+#pages{flex:1;overflow-y:auto}
+.pg{display:none;padding:24px 20px;max-width:1100px;margin:0 auto}
+.pg.on{display:block}
+
+/* TYPOGRAPHY */
+.ph{margin-bottom:22px}
+.ph h1{font-size:21px;font-weight:700}
+.ph p{font-size:13px;color:var(--sub);margin-top:3px}
+h2{font-size:16px;font-weight:700;margin-bottom:12px}
+h3{font-size:13px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px}
+
+/* CARDS */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.card-t{font-size:12px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.stat-val{font-size:26px;font-weight:800;color:var(--primary)}
+.stat-lbl{font-size:12px;color:var(--sub);margin-top:2px}
+.stat-sub{font-size:11px;color:var(--green);margin-top:2px}
+
+/* BUTTONS */
+.btn{padding:9px 16px;border-radius:var(--r-sm);border:none;cursor:pointer;font-size:13px;font-weight:600;transition:all .2s;display:inline-flex;align-items:center;gap:7px;font-family:var(--font)}
+.btn-p{background:var(--primary);color:#fff}.btn-p:hover{background:var(--primary-dk)}
+.btn-s{background:var(--s3);color:var(--txt);border:1px solid var(--border)}.btn-s:hover{border-color:var(--primary);color:var(--primary)}
+.btn-g{background:var(--green);color:#fff}
+.btn-d{background:var(--danger);color:#fff}
+.btn-b{background:rgba(14,165,233,.15);color:var(--blue);border:1px solid rgba(14,165,233,.25)}
+.btn-sm{padding:5px 11px;font-size:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+
+/* FORMS */
+.fg{margin-bottom:14px}
+label{display:block;font-size:11px;font-weight:600;color:var(--sub);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+input,select,textarea{width:100%;padding:9px 12px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--txt);font-size:14px;transition:border-color .2s;font-family:var(--font)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary)}
+select option{background:var(--s2)}
+textarea{resize:vertical;min-height:80px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+
+/* TENDER LIST */
+.tenders{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:20px}
+.tc{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;cursor:pointer;transition:all .2s}
+.tc:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 4px 20px rgba(249,115,22,.1)}
+.tc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.tc-name{font-weight:700;font-size:15px;margin-bottom:2px}
+.tc-client{font-size:12px;color:var(--sub)}
+.tc-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--muted)}
+.tc-meta span{display:flex;align-items:center;gap:3px}
+.tc-val{font-size:20px;font-weight:800;color:var(--primary);margin-top:8px}
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:3px 8px;border-radius:10px;font-weight:700;letter-spacing:.3px}
+.b-draft{background:rgba(148,163,184,.12);color:var(--sub)}
+.b-analyzing{background:rgba(14,165,233,.12);color:var(--blue)}
+.b-priced{background:rgba(34,197,94,.12);color:var(--green)}
+.b-submitted{background:rgba(249,115,22,.12);color:var(--primary)}
+
+/* UPLOAD ZONE */
+.upz{border:2px dashed var(--border);border-radius:var(--r);padding:36px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--s2)}
+.upz:hover,.upz.drag{border-color:var(--primary);background:var(--primary-lt)}
+.upz-ico{font-size:36px;margin-bottom:10px}
+.upz h3{font-size:14px;font-weight:600;margin-bottom:4px;color:var(--txt)}
+.upz p{font-size:12px;color:var(--sub)}
+input[type=file]{display:none}
+.fl{margin-top:12px}
+.fi{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--s2);border-radius:var(--r-sm);margin-bottom:6px;border:1px solid var(--border)}
+.fi-ico{font-size:22px;flex-shrink:0}
+.fi-inf{flex:1;min-width:0}
+.fi-nm{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fi-sz{font-size:11px;color:var(--sub)}
+.fi-rm{cursor:pointer;color:var(--muted);padding:4px;border-radius:4px;background:none;border:none;font-size:14px;transition:color .2s}
+.fi-rm:hover{color:var(--danger)}
+
+/* RATES TABLES */
+.rt{width:100%;border-collapse:collapse}
+.rt th{text-align:left;padding:7px 10px;font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);white-space:nowrap}
+.rt td{padding:5px 6px;border-bottom:1px solid var(--border2)}
+.rt tr:last-child td{border-bottom:none}
+.rt td input,.rt td select{padding:6px 8px;font-size:13px;background:var(--s3)}
+.rt .del-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:4px 6px}
+.rt .del-btn:hover{color:var(--danger)}
+.add-row{background:none;border:none;color:var(--primary);font-size:13px;font-weight:600;cursor:pointer;padding:10px 0;font-family:var(--font)}
+.add-row:hover{color:var(--primary-dk)}
+
+/* INNER TABS */
+.itabs{display:flex;gap:3px;background:var(--s2);padding:4px;border-radius:10px;width:fit-content;margin-bottom:18px}
+.itab{padding:7px 16px;border-radius:8px;border:none;background:none;color:var(--sub);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;font-family:var(--font)}
+.itab.on{background:var(--primary);color:#fff}
+.inner-page{display:none}.inner-page.on{display:block}
+
+/* ANALYSIS */
+.a-steps{margin:16px 0}
+.a-step{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border2)}
+.a-step:last-child{border-bottom:none}
+.a-ico{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.a-ico.wait{background:var(--s3);color:var(--muted)}
+.a-ico.go{background:rgba(14,165,233,.2);color:var(--blue)}
+.a-ico.done{background:rgba(34,197,94,.15);color:var(--green)}
+.spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,.2);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.a-txt{font-size:13px}
+.a-desc{font-size:11px;color:var(--sub)}
+
+/* PRICING OUTPUT */
+.po-section{margin-bottom:20px}
+.po-section-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--s2);border-radius:var(--r-sm) var(--r-sm) 0 0;border:1px solid var(--border);border-bottom:none}
+.po-section-head h3{font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin:0}
+.po-table{width:100%;border-collapse:collapse;border:1px solid var(--border);border-radius:0 0 var(--r-sm) var(--r-sm);overflow:hidden}
+.po-table th{background:var(--s3);padding:8px 12px;font-size:11px;color:var(--sub);text-align:left;text-transform:uppercase;letter-spacing:.4px}
+.po-table th:nth-child(n+3){text-align:right}
+.po-table td{padding:8px 12px;border-top:1px solid var(--border2);font-size:13px}
+.po-table td:nth-child(n+3){text-align:right}
+.po-table tr.sub td{background:var(--s2);font-weight:600;font-size:13px}
+.po-table tr.grand td{background:var(--primary-lt);font-weight:800;font-size:15px;color:var(--primary)}
+.edit-cell{cursor:text}
+.edit-cell:hover{background:rgba(249,115,22,.06)}
+.po-summary{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-top:20px}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:14px}
+.sum-row.big{font-size:20px;font-weight:800;color:var(--primary);border-top:2px solid var(--border);padding-top:12px;margin-top:4px}
+
+/* DATABASE */
+.db-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.db-header input{flex:1}
+.sup-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;margin-bottom:10px}
+.sup-hd{display:flex;align-items:center;justify-content:space-between;cursor:pointer;margin-bottom:0}
+.sup-hd.open{margin-bottom:12px}
+.sup-name{font-size:14px;font-weight:600}
+.sup-meta{font-size:12px;color:var(--sub)}
+.mat-table{width:100%;border-collapse:collapse;font-size:13px}
+.mat-table th{text-align:left;padding:6px 8px;font-size:11px;color:var(--muted);border-bottom:1px solid var(--border2);text-transform:uppercase;letter-spacing:.4px}
+.mat-table td{padding:6px 8px;border-bottom:1px solid var(--border2)}
+.mat-table tr:last-child td{border-bottom:none}
+.price-tag{font-weight:600;color:var(--green)}
+.cheap-tag{background:rgba(34,197,94,.1);color:var(--green);font-size:10px;padding:1px 5px;border-radius:4px;font-weight:700}
+.dear-tag{background:rgba(239,68,68,.1);color:var(--danger);font-size:10px;padding:1px 5px;border-radius:4px;font-weight:700}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-bg.open{display:flex}
+.modal{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:24px;width:100%;max-width:480px;max-height:90dvh;overflow-y:auto}
+.modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal-title{font-size:16px;font-weight:700}
+.modal-close{background:none;border:none;color:var(--sub);font-size:22px;cursor:pointer;line-height:1;padding:0 4px}
+.modal-close:hover{color:var(--danger)}
+
+/* TOAST */
+#toast{position:fixed;bottom:20px;right:20px;background:var(--s3);border:1px solid var(--border);border-radius:10px;padding:11px 16px;font-size:13px;z-index:999;transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.ok{border-color:var(--green);color:var(--green)}
+#toast.err{border-color:var(--danger);color:var(--danger)}
+
+/* MISC */
+.info{background:rgba(14,165,233,.07);border:1px solid rgba(14,165,233,.2);border-radius:var(--r-sm);padding:11px 14px;font-size:13px;color:var(--blue);display:flex;gap:8px;margin-bottom:14px}
+.warn{background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.2);border-radius:var(--r-sm);padding:11px 14px;font-size:13px;color:var(--warn);display:flex;gap:8px;margin-bottom:14px}
+.empty{text-align:center;padding:50px 20px;color:var(--muted)}
+.empty .ico{font-size:44px;margin-bottom:12px}
+.empty h3{font-size:15px;color:var(--sub);margin-bottom:6px}
+.empty p{font-size:13px;max-width:280px;margin:0 auto 18px}
+hr{border:none;border-top:1px solid var(--border);margin:16px 0}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.tag-b{background:rgba(14,165,233,.12);color:var(--blue)}
+.tag-o{background:rgba(249,115,22,.12);color:var(--primary)}
+.tag-g{background:rgba(34,197,94,.12);color:var(--green)}
+.tag-r{background:rgba(239,68,68,.12);color:var(--danger)}
+.sep{width:1px;background:var(--border);align-self:stretch}
+.flex{display:flex;align-items:center;gap:10px}
+.flex-1{flex:1}
+.text-right{text-align:right}
+.text-muted{color:var(--muted)}
+.text-sub{color:var(--sub)}
+.text-primary{color:var(--primary)}
+.fw{width:100%}
+.mb8{margin-bottom:8px}
+.mb16{margin-bottom:16px}
+.mt16{margin-top:16px}
+.progress{height:4px;background:var(--s3);border-radius:2px;overflow:hidden;margin-top:6px}
+.prog-fill{height:100%;background:var(--primary);border-radius:2px;transition:width .4s}
+
+@media(max-width:768px){
+  .stats{grid-template-columns:1fr 1fr}
+  .grid2,.grid3,.grid4{grid-template-columns:1fr}
+  .pg{padding:14px}
+  .po-table th,.po-table td{padding:6px 8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- HEADER -->
+<header id="hdr">
+  <div class="logo">
+    <div class="logo-box">🏗️</div>
+    <div class="logo-name">Tender<span>AI</span></div>
+  </div>
+  <button id="ai-btn" onclick="openApiModal()">🔑 Connect AI</button>
+</header>
+
+<!-- NAV -->
+<nav id="nav">
+  <button class="tab on" data-page="dashboard" onclick="showPage('dashboard',this)">📊 Dashboard</button>
+  <button class="tab" data-page="tender" onclick="showPage('tender',this)">📋 New Tender</button>
+  <button class="tab" data-page="rates" onclick="showPage('rates',this)">💰 My Rates</button>
+  <button class="tab" data-page="analysis" onclick="showPage('analysis',this)" id="tab-analysis">🤖 Pricing</button>
+  <button class="tab" data-page="database" onclick="showPage('database',this)">🗄️ Price DB</button>
+</nav>
+
+<!-- PAGES -->
+<div id="pages">
+
+<!-- ═══════════════ DASHBOARD ═══════════════ -->
+<div class="pg on" id="pg-dashboard">
+  <div class="ph">
+    <h1>Dashboard</h1>
+    <p>Overview of your tenders and pricing activity</p>
+  </div>
+
+  <div class="stats" id="stats-grid">
+    <div class="stat"><div class="stat-val" id="s-active">0</div><div class="stat-lbl">Active Tenders</div></div>
+    <div class="stat"><div class="stat-val" id="s-value">€0</div><div class="stat-lbl">Total Priced Value</div></div>
+    <div class="stat"><div class="stat-val" id="s-submitted">0</div><div class="stat-lbl">Submitted</div></div>
+    <div class="stat"><div class="stat-val" id="s-materials">0</div><div class="stat-lbl">Materials in DB</div></div>
+  </div>
+
+  <div class="card-hd"><h2>Recent Tenders</h2><button class="btn btn-p btn-sm" onclick="showPage('tender',document.querySelector('[data-page=tender]'));newTender()">+ New Tender</button></div>
+  <div id="tender-list" class="tenders"></div>
+  <div id="tender-empty" class="empty" style="display:none">
+    <div class="ico">📁</div>
+    <h3>No tenders yet</h3>
+    <p>Create your first tender to get started with AI-powered pricing</p>
+    <button class="btn btn-p" onclick="showPage('tender',document.querySelector('[data-page=tender]'));newTender()">+ Create Tender</button>
+  </div>
+</div>
+
+<!-- ═══════════════ NEW TENDER ═══════════════ -->
+<div class="pg" id="pg-tender">
+  <div class="ph">
+    <h1 id="tender-page-title">New Tender</h1>
+    <p>Fill in project details, upload drawings and specifications</p>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><span class="card-t">Project Details</span></div>
+    <div class="grid2">
+      <div class="fg"><label>Project Name</label><input id="t-name" type="text" placeholder="e.g. 3-Bed House Extension, Unit 4"></div>
+      <div class="fg"><label>Client / Employer</label><input id="t-client" type="text" placeholder="Client name"></div>
+    </div>
+    <div class="grid3">
+      <div class="fg"><label>Project Type</label>
+        <select id="t-type">
+          <option value="residential">Residential</option>
+          <option value="commercial">Commercial</option>
+          <option value="industrial">Industrial</option>
+          <option value="civil">Civil / Infrastructure</option>
+          <option value="fitout">Fit-Out / Refurb</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="fg"><label>Location</label><input id="t-loc" type="text" placeholder="Town / County"></div>
+      <div class="fg"><label>Tender Deadline</label><input id="t-deadline" type="date"></div>
+    </div>
+    <div class="fg"><label>Project Description / Notes</label><textarea id="t-notes" placeholder="Brief description of scope, site conditions, any special requirements..."></textarea></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-hd"><span class="card-t">📐 Drawings</span></div>
+      <div class="upz" id="draw-zone" onclick="document.getElementById('draw-input').click()" ondragover="e=>e.preventDefault()" ondrop="handleDrop(event,'draw')">
+        <div class="upz-ico">📐</div>
+        <h3>Upload Drawings</h3>
+        <p>PDF, PNG, JPG — floor plans, elevations, sections</p>
+      </div>
+      <input type="file" id="draw-input" accept=".pdf,.png,.jpg,.jpeg" multiple onchange="handleFiles(event,'draw')">
+      <div class="fl" id="draw-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd"><span class="card-t">📄 Specification</span></div>
+      <div class="upz" id="spec-zone" onclick="document.getElementById('spec-input').click()">
+        <div class="upz-ico">📄</div>
+        <h3>Upload Specification</h3>
+        <p>PDF or paste text — materials, standards, schedule of works</p>
+      </div>
+      <input type="file" id="spec-input" accept=".pdf,.png,.jpg,.jpeg,.txt" multiple onchange="handleFiles(event,'spec')">
+      <div class="fl" id="spec-list"></div>
+      <div class="fg mt16"><label>Or Paste Specification Text</label><textarea id="t-spec-text" rows="4" placeholder="Paste specification, schedule of works, or bill of quantities items here..."></textarea></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><span class="card-t">Preliminary Quantities (Optional)</span><span class="tag tag-b">Helps AI accuracy</span></div>
+    <p class="text-sub mb16" style="font-size:13px">If you already know approximate quantities, enter them here to guide the AI. Leave blank if uploading drawings.</p>
+    <div class="grid4" id="prelim-grid">
+      <div class="fg"><label>Floor Area (m²)</label><input id="p-area" type="number" placeholder="0"></div>
+      <div class="fg"><label>Wall Area (m²)</label><input id="p-wall" type="number" placeholder="0"></div>
+      <div class="fg"><label>No. of Storeys</label><input id="p-storeys" type="number" placeholder="1"></div>
+      <div class="fg"><label>Approx Duration (wks)</label><input id="p-duration" type="number" placeholder="0"></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-p" onclick="saveTenderAndAnalyze()">🤖 Save &amp; Analyze with AI</button>
+    <button class="btn btn-s" onclick="saveTenderDraft()">💾 Save Draft</button>
+    <button id="clear-tender-btn" class="btn btn-s" onclick="newTender()">✕ Clear</button>
+  </div>
+</div>
+
+<!-- ═══════════════ MY RATES ═══════════════ -->
+<div class="pg" id="pg-rates">
+  <div class="ph">
+    <h1>My Rates</h1>
+    <p>Set your labour, plant and material rates — used in all pricing documents</p>
+  </div>
+
+  <div class="itabs">
+    <button class="itab on" onclick="showInner('rates','labour',this)">👷 Labour</button>
+    <button class="itab" onclick="showInner('rates','plant',this)">🚜 Plant</button>
+    <button class="itab" onclick="showInner('rates','materials',this)">🧱 Materials</button>
+    <button class="itab" onclick="showInner('rates','prelims',this)">📋 Prelims</button>
+  </div>
+
+  <!-- Labour -->
+  <div class="inner-page on" id="rates-labour">
+    <div class="info">💡 Enter your all-in labour rates including PRSI, holiday pay, and overhead. These are applied automatically when the AI generates a bill of quantities.</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="rt" id="labour-table">
+        <thead><tr>
+          <th style="width:35%">Trade / Grade</th>
+          <th>Daily Rate (€)</th>
+          <th>Overtime/hr (€)</th>
+          <th>Notes</th>
+          <th style="width:40px"></th>
+        </tr></thead>
+        <tbody id="labour-body"></tbody>
+      </table>
+    </div>
+    <button class="add-row" onclick="addLabourRow()">+ Add Trade</button>
+    <div class="btn-row"><button class="btn btn-p" onclick="saveRates()">💾 Save Rates</button></div>
+  </div>
+
+  <!-- Plant -->
+  <div class="inner-page" id="rates-plant">
+    <div class="info">💡 Enter daily/weekly hire rates for plant and equipment you own or regularly hire. AI will select appropriate plant for each work section.</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="rt" id="plant-table">
+        <thead><tr>
+          <th style="width:35%">Plant Item</th>
+          <th>Daily (€)</th>
+          <th>Weekly (€)</th>
+          <th>Unit</th>
+          <th style="width:40px"></th>
+        </tr></thead>
+        <tbody id="plant-body"></tbody>
+      </table>
+    </div>
+    <button class="add-row" onclick="addPlantRow()">+ Add Plant</button>
+    <div class="btn-row"><button class="btn btn-p" onclick="saveRates()">💾 Save Rates</button></div>
+  </div>
+
+  <!-- Materials -->
+  <div class="inner-page" id="rates-materials">
+    <div class="info">💡 Default material rates used when the Price Database doesn't have a specific supplier price. These will be updated as you build your database.</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="rt" id="materials-table">
+        <thead><tr>
+          <th style="width:30%">Material</th>
+          <th style="width:15%">Unit</th>
+          <th>Rate (€)</th>
+          <th>Supplier</th>
+          <th>Category</th>
+          <th style="width:40px"></th>
+        </tr></thead>
+        <tbody id="materials-body"></tbody>
+      </table>
+    </div>
+    <button class="add-row" onclick="addMaterialRow()">+ Add Material</button>
+    <div class="btn-row"><button class="btn btn-p" onclick="saveRates()">💾 Save Rates</button></div>
+  </div>
+
+  <!-- Prelims -->
+  <div class="inner-page" id="rates-prelims">
+    <div class="info">💡 Preliminary items are fixed costs that appear in every tender. AI will calculate durations based on project size.</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="rt" id="prelims-table">
+        <thead><tr>
+          <th style="width:35%">Prelim Item</th>
+          <th>Basis</th>
+          <th>Rate (€)</th>
+          <th>Notes</th>
+          <th style="width:40px"></th>
+        </tr></thead>
+        <tbody id="prelims-body"></tbody>
+      </table>
+    </div>
+    <button class="add-row" onclick="addPrelimsRow()">+ Add Item</button>
+    <div class="btn-row"><button class="btn btn-p" onclick="saveRates()">💾 Save Rates</button></div>
+  </div>
+</div>
+
+<!-- ═══════════════ ANALYSIS / PRICING ═══════════════ -->
+<div class="pg" id="pg-analysis">
+  <div class="ph" id="analysis-ph">
+    <h1>AI Pricing</h1>
+    <p>AI-generated bill of quantities with your rates applied</p>
+  </div>
+
+  <!-- No tender selected -->
+  <div id="analysis-none" class="empty">
+    <div class="ico">🤖</div>
+    <h3>No tender selected</h3>
+    <p>Create a tender and upload drawings to generate an AI-priced bill of quantities</p>
+    <button class="btn btn-p" onclick="showPage('tender',document.querySelector('[data-page=tender]'))">Create Tender</button>
+  </div>
+
+  <!-- Running analysis -->
+  <div id="analysis-running" style="display:none">
+    <div class="card">
+      <div class="card-hd"><span class="card-t">Analysis Progress</span></div>
+      <div class="a-steps" id="a-steps"></div>
+      <div class="progress mt16"><div class="prog-fill" id="a-prog" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="analysis-result" style="display:none">
+    <div class="flex mb16" style="flex-wrap:wrap;gap:10px">
+      <div style="flex:1;min-width:200px">
+        <div style="font-size:12px;color:var(--sub)">Project</div>
+        <div style="font-size:16px;font-weight:700" id="r-project-name">—</div>
+        <div style="font-size:12px;color:var(--sub);margin-top:2px" id="r-project-meta">—</div>
+      </div>
+      <div class="flex" style="gap:8px">
+        <button class="btn btn-b btn-sm" onclick="regenerateAnalysis()">↺ Re-analyse</button>
+        <button class="btn btn-s btn-sm" onclick="exportPDF()">📄 Export PDF</button>
+        <button class="btn btn-g btn-sm" onclick="markSubmitted()">✓ Mark Submitted</button>
+      </div>
+    </div>
+
+    <div id="pricing-output"></div>
+
+    <div class="po-summary" id="po-summary">
+      <h3 style="margin-bottom:14px">Summary</h3>
+      <div class="sum-row"><span>Labour Total</span><span id="sum-labour">€0.00</span></div>
+      <div class="sum-row"><span>Plant &amp; Equipment</span><span id="sum-plant">€0.00</span></div>
+      <div class="sum-row"><span>Materials</span><span id="sum-materials">€0.00</span></div>
+      <div class="sum-row"><span>Preliminaries</span><span id="sum-prelims">€0.00</span></div>
+      <div class="sum-row"><span>Subcontractors</span><span id="sum-subs">€0.00</span></div>
+      <div class="sum-row"><span>Subtotal (Net Cost)</span><span id="sum-net">€0.00</span></div>
+      <div class="sum-row" style="padding:6px 0"><span>Overhead &amp; Profit <input type="number" id="op-pct" value="15" min="0" max="50" style="width:60px;display:inline;padding:3px 6px;font-size:12px" oninput="recalcSummary()"> %</span><span id="sum-op">€0.00</span></div>
+      <div class="sum-row big"><span>TENDER TOTAL (ex VAT)</span><span id="sum-total">€0.00</span></div>
+    </div>
+
+    <div class="info mt16" style="font-size:12px">✏️ All quantities and rates are editable — click any cell to modify. Changes recalculate totals automatically.</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PRICE DATABASE ═══════════════ -->
+<div class="pg" id="pg-database">
+  <div class="ph">
+    <h1>Price Database</h1>
+    <p>Material prices per supplier — AI uses this to find the best local price</p>
+  </div>
+
+  <div class="info">💡 Add your local hardware suppliers and their current prices. The AI learns from every tender to keep prices accurate. Updated prices are marked and used automatically.</div>
+
+  <div class="db-header">
+    <input type="text" id="db-search" placeholder="Search materials..." oninput="renderDatabase()">
+    <button class="btn btn-p" onclick="openAddSupplierModal()">+ Add Supplier</button>
+    <button class="btn btn-s" onclick="openAddMaterialModal()">+ Add Price</button>
+    <button class="btn btn-s btn-sm" onclick="importCSV()">⬆ Import CSV</button>
+    <button class="btn btn-s btn-sm" onclick="exportCSV()">⬇ Export CSV</button>
+  </div>
+
+  <div id="db-content"></div>
+  <div id="db-empty" class="empty" style="display:none">
+    <div class="ico">🗄️</div>
+    <h3>No suppliers yet</h3>
+    <p>Add your local hardware suppliers to build a pricing database</p>
+    <button class="btn btn-p" onclick="openAddSupplierModal()">Add First Supplier</button>
+  </div>
+</div>
+
+</div><!-- /pages -->
+
+<!-- ══════════ MODALS ══════════ -->
+
+<!-- API Key -->
+<div class="modal-bg" id="modal-api">
+  <div class="modal">
+    <div class="modal-hd">
+      <span class="modal-title">🔑 Connect Claude AI</span>
+      <button class="modal-close" onclick="closeModal('modal-api')">×</button>
+    </div>
+    <div class="info">TenderAI uses Claude AI to read your drawings and specifications. Your API key is stored only in your browser.</div>
+    <div class="fg"><label>Anthropic API Key</label><input type="password" id="api-key-input" placeholder="sk-ant-..."></div>
+    <div class="fg"><label>AI Model</label>
+      <select id="model-select">
+        <option value="claude-opus-4-8">Claude Opus 4.8 (Most Capable)</option>
+        <option value="claude-sonnet-4-6" selected>Claude Sonnet 4.6 (Recommended)</option>
+        <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (Fastest)</option>
+      </select>
+    </div>
+    <div class="warn">⚠️ Direct browser API calls require CORS to be permitted. If you see a CORS error, you may need a simple backend proxy. TenderAI will also work in demo mode without a key.</div>
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="saveApiKey()">Save &amp; Connect</button>
+      <button class="btn btn-s" onclick="closeModal('modal-api')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Supplier -->
+<div class="modal-bg" id="modal-supplier">
+  <div class="modal">
+    <div class="modal-hd">
+      <span class="modal-title">Add Supplier</span>
+      <button class="modal-close" onclick="closeModal('modal-supplier')">×</button>
+    </div>
+    <div class="fg"><label>Supplier / Hardware Store Name</label><input id="sup-name" type="text" placeholder="e.g. Chadwicks, Woodies, Local Hardware"></div>
+    <div class="fg"><label>Location / Branch</label><input id="sup-loc" type="text" placeholder="Town / Branch"></div>
+    <div class="fg"><label>Phone</label><input id="sup-phone" type="text" placeholder="Optional"></div>
+    <div class="fg"><label>Notes</label><input id="sup-notes" type="text" placeholder="Account #, contact name, etc."></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="saveSupplier()">Add Supplier</button><button class="btn btn-s" onclick="closeModal('modal-supplier')">Cancel</button></div>
+  </div>
+</div>
+
+<!-- Add Material Price -->
+<div class="modal-bg" id="modal-material">
+  <div class="modal">
+    <div class="modal-hd">
+      <span class="modal-title">Add Material Price</span>
+      <button class="modal-close" onclick="closeModal('modal-material')">×</button>
+    </div>
+    <div class="fg"><label>Supplier</label>
+      <select id="mat-supplier-sel"><option value="">— Select Supplier —</option></select>
+    </div>
+    <div class="fg"><label>Material Name</label><input id="mat-name" type="text" placeholder="e.g. 100mm Hollow Concrete Block"></div>
+    <div class="grid2">
+      <div class="fg"><label>Category</label>
+        <select id="mat-cat">
+          <option value="masonry">Masonry</option>
+          <option value="timber">Timber</option>
+          <option value="roofing">Roofing</option>
+          <option value="insulation">Insulation</option>
+          <option value="plumbing">Plumbing</option>
+          <option value="electrical">Electrical</option>
+          <option value="finishing">Finishing</option>
+          <option value="drainage">Drainage</option>
+          <option value="concrete">Concrete &amp; Aggregate</option>
+          <option value="steel">Steel &amp; Metal</option>
+          <option value="fixings">Fixings &amp; Adhesives</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="fg"><label>Unit</label>
+        <select id="mat-unit">
+          <option value="each">each</option>
+          <option value="m">m (linear)</option>
+          <option value="m²">m²</option>
+          <option value="m³">m³</option>
+          <option value="kg">kg</option>
+          <option value="tonne">tonne</option>
+          <option value="bag">bag</option>
+          <option value="pack">pack</option>
+          <option value="roll">roll</option>
+          <option value="length">length</option>
+          <option value="sheet">sheet</option>
+          <option value="litre">litre</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="fg"><label>Price (€ excl VAT)</label><input id="mat-price" type="number" step="0.01" placeholder="0.00"></div>
+      <div class="fg"><label>Date Quoted</label><input id="mat-date" type="date"></div>
+    </div>
+    <div class="fg"><label>Notes</label><input id="mat-notes" type="text" placeholder="Size, spec, brand, etc."></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="saveMaterial()">Add Price</button><button class="btn btn-s" onclick="closeModal('modal-material')">Cancel</button></div>
+  </div>
+</div>
+
+<!-- Tender Detail -->
+<div class="modal-bg" id="modal-tender-detail">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-hd">
+      <span class="modal-title" id="td-title">Tender</span>
+      <button class="modal-close" onclick="closeModal('modal-tender-detail')">×</button>
+    </div>
+    <div id="td-body"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  STATE & PERSISTENCE
+// ══════════════════════════════════════════
+const KEY = 'tenderai_v1';
+let S = loadState();
+
+function loadState(){
+  try{ return JSON.parse(localStorage.getItem(KEY)) || defaultState(); }
+  catch(e){ return defaultState(); }
+}
+function defaultState(){
+  return {
+    apiKey:'', model:'claude-sonnet-4-6',
+    tenders:[],
+    rates:{ labour:defaultLabour(), plant:defaultPlant(), materials:defaultMaterials(), prelims:defaultPrelims() },
+    suppliers:[], db_materials:[],
+    currentTenderId:null, lastAnalysis:null
+  };
+}
+function save(){ localStorage.setItem(KEY, JSON.stringify(S)); }
+
+function defaultLabour(){return[
+  {trade:'General Operative',daily:260,ot:18,notes:'PAYE all-in'},
+  {trade:'Bricklayer / Blocklayer',daily:340,ot:22,notes:''},
+  {trade:'Carpenter / Joiner',daily:340,ot:22,notes:''},
+  {trade:'Plasterer',daily:320,ot:21,notes:''},
+  {trade:'Roofer',daily:340,ot:22,notes:''},
+  {trade:'Plumber',daily:380,ot:25,notes:''},
+  {trade:'Electrician',daily:380,ot:25,notes:''},
+  {trade:'Painter / Decorator',daily:310,ot:20,notes:''},
+  {trade:'Steel Fixer',daily:340,ot:22,notes:''},
+  {trade:'Site Manager / Foreman',daily:450,ot:30,notes:''}
+];}
+function defaultPlant(){return[
+  {item:'3t Mini Excavator',daily:260,weekly:1100,unit:'day'},
+  {item:'8t Excavator',daily:480,weekly:1900,unit:'day'},
+  {item:'Dumper (1t)',daily:120,weekly:480,unit:'day'},
+  {item:'Concrete Mixer (Belle)',daily:55,weekly:200,unit:'day'},
+  {item:'Scaffolding (per lift)',daily:0,weekly:180,unit:'week/lift'},
+  {item:'Telehandler',daily:380,weekly:1500,unit:'day'},
+  {item:'Compressor + Breaker',daily:85,weekly:320,unit:'day'},
+  {item:'Generator (20kVA)',daily:90,weekly:350,unit:'day'},
+  {item:'Mobile Tower Scaffold',daily:45,weekly:160,unit:'day'},
+  {item:'Concrete Skip',daily:25,weekly:90,unit:'day'}
+];}
+function defaultMaterials(){return[
+  {name:'Hollow Concrete Block 100mm',unit:'each',rate:1.85,supplier:'',category:'masonry'},
+  {name:'Hollow Concrete Block 140mm',unit:'each',rate:2.20,supplier:'',category:'masonry'},
+  {name:'Hollow Concrete Block 215mm',unit:'each',rate:2.85,supplier:'',category:'masonry'},
+  {name:'Facing Brick',unit:'each',rate:0.95,supplier:'',category:'masonry'},
+  {name:'Mortar (Readymix, m³)',unit:'m³',rate:125,supplier:'',category:'masonry'},
+  {name:'Concrete C25 (Ready Mix)',unit:'m³',rate:155,supplier:'',category:'concrete'},
+  {name:'Concrete C35 (Ready Mix)',unit:'m³',rate:175,supplier:'',category:'concrete'},
+  {name:'Sand & Gravel Blinding',unit:'tonne',rate:28,supplier:'',category:'concrete'},
+  {name:'DPC 100mm',unit:'m',rate:0.45,supplier:'',category:'masonry'},
+  {name:'DPC 150mm',unit:'m',rate:0.65,supplier:'',category:'masonry'},
+  {name:'Cavity Insulation (100mm)',unit:'m²',rate:8.50,supplier:'',category:'insulation'},
+  {name:'PIR Board 100mm',unit:'m²',rate:14.50,supplier:'',category:'insulation'},
+  {name:'Rockwool Slab 100mm',unit:'m²',rate:9.80,supplier:'',category:'insulation'},
+  {name:'Roof Truss (std 7.5m)',unit:'each',rate:185,supplier:'',category:'roofing'},
+  {name:'Roofing Felt (nr3)',unit:'m²',rate:2.80,supplier:'',category:'roofing'},
+  {name:'Concrete Roof Tile',unit:'each',rate:1.45,supplier:'',category:'roofing'},
+  {name:'Ridge Tile',unit:'each',rate:8.50,supplier:'',category:'roofing'},
+  {name:'OSB3 Board 18mm',unit:'sheet',rate:28,supplier:'',category:'timber'},
+  {name:'Plywood 12mm',unit:'sheet',rate:32,supplier:'',category:'timber'},
+  {name:'Timber 47x100mm CLS',unit:'m',rate:3.20,supplier:'',category:'timber'},
+  {name:'Timber 47x150mm CLS',unit:'m',rate:4.50,supplier:'',category:'timber'},
+  {name:'UPVC Window (std dbl glzd)',unit:'each',rate:380,supplier:'',category:'finishing'},
+  {name:'Ext Door (UPVC 840x2040)',unit:'each',rate:650,supplier:'',category:'finishing'},
+  {name:'Int Door (Hollow Core)',unit:'each',rate:95,supplier:'',category:'finishing'},
+  {name:'Plasterboard 12.5mm',unit:'sheet',rate:14,supplier:'',category:'finishing'},
+  {name:'Render (bag)',unit:'bag',rate:18,supplier:'',category:'finishing'},
+  {name:'110mm uPVC Soil Pipe (m)',unit:'m',rate:9.50,supplier:'',category:'drainage'},
+  {name:'110mm uPVC Bend 90°',unit:'each',rate:6.80,supplier:'',category:'drainage'},
+  {name:'Gully Trap',unit:'each',rate:28,supplier:'',category:'drainage'}
+];}
+function defaultPrelims(){return[
+  {item:'Site Manager',basis:'week',rate:450,notes:'Per week on site'},
+  {item:'Site Establishment / Strip Out',basis:'sum',rate:1200,notes:''},
+  {item:'Skip Hire (8yd)',basis:'each',rate:220,notes:'Per skip'},
+  {item:'Site Insurance (monthly)',basis:'month',rate:180,notes:''},
+  {item:'H&S Documentation / PSDP',basis:'sum',rate:800,notes:''},
+  {item:'Water Connection / Temp Services',basis:'sum',rate:350,notes:''},
+  {item:'Fuel & Transport',basis:'week',rate:120,notes:''},
+  {item:'Sundries / Consumables',basis:'%',rate:2.5,notes:'% of trade cost'}
+];}
+
+// ══════════════════════════════════════════
+//  FILE HANDLING
+// ══════════════════════════════════════════
+const tenderFiles = { draw:[], spec:[] };
+
+function handleFiles(e, type){
+  const files = Array.from(e.target.files);
+  files.forEach(f => addFile(f, type));
+  e.target.value = '';
+}
+function handleDrop(e, type){
+  e.preventDefault();
+  document.getElementById(type+'-zone').classList.remove('drag');
+  Array.from(e.dataTransfer.files).forEach(f => addFile(f, type));
+}
+function addFile(f, type){
+  const existing = tenderFiles[type].findIndex(x=>x.name===f.name);
+  if(existing>=0) tenderFiles[type][existing] = f;
+  else tenderFiles[type].push(f);
+  renderFileList(type);
+}
+function removeFile(type, name){
+  tenderFiles[type] = tenderFiles[type].filter(f=>f.name!==name);
+  renderFileList(type);
+}
+function renderFileList(type){
+  const el = document.getElementById(type+'-list');
+  if(!tenderFiles[type].length){ el.innerHTML=''; return; }
+  el.innerHTML = tenderFiles[type].map(f=>`
+    <div class="fi">
+      <span class="fi-ico">${f.type.includes('pdf')?'📑':'🖼️'}</span>
+      <div class="fi-inf">
+        <div class="fi-nm">${f.name}</div>
+        <div class="fi-sz">${formatSize(f.size)}</div>
+      </div>
+      <button class="fi-rm" onclick="removeFile('${type}','${f.name}')">×</button>
+    </div>`).join('');
+}
+function formatSize(b){ return b>1048576?`${(b/1048576).toFixed(1)} MB`:`${Math.round(b/1024)} KB`; }
+
+async function fileToBase64(f){
+  return new Promise(res=>{
+    const r=new FileReader();
+    r.onload=e=>res(e.target.result.split(',')[1]);
+    r.readAsDataURL(f);
+  });
+}
+
+// ══════════════════════════════════════════
+//  TENDER MANAGEMENT
+// ══════════════════════════════════════════
+let editingTenderId = null;
+
+function newTender(){
+  editingTenderId = null;
+  document.getElementById('tender-page-title').textContent = 'New Tender';
+  ['t-name','t-client','t-loc','t-notes','t-spec-text'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  ['p-area','p-wall','p-storeys','p-duration'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  document.getElementById('t-type').value='residential';
+  document.getElementById('t-deadline').value='';
+  tenderFiles.draw=[];tenderFiles.spec=[];
+  renderFileList('draw');renderFileList('spec');
+}
+
+function getTenderForm(){
+  return {
+    id: editingTenderId || ('t_'+Date.now()),
+    name: document.getElementById('t-name').value.trim() || 'Untitled Tender',
+    client: document.getElementById('t-client').value.trim(),
+    type: document.getElementById('t-type').value,
+    location: document.getElementById('t-loc').value.trim(),
+    deadline: document.getElementById('t-deadline').value,
+    notes: document.getElementById('t-notes').value.trim(),
+    specText: document.getElementById('t-spec-text').value.trim(),
+    prelims:{
+      area: +document.getElementById('p-area').value||0,
+      wall: +document.getElementById('p-wall').value||0,
+      storeys: +document.getElementById('p-storeys').value||1,
+      duration: +document.getElementById('p-duration').value||0
+    },
+    drawingCount: tenderFiles.draw.length,
+    specCount: tenderFiles.spec.length,
+    created: new Date().toISOString(),
+    status:'draft', value:0, analysis:null
+  };
+}
+
+function saveTenderDraft(){
+  const t = getTenderForm();
+  upsertTender(t);
+  save();
+  toast('Draft saved','ok');
+  renderDashboard();
+}
+
+async function saveTenderAndAnalyze(){
+  const t = getTenderForm();
+  if(!t.name){toast('Enter a project name first','err');return;}
+  upsertTender(t);
+  S.currentTenderId = t.id;
+  save();
+  showPage('analysis', document.querySelector('[data-page=analysis]'));
+  await runAnalysis(t);
+}
+
+function upsertTender(t){
+  const idx = S.tenders.findIndex(x=>x.id===t.id);
+  if(idx>=0) S.tenders[idx]={...S.tenders[idx],...t};
+  else S.tenders.unshift(t);
+  editingTenderId = t.id;
+}
+
+function loadTenderForEdit(id){
+  const t = S.tenders.find(x=>x.id===id);
+  if(!t) return;
+  editingTenderId = id;
+  document.getElementById('tender-page-title').textContent = 'Edit Tender';
+  document.getElementById('t-name').value = t.name||'';
+  document.getElementById('t-client').value = t.client||'';
+  document.getElementById('t-loc').value = t.location||'';
+  document.getElementById('t-type').value = t.type||'residential';
+  document.getElementById('t-deadline').value = t.deadline||'';
+  document.getElementById('t-notes').value = t.notes||'';
+  document.getElementById('t-spec-text').value = t.specText||'';
+  document.getElementById('p-area').value = t.prelims?.area||'';
+  document.getElementById('p-wall').value = t.prelims?.wall||'';
+  document.getElementById('p-storeys').value = t.prelims?.storeys||'';
+  document.getElementById('p-duration').value = t.prelims?.duration||'';
+  tenderFiles.draw=[];tenderFiles.spec=[];
+  renderFileList('draw');renderFileList('spec');
+  showPage('tender', document.querySelector('[data-page=tender]'));
+}
+
+function openTenderDetail(id){
+  const t = S.tenders.find(x=>x.id===id);
+  if(!t) return;
+  document.getElementById('td-title').textContent = t.name;
+  document.getElementById('td-body').innerHTML = `
+    <div class="grid2" style="margin-bottom:12px">
+      <div><div class="text-sub" style="font-size:12px">Client</div><div style="font-weight:600">${t.client||'—'}</div></div>
+      <div><div class="text-sub" style="font-size:12px">Location</div><div style="font-weight:600">${t.location||'—'}</div></div>
+      <div><div class="text-sub" style="font-size:12px">Type</div><div style="font-weight:600;text-transform:capitalize">${t.type||'—'}</div></div>
+      <div><div class="text-sub" style="font-size:12px">Deadline</div><div style="font-weight:600">${t.deadline?fmtDate(t.deadline):'—'}</div></div>
+    </div>
+    <div style="margin-bottom:12px"><div class="text-sub" style="font-size:12px;margin-bottom:4px">Value</div><div style="font-size:24px;font-weight:800;color:var(--primary)">${t.value?fmtCur(t.value):'Not priced yet'}</div></div>
+    <div class="btn-row">
+      <button class="btn btn-p btn-sm" onclick="closeModal('modal-tender-detail');loadTenderForEdit('${id}')">✏️ Edit</button>
+      ${t.analysis?`<button class="btn btn-b btn-sm" onclick="closeModal('modal-tender-detail');viewAnalysis('${id}')">📊 View Pricing</button>`:''}
+      <button class="btn btn-d btn-sm" onclick="deleteTender('${id}')">🗑️ Delete</button>
+    </div>`;
+  openModal('modal-tender-detail');
+}
+
+function deleteTender(id){
+  if(!confirm('Delete this tender?')) return;
+  S.tenders = S.tenders.filter(x=>x.id!==id);
+  save();
+  closeModal('modal-tender-detail');
+  renderDashboard();
+  toast('Tender deleted');
+}
+
+function viewAnalysis(id){
+  const t = S.tenders.find(x=>x.id===id);
+  if(!t||!t.analysis) return;
+  S.currentTenderId = id;
+  showPage('analysis', document.querySelector('[data-page=analysis]'));
+  showAnalysisResult(t);
+}
+
+function markSubmitted(){
+  const t = S.tenders.find(x=>x.id===S.currentTenderId);
+  if(!t) return;
+  t.status='submitted';
+  save();
+  renderDashboard();
+  toast('Marked as submitted ✓','ok');
+}
+
+// ══════════════════════════════════════════
+//  AI ANALYSIS
+// ══════════════════════════════════════════
+const ANALYSIS_STEPS = [
+  {label:'Reading drawings',desc:'Extracting dimensions, room layouts, structural elements'},
+  {label:'Parsing specification',desc:'Identifying materials, standards, scope of work'},
+  {label:'Generating bill of quantities',desc:'Calculating quantities for all work sections'},
+  {label:'Applying your rates',desc:'Labour, plant and material pricing'},
+  {label:'Compiling pricing document',desc:'Formatting and totalling the priced document'}
+];
+
+async function runAnalysis(tender){
+  showAnalysisRunning();
+  setAnalysisSteps('wait');
+
+  try {
+    if(S.apiKey){
+      await runClaudeAnalysis(tender);
+    } else {
+      await runDemoAnalysis(tender);
+    }
+  } catch(err){
+    console.error(err);
+    if(err.message?.includes('CORS') || err.message?.includes('Failed to fetch')){
+      toast('CORS error — running demo mode. Add a backend proxy to use live AI.','err');
+    } else {
+      toast('AI error: '+err.message+' — showing demo output','err');
+    }
+    await runDemoAnalysis(tender);
+  }
+}
+
+function setAnalysisSteps(state, active=-1){
+  const el = document.getElementById('a-steps');
+  el.innerHTML = ANALYSIS_STEPS.map((s,i)=>{
+    let cls='wait', ico='○';
+    if(state==='done'||i<active){ cls='done'; ico='✓'; }
+    else if(i===active){ cls='go'; ico='<div class="spinner"></div>'; }
+    return `<div class="a-step">
+      <div class="a-ico ${cls}">${ico}</div>
+      <div><div class="a-txt">${s.label}</div><div class="a-desc">${s.desc}</div></div>
+    </div>`;
+  }).join('');
+}
+function setProgress(pct){ document.getElementById('a-prog').style.width=pct+'%'; }
+
+async function delay(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+async function runClaudeAnalysis(tender){
+  const msgs = [];
+  const content = [];
+
+  // Attach drawing images
+  for(const f of tenderFiles.draw){
+    if(f.type.startsWith('image/')){
+      const b64 = await fileToBase64(f);
+      content.push({type:'image',source:{type:'base64',media_type:f.type,data:b64}});
+    } else if(f.type==='application/pdf'){
+      const b64 = await fileToBase64(f);
+      content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}});
+    }
+  }
+  for(const f of tenderFiles.spec){
+    if(f.type.startsWith('image/')){
+      const b64 = await fileToBase64(f);
+      content.push({type:'image',source:{type:'base64',media_type:f.type,data:b64}});
+    } else if(f.type==='application/pdf'){
+      const b64 = await fileToBase64(f);
+      content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}});
+    }
+  }
+
+  // Build prompt
+  const ratesSummary = buildRatesSummary();
+  const prelims = tender.prelims||{};
+  const prompt = `You are an expert quantity surveyor for Irish construction. Analyze these construction drawings and specifications for the following project and produce a detailed, priced Bill of Quantities.
+
+PROJECT DETAILS:
+- Name: ${tender.name}
+- Type: ${tender.type}
+- Location: ${tender.location||'Ireland'}
+- Client: ${tender.client||'Unknown'}
+- Notes: ${tender.notes||'None'}
+- Floor area: ${prelims.area||'unknown'} m²
+- Storeys: ${prelims.storeys||'unknown'}
+- Anticipated duration: ${prelims.duration||'unknown'} weeks
+
+${tender.specText?`SPECIFICATION:\n${tender.specText}\n`:''}
+
+MY RATES:
+${ratesSummary}
+
+INSTRUCTIONS:
+Produce a detailed Bill of Quantities in JSON format. Be realistic and thorough — include ALL trades and work sections visible from the drawings/specification. Use Irish construction practices and pricing.
+
+Return ONLY valid JSON in this exact structure:
+{
+  "sections": [
+    {
+      "title": "Section name (e.g. Substructure, Superstructure, Roofing)",
+      "items": [
+        {
+          "ref": "A1",
+          "description": "Detailed item description",
+          "qty": 45.5,
+          "unit": "m²",
+          "rate": 28.50,
+          "type": "labour|plant|material|subcontractor",
+          "amount": 1282.75
+        }
+      ]
+    }
+  ],
+  "assumptions": ["List key assumptions made"],
+  "notes": "Any important notes for the contractor"
+}`;
+
+  content.push({type:'text',text:prompt});
+  msgs.push({role:'user',content});
+
+  // Step through progress
+  setAnalysisSteps('wait',0); setProgress(10);
+  await delay(500);
+  setAnalysisSteps('wait',1); setProgress(30);
+
+  const resp = await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key':S.apiKey,
+      'anthropic-version':'2023-06-01',
+      'anthropic-beta':'pdfs-2024-09-25'
+    },
+    body:JSON.stringify({model:S.model,max_tokens:8000,messages:msgs})
+  });
+
+  if(!resp.ok){
+    const err = await resp.json().catch(()=>({error:{message:resp.statusText}}));
+    throw new Error(err.error?.message||resp.statusText);
+  }
+
+  setAnalysisSteps('wait',2); setProgress(60);
+  await delay(300);
+
+  const data = await resp.json();
+  const text = data.content[0].text;
+
+  setAnalysisSteps('wait',3); setProgress(80);
+
+  // Parse JSON from response
+  let analysis;
+  try {
+    const match = text.match(/\{[\s\S]*\}/);
+    if(!match) throw new Error('No JSON in response');
+    analysis = JSON.parse(match[0]);
+  } catch(e){
+    throw new Error('Could not parse AI response as JSON');
+  }
+
+  applyRatesToAnalysis(analysis);
+  setAnalysisSteps('done'); setProgress(100);
+  await delay(400);
+
+  const t = S.tenders.find(x=>x.id===tender.id);
+  if(t){ t.analysis=analysis; t.status='priced'; t.value=calcTotal(analysis); save(); }
+  learnFromAnalysis(analysis);
+  showAnalysisResult(t||tender);
+}
+
+async function runDemoAnalysis(tender){
+  // Simulate step-by-step progress with realistic demo data
+  for(let i=0;i<ANALYSIS_STEPS.length;i++){
+    setAnalysisSteps('wait',i);
+    setProgress(Math.round((i/ANALYSIS_STEPS.length)*90));
+    await delay(600+Math.random()*400);
+  }
+  setAnalysisSteps('done'); setProgress(100);
+  await delay(300);
+
+  const analysis = generateDemoAnalysis(tender);
+  const t = S.tenders.find(x=>x.id===tender.id);
+  if(t){ t.analysis=analysis; t.status='priced'; t.value=calcTotal(analysis); save(); }
+  showAnalysisResult(t||tender);
+  toast('Demo mode: connect your Claude API key for real AI analysis', 'ok');
+}
+
+function buildRatesSummary(){
+  const {labour,plant,materials} = S.rates;
+  let s = 'LABOUR RATES (daily €):\n';
+  s += labour.map(r=>`  ${r.trade}: €${r.daily}/day`).join('\n')+'\n\n';
+  s += 'PLANT RATES (daily €):\n';
+  s += plant.map(r=>`  ${r.item}: €${r.daily}/day`).join('\n')+'\n\n';
+  s += 'MATERIAL RATES:\n';
+  s += materials.slice(0,15).map(r=>`  ${r.name}: €${r.rate}/${r.unit}`).join('\n');
+  return s;
+}
+
+function applyRatesToAnalysis(analysis){
+  const mats = S.rates.materials;
+  const labour = S.rates.labour;
+  const plant = S.rates.plant;
+
+  (analysis.sections||[]).forEach(sec=>{
+    (sec.items||[]).forEach(item=>{
+      // Try to match rate from our database
+      if(!item.rate || item.rate===0){
+        if(item.type==='labour'){
+          const match = labour.find(l=>item.description.toLowerCase().includes(l.trade.toLowerCase().split(' ')[0]));
+          if(match) item.rate = +(match.daily/8).toFixed(2); // per hour approx
+        } else if(item.type==='material'){
+          const match = mats.find(m=>item.description.toLowerCase().includes(m.name.toLowerCase().split(' ')[0]));
+          if(match) item.rate = match.rate;
+        } else if(item.type==='plant'){
+          const match = plant.find(p=>item.description.toLowerCase().includes(p.item.toLowerCase().split(' ')[0]));
+          if(match) item.rate = match.daily;
+        }
+      }
+      item.amount = +(item.qty * item.rate).toFixed(2);
+    });
+  });
+}
+
+function generateDemoAnalysis(tender){
+  const area = tender.prelims?.area || 120;
+  const storeys = tender.prelims?.storeys || 1;
+  const type = tender.type || 'residential';
+  const dur = tender.prelims?.duration || Math.ceil(area/8);
+
+  const getR=(name)=>{ const m=S.rates.materials.find(x=>x.name.includes(name)); return m?m.rate:10; };
+  const getL=(trade)=>{ const l=S.rates.labour.find(x=>x.trade.toLowerCase().includes(trade)); return l?l.daily:300; };
+
+  const sections = [
+    {
+      title:'1. Preliminaries',
+      items:[
+        {ref:'1.1',description:'Site manager/foreman on site',qty:dur,unit:'week',rate:S.rates.prelims[0]?.rate||450,type:'labour'},
+        {ref:'1.2',description:'Site establishment, temporary services, welfare facilities',qty:1,unit:'sum',rate:1800,type:'prelim'},
+        {ref:'1.3',description:'Skip hire (waste disposal)',qty:Math.ceil(area/25),unit:'each',rate:220,type:'plant'},
+        {ref:'1.4',description:'H&S documentation, method statements, PSDP fee',qty:1,unit:'sum',rate:800,type:'prelim'},
+        {ref:'1.5',description:'Insurance, security and site facilities',qty:Math.ceil(dur/4),unit:'month',rate:200,type:'prelim'},
+        {ref:'1.6',description:'Fuel, transport, miscellaneous site costs',qty:dur,unit:'week',rate:120,type:'prelim'},
+      ]
+    },
+    {
+      title:'2. Substructure / Groundworks',
+      items:[
+        {ref:'2.1',description:'Excavate and remove to spoil (topsoil strip)',qty:+(area*0.3).toFixed(1),unit:'m³',rate:18,type:'labour'},
+        {ref:'2.2',description:'Excavate for strip foundations (600x600)',qty:+(area*0.15).toFixed(1),unit:'m³',rate:22,type:'labour'},
+        {ref:'2.3',description:'Concrete C25 in strip foundations',qty:+(area*0.09).toFixed(1),unit:'m³',rate:getR('C25'),type:'material'},
+        {ref:'2.4',description:'Mass concrete blinding 75mm (floor slab area)',qty:+(area*0.075).toFixed(1),unit:'m³',rate:getR('C25')-20,type:'material'},
+        {ref:'2.5',description:'Hardcore fill and compact (300mm deep)',qty:+(area*0.3).toFixed(1),unit:'m³',rate:28,type:'material'},
+        {ref:'2.6',description:'DPM (polythene membrane, 1200 gauge)',qty:+(area*1.1).toFixed(1),unit:'m²',rate:1.80,type:'material'},
+        {ref:'2.7',description:'Reinforced concrete ground bearing slab 150mm C30',qty:+(area*0.15).toFixed(1),unit:'m³',rate:175,type:'material'},
+        {ref:'2.8',description:'Insulation under slab: PIR 100mm',qty:+(area*1.0).toFixed(1),unit:'m²',rate:getR('PIR'),type:'material'},
+        {ref:'2.9',description:'External drainage: 110mm uPVC pipes, gullies, manholes (allow)',qty:1,unit:'sum',rate:2800,type:'subcontractor'},
+        {ref:'2.10',description:'Mini excavator hire',qty:4,unit:'day',rate:S.rates.plant[0]?.daily||260,type:'plant'},
+        {ref:'2.11',description:'Groundworker labour (excavation, levelling, filling)',qty:Math.ceil(area/30),unit:'day',rate:getL('general'),type:'labour'},
+      ]
+    },
+    {
+      title:'3. Superstructure – Walls',
+      items:[
+        {ref:'3.1',description:'100mm hollow concrete block inner leaf',qty:+(area*storeys*1.8).toFixed(0),unit:'each',rate:getR('100mm Hollow'),type:'material'},
+        {ref:'3.2',description:'100mm cavity insulation full fill',qty:+(area*storeys*0.8).toFixed(1),unit:'m²',rate:getR('Cavity Insulation'),type:'material'},
+        {ref:'3.3',description:'Facing brick outer leaf',qty:+(area*storeys*1.8*60).toFixed(0),unit:'each',rate:getR('Facing Brick'),type:'material'},
+        {ref:'3.4',description:'Mortar for blockwork and brickwork',qty:+(area*storeys*0.04).toFixed(1),unit:'m³',rate:getR('Mortar'),type:'material'},
+        {ref:'3.5',description:'DPC in cavity and at floor level',qty:+(Math.sqrt(area)*4*storeys).toFixed(0),unit:'m',rate:0.65,type:'material'},
+        {ref:'3.6',description:'Wall ties (cavity)',qty:+(area*storeys*2.5).toFixed(0),unit:'each',rate:0.35,type:'material'},
+        {ref:'3.7',description:'Bricklayer/blocklayer labour (build walls)',qty:+(area*storeys*0.07).toFixed(1),unit:'day',rate:getL('brick'),type:'labour'},
+      ]
+    },
+    {
+      title:'4. Superstructure – Roof',
+      items:[
+        {ref:'4.1',description:'Prefabricated roof trusses (standard pitch)',qty:Math.ceil(Math.sqrt(area)/0.6),unit:'each',rate:getR('Roof Truss'),type:'material'},
+        {ref:'4.2',description:'Roof tile battens 25x50',qty:+(Math.sqrt(area)*4*1.3/1.2).toFixed(0),unit:'length',rate:3.50,type:'material'},
+        {ref:'4.3',description:'Sarking / roofing underlay (breathable)',qty:+(Math.sqrt(area)*4*1.3).toFixed(1),unit:'m²',rate:2.80,type:'material'},
+        {ref:'4.4',description:'Concrete roof tiles (interlocking)',qty:+(Math.sqrt(area)*4*1.3*10).toFixed(0),unit:'each',rate:getR('Concrete Roof Tile'),type:'material'},
+        {ref:'4.5',description:'Ridge tiles and mortar bed',qty:+(Math.sqrt(area)*1.1).toFixed(0),unit:'each',rate:8.50,type:'material'},
+        {ref:'4.6',description:'Fascia, soffit, gutters (uPVC)',qty:+(Math.sqrt(area)*4).toFixed(0),unit:'m',rate:28,type:'material'},
+        {ref:'4.7',description:'Roofer labour (fix trusses, tile, flashings)',qty:+(area*0.04).toFixed(0),unit:'day',rate:getL('roof'),type:'labour'},
+      ]
+    },
+    {
+      title:'5. Internal Structure & Floors',
+      items:[
+        {ref:'5.1',description:'Internal blockwork partition walls',qty:+(area*storeys*0.5*12).toFixed(0),unit:'each',rate:getR('100mm Hollow'),type:'material'},
+        {ref:'5.2',description:'Bricklayer/blocklayer – internal walls',qty:+(area*storeys*0.025).toFixed(1),unit:'day',rate:getL('brick'),type:'labour'},
+        storeys>1?{ref:'5.3',description:`First floor: 47x200 joists + 22mm T&G flooring (${area} m²)`,qty:+(area*1.05).toFixed(1),unit:'m²',rate:42,type:'material'}:null,
+        storeys>1?{ref:'5.4',description:'Carpenter labour (floor joists, strutting)',qty:+(area*0.015).toFixed(0),unit:'day',rate:getL('carp'),type:'labour'}:null,
+      ].filter(Boolean)
+    },
+    {
+      title:'6. Insulation & Airtightness',
+      items:[
+        {ref:'6.1',description:'PIR insulation to ceiling/roof 100mm',qty:+(area*1.05).toFixed(1),unit:'m²',rate:getR('PIR'),type:'material'},
+        {ref:'6.2',description:'Mineral wool batt between joists/rafters',qty:+(area*storeys*0.4).toFixed(1),unit:'m²',rate:getR('Rockwool'),type:'material'},
+        {ref:'6.3',description:'Airtightness membrane and tape',qty:+(area*1.1).toFixed(1),unit:'m²',rate:4.80,type:'material'},
+        {ref:'6.4',description:'Labour to fix insulation and membrane',qty:+(area*0.01).toFixed(0),unit:'day',rate:getL('general'),type:'labour'},
+      ]
+    },
+    {
+      title:'7. Windows, Doors & Joinery',
+      items:[
+        {ref:'7.1',description:'UPVC double glazed windows (various sizes)',qty:Math.ceil(area*storeys/18),unit:'each',rate:getR('UPVC Window'),type:'material'},
+        {ref:'7.2',description:'External door (composite, A-rated)',qty:Math.ceil(area/80)+1,unit:'each',rate:750,type:'material'},
+        {ref:'7.3',description:'Internal hollow core doors',qty:Math.ceil(area/12),unit:'each',rate:getR('Int Door'),type:'material'},
+        {ref:'7.4',description:'Door frames, linings, ironmongery',qty:Math.ceil(area/12),unit:'each',rate:85,type:'material'},
+        {ref:'7.5',description:'Carpenter labour (hang doors, fit windows, joinery)',qty:+(area*0.025).toFixed(0),unit:'day',rate:getL('carp'),type:'labour'},
+      ]
+    },
+    {
+      title:'8. Plastering & Internal Finishes',
+      items:[
+        {ref:'8.1',description:'Plasterboard 12.5mm to ceilings (dot & dab)',qty:+(area*1.05).toFixed(1),unit:'m²',rate:getR('Plasterboard'),type:'material'},
+        {ref:'8.2',description:'Skim coat plaster to walls and ceilings',qty:+(area*storeys*2.4).toFixed(1),unit:'m²',rate:8.50,type:'labour'},
+        {ref:'8.3',description:'Sand & cement render to block walls (external)',qty:+(Math.sqrt(area)*4*storeys*2.8).toFixed(1),unit:'m²',rate:12,type:'labour'},
+        {ref:'8.4',description:'Plasterer labour',qty:+(area*storeys*0.05).toFixed(0),unit:'day',rate:getL('plast'),type:'labour'},
+        {ref:'8.5',description:'Render bag material',qty:+(Math.sqrt(area)*4*storeys*0.5).toFixed(0),unit:'bag',rate:getR('Render'),type:'material'},
+      ]
+    },
+    {
+      title:'9. Plumbing & Heating',
+      items:[
+        {ref:'9.1',description:'Plumbing first fix (pipes, valves, boxing)',qty:1,unit:'sum',rate:+(area*18).toFixed(0),type:'subcontractor'},
+        {ref:'9.2',description:'Heating system (ASHP or gas boiler, rads, UFH)',qty:1,unit:'sum',rate:+(area*35).toFixed(0),type:'subcontractor'},
+        {ref:'9.3',description:'Bathroom suites and fittings (allow)',qty:Math.ceil(area/50),unit:'sum',rate:2800,type:'subcontractor'},
+        {ref:'9.4',description:'Solar PV panels (optional, allow)',qty:0,unit:'sum',rate:8500,type:'subcontractor'},
+      ]
+    },
+    {
+      title:'10. Electrical',
+      items:[
+        {ref:'10.1',description:'Electrical first fix (cables, conduit)',qty:1,unit:'sum',rate:+(area*12).toFixed(0),type:'subcontractor'},
+        {ref:'10.2',description:'Electrical second fix (sockets, lights, consumer unit)',qty:1,unit:'sum',rate:+(area*10).toFixed(0),type:'subcontractor'},
+        {ref:'10.3',description:'EV charger point',qty:1,unit:'each',rate:850,type:'subcontractor'},
+      ]
+    },
+    {
+      title:'11. Painting & Decorating',
+      items:[
+        {ref:'11.1',description:'Internal painting (2 coats vinyl matt to walls)',qty:+(area*storeys*2.4).toFixed(1),unit:'m²',rate:4.80,type:'labour'},
+        {ref:'11.2',description:'Ceiling paint (2 coats)',qty:+(area*storeys).toFixed(1),unit:'m²',rate:3.50,type:'labour'},
+        {ref:'11.3',description:'Gloss to woodwork (doors, windows, skirting)',qty:+(area*storeys*0.5).toFixed(1),unit:'m²',rate:9,type:'labour'},
+        {ref:'11.4',description:'Paint materials (allow)',qty:1,unit:'sum',rate:+(area*8).toFixed(0),type:'material'},
+        {ref:'11.5',description:'Painter/decorator labour',qty:+(area*0.04).toFixed(0),unit:'day',rate:getL('paint'),type:'labour'},
+      ]
+    },
+    {
+      title:'12. External Works',
+      items:[
+        {ref:'12.1',description:'Paving / driveway (allow)',qty:1,unit:'sum',rate:+(area*0.5*45).toFixed(0),type:'subcontractor'},
+        {ref:'12.2',description:'Perimeter fencing/walls (allow)',qty:1,unit:'sum',rate:+(Math.sqrt(area)*4*35).toFixed(0),type:'subcontractor'},
+        {ref:'12.3',description:'Topsoil, seed/turf garden areas (allow)',qty:1,unit:'sum',rate:+(area*0.3*12).toFixed(0),type:'material'},
+      ]
+    }
+  ];
+
+  sections.forEach(sec=>{
+    sec.items.forEach(item=>{
+      item.amount = +(item.qty * item.rate).toFixed(2);
+    });
+  });
+
+  return {
+    sections,
+    assumptions:[
+      `Floor area taken as ${area} m² over ${storeys} storey(s)`,
+      'Rates based on your entered rates table',
+      'Subcontractor allowances are indicative and should be obtained by quotation',
+      'External works are nominal allowances only',
+      'Programme assumed at approximately '+dur+' weeks',
+      'All prices exclusive of VAT'
+    ],
+    notes:'This is an AI-generated indicative bill. All quantities should be verified against final drawings. Subcontractor work should be quoted separately.'
+  };
+}
+
+function learnFromAnalysis(analysis){
+  // Extract any material/rate patterns and update the DB notes
+  // This is where the learning system would update prices
+  // For now, just log — a full implementation would compare & update DB
+  console.log('[TenderAI] Analysis complete. Rates learning from', (analysis.sections||[]).reduce((a,s)=>a+(s.items||[]).length,0),'items');
+}
+
+// ══════════════════════════════════════════
+//  DISPLAY ANALYSIS RESULT
+// ══════════════════════════════════════════
+function showAnalysisRunning(){
+  document.getElementById('analysis-none').style.display='none';
+  document.getElementById('analysis-running').style.display='block';
+  document.getElementById('analysis-result').style.display='none';
+}
+
+function showAnalysisResult(tender){
+  document.getElementById('analysis-none').style.display='none';
+  document.getElementById('analysis-running').style.display='none';
+  document.getElementById('analysis-result').style.display='block';
+
+  const a = tender.analysis;
+  document.getElementById('r-project-name').textContent = tender.name;
+  document.getElementById('r-project-meta').textContent = [tender.type,tender.location,tender.deadline?'Deadline: '+fmtDate(tender.deadline):''].filter(Boolean).join(' · ');
+
+  // Render sections
+  const out = document.getElementById('pricing-output');
+  out.innerHTML = (a.sections||[]).map(sec=>`
+    <div class="po-section">
+      <div class="po-section-head"><h3>${sec.title}</h3></div>
+      <table class="po-table">
+        <thead><tr><th>Ref</th><th>Description</th><th>Qty</th><th>Unit</th><th>Rate €</th><th>Amount €</th></tr></thead>
+        <tbody>
+          ${(sec.items||[]).map(item=>`
+            <tr data-ref="${item.ref}">
+              <td>${item.ref||''}</td>
+              <td class="edit-cell" contenteditable title="Click to edit">${item.description}</td>
+              <td class="edit-cell text-right" contenteditable oninput="recalcRow(this)">${item.qty}</td>
+              <td>${item.unit}</td>
+              <td class="edit-cell text-right" contenteditable oninput="recalcRow(this)">${item.rate}</td>
+              <td class="text-right" style="font-weight:500">${fmtCur(item.amount)}</td>
+            </tr>`).join('')}
+          <tr class="sub"><td colspan="5" style="text-align:right">Section Total</td><td class="text-right">${fmtCur(secTotal(sec))}</td></tr>
+        </tbody>
+      </table>
+    </div>`).join('');
+
+  if(a.notes){
+    out.innerHTML += `<div class="info" style="margin-top:12px">📋 ${a.notes}</div>`;
+  }
+  if(a.assumptions?.length){
+    out.innerHTML += `<div class="card mt16"><div class="card-t mb8">Assumptions</div><ul style="list-style:none;padding:0">${a.assumptions.map(x=>`<li style="font-size:13px;color:var(--sub);padding:3px 0;border-bottom:1px solid var(--border2)">• ${x}</li>`).join('')}</ul></div>`;
+  }
+
+  recalcSummary();
+}
+
+function secTotal(sec){
+  return (sec.items||[]).reduce((a,i)=>a+i.amount,0);
+}
+
+function calcTotal(analysis){
+  return (analysis.sections||[]).reduce((a,s)=>a+secTotal(s),0);
+}
+
+function recalcRow(cell){
+  const row = cell.closest('tr');
+  const tds = row.querySelectorAll('td');
+  const qty = parseFloat(tds[2].textContent)||0;
+  const rate = parseFloat(tds[4].textContent)||0;
+  tds[5].textContent = fmtCur(qty*rate);
+  recalcSummary();
+}
+
+function recalcSummary(){
+  const t = S.tenders.find(x=>x.id===S.currentTenderId);
+  const a = t?.analysis;
+  if(!a) return;
+
+  let labour=0,plant=0,materials=0,prelims=0,subs=0;
+  (a.sections||[]).forEach(sec=>{
+    (sec.items||[]).forEach(item=>{
+      const type=item.type;
+      if(type==='labour') labour+=item.amount;
+      else if(type==='plant') plant+=item.amount;
+      else if(type==='material') materials+=item.amount;
+      else if(type==='subcontractor') subs+=item.amount;
+      else prelims+=item.amount;
+    });
+  });
+
+  // Re-read from DOM in case user edited
+  let net = 0;
+  document.querySelectorAll('.po-table tbody tr:not(.sub):not(.grand)').forEach(row=>{
+    const td = row.querySelectorAll('td');
+    if(td.length>=6) net += parseFloat(td[5].textContent.replace(/[€,]/g,''))||0;
+  });
+
+  const opPct = parseFloat(document.getElementById('op-pct').value)||15;
+  const op = net * opPct/100;
+  const total = net+op;
+
+  document.getElementById('sum-labour').textContent=fmtCur(labour);
+  document.getElementById('sum-plant').textContent=fmtCur(plant);
+  document.getElementById('sum-materials').textContent=fmtCur(materials);
+  document.getElementById('sum-prelims').textContent=fmtCur(prelims);
+  document.getElementById('sum-subs').textContent=fmtCur(subs);
+  document.getElementById('sum-net').textContent=fmtCur(net);
+  document.getElementById('sum-op').textContent=fmtCur(op);
+  document.getElementById('sum-total').textContent=fmtCur(total);
+
+  if(t){ t.value=total; save(); }
+  renderDashboard();
+}
+
+async function regenerateAnalysis(){
+  const t = S.tenders.find(x=>x.id===S.currentTenderId);
+  if(!t){toast('No tender loaded','err');return;}
+  await runAnalysis(t);
+}
+
+function exportPDF(){
+  const t = S.tenders.find(x=>x.id===S.currentTenderId);
+  const title = t?.name || 'Tender';
+  document.title = title+' - TenderAI';
+  window.print();
+  document.title = 'TenderAI · Construction Pricing';
+}
+
+// ══════════════════════════════════════════
+//  RATES MANAGEMENT
+// ══════════════════════════════════════════
+function renderRates(){
+  renderLabourTable();
+  renderPlantTable();
+  renderMaterialsTable();
+  renderPrelimsTable();
+}
+
+function renderLabourTable(){
+  document.getElementById('labour-body').innerHTML = S.rates.labour.map((r,i)=>`
+    <tr>
+      <td><input value="${r.trade}" oninput="S.rates.labour[${i}].trade=this.value"></td>
+      <td><input type="number" value="${r.daily}" style="width:90px" oninput="S.rates.labour[${i}].daily=+this.value"></td>
+      <td><input type="number" value="${r.ot}" style="width:80px" oninput="S.rates.labour[${i}].ot=+this.value"></td>
+      <td><input value="${r.notes||''}" oninput="S.rates.labour[${i}].notes=this.value"></td>
+      <td><button class="del-btn" onclick="delLabour(${i})">×</button></td>
+    </tr>`).join('');
+}
+
+function renderPlantTable(){
+  document.getElementById('plant-body').innerHTML = S.rates.plant.map((r,i)=>`
+    <tr>
+      <td><input value="${r.item}" oninput="S.rates.plant[${i}].item=this.value"></td>
+      <td><input type="number" value="${r.daily}" style="width:90px" oninput="S.rates.plant[${i}].daily=+this.value"></td>
+      <td><input type="number" value="${r.weekly}" style="width:90px" oninput="S.rates.plant[${i}].weekly=+this.value"></td>
+      <td><input value="${r.unit||'day'}" style="width:80px" oninput="S.rates.plant[${i}].unit=this.value"></td>
+      <td><button class="del-btn" onclick="delPlant(${i})">×</button></td>
+    </tr>`).join('');
+}
+
+function renderMaterialsTable(){
+  document.getElementById('materials-body').innerHTML = S.rates.materials.map((r,i)=>`
+    <tr>
+      <td><input value="${r.name}" oninput="S.rates.materials[${i}].name=this.value"></td>
+      <td><input value="${r.unit}" style="width:60px" oninput="S.rates.materials[${i}].unit=this.value"></td>
+      <td><input type="number" value="${r.rate}" style="width:80px" oninput="S.rates.materials[${i}].rate=+this.value"></td>
+      <td><input value="${r.supplier||''}" oninput="S.rates.materials[${i}].supplier=this.value"></td>
+      <td><input value="${r.category||''}" oninput="S.rates.materials[${i}].category=this.value"></td>
+      <td><button class="del-btn" onclick="delMaterial(${i})">×</button></td>
+    </tr>`).join('');
+}
+
+function renderPrelimsTable(){
+  document.getElementById('prelims-body').innerHTML = S.rates.prelims.map((r,i)=>`
+    <tr>
+      <td><input value="${r.item}" oninput="S.rates.prelims[${i}].item=this.value"></td>
+      <td><input value="${r.basis}" style="width:70px" oninput="S.rates.prelims[${i}].basis=this.value"></td>
+      <td><input type="number" value="${r.rate}" style="width:80px" oninput="S.rates.prelims[${i}].rate=+this.value"></td>
+      <td><input value="${r.notes||''}" oninput="S.rates.prelims[${i}].notes=this.value"></td>
+      <td><button class="del-btn" onclick="delPrelim(${i})">×</button></td>
+    </tr>`).join('');
+}
+
+function addLabourRow(){ S.rates.labour.push({trade:'',daily:300,ot:20,notes:''}); renderLabourTable(); }
+function addPlantRow(){ S.rates.plant.push({item:'',daily:0,weekly:0,unit:'day'}); renderPlantTable(); }
+function addMaterialRow(){ S.rates.materials.push({name:'',unit:'each',rate:0,supplier:'',category:''}); renderMaterialsTable(); }
+function addPrelimsRow(){ S.rates.prelims.push({item:'',basis:'sum',rate:0,notes:''}); renderPrelimsTable(); }
+function delLabour(i){ S.rates.labour.splice(i,1); renderLabourTable(); }
+function delPlant(i){ S.rates.plant.splice(i,1); renderPlantTable(); }
+function delMaterial(i){ S.rates.materials.splice(i,1); renderMaterialsTable(); }
+function delPrelim(i){ S.rates.prelims.splice(i,1); renderPrelimsTable(); }
+function saveRates(){ save(); toast('Rates saved','ok'); }
+
+// ══════════════════════════════════════════
+//  SUPPLIER DATABASE
+// ══════════════════════════════════════════
+function renderDatabase(){
+  const q = document.getElementById('db-search').value.toLowerCase();
+  const el = document.getElementById('db-content');
+  const empty = document.getElementById('db-empty');
+
+  if(!S.suppliers.length){ el.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+
+  // Group materials by supplier
+  el.innerHTML = S.suppliers.map(sup=>{
+    const mats = S.db_materials.filter(m=>m.supplierId===sup.id && (!q || m.name.toLowerCase().includes(q) || sup.name.toLowerCase().includes(q)));
+    if(q && !mats.length && !sup.name.toLowerCase().includes(q)) return '';
+    return `
+      <div class="sup-card">
+        <div class="sup-hd ${mats.length?'open':''}" onclick="toggleSup('${sup.id}')">
+          <div>
+            <div class="sup-name">${sup.name}</div>
+            <div class="sup-meta">${[sup.location,sup.phone].filter(Boolean).join(' · ')} &nbsp;·&nbsp; ${mats.length} prices stored</div>
+          </div>
+          <div class="flex" style="gap:8px">
+            <button class="btn btn-s btn-sm" onclick="event.stopPropagation();openAddMaterialModal('${sup.id}')">+ Price</button>
+            <button class="btn btn-d btn-sm" onclick="event.stopPropagation();deleteSupplier('${sup.id}')">×</button>
+          </div>
+        </div>
+        <div id="sup-mats-${sup.id}" style="${mats.length?'':'display:none'}">
+          ${mats.length?`<table class="mat-table">
+            <thead><tr><th>Material</th><th>Category</th><th>Unit</th><th>Price €</th><th>Date</th><th></th></tr></thead>
+            <tbody>${mats.map(m=>matRow(m)).join('')}</tbody>
+          </table>`:'<div style="font-size:13px;color:var(--muted);padding:8px 0">No prices yet</div>'}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function matRow(m){
+  const best = bestPrice(m.name);
+  const isBest = best && Math.abs(m.price-best.price)<0.01;
+  const priceTag = isBest && S.db_materials.filter(x=>x.name===m.name).length>1 ? '<span class="cheap-tag">BEST</span>' : '';
+  return `<tr>
+    <td>${m.name} ${m.notes?`<span style="font-size:11px;color:var(--muted)">(${m.notes})</span>`:''}</td>
+    <td><span class="tag tag-b" style="font-size:10px">${m.category||'—'}</span></td>
+    <td>${m.unit}</td>
+    <td class="price-tag">€${m.price.toFixed(2)} ${priceTag}</td>
+    <td style="color:var(--muted);font-size:12px">${m.date||'—'}</td>
+    <td><button class="del-btn" onclick="deleteMaterial('${m.id}')">×</button></td>
+  </tr>`;
+}
+
+function bestPrice(name){
+  const same = S.db_materials.filter(m=>m.name.toLowerCase()===name.toLowerCase());
+  if(!same.length) return null;
+  return same.reduce((a,b)=>a.price<b.price?a:b);
+}
+
+function toggleSup(id){
+  const el=document.getElementById('sup-mats-'+id);
+  if(el) el.style.display=el.style.display==='none'?'':'none';
+}
+
+function openAddSupplierModal(){
+  ['sup-name','sup-loc','sup-phone','sup-notes'].forEach(id=>{ const el=document.getElementById(id);if(el)el.value=''; });
+  openModal('modal-supplier');
+}
+
+function saveSupplier(){
+  const name=document.getElementById('sup-name').value.trim();
+  if(!name){toast('Enter supplier name','err');return;}
+  S.suppliers.push({id:'s_'+Date.now(),name,location:document.getElementById('sup-loc').value.trim(),phone:document.getElementById('sup-phone').value.trim(),notes:document.getElementById('sup-notes').value.trim()});
+  save();
+  closeModal('modal-supplier');
+  renderDatabase();
+  renderMaterialModalSelect();
+  toast('Supplier added','ok');
+}
+
+function deleteSupplier(id){
+  if(!confirm('Delete supplier and all their prices?')) return;
+  S.suppliers = S.suppliers.filter(s=>s.id!==id);
+  S.db_materials = S.db_materials.filter(m=>m.supplierId!==id);
+  save(); renderDatabase(); toast('Supplier deleted');
+}
+
+function openAddMaterialModal(supplierId=''){
+  renderMaterialModalSelect(supplierId);
+  ['mat-name','mat-notes'].forEach(id=>{document.getElementById(id).value='';});
+  document.getElementById('mat-price').value='';
+  document.getElementById('mat-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('mat-cat').value='masonry';
+  document.getElementById('mat-unit').value='each';
+  openModal('modal-material');
+}
+
+function renderMaterialModalSelect(selected=''){
+  const sel=document.getElementById('mat-supplier-sel');
+  sel.innerHTML='<option value="">— Select Supplier —</option>'+S.suppliers.map(s=>`<option value="${s.id}"${s.id===selected?' selected':''}>${s.name}${s.location?' ('+s.location+')':''}</option>`).join('');
+}
+
+function saveMaterial(){
+  const supplierId=document.getElementById('mat-supplier-sel').value;
+  const name=document.getElementById('mat-name').value.trim();
+  const price=parseFloat(document.getElementById('mat-price').value);
+  if(!supplierId){toast('Select a supplier','err');return;}
+  if(!name){toast('Enter material name','err');return;}
+  if(!price||isNaN(price)){toast('Enter a valid price','err');return;}
+  S.db_materials.push({
+    id:'m_'+Date.now(), supplierId, name,
+    category:document.getElementById('mat-cat').value,
+    unit:document.getElementById('mat-unit').value,
+    price, date:document.getElementById('mat-date').value,
+    notes:document.getElementById('mat-notes').value.trim()
+  });
+  save(); closeModal('modal-material');
+  renderDatabase();
+  updateDashboardStats();
+  toast('Price added','ok');
+}
+
+function deleteMaterial(id){
+  S.db_materials=S.db_materials.filter(m=>m.id!==id);
+  save(); renderDatabase(); toast('Price removed');
+}
+
+function importCSV(){
+  const inp=document.createElement('input');
+  inp.type='file';inp.accept='.csv';
+  inp.onchange=e=>{
+    const f=e.target.files[0];
+    if(!f) return;
+    const r=new FileReader();
+    r.onload=ev=>{
+      const lines=ev.target.result.split('\n').slice(1);
+      let count=0;
+      lines.forEach(line=>{
+        const parts=line.split(',').map(p=>p.trim().replace(/^"|"$/g,''));
+        if(parts.length<5) return;
+        const [suppName,name,cat,unit,price,date,notes]=parts;
+        const sup=S.suppliers.find(s=>s.name.toLowerCase()===suppName.toLowerCase());
+        if(!sup) return;
+        S.db_materials.push({id:'m_'+Date.now()+Math.random(),supplierId:sup.id,name,category:cat,unit,price:+price,date:date||'',notes:notes||''});
+        count++;
+      });
+      save(); renderDatabase(); toast(`Imported ${count} prices`,'ok');
+    };
+    r.readAsText(f);
+  };
+  inp.click();
+}
+
+function exportCSV(){
+  const rows=[['Supplier','Material','Category','Unit','Price','Date','Notes']];
+  S.db_materials.forEach(m=>{
+    const sup=S.suppliers.find(s=>s.id===m.supplierId);
+    rows.push([sup?.name||'',m.name,m.category,m.unit,m.price,m.date||'',m.notes||'']);
+  });
+  const csv=rows.map(r=>r.map(c=>`"${c}"`).join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='tenderai_prices.csv';
+  a.click();
+  toast('CSV exported','ok');
+}
+
+// ══════════════════════════════════════════
+//  DASHBOARD
+// ══════════════════════════════════════════
+function renderDashboard(){
+  const tenders = S.tenders;
+  const active = tenders.filter(t=>t.status!=='submitted').length;
+  const totalVal = tenders.reduce((a,t)=>a+(t.value||0),0);
+  const submitted = tenders.filter(t=>t.status==='submitted').length;
+
+  document.getElementById('s-active').textContent = active;
+  document.getElementById('s-value').textContent = fmtCurK(totalVal);
+  document.getElementById('s-submitted').textContent = submitted;
+  document.getElementById('s-materials').textContent = S.db_materials.length;
+
+  const list = document.getElementById('tender-list');
+  const empty = document.getElementById('tender-empty');
+
+  if(!tenders.length){ list.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+
+  list.innerHTML = tenders.map(t=>`
+    <div class="tc" onclick="openTenderDetail('${t.id}')">
+      <div class="tc-top">
+        <div>
+          <div class="tc-name">${t.name}</div>
+          <div class="tc-client">${t.client||'No client'}</div>
+        </div>
+        <span class="badge ${badgeClass(t.status)}">${statusLabel(t.status)}</span>
+      </div>
+      <div class="tc-meta">
+        ${t.location?`<span>📍 ${t.location}</span>`:''}
+        ${t.type?`<span>🏠 ${t.type}</span>`:''}
+        ${t.deadline?`<span>📅 ${fmtDate(t.deadline)}</span>`:''}
+        ${t.drawingCount?`<span>📐 ${t.drawingCount} dwg</span>`:''}
+      </div>
+      ${t.value?`<div class="tc-val">${fmtCur(t.value)}</div>`:'<div style="font-size:12px;color:var(--muted);margin-top:8px">Not priced yet</div>'}
+    </div>`).join('');
+}
+
+function updateDashboardStats(){ document.getElementById('s-materials').textContent = S.db_materials.length; }
+function badgeClass(s){ return {draft:'b-draft',analyzing:'b-analyzing',priced:'b-priced',submitted:'b-submitted'}[s]||'b-draft'; }
+function statusLabel(s){ return {draft:'Draft',analyzing:'Analysing',priced:'Priced',submitted:'Submitted'}[s]||s; }
+
+// ══════════════════════════════════════════
+//  API KEY
+// ══════════════════════════════════════════
+function openApiModal(){
+  document.getElementById('api-key-input').value = S.apiKey||'';
+  document.getElementById('model-select').value = S.model||'claude-sonnet-4-6';
+  openModal('modal-api');
+}
+function saveApiKey(){
+  const key=document.getElementById('api-key-input').value.trim();
+  const model=document.getElementById('model-select').value;
+  S.apiKey=key; S.model=model;
+  save();
+  const btn=document.getElementById('ai-btn');
+  if(key){ btn.className='btn'; btn.classList.add('ok'); btn.textContent='✓ AI Connected'; }
+  closeModal('modal-api');
+  toast(key?'API key saved. AI analysis enabled.':'API key cleared. Demo mode active.','ok');
+}
+
+// ══════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════
+function showPage(id, tab){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('pg-'+id)?.classList.add('on');
+  if(tab) tab.classList.add('on');
+
+  if(id==='dashboard') renderDashboard();
+  if(id==='rates') renderRates();
+  if(id==='database'){ renderDatabase(); renderMaterialModalSelect(); }
+  if(id==='analysis'){
+    const t = S.tenders.find(x=>x.id===S.currentTenderId);
+    if(t?.analysis) showAnalysisResult(t);
+    else document.getElementById('analysis-none').style.display='block';
+  }
+}
+
+function showInner(page, tab, btn){
+  document.querySelectorAll(`#pg-${page} .inner-page`).forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll(`#pg-${page} .itab`).forEach(b=>b.classList.remove('on'));
+  document.getElementById(`${page}-${tab}`)?.classList.add('on');
+  btn?.classList.add('on');
+}
+
+// ══════════════════════════════════════════
+//  MODALS & TOAST
+// ══════════════════════════════════════════
+function openModal(id){ document.getElementById(id).classList.add('open'); }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) m.classList.remove('open'); }));
+
+let toastTimer;
+function toast(msg, type=''){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.className='toast show'+(type?' '+type:'');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.className='toast',3000);
+}
+
+// ══════════════════════════════════════════
+//  UTILITIES
+// ══════════════════════════════════════════
+function fmtCur(n){ return '€'+(+n).toLocaleString('en-IE',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fmtCurK(n){ return n>=1000000?`€${(n/1000000).toFixed(1)}M`:n>=1000?`€${(n/1000).toFixed(0)}k`:`€${Math.round(n)}`; }
+function fmtDate(d){ try{ return new Date(d).toLocaleDateString('en-IE',{day:'numeric',month:'short',year:'numeric'}); }catch(e){return d;} }
+
+// Drag over events
+['draw-zone','spec-zone'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('drag');});
+  el.addEventListener('dragleave',()=>el.classList.remove('drag'));
+});
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+(function init(){
+  if(S.apiKey){
+    const btn=document.getElementById('ai-btn');
+    btn.className='btn ok';btn.textContent='✓ AI Connected';
+  }
+  renderDashboard();
+  renderRates();
+  renderMaterialModalSelect();
+
+  // Set default deadline to 2 weeks from now
+  const d=new Date(); d.setDate(d.getDate()+14);
+  document.getElementById('t-deadline').value=d.toISOString().split('T')[0];
+  document.getElementById('mat-date').value=new Date().toISOString().split('T')[0];
+})();
+</script>
+
+</body>
+</html>
