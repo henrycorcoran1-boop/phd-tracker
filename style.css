@@ -454,3 +454,12 @@ footer{border-top:1px solid var(--border);padding:64px 0 0;background:var(--bg-2
 .exec-goal{font-size:17px;color:var(--ink);max-width:700px;line-height:1.6}
 .exec-goal b{color:var(--navy);font-weight:600}
 @media(max-width:860px){.exec-grid{grid-template-columns:1fr}.cap-grid{grid-template-columns:1fr}}
+
+/* ---------- InfraBid logo ---------- */
+.brand .logo{height:48px;width:auto;flex-shrink:0;transition:height .4s}
+nav.scrolled .brand .logo{height:40px}
+.wm-ib{display:flex;flex-direction:column;line-height:1}
+.wm-ib .w1{font-size:22px;font-weight:700;letter-spacing:0;text-transform:none}
+.wm-ib .w1 b{color:var(--navy);font-weight:700}
+.wm-ib .w1 i{color:var(--blue);font-style:normal;font-weight:700}
+.wm-ib .w2{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:5px}
