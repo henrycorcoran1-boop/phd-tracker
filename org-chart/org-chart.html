@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MetroLink AWDS — Management Team Organogram</title>
+<style>
+  :root{
+    --navy:#0b2e63;
+    --blue:#1f5fd6;
+    --blue-2:#2f6fe6;
+    --indigo:#5b5be0;
+    --sky:#3b82f6;
+    --ink:#0f1b3d;
+    --muted:#5b6b8c;
+    --line:#c5d2ea;
+    --card-bd:#dbe4f5;
+    --bg:#eef3fb;
+    --lane:#f4f8ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#ffffff;}
+  body{
+    font-family:"Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    width:1600px;
+    padding:42px 48px 36px;
+  }
+  .frame{
+    border:2px dashed #b9c6e2;
+    border-radius:14px;
+    padding:30px 34px 34px;
+  }
+
+  /* Header */
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:26px;
+  }
+  .brand{display:flex;align-items:center;gap:14px;}
+  .brand .mark{
+    width:46px;height:46px;border-radius:11px;
+    background:linear-gradient(135deg,var(--blue),var(--indigo));
+    position:relative;
+  }
+  .brand .mark::after{
+    content:"";position:absolute;inset:13px;border-radius:50%;
+    border:5px solid #fff;border-right-color:transparent;transform:rotate(35deg);
+  }
+  .brand .word{font-size:30px;font-weight:800;letter-spacing:.5px;color:var(--navy);}
+  .brand .word span{color:var(--blue);}
+  h1{font-size:27px;font-weight:800;color:var(--navy);text-align:right;letter-spacing:.2px;}
+  h1 small{display:block;font-size:14px;font-weight:600;color:var(--muted);margin-top:3px;letter-spacing:.4px;}
+
+  /* Lanes */
+  .lane{
+    display:flex;align-items:stretch;
+    background:var(--lane);
+    border:1px solid var(--card-bd);
+    border-radius:12px;
+    margin-bottom:18px;
+    overflow:hidden;
+  }
+  .lane-label{
+    flex:0 0 132px;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;
+    color:#fff;font-weight:700;font-size:15px;font-style:italic;
+    padding:0 12px;line-height:1.35;
+  }
+  .lane-exec   .lane-label{background:linear-gradient(160deg,#1f5fd6,#0b2e63);}
+  .lane-senior .lane-label{background:linear-gradient(160deg,#5b5be0,#3a3ac4);}
+  .lane-contract .lane-label{background:linear-gradient(160deg,#3b82f6,#1f5fd6);}
+  .lane-body{flex:1;padding:26px 28px;}
+
+  /* Generic card */
+  .card{
+    background:#fff;
+    border:1px solid var(--card-bd);
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(20,45,99,.07);
+    padding:13px 16px;
+    text-align:center;
+  }
+  .card .role{font-weight:700;font-size:14.5px;color:var(--navy);line-height:1.25;}
+  .card .name{font-size:13.5px;color:var(--blue);margin-top:4px;font-style:italic;}
+
+  /* Executive */
+  .exec-wrap{display:flex;justify-content:center;}
+  .card.director{
+    min-width:300px;border-top:4px solid var(--navy);
+    padding:16px 24px;
+  }
+  .card.director .role{font-size:16px;}
+  .card.director .name{color:var(--ink);font-style:normal;font-weight:600;}
+
+  /* Senior management */
+  .pm-wrap{display:flex;flex-direction:column;align-items:center;}
+  .card.pm{
+    min-width:280px;border-top:4px solid var(--indigo);
+    background:linear-gradient(180deg,#ffffff,#f3f4ff);
+  }
+  .card.pm .role{font-size:16px;}
+  .connector-v{width:2px;height:24px;background:var(--line);}
+  .bus{height:2px;background:var(--line);}
+
+  .leads{
+    display:flex;justify-content:space-between;gap:16px;
+    margin-top:0;
+  }
+  .lead-col{flex:1;display:flex;flex-direction:column;align-items:center;}
+  .lead-col .stem{width:2px;height:20px;background:var(--line);}
+  .card.lead{width:100%;border-top:4px solid var(--blue);}
+
+  /* Sub-report under a lead (Cost Management under Commercial) */
+  .sub-stem{width:2px;height:22px;background:var(--line);}
+  .card.sub{width:100%;border-top:4px solid var(--sky);background:#f8fbff;}
+  .card.sub .role{font-size:13.5px;}
+
+  /* Contract management grid */
+  .cm-grid{
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+    gap:14px;
+  }
+  .card.cm{
+    border-top:4px solid var(--sky);
+    padding:11px 10px;
+  }
+  .card.cm .code{font-weight:800;font-size:13px;color:var(--blue);letter-spacing:.3px;}
+  .card.cm .role{font-size:12px;font-weight:600;color:var(--muted);margin-top:1px;}
+  .card.cm .name{font-size:12.5px;margin-top:5px;color:var(--navy);font-weight:600;font-style:normal;}
+  .card.cm.special{border-top-color:var(--indigo);}
+  .card.cm.special .code{color:var(--indigo);}
+
+  /* Footer */
+  footer{
+    display:flex;align-items:center;justify-content:center;gap:60px;
+    margin-top:30px;padding-top:22px;border-top:1px solid var(--line);
+  }
+  .logo{display:flex;align-items:center;gap:11px;color:var(--ink);}
+  .logo .ar{width:34px;height:34px;border-radius:50%;
+    background:conic-gradient(from 210deg,#173a73,#2f6fe6,#173a73);}
+  .logo .ar-txt{font-weight:800;font-size:21px;color:#173a73;}
+  .logo .tt{width:34px;height:34px;border-radius:7px;background:#e8512f;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px;}
+  .logo .tt-txt{font-weight:700;font-size:20px;color:#3a3a3a;}
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <header>
+    <div class="brand">
+      <div class="mark"></div>
+      <div class="word">METRO<span>LINK</span></div>
+    </div>
+    <h1>AWDS — Management Team Organogram
+      <small>Atkins&#8201;Réalis &nbsp;•&nbsp; Tetra Tech Joint Venture</small>
+    </h1>
+  </header>
+
+  <!-- EXECUTIVE -->
+  <section class="lane lane-exec">
+    <div class="lane-label">Executive<br>Management</div>
+    <div class="lane-body">
+      <div class="exec-wrap">
+        <div class="card director">
+          <div class="role">Project Director</div>
+          <div class="name">Paul Hennessy</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SENIOR -->
+  <section class="lane lane-senior">
+    <div class="lane-label">Senior<br>Management</div>
+    <div class="lane-body">
+      <div class="pm-wrap">
+        <div class="card pm">
+          <div class="role">Project Manager</div>
+          <div class="name">Henry Corcoran</div>
+        </div>
+        <div class="connector-v"></div>
+      </div>
+
+      <div class="bus"></div>
+
+      <div class="leads">
+        <div class="lead-col">
+          <div class="stem"></div>
+          <div class="card lead"><div class="role">Deputy Project Manager</div><div class="name">Nicole Marais</div></div>
+        </div>
+        <div class="lead-col">
+          <div class="stem"></div>
+          <div class="card lead"><div class="role">Design Management Lead</div><div class="name">Nathan Cope</div></div>
+        </div>
+        <div class="lead-col">
+          <div class="stem"></div>
+          <div class="card lead"><div class="role">PMO &amp; Finance Lead</div><div class="name">James Coates</div></div>
+        </div>
+        <div class="lead-col">
+          <div class="stem"></div>
+          <div class="card lead"><div class="role">Technical Delivery Lead</div><div class="name">Michael Noonan</div></div>
+        </div>
+        <div class="lead-col">
+          <div class="stem"></div>
+          <div class="card lead"><div class="role">Procurement Lead</div><div class="name">Marc Stearne</div></div>
+        </div>
+        <div class="lead-col">
+          <div class="stem"></div>
+          <div class="card lead"><div class="role">Commercial Lead</div><div class="name">Mark Yallop</div></div>
+          <div class="sub-stem"></div>
+          <div class="card sub"><div class="role">Cost Management Lead</div><div class="name">Mark Samuels</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRACT -->
+  <section class="lane lane-contract">
+    <div class="lane-label">Contract<br>Management</div>
+    <div class="lane-body">
+      <div class="cm-grid">
+        <div class="card cm"><div class="code">M141</div><div class="role">Contract Manager</div><div class="name">Matt Atherton</div></div>
+        <div class="card cm"><div class="code">M142</div><div class="role">Contract Manager</div><div class="name">Thabisa Dhladhla</div></div>
+        <div class="card cm"><div class="code">M145</div><div class="role">Contract Manager</div><div class="name">Daniyal Kitchlew</div></div>
+        <div class="card cm"><div class="code">M146</div><div class="role">Contract Manager</div><div class="name">Michal Szreder</div></div>
+        <div class="card cm"><div class="code">M147</div><div class="role">Contract Manager</div><div class="name">Marina Marti Lopez</div></div>
+        <div class="card cm"><div class="code">M130</div><div class="role">Contract Manager</div><div class="name">Micheal O&#8217;Morain</div></div>
+        <div class="card cm"><div class="code">M135</div><div class="role">Contract Manager</div><div class="name">Stefano Redivo</div></div>
+        <div class="card cm"><div class="code">M138</div><div class="role">Contract Manager</div><div class="name">Finbarr Kenny</div></div>
+        <div class="card cm"><div class="code">M160</div><div class="role">Contract Manager</div><div class="name">Stephen Spowart</div></div>
+        <div class="card cm"><div class="code">M161</div><div class="role">Contract Manager</div><div class="name">Sylvester Chigwala</div></div>
+        <div class="card cm"><div class="code">M190</div><div class="role">Contract Manager</div><div class="name">Mark Finnegan</div></div>
+        <div class="card cm"><div class="code">M111</div><div class="role">Contract Manager</div><div class="name">Nathan Cope</div></div>
+        <div class="card cm special"><div class="code">Minor Works</div><div class="role">Manager</div><div class="name">Dervla Duffy</div></div>
+        <div class="card cm special"><div class="code">Env. Baseline</div><div class="role">Manager</div><div class="name">Mark Grogan</div></div>
+        <div class="card cm special"><div class="code">DAA Works</div><div class="role">Manager</div><div class="name">Millie O&#8217;Reilly</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="logo"><div class="ar"></div><div class="ar-txt">Atkins&#8201;Réalis</div></div>
+    <div class="logo"><div class="tt">tt</div><div class="tt-txt">TETRA TECH</div></div>
+  </footer>
+
+</div>
+</body>
+</html>
