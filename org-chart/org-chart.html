@@ -36,20 +36,9 @@
     display:flex;align-items:center;justify-content:space-between;
     margin-bottom:26px;
   }
-  .brand{display:flex;align-items:center;gap:14px;}
-  .brand .mark{
-    width:46px;height:46px;border-radius:11px;
-    background:linear-gradient(135deg,var(--blue),var(--indigo));
-    position:relative;
-  }
-  .brand .mark::after{
-    content:"";position:absolute;inset:13px;border-radius:50%;
-    border:5px solid #fff;border-right-color:transparent;transform:rotate(35deg);
-  }
-  .brand .word{font-size:30px;font-weight:800;letter-spacing:.5px;color:var(--navy);}
-  .brand .word span{color:var(--blue);}
+  .brand{display:flex;align-items:center;}
+  .brand img{height:54px;display:block;}
   h1{font-size:27px;font-weight:800;color:var(--navy);text-align:right;letter-spacing:.2px;}
-  h1 small{display:block;font-size:14px;font-weight:600;color:var(--muted);margin-top:3px;letter-spacing:.4px;}
 
   /* Lanes */
   .lane{
@@ -137,13 +126,9 @@
     display:flex;align-items:center;justify-content:center;gap:60px;
     margin-top:30px;padding-top:22px;border-top:1px solid var(--line);
   }
-  .logo{display:flex;align-items:center;gap:11px;color:var(--ink);}
-  .logo .ar{width:34px;height:34px;border-radius:50%;
-    background:conic-gradient(from 210deg,#173a73,#2f6fe6,#173a73);}
-  .logo .ar-txt{font-weight:800;font-size:21px;color:#173a73;}
-  .logo .tt{width:34px;height:34px;border-radius:7px;background:#e8512f;
-    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px;}
-  .logo .tt-txt{font-weight:700;font-size:20px;color:#3a3a3a;}
+  footer img{display:block;}
+  footer .ar-logo{height:30px;}
+  footer .tt-logo{height:40px;}
 </style>
 </head>
 <body>
@@ -151,12 +136,9 @@
 
   <header>
     <div class="brand">
-      <div class="mark"></div>
-      <div class="word">METRO<span>LINK</span></div>
+      <img src="logos/metrolink.svg" alt="MetroLink">
     </div>
-    <h1>AWDS — Management Team Organogram
-      <small>Atkins&#8201;Réalis &nbsp;•&nbsp; Tetra Tech Joint Venture</small>
-    </h1>
+    <h1>AWDS — Management Team Organogram</h1>
   </header>
 
   <!-- EXECUTIVE -->
@@ -242,8 +224,8 @@
   </section>
 
   <footer>
-    <div class="logo"><div class="ar"></div><div class="ar-txt">Atkins&#8201;Réalis</div></div>
-    <div class="logo"><div class="tt">tt</div><div class="tt-txt">TETRA TECH</div></div>
+    <img class="ar-logo" src="logos/atkinsrealis.svg" alt="AtkinsRéalis">
+    <img class="tt-logo" src="logos/tetratech.svg" alt="Tetra Tech">
   </footer>
 
 </div>
