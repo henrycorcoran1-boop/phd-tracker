@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadence — App Preview</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:       #00243F;
+    --surface:  #002F52;
+    --surface2: #003865;
+    --surface3: #004580;
+    --border:   rgba(255,255,255,0.10);
+    --borderL:  rgba(255,255,255,0.06);
+    --text:     #EDF3FA;
+    --sub:      #8BAAC8;
+    --muted:    #4A6A88;
+    --gold:     #C4873D;
+    --goldD:    rgba(196,135,61,0.18);
+    --teal:     #2F7A74;
+    --tealD:    rgba(47,122,116,0.20);
+    --rust:     #B04A3A;
+    --rustD:    rgba(176,74,58,0.20);
+    --slate:    #5A6478;
+    --slateD:   rgba(90,100,120,0.20);
+    --plum:     #6B4A6F;
+    --plumD:    rgba(107,74,111,0.20);
+    --green:    #4A9A5A;
+    --greenD:   rgba(74,154,90,0.20);
+  }
+
+  html, body {
+    height: 100%;
+    background: #050e1c;
+    font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px 16px;
+  }
+
+  /* ── page wrapper ── */
+  .page-wrap {
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  /* ── label column ── */
+  .label-col {
+    color: #8BAAC8;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .label-col strong {
+    color: #C4873D;
+    font-size: 26px;
+    letter-spacing: -.01em;
+    text-transform: none;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+    line-height: 1.1;
+  }
+  .label-col p {
+    font-size: 13px;
+    color: #4A6A88;
+    font-style: italic;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1.6;
+    max-width: 220px;
+    margin-top: 14px;
+  }
+  .label-col .bullet {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .label-col .bullet li {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    color: #8BAAC8;
+    font-size: 12px;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1.4;
+  }
+  .label-col .bullet li::before {
+    content: '◆';
+    color: #C4873D;
+    font-size: 7px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ── phone frame ── */
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: #111;
+    border-radius: 50px;
+    box-shadow:
+      0 0 0 2px #1a1a1a,
+      0 0 0 4px #333,
+      0 60px 120px -20px rgba(0,0,0,.9),
+      0 0 80px rgba(196,135,61,.12);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  /* notch */
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 34px;
+    background: #111;
+    border-radius: 0 0 22px 22px;
+    z-index: 200;
+  }
+  /* side buttons */
+  .phone::after {
+    content: '';
+    position: absolute;
+    left: -4px; top: 130px;
+    width: 4px; height: 36px;
+    background: #222; border-radius: 2px 0 0 2px;
+    box-shadow: 0 48px 0 #222, 0 96px 0 #222;
+  }
+
+  /* ── screen ── */
+  .screen {
+    position: absolute;
+    inset: 0;
+    background: var(--bg);
+    border-radius: 48px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── header ── */
+  .app-header {
+    background: var(--bg);
+    border-bottom: 2px solid var(--gold);
+    padding: 48px 20px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .logo-row { display: flex; align-items: center; gap: 10px; }
+  .crest {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--gold); display: flex; align-items: center;
+    justify-content: center; font-size: 18px; font-weight: 900;
+    color: var(--bg); letter-spacing: -.5px;
+  }
+  .wordmark { line-height: 1.1; }
+  .wordmark .w1 { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: 2.5px; }
+  .wordmark .w2 { font-size: 9px; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; }
+  .mode-toggle {
+    display: flex; background: var(--surface2); border-radius: 99px;
+    padding: 3px; border: 1px solid var(--border); gap: 0;
+  }
+  .mode-pill {
+    padding: 4px 10px; border-radius: 99px; font-size: 11px;
+    font-weight: 600; color: var(--sub); cursor: pointer; transition: .15s;
+    user-select: none;
+  }
+  .mode-pill.active { background: var(--gold); color: var(--bg); }
+
+  /* ── tab content area ── */
+  .tab-pages { flex: 1; overflow: hidden; position: relative; }
+  .tab-page { display: none; height: 100%; overflow-y: auto; flex-direction: column; }
+  .tab-page.active { display: flex; }
+
+  /* ── tab bar ── */
+  .tab-bar {
+    background: #001E36;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-shrink: 0;
+    padding: 8px 0 22px;
+  }
+  .tab {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    gap: 3px; cursor: pointer; padding: 4px 0; transition: .15s;
+    user-select: none;
+  }
+  .tab-icon { font-size: 20px; color: var(--muted); transition: .15s; }
+  .tab-label { font-size: 9px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted); transition: .15s; }
+  .tab.active .tab-icon, .tab.active .tab-label { color: var(--gold); }
+
+  /* ── shared utility ── */
+  .section-title {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--muted); margin-bottom: 8px;
+    margin-top: 2px; padding-left: 2px;
+  }
+  .card {
+    background: var(--surface); border-radius: 10px; border: 1px solid var(--border);
+    padding: 14px; margin-bottom: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.3);
+  }
+  .divider { height: 1px; background: var(--borderL); margin: 10px 0; }
+
+  /* ══════════ DASHBOARD ══════════ */
+  .dash-scroll { padding: 16px; flex: 1; overflow-y: auto; }
+
+  .plan-card {
+    background: var(--surface); border-radius: 12px;
+    border: 1px solid var(--border); padding: 16px; margin-bottom: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.3);
+  }
+  .plan-title { font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -.3px; }
+  .plan-sub { font-size: 12px; color: var(--sub); font-style: italic; margin-top: 3px; margin-bottom: 12px; }
+  .overall-track { height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; margin-bottom: 4px; }
+  .overall-fill { height: 100%; background: var(--gold); border-radius: 3px; }
+  .overall-label { font-size: 10px; color: var(--muted); }
+
+  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .kpi {
+    background: var(--surface); border-radius: 10px; border: 1px solid var(--border);
+    padding: 12px; position: relative; overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,.25);
+  }
+  .kpi::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .kpi.c1::before { background: var(--gold); }
+  .kpi.c2::before { background: var(--green); }
+  .kpi.c3::before { background: var(--teal); }
+  .kpi.c4::before { background: var(--rust); }
+  .kpi-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--muted); margin-bottom: 5px; margin-top: 3px; }
+  .kpi-value { font-size: 28px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+  .kpi.c1 .kpi-value { color: var(--gold); }
+  .kpi.c2 .kpi-value { color: var(--green); }
+  .kpi.c3 .kpi-value { color: var(--teal); }
+  .kpi.c4 .kpi-value { color: var(--rust); }
+  .kpi-sub { font-size: 10px; color: var(--sub); margin-top: 3px; }
+
+  .phase-row { margin-bottom: 11px; }
+  .phase-row:last-child { margin-bottom: 0; }
+  .phase-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+  .phase-left { display: flex; align-items: center; gap: 7px; }
+  .phase-dot { width: 8px; height: 8px; border-radius: 2px; transform: rotate(45deg); flex-shrink: 0; }
+  .phase-name { font-size: 12px; font-weight: 600; color: var(--text); }
+  .phase-pct { font-size: 11px; font-weight: 700; }
+  .prog-track { height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 2px; }
+
+  .mile-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
+  .mile-item + .mile-item { border-top: 1px solid var(--borderL); }
+  .mile-dot { width: 10px; height: 10px; border-radius: 2px; transform: rotate(45deg); flex-shrink: 0; }
+  .mile-body { flex: 1; }
+  .mile-name { font-size: 13px; font-weight: 500; color: var(--text); }
+  .mile-date { font-size: 10px; color: var(--muted); margin-top: 1px; }
+  .mile-tag {
+    padding: 3px 8px; border-radius: 99px;
+    font-size: 9px; font-weight: 700; letter-spacing: .3px; flex-shrink: 0;
+  }
+
+  .fab {
+    position: absolute; right: 20px; bottom: 80px;
+    width: 52px; height: 52px; border-radius: 26px;
+    background: var(--gold); display: flex; align-items: center;
+    justify-content: center; font-size: 26px; color: var(--bg);
+    font-weight: 300; cursor: pointer;
+    box-shadow: 0 6px 20px rgba(196,135,61,.5);
+    line-height: 1; padding-bottom: 2px;
+    transition: transform .15s;
+  }
+  .fab:hover { transform: scale(1.06); }
+
+  /* ══════════ TIMELINE ══════════ */
+  .page-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; background: var(--surface); border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .page-title { font-size: 16px; font-weight: 600; color: var(--text); }
+  .page-sub   { font-size: 11px; color: var(--sub); font-style: italic; margin-top: 1px; }
+  .add-btn {
+    background: var(--gold); color: var(--bg); font-size: 12px; font-weight: 700;
+    padding: 6px 13px; border-radius: 99px; cursor: pointer;
+  }
+
+  .year-ribbon { display: flex; height: 26px; border-bottom: 1px solid var(--border); background: var(--surface); flex-shrink: 0; }
+  .yr { flex: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: var(--muted); font-weight: 500; letter-spacing: .5px;
+    border-right: 1px solid var(--border); }
+  .yr:last-child { border-right: none; }
+  .yr.now { background: var(--gold); color: var(--bg); font-weight: 700; }
+  .yr.past { background: var(--surface2); }
+
+  .gantt-wrap { flex: 1; overflow: auto; }
+  .gantt-table { display: flex; min-width: 560px; }
+  .gantt-labels { width: 130px; min-width: 130px; flex-shrink: 0; border-right: 1px solid var(--border); }
+  .gantt-bars  { flex: 1; overflow-x: auto; }
+
+  .g-corner {
+    height: 30px; background: var(--surface2); border-bottom: 1px solid var(--border);
+    padding: 0 10px; display: flex; align-items: center;
+    font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted);
+  }
+  .g-group-lbl {
+    height: 24px; background: var(--surface2); border-bottom: 1px solid var(--border);
+    padding: 0 8px; display: flex; align-items: center; gap: 6px;
+    font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--muted);
+  }
+  .g-swatch { width: 7px; height: 7px; border-radius: 2px; flex-shrink: 0; }
+  .g-label {
+    height: 38px; background: var(--surface); border-bottom: 1px solid var(--borderL);
+    padding: 0 8px; display: flex; align-items: center;
+    font-size: 11px; color: var(--text); font-weight: 500; cursor: pointer;
+    transition: .15s;
+  }
+  .g-label:hover { color: var(--gold); }
+
+  .g-month-row {
+    height: 30px; display: flex; background: var(--surface2); border-bottom: 1px solid var(--border);
+  }
+  .g-month { width: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 8px; color: var(--muted); border-right: 1px solid var(--borderL); }
+  .g-group-stripe { height: 24px; background: var(--surface2); border-bottom: 1px solid var(--border); }
+  .g-row { height: 38px; background: var(--surface); border-bottom: 1px solid var(--borderL); position: relative; }
+
+  .g-bar {
+    position: absolute; top: 10px; height: 18px; border-radius: 4px;
+    display: flex; align-items: center; padding: 0 6px;
+    font-size: 9px; font-weight: 600; color: #fff; white-space: nowrap;
+    overflow: hidden; opacity: .9;
+    box-shadow: 0 1px 4px rgba(0,0,0,.25);
+  }
+  .g-diamond {
+    position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 2px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border: 2px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  }
+
+  /* ══════════ ITEMS ══════════ */
+  .filter-bar {
+    display: flex; flex-wrap: wrap; gap: 5px; padding: 10px 14px;
+    background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .f-chip {
+    display: flex; align-items: center; gap: 4px;
+    padding: 3px 9px; border-radius: 99px; border: 1px solid var(--border);
+    font-size: 10px; font-weight: 600; color: var(--sub); cursor: pointer;
+    transition: .15s; user-select: none;
+  }
+  .f-chip.active { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+  .f-dot { width: 6px; height: 6px; border-radius: 3px; }
+  .items-scroll { flex: 1; overflow-y: auto; padding: 14px; }
+
+  .track-hdr {
+    display: flex; align-items: center; gap: 7px;
+    margin-top: 10px; margin-bottom: 5px;
+  }
+  .track-line { width: 3px; height: 13px; border-radius: 2px; }
+  .track-hdr-text { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+  .item-card {
+    background: var(--surface); border-radius: 10px; border: 1px solid var(--border);
+    display: flex; margin-bottom: 6px;
+    box-shadow: 0 3px 8px rgba(0,0,0,.25); overflow: hidden;
+  }
+  .item-accent { width: 4px; flex-shrink: 0; }
+  .item-body { flex: 1; padding: 11px 12px; }
+  .item-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+  .item-name { font-size: 13px; font-weight: 600; color: var(--text); flex: 1; line-height: 1.3; }
+  .status-pill {
+    display: flex; align-items: center; gap: 3px;
+    padding: 2px 7px; border-radius: 99px; border: 1px solid; flex-shrink: 0;
+    font-size: 8px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase;
+  }
+  .s-dot { width: 5px; height: 5px; border-radius: 3px; }
+  .item-date { font-size: 10px; color: var(--muted); font-family: 'Menlo', monospace; }
+  .m-badge {
+    font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px;
+    color: var(--gold); background: var(--goldD); padding: 1px 6px; border-radius: 99px;
+    margin-left: 6px;
+  }
+
+  /* ══════════ SETTINGS ══════════ */
+  .settings-scroll { flex: 1; overflow-y: auto; padding: 14px; }
+  .settings-card {
+    background: var(--surface); border-radius: 10px; border: 1px solid var(--border);
+    margin-bottom: 8px; overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0,0,0,.25);
+  }
+  .s-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 14px; border-bottom: 1px solid var(--borderL);
+  }
+  .s-row:last-child { border-bottom: none; }
+  .s-label { font-size: 14px; color: var(--text); }
+  .s-hint  { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .s-value { font-size: 13px; color: var(--sub); flex-shrink: 0; }
+  .s-danger { color: var(--rust) !important; }
+  .s-field {
+    padding: 12px 14px; border-bottom: 1px solid var(--borderL);
+  }
+  .s-field:last-child { border-bottom: none; }
+  .s-field-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 5px; }
+  .s-field-val { font-size: 15px; color: var(--text); }
+  .s-toggle {
+    width: 44px; height: 26px; border-radius: 13px;
+    display: flex; align-items: center; padding: 3px;
+    background: var(--goldD); border: 1px solid var(--border);
+    position: relative; cursor: pointer;
+  }
+  .s-thumb { width: 20px; height: 20px; border-radius: 10px; background: var(--gold); margin-left: auto; }
+  .settings-footer { font-size: 11px; color: var(--muted); text-align: center; font-style: italic; padding: 20px 0 8px; }
+
+  /* ══════════ MODAL OVERLAY (demo only) ══════════ */
+  .modal-scrim {
+    display: none; position: absolute; inset: 0; background: rgba(0,0,0,.6);
+    align-items: flex-end; z-index: 50; border-radius: 48px;
+  }
+  .modal-scrim.open { display: flex; }
+  .modal-sheet {
+    background: var(--surface); border-radius: 20px 20px 0 0; width: 100%;
+    padding: 12px 18px 32px; max-height: 88%;
+    box-shadow: 0 -10px 40px rgba(0,0,0,.5); overflow-y: auto;
+  }
+  .modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 14px; }
+  .modal-title { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 16px; }
+  .m-field { margin-bottom: 14px; }
+  .m-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 5px; }
+  .m-input {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 7px;
+    padding: 10px 12px; color: var(--text); font-size: 14px; width: 100%;
+  }
+  .track-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .t-chip {
+    display: flex; align-items: center; gap: 4px; padding: 5px 10px;
+    border-radius: 99px; border: 1.5px solid; font-size: 10px; font-weight: 600;
+    color: var(--sub); cursor: pointer; transition: .15s;
+  }
+  .t-chip.active { color: var(--bg) !important; }
+  .t-dot { width: 7px; height: 7px; border-radius: 4px; }
+  .month-chips { display: flex; gap: 5px; overflow-x: auto; padding-bottom: 4px; }
+  .m-chip {
+    padding: 4px 10px; border-radius: 99px; border: 1px solid var(--border);
+    background: var(--surface2); font-size: 11px; font-weight: 500; color: var(--sub);
+    white-space: nowrap; cursor: pointer;
+  }
+  .m-chip.active { background: var(--gold); border-color: var(--gold); color: var(--bg); font-weight: 700; }
+  .modal-actions { display: flex; gap: 8px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .m-btn { flex: 1; padding: 12px; border-radius: 7px; text-align: center; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .m-btn.ghost { background: var(--surface2); border: 1px solid var(--border); color: var(--sub); }
+  .m-btn.save  { background: var(--gold); color: var(--bg); font-weight: 700; flex: 2; }
+
+  /* ── outer page decoration ── */
+  .screen-label {
+    text-align: center; margin-top: 18px;
+    font-size: 11px; color: #4A6A88; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .tab-nav-demo { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+  .tab-nav-demo button {
+    padding: 8px 20px; border-radius: 99px; font-size: 12px; font-weight: 700;
+    cursor: pointer; border: 1.5px solid rgba(196,135,61,.35);
+    background: rgba(196,135,61,.08); color: #8BAAC8; letter-spacing: .08em;
+    text-transform: uppercase; transition: .2s;
+    font-family: inherit;
+  }
+  .tab-nav-demo button:hover, .tab-nav-demo button.active {
+    background: #C4873D; color: #00243F; border-color: #C4873D;
+  }
+  .outer-title {
+    text-align: center; color: #C4873D; font-size: 32px; font-weight: 700;
+    letter-spacing: -.01em; margin-bottom: 6px;
+  }
+  .outer-sub { text-align: center; color: #4A6A88; font-size: 13px; font-style: italic; margin-bottom: 28px; }
+
+  /* scrollbar hide */
+  .tab-page::-webkit-scrollbar,
+  .gantt-bars::-webkit-scrollbar,
+  .gantt-wrap::-webkit-scrollbar,
+  .dash-scroll::-webkit-scrollbar,
+  .items-scroll::-webkit-scrollbar,
+  .settings-scroll::-webkit-scrollbar,
+  .modal-sheet::-webkit-scrollbar,
+  .month-chips::-webkit-scrollbar { display: none; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- left info -->
+  <div class="label-col">
+    <strong>Cadence</strong>
+    React Native · Expo SDK 51
+    <p>App Store–ready doctorate and student planner with InfraBuild's dark-navy design language.</p>
+    <ul class="bullet">
+      <li>4-screen tab navigation</li>
+      <li>Horizontally scrollable Gantt chart</li>
+      <li>PhD &amp; Student modes</li>
+      <li>On-device persistence (AsyncStorage)</li>
+      <li>EAS Build for App Store submission</li>
+    </ul>
+  </div>
+
+  <!-- phone + controls -->
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    <div class="outer-title" style="font-size:22px;margin-bottom:4px">Interactive Preview</div>
+    <div class="outer-sub" style="margin-bottom:18px">Switch screens below ↓</div>
+
+    <div class="tab-nav-demo">
+      <button class="active" onclick="showTab(0,this)">Home</button>
+      <button onclick="showTab(1,this)">Timeline</button>
+      <button onclick="showTab(2,this)">Items</button>
+      <button onclick="showTab(3,this)">Settings</button>
+      <button onclick="showModal(true)">+ Add Modal</button>
+    </div>
+
+    <div class="phone">
+      <div class="screen">
+
+        <!-- APP HEADER -->
+        <div class="app-header">
+          <div class="logo-row">
+            <div class="crest">C</div>
+            <div class="wordmark">
+              <div class="w1">CADENCE</div>
+              <div class="w2">doctorate planner</div>
+            </div>
+          </div>
+          <div class="mode-toggle">
+            <div class="mode-pill active">PhD</div>
+            <div class="mode-pill">Student</div>
+          </div>
+        </div>
+
+        <!-- TAB CONTENT -->
+        <div class="tab-pages">
+
+          <!-- ═══ HOME TAB ═══ -->
+          <div class="tab-page active" id="tab-0">
+            <div class="dash-scroll">
+
+              <div class="plan-card">
+                <div class="plan-title">My Doctorate</div>
+                <div class="plan-sub">Organisational Culture & Innovation · Viva Aug 2028</div>
+                <div class="overall-track"><div class="overall-fill" style="width:22%"></div></div>
+                <div class="overall-label">22% elapsed</div>
+              </div>
+
+              <div class="section-title">Overview</div>
+              <div class="kpi-grid">
+                <div class="kpi c1">
+                  <div class="kpi-label">Months Left</div>
+                  <div class="kpi-value">29</div>
+                  <div class="kpi-sub">until plan end</div>
+                </div>
+                <div class="kpi c2">
+                  <div class="kpi-label">Items</div>
+                  <div class="kpi-value">3/17</div>
+                  <div class="kpi-sub">complete</div>
+                </div>
+              </div>
+              <div class="kpi-grid">
+                <div class="kpi c3">
+                  <div class="kpi-label">Papers</div>
+                  <div class="kpi-value">6</div>
+                  <div class="kpi-sub">in pipeline</div>
+                </div>
+                <div class="kpi c4">
+                  <div class="kpi-label">Next Milestone</div>
+                  <div class="kpi-value" style="font-size:18px;letter-spacing:-.5px">Sep '26</div>
+                  <div class="kpi-sub">Confirmation</div>
+                </div>
+              </div>
+
+              <div class="section-title">By Track</div>
+              <div class="card">
+                <div class="phase-row">
+                  <div class="phase-hdr">
+                    <div class="phase-left">
+                      <div class="phase-dot" style="background:var(--gold)"></div>
+                      <span class="phase-name">Thesis & Milestones</span>
+                    </div>
+                    <span class="phase-pct" style="color:var(--gold)">40%</span>
+                  </div>
+                  <div class="prog-track"><div class="prog-fill" style="width:40%;background:var(--gold)"></div></div>
+                </div>
+                <div class="divider"></div>
+                <div class="phase-row">
+                  <div class="phase-hdr">
+                    <div class="phase-left">
+                      <div class="phase-dot" style="background:var(--teal)"></div>
+                      <span class="phase-name">Paper Pipeline</span>
+                    </div>
+                    <span class="phase-pct" style="color:var(--teal)">17%</span>
+                  </div>
+                  <div class="prog-track"><div class="prog-fill" style="width:17%;background:var(--teal)"></div></div>
+                </div>
+                <div class="divider"></div>
+                <div class="phase-row">
+                  <div class="phase-hdr">
+                    <div class="phase-left">
+                      <div class="phase-dot" style="background:var(--plum)"></div>
+                      <span class="phase-name">Fieldwork & Data</span>
+                    </div>
+                    <span class="phase-pct" style="color:var(--plum)">0%</span>
+                  </div>
+                  <div class="prog-track"><div class="prog-fill" style="width:0%;background:var(--plum)"></div></div>
+                </div>
+                <div class="divider"></div>
+                <div class="phase-row">
+                  <div class="phase-hdr">
+                    <div class="phase-left">
+                      <div class="phase-dot" style="background:var(--rust)"></div>
+                      <span class="phase-name">Funding & Deadlines</span>
+                    </div>
+                    <span class="phase-pct" style="color:var(--rust)">0%</span>
+                  </div>
+                  <div class="prog-track"><div class="prog-fill" style="width:0%;background:var(--rust)"></div></div>
+                </div>
+              </div>
+
+              <div class="section-title">Upcoming Milestones</div>
+              <div class="card">
+                <div class="mile-item">
+                  <div class="mile-dot" style="background:var(--gold)"></div>
+                  <div class="mile-body">
+                    <div class="mile-name">Confirmation / Upgrade</div>
+                    <div class="mile-date">Sep 2026</div>
+                  </div>
+                  <div class="mile-tag" style="background:var(--goldD);color:var(--gold)">in 15mo</div>
+                </div>
+                <div class="mile-item">
+                  <div class="mile-dot" style="background:var(--rust)"></div>
+                  <div class="mile-body">
+                    <div class="mile-name">Scholarship Application</div>
+                    <div class="mile-date">Feb 2026</div>
+                  </div>
+                  <div class="mile-tag" style="background:var(--rustD);color:var(--rust)">in 8mo</div>
+                </div>
+                <div class="mile-item">
+                  <div class="mile-dot" style="background:var(--rust)"></div>
+                  <div class="mile-body">
+                    <div class="mile-name">Conference Abstract Due</div>
+                    <div class="mile-date">Nov 2026</div>
+                  </div>
+                  <div class="mile-tag" style="background:var(--rustD);color:var(--rust)">in 17mo</div>
+                </div>
+                <div class="mile-item">
+                  <div class="mile-dot" style="background:var(--gold)"></div>
+                  <div class="mile-body">
+                    <div class="mile-name">Thesis Submission</div>
+                    <div class="mile-date">Jun 2028</div>
+                  </div>
+                  <div class="mile-tag" style="background:var(--goldD);color:var(--gold)">in 36mo</div>
+                </div>
+              </div>
+
+              <div style="height:80px"></div>
+            </div>
+            <div class="fab" onclick="showModal(true)">+</div>
+          </div>
+
+          <!-- ═══ TIMELINE TAB ═══ -->
+          <div class="tab-page" id="tab-1">
+            <div class="page-header">
+              <div>
+                <div class="page-title">Timeline</div>
+                <div class="page-sub">My Doctorate</div>
+              </div>
+              <div class="add-btn" onclick="showModal(true)">+ Add</div>
+            </div>
+            <div class="year-ribbon">
+              <div class="yr past">2025</div>
+              <div class="yr now">2026</div>
+              <div class="yr">2027</div>
+              <div class="yr">2028</div>
+            </div>
+
+            <div class="gantt-wrap">
+              <div class="gantt-table">
+                <!-- labels column -->
+                <div class="gantt-labels">
+                  <div class="g-corner">Track / Item</div>
+                  <!-- Thesis -->
+                  <div class="g-group-lbl"><div class="g-swatch" style="background:var(--gold)"></div>Thesis</div>
+                  <div class="g-label">Registration</div>
+                  <div class="g-label">Confirmation</div>
+                  <div class="g-label">Full Draft</div>
+                  <div class="g-label">Submission</div>
+                  <div class="g-label">Viva Voce</div>
+                  <!-- Papers -->
+                  <div class="g-group-lbl"><div class="g-swatch" style="background:var(--teal)"></div>Papers</div>
+                  <div class="g-label">Paper 1 — SLR</div>
+                  <div class="g-label">Paper 2 — Conceptual</div>
+                  <div class="g-label">Paper 3 — Pilot</div>
+                  <div class="g-label">Paper 4 — Validation</div>
+                  <div class="g-label">Paper 5 — Model</div>
+                  <div class="g-label">Paper 6 — Case Study</div>
+                  <!-- Data -->
+                  <div class="g-group-lbl"><div class="g-swatch" style="background:var(--plum)"></div>Fieldwork</div>
+                  <div class="g-label">Pilot Survey</div>
+                  <div class="g-label">Full-Scale Data</div>
+                  <!-- Teaching -->
+                  <div class="g-group-lbl"><div class="g-swatch" style="background:var(--slate)"></div>Teaching</div>
+                  <div class="g-label">Demonstrating</div>
+                  <!-- Funding -->
+                  <div class="g-group-lbl"><div class="g-swatch" style="background:var(--rust)"></div>Funding</div>
+                  <div class="g-label">Scholarship App.</div>
+                  <div class="g-label">Conference Abstract</div>
+                </div>
+
+                <!-- bars area (39 months × 44px = 1716px) -->
+                <div class="gantt-bars" style="overflow-x:auto">
+                  <div style="width:1716px">
+                    <!-- month headers: every 3 months -->
+                    <div class="g-month-row">
+                      <div class="g-month">Sep'25</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Dec'25</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Mar'26</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Jun'26</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Sep'26</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Dec'26</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Mar'27</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Jun'27</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Sep'27</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Dec'27</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Mar'28</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Jun'28</div><div class="g-month"></div><div class="g-month"></div>
+                      <div class="g-month">Sep'28</div><div class="g-month"></div><div class="g-month"></div>
+                    </div>
+                    <!-- Thesis group -->
+                    <div class="g-group-stripe"></div>
+                    <!-- Registration — month 0 -->
+                    <div class="g-row"><div class="g-diamond" style="left:22px;background:var(--gold)"></div></div>
+                    <!-- Confirmation — month 12 -->
+                    <div class="g-row"><div class="g-diamond" style="left:550px;background:var(--gold)"></div></div>
+                    <!-- Full draft — months 28–32 = left 1232px, w 4×44=176 -->
+                    <div class="g-row"><div class="g-bar" style="left:1232px;width:176px;background:var(--gold)">Full Draft</div></div>
+                    <!-- Submission — month 33 -->
+                    <div class="g-row"><div class="g-diamond" style="left:1474px;background:var(--gold)"></div></div>
+                    <!-- Viva — month 35 -->
+                    <div class="g-row"><div class="g-diamond" style="left:1562px;background:var(--gold)"></div></div>
+                    <!-- Papers group -->
+                    <div class="g-group-stripe"></div>
+                    <!-- Paper 1 months 0-5 = 0 to 264 -->
+                    <div class="g-row"><div class="g-bar" style="left:2px;width:262px;background:var(--teal)">Paper 1 — SLR</div></div>
+                    <!-- Paper 2 months 4-11 = 176-528 -->
+                    <div class="g-row"><div class="g-bar" style="left:178px;width:350px;background:var(--teal)">Paper 2 — ECAM</div></div>
+                    <!-- Paper 3 months 6-15 = 264-704 -->
+                    <div class="g-row"><div class="g-bar" style="left:266px;width:438px;background:var(--teal)">Paper 3 — Pilot</div></div>
+                    <!-- Paper 4 months 13-23 = 572-1056 -->
+                    <div class="g-row"><div class="g-bar" style="left:574px;width:482px;background:var(--teal)">Paper 4 — Validation</div></div>
+                    <!-- Paper 5 months 21-29 = 924-1320 -->
+                    <div class="g-row"><div class="g-bar" style="left:926px;width:394px;background:var(--teal)">Paper 5 — Model</div></div>
+                    <!-- Paper 6 months 26-31 = 1144-1408 -->
+                    <div class="g-row"><div class="g-bar" style="left:1146px;width:262px;background:var(--teal)">Paper 6 — Case</div></div>
+                    <!-- Data group -->
+                    <div class="g-group-stripe"></div>
+                    <!-- Pilot months 8-12 = 352-572 -->
+                    <div class="g-row"><div class="g-bar" style="left:354px;width:218px;background:var(--plum)">Pilot Survey</div></div>
+                    <!-- Full-scale months 16-21 = 704-968 -->
+                    <div class="g-row"><div class="g-bar" style="left:706px;width:262px;background:var(--plum)">Full-Scale Data</div></div>
+                    <!-- Teaching group -->
+                    <div class="g-group-stripe"></div>
+                    <!-- Demonstrating months 4-32 -->
+                    <div class="g-row"><div class="g-bar" style="left:178px;width:1276px;background:var(--slate)">Demonstrating / Tutoring</div></div>
+                    <!-- Funding group -->
+                    <div class="g-group-stripe"></div>
+                    <!-- Scholarship month 5 -->
+                    <div class="g-row"><div class="g-diamond" style="left:242px;background:var(--rust)"></div></div>
+                    <!-- Conference month 14 -->
+                    <div class="g-row"><div class="g-diamond" style="left:638px;background:var(--rust)"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fab" onclick="showModal(true)" style="bottom:80px">+</div>
+          </div>
+
+          <!-- ═══ ITEMS TAB ═══ -->
+          <div class="tab-page" id="tab-2">
+            <div class="page-header">
+              <div class="page-title">Items</div>
+              <div class="add-btn" onclick="showModal(true)">+ Add</div>
+            </div>
+            <div class="filter-bar">
+              <div class="f-chip active">All</div>
+              <div class="f-chip"><div class="f-dot" style="background:var(--gold)"></div>Thesis</div>
+              <div class="f-chip"><div class="f-dot" style="background:var(--teal)"></div>Papers</div>
+              <div class="f-chip"><div class="f-dot" style="background:var(--plum)"></div>Fieldwork</div>
+            </div>
+            <div class="items-scroll">
+
+              <!-- Thesis Track -->
+              <div class="track-hdr">
+                <div class="track-line" style="background:var(--gold)"></div>
+                <span class="track-hdr-text" style="color:var(--gold)">Thesis & Milestones</span>
+              </div>
+              <div class="item-card">
+                <div class="item-accent" style="background:var(--gold)"></div>
+                <div class="item-body">
+                  <div class="item-top">
+                    <div class="item-name">Registration</div>
+                    <div class="status-pill" style="color:var(--green);background:var(--greenD);border-color:var(--green)44">
+                      <div class="s-dot" style="background:var(--green)"></div>Complete
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center">
+                    <span class="item-date">◆ Sep 2025</span>
+                    <span class="m-badge">Milestone</span>
+                  </div>
+                </div>
+              </div>
+              <div class="item-card">
+                <div class="item-accent" style="background:var(--gold)"></div>
+                <div class="item-body">
+                  <div class="item-top">
+                    <div class="item-name">Confirmation / Upgrade</div>
+                    <div class="status-pill" style="color:var(--sub);background:rgba(255,255,255,.06);border-color:var(--border)">
+                      <div class="s-dot" style="background:var(--muted)"></div>Upcoming
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center">
+                    <span class="item-date">◆ Sep 2026</span>
+                    <span class="m-badge">Milestone</span>
+                  </div>
+                </div>
+              </div>
+              <div class="item-card">
+                <div class="item-accent" style="background:var(--gold)"></div>
+                <div class="item-body">
+                  <div class="item-top">
+                    <div class="item-name">Full Draft Assembled</div>
+                    <div class="status-pill" style="color:var(--sub);background:rgba(255,255,255,.06);border-color:var(--border)">
+                      <div class="s-dot" style="background:var(--muted)"></div>Upcoming
+                    </div>
+                  </div>
+                  <div class="item-date">Jan 2028 – May 2028</div>
+                </div>
+              </div>
+
+              <!-- Papers Track -->
+              <div class="track-hdr">
+                <div class="track-line" style="background:var(--teal)"></div>
+                <span class="track-hdr-text" style="color:var(--teal)">Paper Pipeline</span>
+              </div>
+              <div class="item-card">
+                <div class="item-accent" style="background:var(--teal)"></div>
+                <div class="item-body">
+                  <div class="item-top">
+                    <div class="item-name">Paper 1 — SLR</div>
+                    <div class="status-pill" style="color:var(--green);background:var(--greenD);border-color:var(--green)44">
+                      <div class="s-dot" style="background:var(--green)"></div>Complete
+                    </div>
+                  </div>
+                  <div class="item-date">Sep 2025 – Feb 2026</div>
+                </div>
+              </div>
+              <div class="item-card">
+                <div class="item-accent" style="background:var(--teal)"></div>
+                <div class="item-body">
+                  <div class="item-top">
+                    <div class="item-name">Paper 2 — Conceptual (ECAM)</div>
+                    <div class="status-pill" style="color:var(--gold);background:var(--goldD);border-color:var(--gold)44">
+                      <div class="s-dot" style="background:var(--gold)"></div>Active
+                    </div>
+                  </div>
+                  <div class="item-date">Jan 2026 – Aug 2026</div>
+                </div>
+              </div>
+              <div class="item-card">
+                <div class="item-accent" style="background:var(--teal)"></div>
+                <div class="item-body">
+                  <div class="item-top">
+                    <div class="item-name">Paper 3 — Pilot Validation</div>
+                    <div class="status-pill" style="color:var(--sub);background:rgba(255,255,255,.06);border-color:var(--border)">
+                      <div class="s-dot" style="background:var(--muted)"></div>Upcoming
+                    </div>
+                  </div>
+                  <div class="item-date">Mar 2026 – Dec 2026</div>
+                </div>
+              </div>
+
+              <!-- Fieldwork Track -->
+              <div class="track-hdr">
+                <div class="track-line" style="background:var(--plum)"></div>
+                <span class="track-hdr-text" style="color:var(--plum)">Fieldwork & Data</span>
+              </div>
+              <div class="item-card">
+                <div class="item-accent" style="background:var(--plum)"></div>
+                <div class="item-body">
+                  <div class="item-top">
+                    <div class="item-name">Pilot Survey Fieldwork</div>
+                    <div class="status-pill" style="color:var(--sub);background:rgba(255,255,255,.06);border-color:var(--border)">
+                      <div class="s-dot" style="background:var(--muted)"></div>Upcoming
+                    </div>
+                  </div>
+                  <div class="item-date">May 2026 – Sep 2026</div>
+                </div>
+              </div>
+
+              <!-- Funding Track -->
+              <div class="track-hdr">
+                <div class="track-line" style="background:var(--rust)"></div>
+                <span class="track-hdr-text" style="color:var(--rust)">Funding & Deadlines</span>
+              </div>
+              <div class="item-card">
+                <div class="item-accent" style="background:var(--rust)"></div>
+                <div class="item-body">
+                  <div class="item-top">
+                    <div class="item-name">Scholarship Application</div>
+                    <div class="status-pill" style="color:var(--sub);background:rgba(255,255,255,.06);border-color:var(--border)">
+                      <div class="s-dot" style="background:var(--muted)"></div>Upcoming
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center">
+                    <span class="item-date">◆ Feb 2026</span>
+                    <span class="m-badge">Milestone</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="height:80px"></div>
+            </div>
+            <div class="fab" onclick="showModal(true)" style="bottom:80px">+</div>
+          </div>
+
+          <!-- ═══ SETTINGS TAB ═══ -->
+          <div class="tab-page" id="tab-3">
+            <div class="page-header">
+              <div class="page-title">Settings</div>
+            </div>
+            <div class="settings-scroll">
+
+              <div class="section-title" style="margin-top:6px">Plan Details</div>
+              <div class="settings-card">
+                <div class="s-field">
+                  <div class="s-field-label">Plan Title</div>
+                  <div class="s-field-val">My Doctorate</div>
+                </div>
+                <div class="s-field">
+                  <div class="s-field-label">Subtitle</div>
+                  <div class="s-field-val" style="font-size:13px;color:var(--sub);font-style:italic">
+                    Organisational Culture & Innovation · Viva Aug 2028
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-title">Timeline Range</div>
+              <div class="settings-card">
+                <div class="s-row">
+                  <div class="s-label">Start Date</div>
+                  <div class="s-value">2025-09</div>
+                </div>
+                <div class="s-row">
+                  <div class="s-label">End Date</div>
+                  <div class="s-value">2028-12</div>
+                </div>
+              </div>
+
+              <div class="section-title">Mode</div>
+              <div class="settings-card">
+                <div class="s-row">
+                  <div>
+                    <div class="s-label">Current Mode</div>
+                    <div class="s-hint">PhD / Doctorate</div>
+                  </div>
+                  <div class="s-toggle"><div class="s-thumb"></div></div>
+                </div>
+              </div>
+
+              <div class="section-title">Data</div>
+              <div class="settings-card">
+                <div class="s-row">
+                  <div>
+                    <div class="s-label">Load Template</div>
+                    <div class="s-hint">Loads default doctorate example data</div>
+                  </div>
+                  <div class="s-value">→</div>
+                </div>
+                <div class="s-row">
+                  <div>
+                    <div class="s-label s-danger">Clear All Items</div>
+                    <div class="s-hint">Permanently removes all items</div>
+                  </div>
+                  <div class="s-value s-danger">→</div>
+                </div>
+              </div>
+
+              <div class="section-title">About</div>
+              <div class="settings-card">
+                <div class="s-row">
+                  <div class="s-label">Version</div>
+                  <div class="s-value">1.0.0</div>
+                </div>
+                <div class="s-row">
+                  <div>
+                    <div class="s-label">Storage</div>
+                    <div class="s-hint">Your plan never leaves this device</div>
+                  </div>
+                  <div class="s-value">On-device</div>
+                </div>
+              </div>
+
+              <div class="settings-footer">Cadence · plan your doctorate, one page at a time</div>
+            </div>
+          </div>
+
+        </div><!-- end tab-pages -->
+
+        <!-- BOTTOM TAB BAR -->
+        <div class="tab-bar">
+          <div class="tab active" id="btab-0" onclick="showTab(0,null)">
+            <div class="tab-icon">⌂</div>
+            <div class="tab-label">Home</div>
+          </div>
+          <div class="tab" id="btab-1" onclick="showTab(1,null)">
+            <div class="tab-icon">▤</div>
+            <div class="tab-label">Timeline</div>
+          </div>
+          <div class="tab" id="btab-2" onclick="showTab(2,null)">
+            <div class="tab-icon">≡</div>
+            <div class="tab-label">Items</div>
+          </div>
+          <div class="tab" id="btab-3" onclick="showTab(3,null)">
+            <div class="tab-icon">⊙</div>
+            <div class="tab-label">Settings</div>
+          </div>
+        </div>
+
+        <!-- ADD ITEM MODAL -->
+        <div class="modal-scrim" id="modal">
+          <div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <div class="modal-title">Add Item</div>
+
+            <div class="m-field">
+              <div class="m-label">Name</div>
+              <div class="m-input" style="color:var(--muted);font-style:italic">e.g. Paper 2 — submit to ECAM</div>
+            </div>
+
+            <div class="m-field">
+              <div class="m-label">Track</div>
+              <div class="track-chips">
+                <div class="t-chip active" style="border-color:var(--gold);background:var(--gold)">
+                  <div class="t-dot" style="background:var(--bg)"></div>
+                  <span style="color:var(--bg)">Thesis</span>
+                </div>
+                <div class="t-chip" style="border-color:var(--teal)">
+                  <div class="t-dot" style="background:var(--teal)"></div>
+                  <span style="color:var(--teal)">Papers</span>
+                </div>
+                <div class="t-chip" style="border-color:var(--plum)">
+                  <div class="t-dot" style="background:var(--plum)"></div>
+                  <span style="color:var(--plum)">Fieldwork</span>
+                </div>
+                <div class="t-chip" style="border-color:var(--rust)">
+                  <div class="t-dot" style="background:var(--rust)"></div>
+                  <span style="color:var(--rust)">Funding</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="m-field">
+              <div class="m-label">Start Date</div>
+              <div class="month-chips">
+                <div class="m-chip">Jan</div><div class="m-chip">Feb</div><div class="m-chip">Mar</div>
+                <div class="m-chip">Apr</div><div class="m-chip">May</div><div class="m-chip">Jun</div>
+                <div class="m-chip">Jul</div><div class="m-chip">Aug</div><div class="m-chip active">Sep</div>
+                <div class="m-chip">Oct</div><div class="m-chip">Nov</div><div class="m-chip">Dec</div>
+              </div>
+              <div class="month-chips" style="margin-top:5px">
+                <div class="m-chip">2025</div><div class="m-chip active">2026</div>
+                <div class="m-chip">2027</div><div class="m-chip">2028</div>
+              </div>
+            </div>
+
+            <div class="modal-actions">
+              <div class="m-btn ghost" onclick="showModal(false)">Cancel</div>
+              <div class="m-btn save">Save</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end screen -->
+    </div><!-- end phone -->
+
+    <div class="screen-label">390 × 844 · iPhone 14 Pro dimensions</div>
+  </div><!-- end phone col -->
+
+</div><!-- end page-wrap -->
+
+<script>
+  let currentTab = 0;
+
+  function showTab(idx, btn) {
+    // update tab pages
+    document.querySelectorAll('.tab-page').forEach((p, i) => {
+      p.classList.toggle('active', i === idx);
+    });
+    // update bottom bar tabs
+    document.querySelectorAll('.tab').forEach((t, i) => {
+      t.classList.toggle('active', i === idx);
+    });
+    // update top nav buttons if provided
+    if (btn) {
+      document.querySelectorAll('.tab-nav-demo button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    } else {
+      // sync top buttons
+      document.querySelectorAll('.tab-nav-demo button').forEach((b, i) => {
+        b.classList.toggle('active', i === idx);
+      });
+    }
+    currentTab = idx;
+  }
+
+  function showModal(open) {
+    document.getElementById('modal').classList.toggle('open', open);
+  }
+
+  // close modal on scrim click
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) showModal(false);
+  });
+
+  // sync top buttons with tabs on first load
+  document.querySelectorAll('.tab-nav-demo button').forEach((btn, i) => {
+    if (i < 4) btn.addEventListener('click', () => showTab(i, btn));
+  });
+</script>
+</body>
+</html>
