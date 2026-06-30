@@ -41,10 +41,15 @@
   .rcard.director{border-top-color:var(--navy);}
   .rcard.pm{border-top-color:var(--indigo);background:linear-gradient(180deg,#fff,#f5f5ff);}
   .rcard.cost{border-top-color:var(--sky);background:#f8fbff;}
+  .rcard.cm{border-top-color:var(--sky);background:#f4f9ff;}
+  .rcard .sub{display:block;font-size:10px;font-weight:600;color:var(--muted);font-style:italic;margin-top:3px;line-height:1.25;}
   .rcard .rt big{font-size:14.5px;}
 
   .top{display:flex;flex-direction:column;align-items:center;width:560px;}
-  .leadrow{display:flex;justify-content:space-between;gap:12px;width:100%;align-items:flex-start;}
+  .leadrow{display:flex;justify-content:space-between;gap:10px;width:100%;align-items:flex-start;}
+  .leadrow .rcard .rt{font-size:12.8px;}
+  .leadrow .rcard li{font-size:10.4px;line-height:1.29;margin-bottom:3px;}
+  .leadrow .stem{height:11px;}
   .col{flex:1;display:flex;flex-direction:column;align-items:center;}
 </style>
 </head>
@@ -129,12 +134,20 @@
               <li>Manages NEC contract administration and commercial risk</li>
               <li>Leads commercial reporting and value management</li>
               <li>Oversees estimating, project controls and value engineering</li></ul></div>
-        <div class="v" style="height:16px;"></div>
+        <div class="v" style="height:12px;"></div>
         <div class="rcard cost"><div class="rt">AWDS Cost Management Lead</div>
           <ul><li>Manages cost planning, estimating and forecasting</li>
               <li>Controls budgets, cash flow and cost reporting</li>
               <li>Supports change valuation and commercial assurance</li>
               <li>Maintains cost data, benchmarking and forecast accuracy</li></ul></div></div>
+
+      <div class="col" style="flex:1.25;"><div class="stem"></div>
+        <div class="rcard cm"><div class="rt">AWDS Contract Manager
+          <span class="sub">Project Manager for their package — one per contract (typical of all Contract Managers)</span></div>
+          <ul><li>Acts as the Project Manager for their contract / package</li>
+              <li>Owns package delivery — safety, quality, programme &amp; budget</li>
+              <li>Leads the contract team and administers the NEC contract</li>
+              <li>Manages contractor interface, change, risk and reporting</li></ul></div></div>
     </div>
   </div>
 
