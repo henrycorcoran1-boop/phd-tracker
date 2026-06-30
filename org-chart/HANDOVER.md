@@ -74,6 +74,35 @@ Footer: AtkinsRéalis + Tetra Tech logos (real SVGs).
 - Body width 1600px; PNG at 2× device scale.
 - MetroLink logo renders "METRO" navy + "LINK" orange (authentic brand) on white header.
 
+## Org-chart DECK (multi-slide) — `deck.html` / `org-chart-deck.pdf`
+A 9-slide deck built on the same styling, real logos, single multi-page vector PDF.
+- Source: `org-chart/deck.html`; render with `node render-deck.js`
+  (emits `slide-1.png`…`slide-9.png` for review + `org-chart-deck.pdf`).
+- All AWDS-side roles are prefixed **"AWDS"** (per user); only Suzy Hackett,
+  the NEC PM and PDP roles are NOT prefixed.
+- Slides:
+  1. AWDS Management Team — Role Structure (names omitted / blank template)
+  2. AWDS Support Team — Interface Management (reports into AWDS PM Lead).
+     NOTE: support slide is Interface Management Team ONLY (Procurement & Commercial
+     are covered in the management chart, per user).
+  3. Typical AWDS Contract Team Structure: AWDS PM Lead → AWDS Design Management
+     Lead → AWDS Contract Manager → {Procurement Manager, Cost Estimator, Contract
+     Technical Writers, CEMP Manager, Design Team (single box)}.
+  4. AWDS Design Team (design discipline leads).
+  5. Construction Stage — Management Team: minus Procurement Lead; AWDS PM Lead
+     reports into BOTH AWDS Project Director (Paul Hennessy) and Head of Engineering
+     & Environment (Suzy Hackett) via a "V" connector.
+  6. Construction Stage — Support Team (Interface Mgmt again).
+  7. Construction Stage — Design Team (labelled Reachback Team).
+  8. Construction Stage — Contract Team (typical structure).
+  9. Construction Stage — Reporting Structure: Suzy at top; AWDS PM Lead & NEC PM
+     report to Suzy; NEC PM has AWDS Contract Manager + PDP Team; AWDS Contract
+     Manager has Design Reachback Team; dashed red arrow = AWDS Contract Manager
+     also dotted-line reports to AWDS PM Lead. (Absolute layout + SVG for arrow.)
+- Source data for support/design/contract teams came from the client PDF
+  `Org_Chart__March_2026__DRAFT.pdf` (rasterise with `pdftoppm -png -r 130`;
+  poppler-utils may need `apt-get install poppler-utils`).
+
 ## Open / possible follow-ups
 - Confirm whether Moreno Stellini needs a home elsewhere.
 - Optional: standard A3/A4 landscape page size for printing (currently auto-fit single page).
