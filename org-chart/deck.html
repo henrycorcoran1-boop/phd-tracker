@@ -11,7 +11,7 @@
     --pink:#fbe3f1; --pink-bd:#f3b9da;
     --mint:#cdf3ea; --mint-bd:#8fd9c8;
     --rose:#fdeef0; --rose-bd:#f3c9cf;
-    --yellow:#f7f3c4; --yellow-bd:#e0d97e;
+    --sky-soft:#e9f1ff; --sky-bd:#bcd3f5;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:#5a6477;}
@@ -19,20 +19,13 @@
 
   @page{ size:1600px 900px; margin:0; }
   .slide{
-    position:relative;
-    width:1600px;height:900px;
-    background:#ffffff;
-    padding:30px 46px 22px;
-    display:flex;flex-direction:column;
-    break-after:page;page-break-after:always;
-    overflow:hidden;
-    margin:0 auto;
+    position:relative;width:1600px;height:900px;background:#fff;
+    padding:30px 46px 22px;display:flex;flex-direction:column;
+    break-after:page;page-break-after:always;overflow:hidden;margin:0 auto;
   }
   .slide:last-child{break-after:auto;page-break-after:auto;}
-  /* on-screen separation only */
   @media screen{ .slide{margin:22px auto;box-shadow:0 8px 30px rgba(0,0,0,.35);} }
 
-  /* Header */
   .s-head{display:flex;align-items:center;justify-content:space-between;
     border-bottom:2px solid #eef2fa;padding-bottom:14px;margin-bottom:8px;flex:0 0 auto;}
   .s-head .left{display:flex;align-items:center;gap:18px;}
@@ -42,18 +35,15 @@
   .stage-badge{font-size:13px;font-weight:800;letter-spacing:.6px;color:#fff;
     background:linear-gradient(135deg,#e8512f,#c43d20);padding:7px 14px;border-radius:20px;}
 
-  /* Content area */
   .s-body{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
     padding-top:8px;min-height:0;}
 
-  /* Footer */
   .s-foot{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;
     border-top:1px solid #e6ecf7;padding-top:10px;margin-top:8px;}
   .s-foot .logos{display:flex;align-items:center;gap:34px;}
   .s-foot img.ar{height:22px;} .s-foot img.tt{height:30px;}
   .s-foot .pg{font-size:13px;color:var(--muted);font-weight:600;}
 
-  /* ---- Generic nodes ---- */
   .node{background:#fff;border:1px solid var(--card-bd);border-radius:9px;
     box-shadow:0 2px 5px rgba(20,45,99,.07);padding:11px 16px;text-align:center;}
   .node .role{font-weight:700;font-size:14px;color:var(--navy);line-height:1.22;}
@@ -64,22 +54,18 @@
   .node.exec .name{color:var(--ink);font-style:normal;font-weight:600;}
   .node.pm{border-top:4px solid var(--indigo);min-width:300px;background:linear-gradient(180deg,#fff,#f3f4ff);}
   .node.pm .role{font-size:16px;}
-  .node.lead{border-top:4px solid var(--blue);width:100%;min-height:86px;
+  .node.lead{border-top:4px solid var(--blue);width:100%;min-height:64px;
     display:flex;flex-direction:column;justify-content:center;}
   .node.sub{border-top:4px solid var(--sky);width:100%;background:#f8fbff;}
-  .node.cm{border-top:4px solid var(--sky);padding:9px 8px;}
+  .node.cm{border-top:4px solid var(--sky);padding:10px 8px;}
   .node.cm .role{font-size:11.5px;font-weight:600;color:var(--muted);margin-top:1px;}
-  .node.cm .name{font-size:12px;color:var(--navy);font-weight:600;font-style:normal;margin-top:4px;}
   .node.cm.special{border-top-color:var(--indigo);}
   .node.cm.special .code{color:var(--indigo);}
-  .name.blank{height:13px;border-bottom:1px dashed #c2cee6;width:70%;margin:6px auto 0;}
 
-  /* connectors */
   .v{width:2px;background:var(--line);}
   .bus{height:2px;background:var(--line);}
   .stem{width:2px;height:18px;background:var(--line);}
 
-  /* swimlane (management slides) */
   .lane{display:flex;align-items:stretch;background:var(--lane);border:1px solid var(--card-bd);
     border-radius:11px;margin-bottom:14px;overflow:hidden;width:100%;}
   .lane:last-child{margin-bottom:0;}
@@ -94,91 +80,86 @@
   .lead-col{flex:1;display:flex;flex-direction:column;align-items:center;}
   .cm-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:11px;}
 
-  /* team grids (support / design) */
   .team-parent{display:flex;flex-direction:column;align-items:center;}
   .team-box{border:1.5px solid var(--card-bd);border-radius:12px;background:var(--lane);
-    padding:20px 22px;width:100%;}
-  .team-title{font-size:16px;font-weight:800;color:var(--navy);text-align:center;margin-bottom:14px;}
-  .grid{display:grid;gap:14px;}
-  .mini{border-radius:9px;padding:11px 12px;text-align:center;border:1px solid var(--card-bd);background:#fff;}
-  .mini .mt{font-weight:700;font-size:13.5px;color:var(--navy);line-height:1.2;}
-  .mini .mn{font-size:12.5px;color:var(--ink);margin-top:4px;font-style:italic;line-height:1.3;}
+    padding:18px 20px;width:100%;}
+  .team-title{font-size:15.5px;font-weight:800;color:var(--navy);text-align:center;margin-bottom:13px;}
+  .grid{display:grid;gap:12px;}
+  .mini{border-radius:9px;padding:10px 11px;text-align:center;border:1px solid var(--card-bd);background:#fff;
+    min-height:50px;display:flex;flex-direction:column;justify-content:center;}
+  .mini .mt{font-weight:700;font-size:13px;color:var(--navy);line-height:1.2;}
   .mini.mint{background:var(--mint);border-color:var(--mint-bd);}
   .mini.rose{background:var(--rose);border-color:var(--rose-bd);}
-  .mini.pink{background:var(--pink);border-color:var(--pink-bd);}
-  .mini.yellow{background:var(--yellow);border-color:var(--yellow-bd);}
+  .mini.sky{background:var(--sky-soft);border-color:var(--sky-bd);}
 
   .caption{font-size:13.5px;color:var(--muted);font-style:italic;margin-top:12px;text-align:center;}
   .note-banner{display:inline-block;background:#fff4e8;border:1px solid #f0c89a;color:#9a5a17;
     font-weight:700;font-size:13.5px;padding:7px 16px;border-radius:20px;margin-bottom:10px;}
 
-  /* contract team (slide 3/8) */
   .chain{display:flex;flex-direction:column;align-items:center;}
-  .cteam{display:flex;justify-content:center;gap:16px;margin-top:0;}
-  .cteam .node{min-width:172px;}
+  .cteam{display:flex;justify-content:center;gap:16px;}
+  .cteam .node{min-width:178px;}
   .node.tm{border-top:4px solid var(--pink-bd);background:var(--pink);}
   .node.tm.design{border-top:4px solid var(--mint-bd);background:var(--mint);}
 
-  /* absolute diagram (slide 9) */
   .canvas{position:relative;width:1480px;height:660px;margin:0 auto;}
-  .canvas .abox{position:absolute;}
+  .canvas .abox{position:absolute;z-index:1;}
   .canvas svg{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
-  .canvas .abox{z-index:1;}
   .dlabel{position:absolute;z-index:2;font-size:12.5px;font-style:italic;color:#c43d20;font-weight:700;}
 </style>
 </head>
 <body>
 
-<!-- ===================== SLIDE 1 : MANAGEMENT (BLANK) ===================== -->
+<!-- ===================== SLIDE 1 : MANAGEMENT (ROLES ONLY) ===================== -->
 <section class="slide">
   <div class="s-head">
     <div class="left"><img class="ml" src="logos/metrolink.svg" alt="MetroLink">
-      <div class="s-title">AWDS Management Team — Role Structure<small>Template — roles only (names omitted)</small></div></div>
+      <div class="s-title">AWDS Management Team — Role Structure<small>Roles only</small></div></div>
   </div>
   <div class="s-body">
     <section class="lane lane-exec"><div class="lane-label">Executive</div>
       <div class="lane-body" style="display:flex;justify-content:center;">
-        <div class="node exec"><div class="role">AWDS Project Director</div><div class="name blank"></div></div>
+        <div class="node exec"><div class="role">AWDS Project Director</div></div>
       </div></section>
 
     <section class="lane lane-senior"><div class="lane-label">Senior<br>Management</div>
       <div class="lane-body">
         <div class="pm-wrap">
-          <div class="node pm"><div class="role">AWDS Project Management Lead</div><div class="name blank"></div></div>
+          <div class="node pm"><div class="role">AWDS Project Management Lead</div></div>
           <div class="v" style="height:20px;"></div>
         </div>
         <div class="bus"></div>
         <div class="leads">
-          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Deputy Project Manager</div><div class="name blank"></div></div></div>
-          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Design Management Lead</div><div class="name blank"></div></div></div>
-          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS PMO Lead</div><div class="name blank"></div></div></div>
-          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Technical Delivery Lead</div><div class="name blank"></div></div></div>
-          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Procurement Lead</div><div class="name blank"></div></div></div>
-          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Commercial Lead</div><div class="name blank"></div></div>
+          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Deputy Project Manager</div></div></div>
+          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Design Management Lead</div></div></div>
+          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS PMO Lead</div></div></div>
+          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Technical Delivery Lead</div></div></div>
+          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Procurement Lead</div></div></div>
+          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Commercial Lead</div></div>
             <div class="v" style="height:18px;"></div>
-            <div class="node sub"><div class="role">AWDS Cost Management Lead</div><div class="name blank"></div></div></div>
+            <div class="node sub"><div class="role">AWDS Cost Management Lead</div></div></div>
         </div>
       </div></section>
 
     <section class="lane lane-contract"><div class="lane-label">Contract<br>Management</div>
       <div class="lane-body">
         <div class="cm-grid">
-          <div class="node cm"><div class="code">M140</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M141</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M142</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M145</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M146</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M147</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M130</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M135</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M138</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M160</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M161</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M190</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm"><div class="code">M111</div><div class="role">AWDS Contract Manager</div><div class="name blank"></div></div>
-          <div class="node cm special"><div class="code">Minor Works</div><div class="role">AWDS Manager</div><div class="name blank"></div></div>
-          <div class="node cm special"><div class="code">Env. Baseline</div><div class="role">AWDS Manager</div><div class="name blank"></div></div>
-          <div class="node cm special"><div class="code">DAA Works</div><div class="role">AWDS Manager</div><div class="name blank"></div></div>
+          <div class="node cm"><div class="code">M140</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M141</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M142</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M145</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M146</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M147</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M130</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M135</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M138</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M160</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M161</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M190</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M111</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm special"><div class="code">Minor Works</div><div class="role">AWDS Manager</div></div>
+          <div class="node cm special"><div class="code">Env. Baseline</div><div class="role">AWDS Manager</div></div>
+          <div class="node cm special"><div class="code">DAA Works</div><div class="role">AWDS Manager</div></div>
         </div>
       </div></section>
   </div>
@@ -186,32 +167,53 @@
     <div class="pg">MetroLink AWDS — Org Chart Deck · 1 / 9</div></div>
 </section>
 
-<!-- ===================== SLIDE 2 : SUPPORT TEAM (INTERFACE MGMT) ===================== -->
+<!-- ===================== SLIDE 2 : SUPPORT TEAM ===================== -->
 <section class="slide">
   <div class="s-head">
     <div class="left"><img class="ml" src="logos/metrolink.svg" alt="MetroLink">
-      <div class="s-title">AWDS Support Team — Interface Management<small>Reporting into the AWDS Project Management Lead</small></div></div>
+      <div class="s-title">AWDS Support Team<small>Interface Management &amp; Project Support — reporting into the AWDS Project Management Lead</small></div></div>
   </div>
   <div class="s-body">
-    <div class="team-parent" style="width:100%;max-width:1320px;">
+    <div class="team-parent" style="width:100%;max-width:1480px;">
       <div class="node pm"><div class="role">AWDS Project Management Lead</div><div class="name">Henry Corcoran</div></div>
-      <div class="v" style="height:26px;"></div>
-      <div class="team-box">
-        <div class="team-title">AWDS Interface Management Team</div>
-        <div class="grid" style="grid-template-columns:repeat(4,1fr);">
-          <div class="mini rose"><div class="mt">BusConnects</div><div class="mn">Oran Dillon</div></div>
-          <div class="mini mint"><div class="mt">BIM Manager</div><div class="mn">Rob Hampton</div></div>
-          <div class="mini mint"><div class="mt">Info Manager</div><div class="mn">Mark Costello</div></div>
-          <div class="mini mint"><div class="mt">Senior GIS Consultant</div><div class="mn">Abigail Turner</div></div>
-          <div class="mini rose"><div class="mt">DAA</div><div class="mn">Mark Finnegan</div></div>
-          <div class="mini mint"><div class="mt">Deputy BIM Manager</div><div class="mn">Rahul Malaviya</div></div>
-          <div class="mini mint"><div class="mt">Deputy Info Manager</div><div class="mn">Ronan Kenny</div></div>
-          <div class="mini mint"><div class="mt">Senior GIS Analyst</div><div class="mn">Kevin Snell</div></div>
-          <div class="mini rose"><div class="mt">UAO Engagement Team</div><div class="mn">Ravindra Chaddha &amp; Samuel Monteiro</div></div>
-          <div class="mini mint"><div class="mt">Surveys</div><div class="mn">Colin Prendeville</div></div>
-          <div class="mini mint"><div class="mt">CDE Doc Controller</div><div class="mn">Akshata Jagtap</div></div>
-          <div class="mini" style="background:#f4f8ff;border-style:dashed;"><div class="mt" style="color:var(--muted)">Further interface roles</div><div class="mn" style="color:var(--muted)">as required</div></div>
-        </div>
+      <div class="v" style="height:20px;"></div>
+      <div class="bus" style="width:78%;"></div>
+      <div style="display:flex;gap:30px;width:100%;align-items:flex-start;">
+        <div class="lead-col"><div class="stem"></div>
+          <div class="team-box">
+            <div class="team-title">AWDS Interface Management Team</div>
+            <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+              <div class="mini rose"><div class="mt">BusConnects</div></div>
+              <div class="mini rose"><div class="mt">DAA</div></div>
+              <div class="mini rose"><div class="mt">UAO Engagement Team</div></div>
+              <div class="mini mint"><div class="mt">BIM Manager</div></div>
+              <div class="mini mint"><div class="mt">Deputy BIM Manager</div></div>
+              <div class="mini mint"><div class="mt">Info Manager</div></div>
+              <div class="mini mint"><div class="mt">Deputy Info Manager</div></div>
+              <div class="mini mint"><div class="mt">Senior GIS Consultant</div></div>
+              <div class="mini mint"><div class="mt">Senior GIS Analyst</div></div>
+              <div class="mini mint"><div class="mt">Surveys</div></div>
+              <div class="mini mint"><div class="mt">CDE Doc Controller</div></div>
+            </div>
+          </div></div>
+        <div class="lead-col"><div class="stem"></div>
+          <div class="team-box">
+            <div class="team-title">AWDS Project Support Team (Back-Office)</div>
+            <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+              <div class="mini sky"><div class="mt">Administrator</div></div>
+              <div class="mini sky"><div class="mt">Document Controller</div></div>
+              <div class="mini sky"><div class="mt">Health &amp; Safety Advisor</div></div>
+              <div class="mini sky"><div class="mt">QA / QC Manager</div></div>
+              <div class="mini sky"><div class="mt">Planner / Scheduler</div></div>
+              <div class="mini sky"><div class="mt">Risk Manager</div></div>
+              <div class="mini sky"><div class="mt">Project Controls Analyst</div></div>
+              <div class="mini sky"><div class="mt">HR &amp; People Coordinator</div></div>
+              <div class="mini sky"><div class="mt">IT / Systems Support</div></div>
+              <div class="mini sky"><div class="mt">Communications &amp; Stakeholder Liaison</div></div>
+              <div class="mini sky"><div class="mt">Training &amp; Competency Coordinator</div></div>
+              <div class="mini sky"><div class="mt">Office Manager</div></div>
+            </div>
+          </div></div>
       </div>
     </div>
   </div>
@@ -229,7 +231,7 @@
     <div class="chain" style="width:100%;">
       <div class="node pm"><div class="role">AWDS Project Management Lead</div><div class="name">Henry Corcoran</div></div>
       <div class="v" style="height:22px;"></div>
-      <div class="node lead" style="min-width:300px;width:auto;min-height:auto;"><div class="role">AWDS Design Management Lead</div><div class="name">Nathan Cope</div></div>
+      <div class="node lead" style="min-width:300px;width:auto;min-height:auto;"><div class="role">AWDS Design Management Lead</div></div>
       <div class="v" style="height:22px;"></div>
       <div class="node" style="border-top:4px solid var(--blue);min-width:300px;"><div class="role">AWDS Contract Manager</div><div class="name">(per contract)</div></div>
       <div class="v" style="height:22px;"></div>
@@ -256,21 +258,21 @@
   </div>
   <div class="s-body">
     <div class="team-parent" style="width:100%;max-width:1380px;">
-      <div class="node lead" style="min-width:300px;width:auto;min-height:auto;border-top-color:var(--mint-bd);"><div class="role">AWDS Design Management Lead</div><div class="name">Nathan Cope</div></div>
+      <div class="node lead" style="min-width:300px;width:auto;min-height:auto;border-top-color:var(--mint-bd);"><div class="role">AWDS Design Management Lead</div></div>
       <div class="v" style="height:24px;"></div>
       <div class="team-box">
         <div class="team-title">AWDS Design Discipline Leads</div>
         <div class="grid" style="grid-template-columns:repeat(5,1fr);">
-          <div class="mini mint"><div class="mt">Utilities South</div><div class="mn">Andy Emmott · Barry de Klerk · Raphael Beyene</div></div>
-          <div class="mini mint"><div class="mt">Sustainability</div><div class="mn">Mark Hewlett · Daniel George</div></div>
-          <div class="mini mint"><div class="mt">Land Access</div><div class="mn">Johan Schutte · Daniyal Kitchlew</div></div>
-          <div class="mini mint"><div class="mt">Structures</div><div class="mn">Richard Dawson · Darragh Noble</div></div>
-          <div class="mini mint"><div class="mt">Heritage</div><div class="mn">Mark Finnegan</div></div>
-          <div class="mini mint"><div class="mt">Cellars &amp; Playing Pitches</div><div class="mn">Michael Noonan</div></div>
-          <div class="mini mint"><div class="mt">Archaeology</div><div class="mn">Micheal O'Morain</div></div>
-          <div class="mini mint"><div class="mt">Biodiversity</div><div class="mn">Rob Rowlands</div></div>
-          <div class="mini mint"><div class="mt">Env. Monitoring</div><div class="mn">Deirdre Larkin · Ewuresi Opoku</div></div>
-          <div class="mini" style="background:#f1faf7;border-style:dashed;border-color:var(--mint-bd);"><div class="mt" style="color:#3a8f7c">Further disciplines</div><div class="mn" style="color:#3a8f7c">as required</div></div>
+          <div class="mini mint"><div class="mt">Utilities South</div></div>
+          <div class="mini mint"><div class="mt">Sustainability</div></div>
+          <div class="mini mint"><div class="mt">Land Access</div></div>
+          <div class="mini mint"><div class="mt">Structures</div></div>
+          <div class="mini mint"><div class="mt">Heritage</div></div>
+          <div class="mini mint"><div class="mt">Cellars &amp; Playing Pitches</div></div>
+          <div class="mini mint"><div class="mt">Archaeology</div></div>
+          <div class="mini mint"><div class="mt">Biodiversity</div></div>
+          <div class="mini mint"><div class="mt">Env. Monitoring</div></div>
+          <div class="mini" style="background:#f1faf7;border-style:dashed;border-color:var(--mint-bd);"><div class="mt" style="color:#3a8f7c">Further disciplines as required</div></div>
         </div>
       </div>
     </div>
@@ -283,60 +285,52 @@
 <section class="slide">
   <div class="s-head">
     <div class="left"><img class="ml" src="logos/metrolink.svg" alt="MetroLink">
-      <div class="s-title">AWDS Management Team — Construction Stage<small>Procurement Lead removed · dual reporting line</small></div></div>
+      <div class="s-title">AWDS Management Team — Construction Stage<small>Procurement Lead removed</small></div></div>
     <div class="stage-badge">CONSTRUCTION STAGE</div>
   </div>
   <div class="s-body">
     <section class="lane lane-exec"><div class="lane-label">Executive</div>
-      <div class="lane-body" style="display:flex;justify-content:center;gap:90px;">
+      <div class="lane-body" style="display:flex;justify-content:center;">
         <div class="node exec"><div class="role">AWDS Project Director</div><div class="name">Paul Hennessy</div></div>
-        <div class="node exec" style="border-top-color:#e8512f;"><div class="role">Head of Engineering &amp; Environment</div><div class="name">Suzy Hackett</div></div>
       </div></section>
 
     <section class="lane lane-senior"><div class="lane-label">Senior<br>Management</div>
       <div class="lane-body">
         <div class="pm-wrap">
-          <svg width="760" height="46" style="display:block;overflow:visible;margin-bottom:-3px;">
-            <defs><marker id="up5" markerWidth="10" markerHeight="10" refX="5" refY="2.5" orient="auto">
-              <path d="M0,8 L5,0 L10,8" fill="none" stroke="#9fb3d6" stroke-width="1.8"/></marker></defs>
-            <path d="M380,46 L60,6" stroke="#9fb3d6" stroke-width="2" fill="none" marker-end="url(#up5)"/>
-            <path d="M380,46 L700,6" stroke="#9fb3d6" stroke-width="2" fill="none" marker-end="url(#up5)"/>
-          </svg>
-          <div class="node pm"><div class="role">AWDS Project Management Lead</div><div class="name">Henry Corcoran</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:3px;">reports into both the Project Director &amp; Head of Eng. &amp; Env.</div></div>
+          <div class="node pm"><div class="role">AWDS Project Management Lead</div><div class="name">Henry Corcoran</div></div>
           <div class="v" style="height:18px;"></div>
         </div>
         <div class="bus"></div>
         <div class="leads">
-          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Deputy Project Manager</div><div class="name">David Fleming</div></div></div>
-          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Design Management Lead</div><div class="name">Nathan Cope</div></div></div>
-          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS PMO Lead</div><div class="name">James Coates</div></div></div>
-          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Technical Delivery Lead</div><div class="name">Michael Noonan</div></div></div>
-          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Commercial Lead</div><div class="name">Mark Yallop</div></div>
+          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Deputy Project Manager</div></div></div>
+          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Design Management Lead</div></div></div>
+          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS PMO Lead</div></div></div>
+          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Technical Delivery Lead</div></div></div>
+          <div class="lead-col"><div class="stem"></div><div class="node lead"><div class="role">AWDS Commercial Lead</div></div>
             <div class="v" style="height:18px;"></div>
-            <div class="node sub"><div class="role">AWDS Cost Management Lead</div><div class="name">Mark Samuels</div></div></div>
+            <div class="node sub"><div class="role">AWDS Cost Management Lead</div></div></div>
         </div>
       </div></section>
 
     <section class="lane lane-contract"><div class="lane-label">Contract<br>Management</div>
       <div class="lane-body">
         <div class="cm-grid">
-          <div class="node cm"><div class="code">M140</div><div class="role">Contract Manager</div><div class="name">Winthrop Lawhon</div></div>
-          <div class="node cm"><div class="code">M141</div><div class="role">Contract Manager</div><div class="name">Matt Atherton</div></div>
-          <div class="node cm"><div class="code">M142</div><div class="role">Contract Manager</div><div class="name">Thabisa Dhladhla</div></div>
-          <div class="node cm"><div class="code">M145</div><div class="role">Contract Manager</div><div class="name">Daniyal Kitchlew</div></div>
-          <div class="node cm"><div class="code">M146</div><div class="role">Contract Manager</div><div class="name">Michal Szreder</div></div>
-          <div class="node cm"><div class="code">M147</div><div class="role">Contract Manager</div><div class="name">Marina Marti Lopez</div></div>
-          <div class="node cm"><div class="code">M130</div><div class="role">Contract Manager</div><div class="name">Micheal O'Morain</div></div>
-          <div class="node cm"><div class="code">M135</div><div class="role">Contract Manager</div><div class="name">Stefano Redivo</div></div>
-          <div class="node cm"><div class="code">M138</div><div class="role">Contract Manager</div><div class="name">Finbarr Kenny</div></div>
-          <div class="node cm"><div class="code">M160</div><div class="role">Contract Manager</div><div class="name">Stephen Spowart</div></div>
-          <div class="node cm"><div class="code">M161</div><div class="role">Contract Manager</div><div class="name">Sylvester Chigwala</div></div>
-          <div class="node cm"><div class="code">M190</div><div class="role">Contract Manager</div><div class="name">Mark Finnegan</div></div>
-          <div class="node cm"><div class="code">M111</div><div class="role">Contract Manager</div><div class="name">Nathan Cope</div></div>
-          <div class="node cm special"><div class="code">Minor Works</div><div class="role">Manager</div><div class="name">Dervla Duffy</div></div>
-          <div class="node cm special"><div class="code">Env. Baseline</div><div class="role">Manager</div><div class="name">Mark Grogan</div></div>
-          <div class="node cm special"><div class="code">DAA Works</div><div class="role">Manager</div><div class="name">Millie O'Reilly</div></div>
+          <div class="node cm"><div class="code">M140</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M141</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M142</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M145</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M146</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M147</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M130</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M135</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M138</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M160</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M161</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M190</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm"><div class="code">M111</div><div class="role">AWDS Contract Manager</div></div>
+          <div class="node cm special"><div class="code">Minor Works</div><div class="role">AWDS Manager</div></div>
+          <div class="node cm special"><div class="code">Env. Baseline</div><div class="role">AWDS Manager</div></div>
+          <div class="node cm special"><div class="code">DAA Works</div><div class="role">AWDS Manager</div></div>
         </div>
       </div></section>
   </div>
@@ -348,29 +342,50 @@
 <section class="slide">
   <div class="s-head">
     <div class="left"><img class="ml" src="logos/metrolink.svg" alt="MetroLink">
-      <div class="s-title">AWDS Support Team — Construction Stage<small>Interface Management · reporting into the AWDS Project Management Lead</small></div></div>
+      <div class="s-title">AWDS Support Team — Construction Stage<small>Interface Management &amp; Project Support — reporting into the AWDS Project Management Lead</small></div></div>
     <div class="stage-badge">CONSTRUCTION STAGE</div>
   </div>
   <div class="s-body">
-    <div class="team-parent" style="width:100%;max-width:1320px;">
+    <div class="team-parent" style="width:100%;max-width:1480px;">
       <div class="node pm"><div class="role">AWDS Project Management Lead</div><div class="name">Henry Corcoran</div></div>
-      <div class="v" style="height:26px;"></div>
-      <div class="team-box">
-        <div class="team-title">AWDS Interface Management Team</div>
-        <div class="grid" style="grid-template-columns:repeat(4,1fr);">
-          <div class="mini rose"><div class="mt">BusConnects</div><div class="mn">Oran Dillon</div></div>
-          <div class="mini mint"><div class="mt">BIM Manager</div><div class="mn">Rob Hampton</div></div>
-          <div class="mini mint"><div class="mt">Info Manager</div><div class="mn">Mark Costello</div></div>
-          <div class="mini mint"><div class="mt">Senior GIS Consultant</div><div class="mn">Abigail Turner</div></div>
-          <div class="mini rose"><div class="mt">DAA</div><div class="mn">Mark Finnegan</div></div>
-          <div class="mini mint"><div class="mt">Deputy BIM Manager</div><div class="mn">Rahul Malaviya</div></div>
-          <div class="mini mint"><div class="mt">Deputy Info Manager</div><div class="mn">Ronan Kenny</div></div>
-          <div class="mini mint"><div class="mt">Senior GIS Analyst</div><div class="mn">Kevin Snell</div></div>
-          <div class="mini rose"><div class="mt">UAO Engagement Team</div><div class="mn">Ravindra Chaddha &amp; Samuel Monteiro</div></div>
-          <div class="mini mint"><div class="mt">Surveys</div><div class="mn">Colin Prendeville</div></div>
-          <div class="mini mint"><div class="mt">CDE Doc Controller</div><div class="mn">Akshata Jagtap</div></div>
-          <div class="mini" style="background:#f4f8ff;border-style:dashed;"><div class="mt" style="color:var(--muted)">Further interface roles</div><div class="mn" style="color:var(--muted)">as required</div></div>
-        </div>
+      <div class="v" style="height:20px;"></div>
+      <div class="bus" style="width:78%;"></div>
+      <div style="display:flex;gap:30px;width:100%;align-items:flex-start;">
+        <div class="lead-col"><div class="stem"></div>
+          <div class="team-box">
+            <div class="team-title">AWDS Interface Management Team</div>
+            <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+              <div class="mini rose"><div class="mt">BusConnects</div></div>
+              <div class="mini rose"><div class="mt">DAA</div></div>
+              <div class="mini rose"><div class="mt">UAO Engagement Team</div></div>
+              <div class="mini mint"><div class="mt">BIM Manager</div></div>
+              <div class="mini mint"><div class="mt">Deputy BIM Manager</div></div>
+              <div class="mini mint"><div class="mt">Info Manager</div></div>
+              <div class="mini mint"><div class="mt">Deputy Info Manager</div></div>
+              <div class="mini mint"><div class="mt">Senior GIS Consultant</div></div>
+              <div class="mini mint"><div class="mt">Senior GIS Analyst</div></div>
+              <div class="mini mint"><div class="mt">Surveys</div></div>
+              <div class="mini mint"><div class="mt">CDE Doc Controller</div></div>
+            </div>
+          </div></div>
+        <div class="lead-col"><div class="stem"></div>
+          <div class="team-box">
+            <div class="team-title">AWDS Project Support Team (Back-Office)</div>
+            <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+              <div class="mini sky"><div class="mt">Administrator</div></div>
+              <div class="mini sky"><div class="mt">Document Controller</div></div>
+              <div class="mini sky"><div class="mt">Health &amp; Safety Advisor</div></div>
+              <div class="mini sky"><div class="mt">QA / QC Manager</div></div>
+              <div class="mini sky"><div class="mt">Planner / Scheduler</div></div>
+              <div class="mini sky"><div class="mt">Risk Manager</div></div>
+              <div class="mini sky"><div class="mt">Project Controls Analyst</div></div>
+              <div class="mini sky"><div class="mt">HR &amp; People Coordinator</div></div>
+              <div class="mini sky"><div class="mt">IT / Systems Support</div></div>
+              <div class="mini sky"><div class="mt">Communications &amp; Stakeholder Liaison</div></div>
+              <div class="mini sky"><div class="mt">Training &amp; Competency Coordinator</div></div>
+              <div class="mini sky"><div class="mt">Office Manager</div></div>
+            </div>
+          </div></div>
       </div>
     </div>
   </div>
@@ -388,21 +403,21 @@
   <div class="s-body">
     <div class="note-banner">⟲ Reachback Team — supports construction on demand</div>
     <div class="team-parent" style="width:100%;max-width:1380px;">
-      <div class="node lead" style="min-width:300px;width:auto;min-height:auto;border-top-color:var(--mint-bd);"><div class="role">AWDS Design Reachback Team</div><div class="name">Design Management Lead — Nathan Cope</div></div>
+      <div class="node lead" style="min-width:320px;width:auto;min-height:auto;border-top-color:var(--mint-bd);"><div class="role">AWDS Design Reachback Team</div></div>
       <div class="v" style="height:22px;"></div>
       <div class="team-box">
         <div class="team-title">AWDS Design Discipline Leads (Reachback)</div>
         <div class="grid" style="grid-template-columns:repeat(5,1fr);">
-          <div class="mini mint"><div class="mt">Utilities South</div><div class="mn">Andy Emmott · Barry de Klerk · Raphael Beyene</div></div>
-          <div class="mini mint"><div class="mt">Sustainability</div><div class="mn">Mark Hewlett · Daniel George</div></div>
-          <div class="mini mint"><div class="mt">Land Access</div><div class="mn">Johan Schutte · Daniyal Kitchlew</div></div>
-          <div class="mini mint"><div class="mt">Structures</div><div class="mn">Richard Dawson · Darragh Noble</div></div>
-          <div class="mini mint"><div class="mt">Heritage</div><div class="mn">Mark Finnegan</div></div>
-          <div class="mini mint"><div class="mt">Cellars &amp; Playing Pitches</div><div class="mn">Michael Noonan</div></div>
-          <div class="mini mint"><div class="mt">Archaeology</div><div class="mn">Micheal O'Morain</div></div>
-          <div class="mini mint"><div class="mt">Biodiversity</div><div class="mn">Rob Rowlands</div></div>
-          <div class="mini mint"><div class="mt">Env. Monitoring</div><div class="mn">Deirdre Larkin · Ewuresi Opoku</div></div>
-          <div class="mini" style="background:#f1faf7;border-style:dashed;border-color:var(--mint-bd);"><div class="mt" style="color:#3a8f7c">Further disciplines</div><div class="mn" style="color:#3a8f7c">as required</div></div>
+          <div class="mini mint"><div class="mt">Utilities South</div></div>
+          <div class="mini mint"><div class="mt">Sustainability</div></div>
+          <div class="mini mint"><div class="mt">Land Access</div></div>
+          <div class="mini mint"><div class="mt">Structures</div></div>
+          <div class="mini mint"><div class="mt">Heritage</div></div>
+          <div class="mini mint"><div class="mt">Cellars &amp; Playing Pitches</div></div>
+          <div class="mini mint"><div class="mt">Archaeology</div></div>
+          <div class="mini mint"><div class="mt">Biodiversity</div></div>
+          <div class="mini mint"><div class="mt">Env. Monitoring</div></div>
+          <div class="mini" style="background:#f1faf7;border-style:dashed;border-color:var(--mint-bd);"><div class="mt" style="color:#3a8f7c">Further disciplines as required</div></div>
         </div>
       </div>
     </div>
@@ -422,7 +437,7 @@
     <div class="chain" style="width:100%;">
       <div class="node pm"><div class="role">AWDS Project Management Lead</div><div class="name">Henry Corcoran</div></div>
       <div class="v" style="height:22px;"></div>
-      <div class="node lead" style="min-width:300px;width:auto;min-height:auto;"><div class="role">AWDS Design Management Lead</div><div class="name">Nathan Cope</div></div>
+      <div class="node lead" style="min-width:300px;width:auto;min-height:auto;"><div class="role">AWDS Design Management Lead</div></div>
       <div class="v" style="height:22px;"></div>
       <div class="node" style="border-top:4px solid var(--blue);min-width:300px;"><div class="role">AWDS Contract Manager</div><div class="name">(per contract)</div></div>
       <div class="v" style="height:22px;"></div>
@@ -456,14 +471,14 @@
             <path d="M0,0 L9,5 L0,10 z" fill="#c43d20"/>
           </marker>
         </defs>
-        <!-- Suzy -> PM and NEC PM -->
+        <!-- Suzy -> AWDS PM & NEC PM -->
         <path d="M740,96 L740,150 M400,150 L1080,150 M400,150 L400,196 M1080,150 L1080,196" stroke="#9fb3d6" stroke-width="2" fill="none"/>
         <!-- NEC PM -> Contract Mgr + PDP -->
         <path d="M1080,280 L1080,330 M940,330 L1320,330 M940,330 L940,372 M1320,330 L1320,372" stroke="#9fb3d6" stroke-width="2" fill="none"/>
         <!-- Contract Mgr -> Design reachback -->
         <path d="M940,456 L940,520" stroke="#9fb3d6" stroke-width="2" fill="none"/>
-        <!-- dotted: Contract Mgr -> AWDS PM -->
-        <path d="M790,414 C640,470 470,360 558,250" stroke="#c43d20" stroke-width="2.5" fill="none" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+        <!-- dotted, straight right-angled: Contract Mgr -> bottom-centre of AWDS PM box -->
+        <path d="M800,412 L400,412 L400,282" stroke="#c43d20" stroke-width="2.5" fill="none" stroke-dasharray="9 6" marker-end="url(#arrow)"/>
       </svg>
 
       <div class="abox node exec" style="left:570px;top:14px;width:340px;border-top-color:#e8512f;">
@@ -473,18 +488,18 @@
         <div class="role">AWDS Project Management Lead</div><div class="name">Henry Corcoran</div></div>
 
       <div class="abox node exec" style="left:930px;top:196px;width:300px;border-top-color:var(--navy);">
-        <div class="role">NEC Project Manager</div><div class="name">NEC PM</div></div>
+        <div class="role">NEC Project Manager</div></div>
 
       <div class="abox node" style="left:800px;top:372px;width:280px;border-top:4px solid var(--blue);">
         <div class="role">AWDS Contract Manager</div><div class="name">(per contract)</div></div>
 
       <div class="abox node" style="left:1180px;top:372px;width:280px;border-top:4px solid #7a86a8;background:#f6f8fc;">
-        <div class="role">PDP Team</div><div class="name">Project Delivery Partner</div></div>
+        <div class="role">PDP Team</div></div>
 
       <div class="abox node tm design" style="left:790px;top:520px;width:300px;">
-        <div class="role">AWDS Design Reachback Team</div><div class="name" style="color:var(--ink)">design disciplines on demand</div></div>
+        <div class="role">AWDS Design Reachback Team</div></div>
 
-      <div class="dlabel" style="left:470px;top:330px;width:200px;text-align:center;">dotted-line report<br>to AWDS PM Lead</div>
+      <div class="dlabel" style="left:150px;top:430px;width:230px;text-align:center;">dotted-line report to AWDS Project Management Lead</div>
     </div>
   </div>
   <div class="s-foot"><div class="logos"><img class="ar" src="logos/atkinsrealis.svg"><img class="tt" src="logos/tetratech.svg"></div>
