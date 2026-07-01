@@ -169,6 +169,46 @@
     color:var(--ink);white-space:nowrap;transform:translate(-50%,-135%);}
   .axis-label{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
     color:var(--muted);text-align:center;}
+
+  /* gantt */
+  .gantt{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:22px 26px;}
+  .gantt-title{text-align:center;font-family:Georgia,serif;font-style:italic;font-size:15px;color:var(--ink);margin-bottom:20px;}
+  .gantt-row{display:grid;grid-template-columns:210px 1fr;align-items:center;gap:14px;margin-bottom:14px;}
+  .gantt-label{font-family:Georgia,serif;font-style:italic;font-size:11.5px;color:var(--ink);text-align:right;line-height:1.3;}
+  .gantt-label small{display:block;font-style:normal;font-family:Arial,sans-serif;font-size:8.5px;color:var(--muted);margin-top:2px;}
+  .gantt-track{position:relative;height:16px;background:rgba(36,53,42,.07);border-radius:3px;}
+  .gantt-bar{position:absolute;top:0;height:100%;background:var(--green);border-radius:3px;}
+  .gantt-years{display:grid;grid-template-columns:210px 1fr;margin-top:6px;}
+  .gantt-years .yr{display:flex;justify-content:space-between;font-family:Arial,sans-serif;font-size:9px;
+    color:var(--muted);letter-spacing:.03em;}
+
+  /* numbered list */
+  .numlist{width:100%;max-width:640px;margin:0 auto;background:#fff;border:1.5px solid var(--border);
+    border-radius:8px;padding:6px 26px;}
+  .numlist-row{display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid rgba(36,53,42,.14);}
+  .numlist-row:last-child{border-bottom:none;}
+  .numlist-badge{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--green-dark);
+    color:var(--green-dark);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;
+    font-size:14px;flex-shrink:0;}
+  .numlist-row h5{font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:13px;margin:0 0 3px;color:var(--ink);}
+  .numlist-row p{font-size:10.5px;color:var(--muted);margin:0;line-height:1.4;}
+
+  /* formula card */
+  .formula-card{width:100%;max-width:520px;margin:0 auto;background:#fff;border:1.5px solid var(--border);
+    border-radius:8px;padding:26px 32px;text-align:center;}
+  .formula-def{font-family:Arial,sans-serif;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:16px;}
+  .formula-eq{font-family:Georgia,serif;font-style:italic;font-size:17px;color:var(--ink);}
+  .formula-frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin-left:8px;}
+  .formula-frac .num{border-bottom:1.4px solid var(--ink);padding:0 4px 4px;font-size:12px;}
+  .formula-frac .den{padding:4px 4px 0;font-size:12px;}
+  .formula-example{margin-top:22px;padding-top:18px;border-top:1px solid rgba(36,53,42,.18);}
+  .formula-example .ftitle{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:10px;}
+  .formula-example .frow{display:flex;justify-content:space-between;padding:8px 2px;border-bottom:1px solid rgba(36,53,42,.12);}
+  .formula-example .frow:last-child{border-bottom:none;}
+  .formula-example .frow .fl{font-family:Georgia,serif;font-style:italic;font-size:12px;color:var(--ink);}
+  .formula-example .frow .fv{font-family:Georgia,serif;font-weight:700;font-size:15px;color:var(--green-dark);}
 </style>
 </head>
 <body>
@@ -234,7 +274,7 @@
       <div class="panel-caption">Simultaneous pressure from four independent transition drivers.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">02 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">02 / 30</span></div>
 </section>
 
 <!-- ============ 3 — THE SETTING (A / map) ============ -->
@@ -290,7 +330,7 @@
       <div class="panel-caption">Fictional north-Atlantic island state · 3,400 km² · population 5.2 million · Anno Domini 2026.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">03 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">03 / 30</span></div>
 </section>
 
 <!-- ============ 4 — THE PROBLEM (B / register table) ============ -->
@@ -328,7 +368,7 @@
       <div class="panel-caption">Planned delivery calculated against original programme baselines and statutory interim milestones.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">04 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">04 / 30</span></div>
 </section>
 
 <!-- ============ 5 — THE ROOT CAUSE (B / 6-node radial) ============ -->
@@ -392,7 +432,7 @@
       <div class="panel-caption">Analysis of delivery failures across comparable small island economies, 2015–2025.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">05 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">05 / 30</span></div>
 </section>
 
 <!-- ============ 6 — THE BROKEN CONTRACT (A / matrix) ============ -->
@@ -437,7 +477,7 @@
       <div class="panel-caption">The lower row defines the structural pillars of The FORCE Framework.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">06 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">06 / 30</span></div>
 </section>
 
 <!-- ============ 7 — THE COST OF INACTION (B / vertical timeline) ============ -->
@@ -482,7 +522,7 @@
       <div class="panel-caption">Projected milestone slippage under continuation of current terms, REP / NGU / BFA combined.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">07 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">07 / 30</span></div>
 </section>
 
 <!-- ============ 8 — THE CONVERGENCE (A / converging lines) ============ -->
@@ -521,7 +561,7 @@
       <div class="panel-caption">Regulatory, demand and technology pressures converge inside the current contractual term.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">08 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">08 / 30</span></div>
 </section>
 
 <!-- ============ 9 — THE THESIS (Quote) ============ -->
@@ -533,7 +573,7 @@
     <div class="quote-sub">Three programmes. Three sectors. One common failure signature, and it is not technical.</div>
     <div class="quote-foot">71% of major infrastructure failures on Arya Island trace to contractual misalignment, not technical failure<br>Arya Island Infrastructure Authority, 2026</div>
   </div></div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">09 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">09 / 30</span></div>
 </section>
 
 <!-- ============ 10 — THE FORCE FRAMEWORK (Grid) ============ -->
@@ -560,7 +600,7 @@
       <div class="force-card"><div class="force-badge">E</div><h4>Embedded governance</h4><p>Oversight instruments written into the contract, not layered on afterwards.</p></div>
     </div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">10 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">10 / 30</span></div>
 </section>
 
 <!-- ============ 11 — PACE ALIGNMENT (A / dual timeline) ============ -->
@@ -613,7 +653,7 @@
       <div class="panel-caption">Trigger-based gates absorb regulatory, technology and demand shocks within a pre-agreed band; fixed calendars cannot.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">11 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">11 / 30</span></div>
 </section>
 
 <!-- ============ 12 — INCENTIVE ARCHITECTURE (B / bar chart) ============ -->
@@ -645,7 +685,7 @@
       <div class="panel-caption">Modelled outturn under a target-cost, gain-share structure against traditional lump-sum outcomes.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">12 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">12 / 30</span></div>
 </section>
 
 <!-- ============ 13 — GOVERNANCE INTEGRATION (A / radar) ============ -->
@@ -688,7 +728,7 @@
       <div class="panel-caption">Governance readiness scored across four dimensions before accelerated pace clauses may be activated.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">13 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">13 / 30</span></div>
 </section>
 
 <!-- ============ 14 — RISK TRANSPARENCY (B / table) ============ -->
@@ -724,7 +764,7 @@
       <div class="panel-caption">Standing risk register published at each milestone gate, in place of confidential contingency pricing.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">14 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">14 / 30</span></div>
 </section>
 
 <!-- ============ 15 — STAKEHOLDER ARCHITECTURE (A / scatter) ============ -->
@@ -768,7 +808,7 @@
       <div class="panel-caption">Power / Interest Matrix, illustrative for REP · governance intensity is matched to mapped position, not assumed uniformly.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">15 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">15 / 30</span></div>
 </section>
 
 <!-- ============ 16 — THE BOLD BET (B / document mockup) ============ -->
@@ -799,7 +839,7 @@
       <div class="panel-caption">The Contract Registry converts governance from a private compliance exercise into a public, market-facing signal.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">16 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">16 / 30</span></div>
 </section>
 
 <!-- ============ 17 — APPLICATION · REP (A / bar chart) ============ -->
@@ -832,7 +872,7 @@
       <div class="panel-caption">Modelled effect of retrofitting FORCE's pace and incentive pillars at REP's 2027 renewal.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">17 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">17 / 30</span></div>
 </section>
 
 <!-- ============ 18 — APPLICATION · NGU (B / gauge) ============ -->
@@ -867,7 +907,7 @@
       <div class="panel-caption">NGU scores below the pace-trigger threshold: the priority retrofit is governance, not acceleration.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">18 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">18 / 30</span></div>
 </section>
 
 <!-- ============ 19 — APPLICATION · BFA (A / bar chart) ============ -->
@@ -900,7 +940,347 @@
       <div class="panel-caption">Modelled coverage recovery under a gain-share incentive structure against continuation of current terms.</div>
     </div></div>
   </div>
-  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">19 / 19</span></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">19 / 30</span></div>
+</section>
+
+<!-- ============ 20 — SCENARIO · REGULATORY ACCELERATION (B) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">Scenario · Regulatory Acceleration</div>
+      <div class="kicker">If carbon-reporting mandates arrive faster than planned.</div>
+      <h2 class="title">Trigger clauses absorb the shock; fixed contracts absorb only cost.</h2>
+      <p class="body-text">The three carbon-reporting regimes scheduled across 2027–2033 could plausibly consolidate into one by 2029. Under fixed-price contracts this forces a formal variation on every live contract at once. Under FORCE, the regulatory trigger clause activates automatically and the risk register discloses the shift within one reporting cycle.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Scenario likelihood</div><div class="value" style="font-size:18px;">Moderate, by 2029</div><div class="desc">illustrative likelihood of regime consolidation ahead of schedule</div></div>
+        <div class="stat"><div class="label">Contracts exposed, status quo</div><div class="value">3 of 3</div><div class="desc">active programmes requiring simultaneous formal variation</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">A ledger of contractual exposure</div>
+      <div class="diagram" style="flex-direction:column;align-items:stretch;">
+        <div class="barchart">
+          <div class="chart-title">Formal Variation Required, Traditional vs FORCE</div>
+          <div class="bar-row"><div class="bar-name">Traditional contracts<small>All 3 exposed simultaneously</small></div><div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div><div class="bar-val">100%</div></div>
+          <div class="bar-row"><div class="bar-name">FORCE contracts<small>Regulatory trigger absorbs shift</small></div><div class="bar-track"><div class="bar-fill light" style="width:1%;"></div></div><div class="bar-val">0%</div></div>
+        </div>
+      </div>
+      <div class="panel-caption">A single regulatory shock stress-tested against both contract architectures.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">20 / 30</span></div>
+</section>
+
+<!-- ============ 21 — SCENARIO · DEMAND COLLAPSE (A) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">Scenario · Demand Collapse</div>
+        <div class="kicker">If transition demand slows rather than accelerates.</div>
+        <h2 class="title">Adaptive pace protects against over-building, not just under-building.</h2>
+        <p class="body-text">Fixed-specification contracts cannot reduce scope once signed — they lock in capacity regardless of whether demand materialises. FORCE's trigger-based milestones work symmetrically: a demand-volatility trigger can defer or descope later contract phases just as readily as it can accelerate them.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Descope mechanism</div><div class="value" style="font-size:17px;">Phases 3–4 of NGU</div><div class="desc">symmetrical trigger to defer or descope without formal variation</div></div>
+        <div class="stat"><div class="label">Capital avoidance if triggered</div><div class="value">€310m</div><div class="desc">estimated capital deployment avoided ahead of Phase 3 award</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">A ledger of stranding risk</div>
+      <div class="diagram" style="flex-direction:column;align-items:stretch;">
+        <div class="barchart" style="max-width:760px;margin:0 auto;">
+          <div class="chart-title">Stranded Capacity Exposure Under Demand Undershoot</div>
+          <div class="bar-row"><div class="bar-name">Stranded exposure, traditional<small>Share of NGU capacity if demand undershoots by 20%</small></div><div class="bar-track"><div class="bar-fill" style="width:28%;"></div></div><div class="bar-val">28%</div></div>
+          <div class="bar-row"><div class="bar-name">Stranded exposure, under FORCE<small>Residual exposure after symmetrical descope trigger</small></div><div class="bar-track"><div class="bar-fill light" style="width:6%;"></div></div><div class="bar-val">6%</div></div>
+        </div>
+      </div>
+      <div class="panel-caption">A symmetrical trigger absorbs demand shocks in either direction, not only the accelerating case.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">21 / 30</span></div>
+</section>
+
+<!-- ============ 22 — SCENARIO · TECHNOLOGY DISRUPTION (B) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">Scenario · Technology Disruption</div>
+      <div class="kicker">If a breakthrough arrives mid-contract.</div>
+      <h2 class="title">A seven-year contract cannot specify a technology that does not yet exist.</h2>
+      <p class="body-text">Fixed specifications treat the technology named at award as the technology delivered, regardless of what becomes available — this is what produces innovation suppression. FORCE's outcome-aligned incentives make technology substitution a shared commercial decision: adopting a superior technology unlocks gain-share if it improves the contracted outcome.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Technology cycle vs contract term</div><div class="value" style="font-size:17px;">18 months vs 7 years</div><div class="desc">average grid-edge obsolescence cycle vs average contract term</div></div>
+        <div class="stat"><div class="label">Substitution route, under FORCE</div><div class="value" style="font-size:17px;">Gain-share eligible</div><div class="desc">substitution tested against contracted outcomes and rewarded</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">A ledger of adoption rates</div>
+      <div class="diagram" style="flex-direction:column;align-items:stretch;">
+        <div class="barchart">
+          <div class="chart-title">Modelled Technology Adoption, Traditional vs FORCE</div>
+          <div class="bar-row"><div class="bar-name">Traditional contract<small>Share of viable substitutions adopted mid-contract</small></div><div class="bar-track"><div class="bar-fill" style="width:18%;"></div></div><div class="bar-val">18%</div></div>
+          <div class="bar-row"><div class="bar-name">Under FORCE<small>Modelled adoption once substitution is gain-share eligible</small></div><div class="bar-track"><div class="bar-fill light" style="width:64%;"></div></div><div class="bar-val">64%</div></div>
+        </div>
+      </div>
+      <div class="panel-caption">Removing the contractual penalty for substitution changes the adoption rate, not just the technology available.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">22 / 30</span></div>
+</section>
+
+<!-- ============ 23 — SCENARIO SYNTHESIS (A / table) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">Scenario Synthesis</div>
+        <div class="kicker">Three shocks, one consistent result.</div>
+        <h2 class="title">FORCE contracts absorb what fixed contracts can only dispute.</h2>
+        <p class="body-text">Regulatory acceleration, demand collapse and technology disruption point in different directions. What they share is a common structural test: does the contract have a mechanism to respond, or only a mechanism to argue about who pays. The point is not to predict which scenario arrives — a FORCE architecture does not need to predict correctly in order to perform.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Scenarios stress-tested</div><div class="value">3</div><div class="desc">modelled independently across regulatory, demand and technology axes</div></div>
+        <div class="stat"><div class="label">Requiring formal variation, under FORCE</div><div class="value">0 of 3</div><div class="desc">each absorbed through an instrument already priced at award</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">A register of scenario outcomes</div>
+      <div class="diagram" style="align-items:flex-start;">
+        <div class="card" style="width:100%;padding:18px;">
+          <table class="reg">
+            <thead><tr><th>Scenario</th><th>Traditional response</th><th>FORCE response</th></tr></thead>
+            <tbody>
+              <tr><td class="rname">Regulatory acceleration</td><td>Formal variation, all live contracts</td><td class="status">Automatic trigger, register updated</td></tr>
+              <tr><td class="rname">Demand collapse</td><td>Locked-in capacity, no release valve</td><td class="status">Symmetrical descope trigger enabled</td></tr>
+              <tr><td class="rname">Technology disruption</td><td>No adoption route, formal variation only</td><td class="status">Gain-share eligible substitution</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel-caption">Structural resilience, not predictive accuracy, is what the FORCE architecture is built to deliver.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">23 / 30</span></div>
+</section>
+
+<!-- ============ 24 — TRADE-OFFS (B / table) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">Trade-offs</div>
+      <div class="kicker">What FORCE costs, and what it returns.</div>
+      <h2 class="title">No pillar is free. Each is priced against what it replaces.</h2>
+      <p class="body-text">Every clause introduced under FORCE removes a certainty enjoyed under the current model, usually one that has already proven illusory across REP, NGU and BFA. Naming these trade-offs explicitly, rather than presenting FORCE as a costless improvement, is what makes the framework negotiable rather than aspirational.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Pillars with an explicit trade</div><div class="value">5 of 5</div><div class="desc">every FORCE discipline carries a named concession</div></div>
+        <div class="stat"><div class="label">Net set-up cost to client</div><div class="value" style="font-size:18px;">+2.4% of contract value</div><div class="desc">modelled upfront drafting and governance set-up cost</div></div>
+        <div class="stat"><div class="label">Modelled breakeven point</div><div class="value" style="font-size:18px;">Milestone 2</div><div class="desc">where reduced dispute and overrun cost outweighs set-up cost</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">A ledger of concessions</div>
+      <div class="diagram" style="align-items:flex-start;">
+        <div class="card" style="width:100%;padding:16px;">
+          <table class="reg">
+            <thead><tr><th>Pillar</th><th>What you give up</th><th>What it returns</th></tr></thead>
+            <tbody>
+              <tr><td class="rname">Pace</td><td>A single fixed completion date</td><td class="status">Pre-agreed variance band, fewer disputes</td></tr>
+              <tr><td class="rname">Incentive</td><td>Guaranteed full-margin protection</td><td class="status">A share of upside on outperformance</td></tr>
+              <tr><td class="rname">Governance</td><td>Unilateral control over pace decisions</td><td class="status">Early warning of readiness gaps</td></tr>
+              <tr><td class="rname">Risk</td><td>Commercial confidentiality on contingency</td><td class="status">Lower financing cost from discipline</td></tr>
+              <tr><td class="rname">Stakeholder</td><td>Informal, ad-hoc engagement</td><td class="status">Defined routes, reduced capture risk</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel-caption">Each FORCE pillar is presented as a negotiated trade, not an unconditional improvement.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">24 / 30</span></div>
+</section>
+
+<!-- ============ 25 — LEGISLATIVE ROADMAP (A / gantt) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">Legislative Roadmap</div>
+        <div class="kicker">From framework to statute in three years.</div>
+        <h2 class="title">FORCE requires legislation, not just contract templates.</h2>
+        <p class="body-text">Publication obligations need to override commercial confidentiality norms uniformly across the market, which requires statutory backing. The sequence is deliberate: an enabling statute establishes FORCE clauses and the Registry in law, the regulator's mandate is updated, and REP's 2027 pilot provides the first live test before wider rollout.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Legislative steps required</div><div class="value">5</div><div class="desc">from enabling statute to first statutory review</div></div>
+        <div class="stat"><div class="label">Enactment window</div><div class="value" style="font-size:18px;">2026–2028</div><div class="desc">statute drafting to full Contract Registry launch</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">A roadmap of enactment</div>
+      <div class="diagram" style="align-items:stretch;">
+        <div class="gantt">
+          <div class="gantt-title">Legislative Roadmap, 2026–2029</div>
+          <div class="gantt-row"><div class="gantt-label">Enabling statute drafted<small>Legal standing for FORCE and the Registry</small></div><div class="gantt-track"><div class="gantt-bar" style="left:0%;width:33%;"></div></div></div>
+          <div class="gantt-row"><div class="gantt-label">Regulator mandate updated<small>Powers to audit risk register disclosures</small></div><div class="gantt-track"><div class="gantt-bar" style="left:30%;width:33%;"></div></div></div>
+          <div class="gantt-row"><div class="gantt-label">REP pilot clauses executed<small>First live trigger-based milestones</small></div><div class="gantt-track"><div class="gantt-bar" style="left:37%;width:26%;"></div></div></div>
+          <div class="gantt-row"><div class="gantt-label">Contract Registry live<small>Public launch: REP / NGU / BFA backdated</small></div><div class="gantt-track"><div class="gantt-bar" style="left:63%;width:24%;"></div></div></div>
+          <div class="gantt-row"><div class="gantt-label">Statutory review<small>First formal review of legislative performance</small></div><div class="gantt-track"><div class="gantt-bar" style="left:90%;width:10%;"></div></div></div>
+          <div class="gantt-years"><div></div><div class="yr"><span>2026</span><span>2027</span><span>2028</span><span>2029</span></div></div>
+        </div>
+      </div>
+      <div class="panel-caption">Enabling statute, regulator mandate, pilot and registry, sequenced within a single legislative term.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">25 / 30</span></div>
+</section>
+
+<!-- ============ 26 — IMPLEMENTATION PHASING (B / gantt) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">Implementation Phasing</div>
+      <div class="kicker">A decade of retrofit and adoption, 2026–2035.</div>
+      <h2 class="title">Existing programmes retrofit first; new contracts adopt by default.</h2>
+      <p class="body-text">FORCE is not a simultaneous switch across all Arya Island infrastructure. Retrofitting REP, NGU and BFA is sequenced to each programme's own contract renewal points, so no live delivery is disrupted mid-milestone. By 2029, FORCE is the default architecture, not the exception, for any new contract awarded on Arya Island.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Programmes retrofitted by 2029</div><div class="value">3 of 3</div><div class="desc">each at its own contract renewal or remobilisation point</div></div>
+        <div class="stat"><div class="label">Registry full coverage</div><div class="value">2030</div><div class="desc">all contracts above €50m required to publish under the Registry</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">A decade, phased</div>
+      <div class="diagram" style="align-items:stretch;">
+        <div class="gantt">
+          <div class="gantt-title">Implementation Phasing, 2026–2035</div>
+          <div class="gantt-row"><div class="gantt-label">REP retrofit<small>Pace + incentive, applied at 2027 renewal</small></div><div class="gantt-track"><div class="gantt-bar" style="left:11%;width:33%;"></div></div></div>
+          <div class="gantt-row"><div class="gantt-label">NGU retrofit<small>Governance + risk, CLEAR-DST remediation</small></div><div class="gantt-track"><div class="gantt-bar" style="left:11%;width:22%;"></div></div></div>
+          <div class="gantt-row"><div class="gantt-label">BFA retrofit<small>Incentive + risk, from 2026 remobilisation</small></div><div class="gantt-track"><div class="gantt-bar" style="left:0%;width:33%;"></div></div></div>
+          <div class="gantt-row"><div class="gantt-label">Contract Registry<small>Phased rollout, REP/NGU/BFA first</small></div><div class="gantt-track"><div class="gantt-bar" style="left:22%;width:22%;"></div></div></div>
+          <div class="gantt-row"><div class="gantt-label">FORCE as default<small>Default architecture for new awards</small></div><div class="gantt-track"><div class="gantt-bar" style="left:33%;width:67%;"></div></div></div>
+          <div class="gantt-years"><div></div><div class="yr"><span>2026</span><span>2029</span><span>2032</span><span>2035</span></div></div>
+        </div>
+      </div>
+      <div class="panel-caption">Retrofit of existing programmes precedes default adoption for new contracts across the decade.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">26 / 30</span></div>
+</section>
+
+<!-- ============ 27 — BUDGET LOGIC (A / bar chart) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">Budget Logic</div>
+        <div class="kicker">What reform costs against what inaction costs.</div>
+        <h2 class="title">Implementation costs a fraction of the overrun it prevents.</h2>
+        <p class="body-text">The combined projected overrun across REP, NGU and BFA, left unreformed, is an estimated €1.9bn. Legislating the statute, building the Registry and retrofitting all three programmes is modelled at €150m, a one-off cost. Set against a residual overrun of €760m under FORCE, the net avoided cost is roughly seven times the implementation cost.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Net overrun avoided</div><div class="value">€1.0bn</div><div class="desc">combined saving net of FORCE's own implementation cost</div></div>
+        <div class="stat"><div class="label">Modelled return ratio</div><div class="value">~7:1</div><div class="desc">net overrun avoided against total implementation cost</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">A ledger of cost and avoidance</div>
+      <div class="diagram" style="flex-direction:column;align-items:stretch;">
+        <div class="barchart" style="max-width:760px;margin:0 auto;">
+          <div class="chart-title">Overrun and Implementation Cost, €m</div>
+          <div class="bar-row"><div class="bar-name">Projected overrun, status quo<small>REP + NGU + BFA, to completion</small></div><div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div><div class="bar-val">1900</div></div>
+          <div class="bar-row"><div class="bar-name">Projected overrun, under FORCE<small>Combined residual overrun after retrofit</small></div><div class="bar-track"><div class="bar-fill light" style="width:40%;"></div></div><div class="bar-val">760</div></div>
+          <div class="bar-row"><div class="bar-name">FORCE implementation cost<small>Statute, registry and retrofit, one-off</small></div><div class="bar-track"><div class="bar-fill" style="width:7.9%;"></div></div><div class="bar-val">150</div></div>
+        </div>
+      </div>
+      <div class="panel-caption">Modelled combined cost of implementation against the overrun it is projected to avoid.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">27 / 30</span></div>
+</section>
+
+<!-- ============ 28 — THE SINGLE INDICATOR (B / formula) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">The Single Indicator</div>
+      <div class="kicker">One ratio, plain enough to govern by.</div>
+      <h2 class="title">TDER replaces cost and time as the only visible measure of success.</h2>
+      <p class="body-text">FORCE compresses five variables into one publishable indicator, the Transition Delivery Efficiency Ratio, reported at every milestone gate alongside cost and time. A ratio at or above 1.0 indicates the programme is delivering its contracted outcomes faster than its deviation is eroding value. TDER does not replace cost and time reporting — it sits alongside them.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Formula inputs</div><div class="value" style="font-size:17px;">5 FORCE metrics</div><div class="desc">pace, carbon, culture readiness, cost and time deviation</div></div>
+        <div class="stat"><div class="label">REP TDER, modelled 2029</div><div class="value">1.12</div><div class="desc">projected ratio once pace and incentive pillars are retrofitted</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">An indicator, defined</div>
+      <div class="diagram">
+        <div class="formula-card">
+          <div class="formula-def">The definition</div>
+          <div class="formula-eq">TDER = <span class="formula-frac"><span class="num">Weighted Outcome Score</span><span class="den">1 + Time and Cost Deviation</span></span></div>
+          <div class="formula-example">
+            <div class="ftitle">A worked example · REP</div>
+            <div class="frow"><span class="fl">2026, current terms</span><span class="fv">0.68</span></div>
+            <div class="frow"><span class="fl">2029, modelled under FORCE</span><span class="fv">1.12</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-caption">TDER is reported alongside cost and time, not instead of them, at every milestone gate.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">28 / 30</span></div>
+</section>
+
+<!-- ============ 29 — COALITION (A / numbered list) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">Coalition</div>
+        <div class="kicker">Who has to move together, and in what order.</div>
+        <h2 class="title">FORCE is a coalition of five actors, not a single ministerial decision.</h2>
+        <p class="body-text">No single actor can implement FORCE alone. Sequencing matters as much as sponsorship: the regulator's mandate has to exist before the Registry can be trusted, and the first retrofit cohort has to succeed before wider adoption is credible.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">First mover</div><div class="value" style="font-size:17px;">Ministry of Infrastructure</div><div class="desc">sponsors the enabling statute that gives every actor legal standing</div></div>
+        <div class="stat"><div class="label">Credibility test</div><div class="value" style="font-size:17px;">REP, 2027 pilot</div><div class="desc">first retrofit cohort, watched before wider adoption proceeds</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">A roll of the coalition</div>
+      <div class="diagram">
+        <div class="numlist">
+          <div class="numlist-row"><div class="numlist-badge">1</div><div><h5>Ministry of Infrastructure</h5><p>Sponsors the enabling statute and gives every other actor's role legal standing.</p></div></div>
+          <div class="numlist-row"><div class="numlist-badge">2</div><div><h5>Infrastructure Regulator</h5><p>Holds the audit mandate over the Contract Registry and CLEAR-DST thresholds.</p></div></div>
+          <div class="numlist-row"><div class="numlist-badge">3</div><div><h5>Programme Financiers Consortium</h5><p>Early adopter of gain-share terms; first to price contractual quality into lending.</p></div></div>
+          <div class="numlist-row"><div class="numlist-badge">4</div><div><h5>REP / NGU / BFA Delivery Teams</h5><p>First retrofit cohort; CLEAR-DST baseline assessed from 2026.</p></div></div>
+          <div class="numlist-row"><div class="numlist-badge">5</div><div><h5>Coastal Communities Forum</h5><p>Formal consultation standing under the stakeholder architecture.</p></div></div>
+        </div>
+      </div>
+      <div class="panel-caption">Each actor's participation is a precondition for the next, not a parallel, independent commitment.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">29 / 30</span></div>
+</section>
+
+<!-- ============ 30 — SUMMARY (Quote) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-quote"><div class="quote-inner">
+    <div class="quote-eyebrow">Summary</div>
+    <div class="quote-main">The contract is infrastructure. <em>Govern it accordingly.</em></div>
+    <div class="quote-sub">Five disciplines. Three programmes. One public registry. No comparable jurisdiction has built this yet.</div>
+    <div class="quote-foot">Henry Corcoran · University College Dublin<br>Infravision 2026 · Arya Island, The FORCE Framework</div>
+  </div></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">30 / 30</span></div>
 </section>
 
 </div>
