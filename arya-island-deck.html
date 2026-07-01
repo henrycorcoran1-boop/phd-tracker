@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Arya Island — The FORCE Framework</title>
+<style>
+  :root{
+    --ink:#182920; --body:#2c2820; --muted:#55503f;
+    --green:#1f5c3f; --green-dark:#123423; --gold:#a9822f;
+    --cream:#f5f0e5; --sage:#e5ebe0; --tan:#ecdfc0; --sea:#dde7e6;
+    --white:#ffffff; --border:#24352a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#9c9484;}
+  body{font-family:Georgia,'Times New Roman',serif;color:var(--body);}
+  .deck{width:1280px;margin:0 auto;}
+  .slide{width:1280px;height:905px;position:relative;overflow:hidden;background:var(--cream);
+    margin:0 auto 28px;box-shadow:0 6px 24px rgba(0,0,0,.22);}
+  .slide.bg-sage{background:var(--sage);}
+  @media print{
+    html,body{background:#fff;}
+    .slide{margin:0;box-shadow:none;page-break-after:always;}
+    @page{size:1280px 905px;margin:0;}
+  }
+  .corner{position:absolute;width:26px;height:26px;border-color:var(--gold);}
+  .corner.tl{top:26px;left:26px;border-top:2px solid;border-left:2px solid;}
+  .corner.tr{top:26px;right:26px;border-top:2px solid;border-right:2px solid;}
+  .corner.bl{bottom:26px;left:26px;border-bottom:2px solid;border-left:2px solid;}
+  .corner.br{bottom:26px;right:26px;border-bottom:2px solid;border-right:2px solid;}
+  .footer{position:absolute;left:64px;right:64px;bottom:34px;display:flex;justify-content:space-between;
+    align-items:baseline;font-family:Arial,Helvetica,sans-serif;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);}
+  .footer .pg{font-weight:700;}
+  .eyebrow{font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--green);font-weight:700;margin:0 0 4px;}
+  .kicker{font-style:italic;color:var(--muted);font-size:14.5px;margin:0 0 14px;}
+  h2.title{font-family:Georgia,'Palatino Linotype',serif;font-weight:400;font-size:30px;
+    line-height:1.28;color:var(--ink);margin:0 0 12px;}
+  p.body-text{font-size:14px;line-height:1.6;color:var(--body);margin:0 0 12px;}
+  .stat .label{font-family:Arial,Helvetica,sans-serif;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:5px;font-weight:700;}
+  .stat .value{font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--green-dark);
+    margin-bottom:5px;line-height:1.1;}
+  .stat .desc{font-size:11.5px;line-height:1.45;color:var(--body);}
+  .stat-stack .stat{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(36,53,42,.18);}
+  .stat-stack .stat:last-child{border-bottom:none;margin-bottom:0;}
+  .panel{background:var(--tan);border-radius:12px;position:relative;display:flex;flex-direction:column;
+    padding:24px 28px 20px;height:100%;}
+  .panel.sea{background:var(--sea);}
+  .panel-label{font-family:Arial,Helvetica,sans-serif;font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:10px;}
+  .panel-caption{font-style:italic;font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5;}
+  .diagram{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;}
+  .diagram svg{width:100%;height:100%;}
+
+  /* Template A: story (text top / diagram bottom) */
+  .tmpl-a{padding:54px 60px 72px;display:flex;flex-direction:column;height:100%;}
+  .a-top{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;margin-bottom:20px;}
+  .a-top .stat{padding-left:24px;border-left:1px solid rgba(36,53,42,.22);}
+  .a-bottom{flex:1;min-height:0;}
+
+  /* Template B: split (text left / diagram right) */
+  .tmpl-b{display:flex;height:100%;}
+  .b-left{width:36%;padding:60px 40px 72px 60px;display:flex;flex-direction:column;overflow:hidden;}
+  .b-right{width:64%;padding:52px 56px 72px 0;}
+
+  /* Cover */
+  .tmpl-cover{display:flex;align-items:center;justify-content:center;height:100%;}
+  .cover-inner{text-align:center;max-width:720px;}
+  .cover-eyebrow{font-family:Arial,Helvetica,sans-serif;font-size:11.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:18px;}
+  .cover-title{font-family:Georgia,serif;font-size:56px;letter-spacing:.05em;color:var(--green-dark);
+    margin:0 0 14px;text-transform:uppercase;}
+  .cover-sub{font-style:italic;font-size:23px;color:var(--ink);margin:0 0 14px;}
+  .cover-tag{font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+  .cover-authors{font-size:14px;color:var(--body);line-height:1.7;}
+  .cover-rule{width:120px;border:none;border-top:1px solid var(--gold);margin:20px auto;}
+
+  /* Quote */
+  .tmpl-quote{display:flex;align-items:center;justify-content:center;height:100%;}
+  .quote-inner{max-width:840px;text-align:center;}
+  .quote-eyebrow{font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:18px;}
+  .quote-main{font-family:Georgia,serif;font-size:34px;line-height:1.5;color:var(--ink);margin:0 0 24px;}
+  .quote-main em{color:var(--green-dark);font-style:italic;}
+  .quote-sub{font-style:italic;font-size:16px;color:var(--muted);margin-bottom:24px;}
+  .quote-foot{font-family:Arial,Helvetica,sans-serif;font-size:10.5px;letter-spacing:.06em;
+    color:var(--muted);line-height:1.6;}
+
+  /* FORCE grid template */
+  .tmpl-grid{padding:58px 68px 72px;height:100%;display:flex;flex-direction:column;}
+  .grid-head{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;margin-bottom:26px;}
+  .force-row{flex:1;display:flex;gap:18px;}
+  .force-card{flex:1;background:var(--white);border:1.5px solid var(--border);border-radius:10px;
+    padding:20px 16px;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(24,41,32,.08);}
+  .force-badge{width:42px;height:42px;border-radius:50%;background:var(--green-dark);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:18px;
+    margin-bottom:12px;}
+  .force-card h4{font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:14.5px;
+    color:var(--ink);margin:0 0 8px;}
+  .force-card p{font-size:11px;line-height:1.48;color:var(--body);margin:0;}
+
+  /* bar chart */
+  .barchart{width:100%;}
+  .barchart .chart-title{text-align:center;font-family:Georgia,serif;font-style:italic;
+    font-size:16px;color:var(--ink);margin-bottom:24px;}
+  .bar-row{display:grid;grid-template-columns:200px 1fr 48px;align-items:center;gap:12px;margin-bottom:16px;}
+  .bar-row .bar-name{font-family:Georgia,serif;font-style:italic;font-size:12px;color:var(--ink);text-align:right;}
+  .bar-row .bar-name small{display:block;font-style:normal;font-family:Arial,sans-serif;
+    font-size:9px;color:var(--muted);}
+  .bar-track{background:rgba(36,53,42,.08);border-radius:3px;height:15px;}
+  .bar-fill{background:var(--green);height:100%;border-radius:3px;}
+  .bar-fill.light{background:#9fb89f;}
+  .bar-row .bar-val{font-family:Georgia,serif;font-weight:700;font-size:12px;color:var(--ink);}
+
+  /* table */
+  table.reg{width:100%;border-collapse:collapse;font-size:11px;}
+  table.reg thead th{background:var(--green-dark);color:#fff;font-family:Arial,Helvetica,sans-serif;
+    font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;text-align:left;padding:9px 11px;}
+  table.reg tbody td{padding:10px 11px;border-bottom:1px solid rgba(36,53,42,.14);color:var(--body);}
+  table.reg tbody tr:nth-child(even){background:rgba(36,53,42,.035);}
+  table.reg tbody td.rname{font-family:Georgia,serif;font-style:italic;color:var(--ink);}
+  table.reg tbody td.status{font-weight:700;color:var(--green-dark);}
+
+  /* doc mockup */
+  .doc-outer{width:300px;height:380px;background:var(--white);border:2px solid var(--border);
+    border-radius:4px;display:flex;align-items:center;justify-content:center;padding:20px;
+    box-shadow:0 4px 14px rgba(24,41,32,.14);}
+  .doc-inner{width:100%;height:100%;border:1px solid var(--gold);border-radius:2px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px;}
+  .doc-tag{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:10px;}
+  .doc-title{font-family:Georgia,serif;font-style:italic;font-size:17px;color:var(--ink);
+    line-height:1.35;margin-bottom:16px;}
+  .doc-seal{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--green-dark);
+    display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:10px;
+    color:var(--green-dark);margin-bottom:16px;}
+  .doc-foot{font-family:Arial,sans-serif;font-size:8px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--muted);}
+
+  /* 2x3 matrix (broken contract) */
+  .matrix{display:flex;flex-direction:column;gap:12px;height:100%;}
+  .matrix-row{display:flex;gap:14px;flex:1;}
+  .matrix-card{flex:1;background:#fff;border:1.5px solid var(--border);border-radius:8px;
+    padding:14px 15px;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(24,41,32,.08);}
+  .matrix-card .m-head{font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;font-weight:700;margin:-14px -15px 10px;padding:8px 15px;
+    border-radius:8px 8px 0 0;}
+  .matrix-card.problem .m-head{background:var(--green-dark);color:#fff;}
+  .matrix-card.solution{border-color:var(--gold);}
+  .matrix-card.solution .m-head{background:#faf3de;color:var(--green-dark);}
+  .matrix-card h5{font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:13px;
+    margin:0 0 6px;color:var(--ink);}
+  .matrix-card p{font-size:10px;line-height:1.42;color:var(--muted);margin:0;}
+  .matrix-divider{text-align:center;font-family:Arial,sans-serif;font-size:9.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);padding:2px 0;}
+
+  /* scatter */
+  .scatter-box{position:relative;width:520px;height:420px;margin:0 auto;
+    border:1.5px solid var(--border);background:#fff;border-radius:8px;}
+  .scatter-box .qline-h{position:absolute;left:0;right:0;top:50%;border-top:1px dashed rgba(36,53,42,.35);}
+  .scatter-box .qline-v{position:absolute;top:0;bottom:0;left:50%;border-left:1px dashed rgba(36,53,42,.35);}
+  .scatter-box .qlabel{position:absolute;font-family:Arial,sans-serif;font-size:8.5px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);}
+  .scatter-box .dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--green-dark);
+    transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(18,52,35,.15);}
+  .scatter-box .dotlabel{position:absolute;font-family:Georgia,serif;font-style:italic;font-size:10.5px;
+    color:var(--ink);white-space:nowrap;transform:translate(-50%,-135%);}
+  .axis-label{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- ============ 1 — COVER ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-cover"><div class="cover-inner">
+    <svg width="64" height="38" style="margin-bottom:24px;"><ellipse cx="32" cy="19" rx="30" ry="16" fill="none" stroke="#1f5c3f" stroke-width="2"/><ellipse cx="32" cy="19" rx="17" ry="8" fill="#1f5c3f"/></svg>
+    <div class="cover-eyebrow">Infravision 2026 &nbsp;·&nbsp; Infrastructure as a System</div>
+    <div class="cover-title">Arya Island</div>
+    <div class="cover-sub">The FORCE Framework</div>
+    <div class="cover-tag">A contractual architecture for infrastructure transition</div>
+    <hr class="cover-rule">
+    <div class="cover-authors">Henry Corcoran<br>University College Dublin</div>
+  </div></div>
+  <div class="footer"><span>Proposal</span><span>Infravision Think Tank · 2026</span></div>
+</section>
+
+<!-- ============ 2 — THE CHALLENGE (A) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">The Challenge</div>
+        <div class="kicker">The imperative to transition.</div>
+        <h2 class="title">A narrowing window for infrastructure to lead.</h2>
+        <p class="body-text">Infrastructure systems face simultaneous pressure from climate change, technological disruption, regulatory acceleration, and shifting demand. The frameworks governing delivery were designed for a stable world and have not adapted — the consequence is a widening gap between transition ambition and delivery reality.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Global infrastructure deficit</div><div class="value">€4.2T</div><div class="desc">Investment gap by 2040 · OECD Infrastructure Outlook</div></div>
+        <div class="stat"><div class="label">The critical decade</div><div class="value" style="font-size:18px;">67% of net-zero commitments</div><div class="desc">require infrastructure investment decisions made before 2030</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">The four transition pressures acting on infrastructure systems</div>
+      <div class="diagram">
+        <svg viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid meet">
+          <line x1="500" y1="62" x2="500" y2="145" stroke="#24352a" stroke-opacity=".45"/>
+          <line x1="500" y1="358" x2="500" y2="275" stroke="#24352a" stroke-opacity=".45"/>
+          <line x1="310" y1="200" x2="435" y2="200" stroke="#24352a" stroke-opacity=".45"/>
+          <line x1="690" y1="200" x2="565" y2="200" stroke="#24352a" stroke-opacity=".45"/>
+          <rect x="405" y="30" width="190" height="56" rx="4" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="500" y="53" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1" fill="#182920">CLIMATE</text>
+          <text x="500" y="70" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1" fill="#182920">CONSTRAINTS</text>
+          <rect x="405" y="314" width="190" height="56" rx="4" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="500" y="337" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1" fill="#182920">DEMAND</text>
+          <text x="500" y="354" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1" fill="#182920">VOLATILITY</text>
+          <rect x="110" y="172" width="200" height="56" rx="4" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="210" y="195" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing=".5" fill="#182920">TECHNOLOGY</text>
+          <text x="210" y="212" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing=".5" fill="#182920">DISRUPTION</text>
+          <rect x="690" y="172" width="200" height="56" rx="4" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="790" y="195" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing=".5" fill="#182920">REGULATORY</text>
+          <text x="790" y="212" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing=".5" fill="#182920">ACCELERATION</text>
+          <circle cx="500" cy="200" r="68" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="500" y="195" text-anchor="middle" font-style="italic" font-size="15" fill="#182920">Infrastructure</text>
+          <text x="500" y="213" text-anchor="middle" font-style="italic" font-size="15" fill="#182920">Systems</text>
+          <text x="500" y="230" text-anchor="middle" font-size="10" fill="#55503f">Arya Island · 2026</text>
+        </svg>
+      </div>
+      <div class="panel-caption">Simultaneous pressure from four independent transition drivers.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">02 / 19</span></div>
+</section>
+
+<!-- ============ 3 — THE SETTING (A / map) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">The Setting</div>
+        <div class="kicker">Arya Island — a fictional island nation.</div>
+        <h2 class="title">Three concurrent programmes. One delivery system. Five billion euros.</h2>
+        <p class="body-text">Arya Island is a fictional north-Atlantic island nation of 5.2 million people with legally enshrined carbon commitments and three simultaneous infrastructure programmes active from 2022 to 2032. By 2030 it has committed to 80% renewable electricity, zero-emission rail, and universal gigabit broadband — total concurrent investment of €5.1 billion through the existing public procurement framework.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Rail Electrification · REP</div><div class="value" style="font-size:18px;">€2.4bn · 2023–2031</div><div class="desc">Full electrification of 650 km inter-city corridor, targeting 94% emissions reduction vs 2022.</div></div>
+        <div class="stat"><div class="label">National Grid Upgrade · NGU</div><div class="value" style="font-size:18px;">€1.8bn · 2024–2032</div><div class="desc">Transmission &amp; distribution upgrade to absorb 80% renewable generation.</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel sea">
+      <div class="panel-label">Tabula Insulae Aryae · three active transition programmes · 2022–2032</div>
+      <div class="diagram">
+        <svg viewBox="0 0 1000 380" preserveAspectRatio="xMidYMid meet">
+          <path d="M 190,190 C 190,110 280,60 460,58 C 640,56 740,100 760,180 C 780,260 700,330 500,340 C 300,350 190,270 190,190 Z" fill="#cfe0c8" stroke="#24352a" stroke-width="1.5"/>
+          <polyline points="240,175 360,150 470,120 640,175" fill="none" stroke="#a9822f" stroke-width="3"/>
+          <polyline points="470,120 470,200 560,260" fill="none" stroke="#123423" stroke-width="2" stroke-dasharray="6,5"/>
+          <circle cx="240" cy="175" r="5.5" fill="#123423" stroke="#fff" stroke-width="1.5"/>
+          <text x="240" y="160" text-anchor="middle" font-style="italic" font-size="12" fill="#182920">Westport</text>
+          <circle cx="470" cy="120" r="5.5" fill="#123423" stroke="#fff" stroke-width="1.5"/>
+          <text x="470" y="105" text-anchor="middle" font-style="italic" font-size="12" fill="#182920">Northfirth</text>
+          <circle cx="470" cy="200" r="5.5" fill="#123423" stroke="#fff" stroke-width="1.5"/>
+          <text x="470" y="222" text-anchor="middle" font-style="italic" font-size="12" fill="#182920">Kellsbridge</text>
+          <circle cx="560" cy="260" r="5.5" fill="#123423" stroke="#fff" stroke-width="1.5"/>
+          <text x="560" y="283" text-anchor="middle" font-style="italic" font-size="12" fill="#182920">Portarya</text>
+          <circle cx="640" cy="175" r="5.5" fill="#123423" stroke="#fff" stroke-width="1.5"/>
+          <text x="675" y="180" text-anchor="middle" font-style="italic" font-size="12" fill="#182920">Eastholm</text>
+          <g transform="translate(105,300)">
+            <circle r="26" fill="none" stroke="#55503f" stroke-width="1"/>
+            <text y="-32" text-anchor="middle" font-size="10" fill="#55503f">N</text>
+            <text y="42" text-anchor="middle" font-size="10" fill="#55503f">S</text>
+            <text x="-36" y="4" text-anchor="middle" font-size="10" fill="#55503f">W</text>
+            <text x="36" y="4" text-anchor="middle" font-size="10" fill="#55503f">E</text>
+          </g>
+          <rect x="700" y="255" width="270" height="100" rx="6" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="716" y="277" font-size="10.5" font-weight="700" letter-spacing=".5" fill="#182920">Legend of Programmes</text>
+          <line x1="716" y1="298" x2="740" y2="298" stroke="#a9822f" stroke-width="3"/>
+          <text x="748" y="302" font-size="10" fill="#2c2820">Rail Electrification (REP)</text>
+          <line x1="716" y1="318" x2="740" y2="318" stroke="#123423" stroke-width="2" stroke-dasharray="5,4"/>
+          <text x="748" y="322" font-size="10" fill="#2c2820">Grid Upgrade (NGU)</text>
+          <circle cx="728" cy="338" r="4" fill="#cfe0c8" stroke="#24352a"/>
+          <text x="748" y="342" font-size="10" fill="#2c2820">Broadband Coverage (BFA)</text>
+        </svg>
+      </div>
+      <div class="panel-caption">Fictional north-Atlantic island state · 3,400 km² · population 5.2 million · Anno Domini 2026.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">03 / 19</span></div>
+</section>
+
+<!-- ============ 4 — THE PROBLEM (B / register table) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">The Problem</div>
+      <div class="kicker">A systematic pattern of underdelivery.</div>
+      <h2 class="title">All three programmes are behind. The pattern is not coincidental.</h2>
+      <p class="body-text">REP is 34 months behind baseline with €600m in overruns. NGU has missed three consecutive milestones. BFA has reached 31% coverage against a 72% target. Three programmes, three contractors, three sectors — one common failure signature, and it is not technical.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">REP · Rail Electrification</div><div class="value">34</div><div class="desc">months behind baseline · +€600m overrun</div></div>
+        <div class="stat"><div class="label">NGU · National Grid</div><div class="value" style="font-size:17px;">3 milestones missed</div><div class="desc">Transmission backbone slipped 3 years, formal dispute active.</div></div>
+        <div class="stat"><div class="label">BFA · Broadband</div><div class="value">41</div><div class="desc">points below the 2025 interim coverage target</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">Register of programme delivery · planned versus actual · Anno 2026</div>
+      <div class="diagram" style="align-items:flex-start;">
+        <div class="card" style="width:100%;padding:18px;">
+          <table class="reg">
+            <thead><tr><th>Programme</th><th>Target</th><th>Achieved</th><th>Reckoning</th></tr></thead>
+            <tbody>
+              <tr><td class="rname">Rail Electrification<br><small style="font-family:Arial;font-style:normal;color:#55503f;">REP · €2.4bn</small></td>
+                <td>37.5%</td><td>28.6%</td><td class="status">34 months behind<br><small style="font-weight:400;color:#55503f;">+€600m overrun</small></td></tr>
+              <tr><td class="rname">National Grid Upgrade<br><small style="font-family:Arial;font-style:normal;color:#55503f;">NGU · €1.8bn</small></td>
+                <td>25.0%</td><td>18.0%</td><td class="status">3 milestones missed<br><small style="font-weight:400;color:#55503f;">Backbone slipped 3yrs</small></td></tr>
+              <tr><td class="rname">Broadband For All<br><small style="font-family:Arial;font-style:normal;color:#55503f;">BFA · €0.9bn</small></td>
+                <td>72.0%</td><td>31.0%</td><td class="status">41 ppt gap<br><small style="font-weight:400;color:#55503f;">vs 2025 target</small></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel-caption">Planned delivery calculated against original programme baselines and statutory interim milestones.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">04 / 19</span></div>
+</section>
+
+<!-- ============ 5 — THE ROOT CAUSE (B / 6-node radial) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">The Root Cause</div>
+      <div class="kicker">The bottleneck is not technical.</div>
+      <h2 class="title">The contractual framework is the primary constraint on transition delivery.</h2>
+      <p class="body-text">71% of major infrastructure failures across comparable island economies trace not to technical causes, but to one structural condition: a contractual framework designed for a predictable world. Cost overruns, delays, innovation failure, missed targets and stakeholder conflict are symptoms of one root cause — the contract is the bottleneck.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Primary finding</div><div class="value">71%</div><div class="desc">of major delivery failures trace to contractual misalignment</div></div>
+        <div class="stat"><div class="label">Economic case for reform</div><div class="value" style="font-size:18px;">€1 in → €3.40 out</div><div class="desc">estimated return in delivery efficiency and reduced dispute costs</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">Convergence of five failure symptoms to one structural cause</div>
+      <div class="diagram">
+        <svg viewBox="0 0 640 760" preserveAspectRatio="xMidYMid meet">
+          <line x1="320" y1="158" x2="320" y2="322" stroke="#24352a" stroke-opacity=".45"/>
+          <line x1="200" y1="300" x2="249" y2="367" stroke="#24352a" stroke-opacity=".45"/>
+          <line x1="440" y1="300" x2="391" y2="367" stroke="#24352a" stroke-opacity=".45"/>
+          <line x1="200" y1="560" x2="257" y2="447" stroke="#24352a" stroke-opacity=".45"/>
+          <line x1="440" y1="560" x2="383" y2="447" stroke="#24352a" stroke-opacity=".45"/>
+          <line x1="320" y1="612" x2="320" y2="478" stroke="#24352a" stroke-opacity=".45"/>
+
+          <rect x="210" y="82" width="220" height="76" rx="5" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="320" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="#182920">COST OVERRUNS</text>
+          <text x="320" y="136" text-anchor="middle" font-style="italic" font-size="10.5" fill="#55503f">avg +31% on major programmes</text>
+
+          <rect x="10" y="262" width="190" height="76" rx="5" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="105" y="290" text-anchor="middle" font-size="12.5" font-weight="700" fill="#182920">INNOVATION</text>
+          <text x="105" y="308" text-anchor="middle" font-size="12.5" font-weight="700" fill="#182920">SUPPRESSED</text>
+          <text x="105" y="326" text-anchor="middle" font-style="italic" font-size="10" fill="#55503f">no incentive to improve</text>
+
+          <rect x="440" y="262" width="190" height="76" rx="5" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="535" y="298" text-anchor="middle" font-size="12.5" font-weight="700" fill="#182920">TARGETS MISSED</text>
+          <text x="535" y="318" text-anchor="middle" font-style="italic" font-size="10" fill="#55503f">in all 3 programmes</text>
+
+          <rect x="10" y="522" width="190" height="76" rx="5" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="105" y="550" text-anchor="middle" font-size="12.5" font-weight="700" fill="#182920">STAKEHOLDER</text>
+          <text x="105" y="568" text-anchor="middle" font-size="12.5" font-weight="700" fill="#182920">CONFLICT</text>
+          <text x="105" y="586" text-anchor="middle" font-style="italic" font-size="10" fill="#55503f">disputes in all programmes</text>
+
+          <rect x="440" y="522" width="190" height="76" rx="5" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="535" y="550" text-anchor="middle" font-size="12.5" font-weight="700" fill="#182920">RISK PRICED</text>
+          <text x="535" y="568" text-anchor="middle" font-size="12.5" font-weight="700" fill="#182920">CONSERVATIVELY</text>
+          <text x="535" y="586" text-anchor="middle" font-style="italic" font-size="10" fill="#55503f">+15–25% to tender</text>
+
+          <rect x="210" y="612" width="220" height="76" rx="5" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="320" y="642" text-anchor="middle" font-size="13" font-weight="700" fill="#182920">SCHEDULE DELAYS</text>
+          <text x="320" y="666" text-anchor="middle" font-style="italic" font-size="10.5" fill="#55503f">avg 28 months overrun</text>
+
+          <circle cx="320" cy="400" r="78" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="320" y="392" text-anchor="middle" font-style="italic" font-size="14.5" fill="#182920">Contractual</text>
+          <text x="320" y="410" text-anchor="middle" font-style="italic" font-size="14.5" fill="#182920">Architecture</text>
+          <text x="320" y="428" text-anchor="middle" font-size="10" fill="#55503f">The Root Cause</text>
+        </svg>
+      </div>
+      <div class="panel-caption">Analysis of delivery failures across comparable small island economies, 2015–2025.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">05 / 19</span></div>
+</section>
+
+<!-- ============ 6 — THE BROKEN CONTRACT (A / matrix) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">The Broken Contract</div>
+        <div class="kicker">How procurement misaligns the system.</div>
+        <h2 class="title">Three structural failures of traditional procurement in a transition context.</h2>
+        <p class="body-text">The fixed-price lump-sum contract embeds three structural failures that are especially damaging when infrastructure must remain adaptive across a decade of change. These are not design flaws that can be patched — they are inherent properties of adversarial contracting.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Cost of risk concentration</div><div class="value" style="font-size:19px;">15–25% inflation</div><div class="desc">embedded in every lump-sum tender before work begins</div></div>
+        <div class="stat"><div class="label">Pace rigidity in numbers</div><div class="value" style="font-size:19px;">86% of variations</div><div class="desc">arise from specification changes a collaborative model would absorb</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">The three failings of traditional procurement — and what transition requires</div>
+      <div class="diagram" style="align-items:stretch;">
+        <div class="matrix">
+          <div class="matrix-row">
+            <div class="matrix-card problem"><div class="m-head">Risk</div>
+              <h5>Transferred wholly to contractor</h5><p>Conservative pricing inflates cost by 15–25%.</p></div>
+            <div class="matrix-card problem"><div class="m-head">Pace</div>
+              <h5>Fixed at contract award</h5><p>Cannot adapt when regulation or technology shifts mid-delivery.</p></div>
+            <div class="matrix-card problem"><div class="m-head">Innovation</div>
+              <h5>Outperformance captured by client</h5><p>No commercial case for a contractor to invest in better methods.</p></div>
+          </div>
+          <div class="matrix-divider">The FORCE Framework requires ↓</div>
+          <div class="matrix-row">
+            <div class="matrix-card solution"><div class="m-head">Shared Risk</div>
+              <h5>Pain and gain shared</h5><p>Tied to transition outcomes, not just cost and time.</p></div>
+            <div class="matrix-card solution"><div class="m-head">Adaptive Pace</div>
+              <h5>Trigger-based milestones</h5><p>Adapt to regulatory and technology change without formal variation.</p></div>
+            <div class="matrix-card solution"><div class="m-head">Innovation Rewarded</div>
+              <h5>Gain-share on adoption</h5><p>Linked to innovation adoption and culture readiness gains.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-caption">The lower row defines the structural pillars of The FORCE Framework.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">06 / 19</span></div>
+</section>
+
+<!-- ============ 7 — THE COST OF INACTION (B / vertical timeline) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">The Cost of Inaction</div>
+      <div class="kicker">Arya Island, unreformed, 2040.</div>
+      <h2 class="title">A decade of the same contracts produces a predictable island.</h2>
+      <p class="body-text">Extending current contractual practice across REP, NGU and BFA produces a consistent forecast: overruns compound, disputes multiply, and none of the three programmes closes its delivery gap. By 2040, Arya Island carries a stranded generation of assets built to specifications frozen a decade earlier.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Cumulative overrun by 2040</div><div class="value">€3.1bn</div><div class="desc">projected combined overrun across REP, NGU and BFA</div></div>
+        <div class="stat"><div class="label">Cumulative slippage</div><div class="value">11 years</div><div class="desc">combined delivery delay against original baseline dates</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">A chart of the unreformed decade</div>
+      <div class="diagram">
+        <svg viewBox="0 0 640 760" preserveAspectRatio="xMidYMid meet">
+          <text x="320" y="40" text-anchor="middle" font-style="italic" font-size="17" fill="#182920">Arya Island · The Unreformed Decade</text>
+          <line x1="320" y1="70" x2="320" y2="640" stroke="#24352a" stroke-opacity=".3"/>
+          <g font-size="11" fill="#55503f">
+            <text x="290" y="106" text-anchor="end">2026</text><circle cx="320" cy="102" r="5" fill="#fff" stroke="#123423" stroke-width="2"/>
+            <text x="290" y="196" text-anchor="end">2029</text><circle cx="320" cy="192" r="5" fill="#fff" stroke="#123423" stroke-width="2"/>
+            <text x="290" y="286" text-anchor="end">2032</text><circle cx="320" cy="282" r="5" fill="#fff" stroke="#123423" stroke-width="2"/>
+            <text x="290" y="376" text-anchor="end">2035</text><path d="M312,364 L328,380 M328,364 L312,380" stroke="#8a3b2b" stroke-width="2.4"/>
+            <text x="290" y="466" text-anchor="end">2037</text><path d="M312,454 L328,470 M328,454 L312,470" stroke="#8a3b2b" stroke-width="2.4"/>
+            <text x="290" y="556" text-anchor="end">2040</text><path d="M312,544 L328,560 M328,544 L312,560" stroke="#8a3b2b" stroke-width="2.4"/>
+          </g>
+          <text x="350" y="106" font-size="10.5" fill="#2c2820">Planned milestone</text>
+          <text x="350" y="376" font-size="10.5" fill="#8a3b2b">Missed milestone</text>
+          <ellipse cx="320" cy="608" rx="36" ry="18" fill="#c8c2b2" opacity=".7"/>
+          <ellipse cx="296" cy="600" rx="26" ry="14" fill="#c8c2b2" opacity=".7"/>
+          <ellipse cx="346" cy="600" rx="26" ry="14" fill="#c8c2b2" opacity=".7"/>
+          <path d="M318,624 L308,644 L320,644 L308,666" fill="none" stroke="#a9822f" stroke-width="2.5"/>
+          <rect x="200" y="680" width="240" height="56" rx="6" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="320" y="702" text-anchor="middle" font-style="italic" font-size="13" fill="#182920">Arya Island · 2040</text>
+          <text x="320" y="720" text-anchor="middle" font-size="10.5" letter-spacing="1" fill="#8a3b2b">UNREFORMED</text>
+        </svg>
+      </div>
+      <div class="panel-caption">Projected milestone slippage under continuation of current terms, REP / NGU / BFA combined.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">07 / 19</span></div>
+</section>
+
+<!-- ============ 8 — THE CONVERGENCE (A / converging lines) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">The Convergence</div>
+        <div class="kicker">Three pressures, one decade to absorb them.</div>
+        <h2 class="title">Regulation, demand and technology are converging faster than contracts can adapt.</h2>
+        <p class="body-text">None of these pressures is itself unmanageable. What makes them dangerous in combination is that the dominant contract form — fixed specification, fixed price, fixed term — has no mechanism to absorb any of them.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Demand volatility</div><div class="value">42%</div><div class="desc">projected swing in electricity demand by 2035</div></div>
+        <div class="stat"><div class="label">Technology disruption</div><div class="value" style="font-size:18px;">18-month cycle</div><div class="desc">against seven-year average contract terms</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">Chart of converging currents</div>
+      <div class="diagram">
+        <svg viewBox="0 0 1000 380" preserveAspectRatio="xMidYMid meet">
+          <path d="M 140,90 C 400,90 560,190 800,190" fill="none" stroke="#123423" stroke-width="2"/>
+          <path d="M 140,190 C 400,190 560,190 800,190" fill="none" stroke="#123423" stroke-width="2"/>
+          <path d="M 140,290 C 400,290 560,190 800,190" fill="none" stroke="#123423" stroke-width="2"/>
+          <circle cx="140" cy="90" r="4" fill="#123423"/><circle cx="140" cy="190" r="4" fill="#123423"/><circle cx="140" cy="290" r="4" fill="#123423"/>
+          <text x="130" y="76" text-anchor="start" font-size="12" letter-spacing=".5" fill="#182920">REGULATORY ACCELERATION</text>
+          <text x="130" y="176" text-anchor="start" font-size="12" letter-spacing=".5" fill="#182920">DEMAND VOLATILITY</text>
+          <text x="130" y="306" text-anchor="start" font-size="12" letter-spacing=".5" fill="#182920">TECHNOLOGY DISRUPTION</text>
+          <circle cx="800" cy="190" r="52" fill="#fff" stroke="#24352a" stroke-width="1.5"/>
+          <text x="800" y="184" text-anchor="middle" font-style="italic" font-size="12" fill="#182920">Arya</text>
+          <text x="800" y="200" text-anchor="middle" font-style="italic" font-size="12" fill="#182920">Island</text>
+          <text x="800" y="256" text-anchor="middle" font-size="10.5" fill="#55503f">CONVERGENCE ~ 2040</text>
+        </svg>
+      </div>
+      <div class="panel-caption">Regulatory, demand and technology pressures converge inside the current contractual term.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">08 / 19</span></div>
+</section>
+
+<!-- ============ 9 — THE THESIS (Quote) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-quote"><div class="quote-inner">
+    <div class="quote-eyebrow">The Thesis</div>
+    <div class="quote-main">Infrastructure transition will not fail on technology. It will fail on <em>the contracts written to deliver it.</em></div>
+    <div class="quote-sub">Three programmes. Three sectors. One common failure signature, and it is not technical.</div>
+    <div class="quote-foot">71% of major infrastructure failures on Arya Island trace to contractual misalignment, not technical failure<br>Arya Island Infrastructure Authority, 2026</div>
+  </div></div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">09 / 19</span></div>
+</section>
+
+<!-- ============ 10 — THE FORCE FRAMEWORK (Grid) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-grid">
+    <div class="grid-head">
+      <div>
+        <div class="eyebrow">The FORCE Framework</div>
+        <div class="kicker">Five disciplines, embedded in one contract.</div>
+        <h2 class="title">A contractual architecture built for transition, not just construction.</h2>
+        <p class="body-text">The FORCE Framework restates five variables — currently treated as aspirations layered on top of delivery — as contractual preconditions written in from award. What follows is not a new form of contract; it is the same instruments, rebuilt around the outcomes transition actually requires.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">The premise</div><div class="desc">Five variables, one instrument. No aspiration is contractual until it is priced, triggered and enforceable.</div></div>
+        <div class="stat"><div class="label">Where FORCE is applied</div><div class="desc">Pace, incentive, governance, risk and stakeholder architecture — the five pillars in the sections that follow.</div></div>
+      </div>
+    </div>
+    <div class="force-row">
+      <div class="force-card"><div class="force-badge">F</div><h4>Fourth-class metrics</h4><p>Pace, carbon and culture measured alongside cost and time.</p></div>
+      <div class="force-card"><div class="force-badge">O</div><h4>Outcome-aligned incentives</h4><p>Risk and reward tied to transition outcomes, not just completion.</p></div>
+      <div class="force-card"><div class="force-badge">R</div><h4>Regulatory adaptability</h4><p>Trigger-based milestones that flex with regulatory and technology change.</p></div>
+      <div class="force-card"><div class="force-badge">C</div><h4>Culture readiness</h4><p>Leadership, environment, architecture and resource as contractual preconditions.</p></div>
+      <div class="force-card"><div class="force-badge">E</div><h4>Embedded governance</h4><p>Oversight instruments written into the contract, not layered on afterwards.</p></div>
+    </div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">10 / 19</span></div>
+</section>
+
+<!-- ============ 11 — PACE ALIGNMENT (A / dual timeline) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">Pace Alignment</div>
+        <div class="kicker">Contracts that move at the speed of transition.</div>
+        <h2 class="title">Milestones triggered by conditions, not calendars.</h2>
+        <p class="body-text">A trigger-based milestone architecture ties delivery gates to defined external conditions — regulatory publication, technology cost thresholds, demand signals — so pace adapts without renegotiation. This does not remove deadlines; it removes the single point of failure of a decade-long asset bound to one frozen date.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Pace variance absorbed</div><div class="value">±18mo</div><div class="desc">pre-agreed adjustment window absorbed without formal dispute</div></div>
+        <div class="stat"><div class="label">Pilot clauses drafted</div><div class="value" style="font-size:17px;">1 of 3 REP packages</div><div class="desc">trigger-based pace clauses drafted for REP's 2027 renewal</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">A diagram of two pace architectures</div>
+      <div class="diagram">
+        <svg viewBox="0 0 1000 380" preserveAspectRatio="xMidYMid meet">
+          <text x="500" y="34" text-anchor="middle" font-style="italic" font-size="16" fill="#182920">Fixed Calendar versus Trigger-Based Pace</text>
+          <text x="90" y="108" font-size="11" letter-spacing=".08em" fill="#55503f">TRADITIONAL · FIXED CALENDAR</text>
+          <line x1="90" y1="150" x2="920" y2="150" stroke="#24352a" stroke-width="1.5"/>
+          <g font-size="10" fill="#55503f">
+            <rect x="112" y="142" width="16" height="16" fill="#fff" stroke="#123423" stroke-width="1.5" transform="rotate(45 120 150)"/><text x="120" y="172" text-anchor="middle">Baseline</text>
+            <rect x="312" y="142" width="16" height="16" fill="#fff" stroke="#123423" stroke-width="1.5" transform="rotate(45 320 150)"/><text x="320" y="172" text-anchor="middle">Gate 1</text>
+            <rect x="512" y="142" width="16" height="16" fill="#fff" stroke="#123423" stroke-width="1.5" transform="rotate(45 520 150)"/><text x="520" y="172" text-anchor="middle">Gate 2</text>
+            <rect x="712" y="142" width="16" height="16" fill="#fff" stroke="#123423" stroke-width="1.5" transform="rotate(45 720 150)"/><text x="720" y="172" text-anchor="middle">Gate 3</text>
+            <rect x="892" y="142" width="16" height="16" fill="#fff" stroke="#123423" stroke-width="1.5" transform="rotate(45 900 150)"/><text x="900" y="172" text-anchor="middle">Completion</text>
+          </g>
+          <text x="90" y="196" font-style="italic" font-size="10.5" fill="#55503f">No adjustment mechanism between gates.</text>
+
+          <text x="90" y="256" font-size="11" letter-spacing=".08em" fill="#55503f">FORCE · TRIGGER-BASED</text>
+          <rect x="280" y="278" width="80" height="30" fill="#1f5c3f" opacity=".16"/>
+          <rect x="480" y="278" width="80" height="30" fill="#1f5c3f" opacity=".16"/>
+          <rect x="680" y="278" width="80" height="30" fill="#1f5c3f" opacity=".16"/>
+          <line x1="90" y1="293" x2="920" y2="293" stroke="#24352a" stroke-width="1.5"/>
+          <g font-size="10" fill="#55503f">
+            <circle cx="120" cy="293" r="8" fill="#fff" stroke="#123423" stroke-width="1.5"/><text x="120" y="322" text-anchor="middle">Baseline</text>
+            <circle cx="320" cy="293" r="8" fill="#fff" stroke="#1f5c3f" stroke-width="1.5"/><text x="320" y="322" text-anchor="middle">Gate 1</text>
+            <circle cx="520" cy="293" r="8" fill="#fff" stroke="#1f5c3f" stroke-width="1.5"/><text x="520" y="322" text-anchor="middle">Gate 2</text>
+            <circle cx="720" cy="293" r="8" fill="#fff" stroke="#1f5c3f" stroke-width="1.5"/><text x="720" y="322" text-anchor="middle">Gate 3</text>
+            <circle cx="900" cy="293" r="8" fill="#fff" stroke="#123423" stroke-width="1.5"/><text x="900" y="322" text-anchor="middle">Completion</text>
+          </g>
+          <text x="90" y="348" font-style="italic" font-size="10.5" fill="#1f5c3f">±18 month pre-agreed variation window slotted at each gate.</text>
+        </svg>
+      </div>
+      <div class="panel-caption">Trigger-based gates absorb regulatory, technology and demand shocks within a pre-agreed band; fixed calendars cannot.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">11 / 19</span></div>
+</section>
+
+<!-- ============ 12 — INCENTIVE ARCHITECTURE (B / bar chart) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">Incentive Architecture</div>
+      <div class="kicker">Risk and reward shared, not transferred.</div>
+      <h2 class="title">Gain-share instruments that align contractor and client outcomes.</h2>
+      <p class="body-text">FORCE replaces lump-sum pricing with a shared-risk, shared-gain mechanism: a target cost baseline with a pain and gain share formula tied to transition outcomes as well as cost and time. The commercial case for proposing a better delivery method now exists.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Gain-share band</div><div class="value" style="font-size:19px;">50/50 to cap</div><div class="desc">saving against target cost split evenly, up to an agreed ceiling</div></div>
+        <div class="stat"><div class="label">Pain-share cap</div><div class="value">15%</div><div class="desc">max share of target cost absorbed before risk reverts to relief</div></div>
+        <div class="stat"><div class="label">Metrics linked to payment</div><div class="value" style="font-size:19px;">4 measures</div><div class="desc">cost, time, carbon performance and innovation adoption</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">A ledger of shared outcomes</div>
+      <div class="diagram" style="flex-direction:column;align-items:stretch;">
+        <div class="barchart">
+          <div class="chart-title">Target Cost Outcomes, Indexed to 100</div>
+          <div class="bar-row"><div class="bar-name">Target cost baseline<small>Agreed at award</small></div><div class="bar-track"><div class="bar-fill light" style="width:76.9%;"></div></div><div class="bar-val">100</div></div>
+          <div class="bar-row"><div class="bar-name">Traditional outturn<small>Overrun absorbed by client</small></div><div class="bar-track"><div class="bar-fill" style="width:90.8%;"></div></div><div class="bar-val">118</div></div>
+          <div class="bar-row"><div class="bar-name">FORCE, gain case<small>Saving split 50/50</small></div><div class="bar-track"><div class="bar-fill" style="width:70%;"></div></div><div class="bar-val">91</div></div>
+          <div class="bar-row"><div class="bar-name">FORCE, pain case<small>Overrun shared within 15% cap</small></div><div class="bar-track"><div class="bar-fill" style="width:83.1%;"></div></div><div class="bar-val">108</div></div>
+        </div>
+      </div>
+      <div class="panel-caption">Modelled outturn under a target-cost, gain-share structure against traditional lump-sum outcomes.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">12 / 19</span></div>
+</section>
+
+<!-- ============ 13 — GOVERNANCE INTEGRATION (A / radar) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">Governance Integration</div>
+        <div class="kicker">Culture readiness as a contractual precondition.</div>
+        <h2 class="title">CLEAR-DST embeds governance readiness before pace is contracted.</h2>
+        <p class="body-text">The CLEAR-DST instrument scores four dimensions of delivery-team readiness — Leadership, Environment, Architecture and Resource — before trigger-based milestones are activated. A programme scoring below threshold reverts to calendar-based pace until remediated.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Gating threshold</div><div class="value">70%</div><div class="desc">composite score required to unlock trigger-based pace</div></div>
+        <div class="stat"><div class="label">Reassessment cycle</div><div class="value" style="font-size:18px;">Every 12 months</div><div class="desc">pace reverts on sustained sub-threshold scores</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">A readiness instrument</div>
+      <div class="diagram">
+        <svg viewBox="0 0 900 380" preserveAspectRatio="xMidYMid meet">
+          <text x="450" y="34" text-anchor="middle" font-style="italic" font-size="15" fill="#182920">CLEAR-DST · Illustrative Composite Score</text>
+          <circle cx="450" cy="205" r="140" fill="none" stroke="#24352a" stroke-opacity=".14"/>
+          <circle cx="450" cy="205" r="93" fill="none" stroke="#24352a" stroke-opacity=".14"/>
+          <circle cx="450" cy="205" r="46" fill="none" stroke="#24352a" stroke-opacity=".14"/>
+          <circle cx="450" cy="205" r="98" fill="none" stroke="#a9822f" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <line x1="450" y1="65" x2="450" y2="345" stroke="#24352a" stroke-opacity=".4"/>
+          <line x1="310" y1="205" x2="590" y2="205" stroke="#24352a" stroke-opacity=".4"/>
+          <polygon points="450,79 590,205 450,266 366,205" fill="#1f5c3f" fill-opacity=".28" stroke="#123423" stroke-width="2"/>
+          <circle cx="450" cy="79" r="4" fill="#123423"/><circle cx="590" cy="205" r="4" fill="#123423"/>
+          <circle cx="450" cy="266" r="4" fill="#123423"/><circle cx="366" cy="205" r="4" fill="#123423"/>
+          <text x="450" y="50" text-anchor="middle" font-size="11.5" letter-spacing=".08em" fill="#182920">LEADERSHIP</text>
+          <text x="625" y="209" text-anchor="start" font-size="11.5" letter-spacing=".08em" fill="#182920">ENVIRONMENT</text>
+          <text x="450" y="368" text-anchor="middle" font-size="11.5" letter-spacing=".08em" fill="#182920">ARCHITECTURE</text>
+          <text x="278" y="209" text-anchor="end" font-size="11.5" letter-spacing=".08em" fill="#182920">RESOURCE</text>
+          <text x="690" y="112" font-style="italic" font-size="11" fill="#a9822f">70% gating ring</text>
+        </svg>
+      </div>
+      <div class="panel-caption">Governance readiness scored across four dimensions before accelerated pace clauses may be activated.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">13 / 19</span></div>
+</section>
+
+<!-- ============ 14 — RISK TRANSPARENCY (B / table) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">Risk Transparency</div>
+      <div class="kicker">Risk registers as public contractual instruments.</div>
+      <h2 class="title">What used to be commercially confidential becomes structurally visible.</h2>
+      <p class="body-text">FORCE requires a standing risk register, published in a defined redacted form, updated at each milestone gate. Transparency does not eliminate risk — it removes the informational asymmetry that allows risk to be concentrated and mispriced without consequence.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Disclosure frequency</div><div class="value" style="font-size:18px;">Each milestone gate</div><div class="desc">quarterly minimum, published to the oversight body</div></div>
+        <div class="stat"><div class="label">Mandatory register fields</div><div class="value">6</div><div class="desc">risk, owner, price, trigger, status and mitigation</div></div>
+        <div class="stat"><div class="label">Current disclosure baseline</div><div class="value" style="font-size:18px;">0 of 3 programmes</div><div class="desc">REP, NGU and BFA publish no structured register today</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">A register, opened</div>
+      <div class="diagram" style="align-items:flex-start;">
+        <div class="card" style="width:100%;padding:18px;">
+          <table class="reg">
+            <thead><tr><th>Risk</th><th>Owner</th><th>Priced risk</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td class="rname">Ground conditions, Section 4</td><td>Contractor</td><td>€1.4m</td><td class="status">Open, monitored</td></tr>
+              <tr><td class="rname">Interface, signalling supplier</td><td>Shared</td><td>€2.2m</td><td class="status">Mitigation active</td></tr>
+              <tr><td class="rname">Regulatory change, carbon reporting</td><td>Client</td><td>€4.0m</td><td class="status">Trigger pending</td></tr>
+              <tr><td class="rname">Labour availability, Q3 2027</td><td>Contractor</td><td>€0.9m</td><td class="status">Escalation notified</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel-caption">Standing risk register published at each milestone gate, in place of confidential contingency pricing.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">14 / 19</span></div>
+</section>
+
+<!-- ============ 15 — STAKEHOLDER ARCHITECTURE (A / scatter) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">Stakeholder Architecture</div>
+        <div class="kicker">Mapping power against interest before pace is set.</div>
+        <h2 class="title">Not every stakeholder needs the same contractual voice.</h2>
+        <p class="body-text">Stakeholders with high power and high interest receive formal contractual standing: step-in rights, reporting lines, escalation triggers. Others receive lighter-touch consultation. This prevents capture by a narrow set of high-power actors, and consultation fatigue among the rest.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Formal contractual standing</div><div class="value">6 of 22</div><div class="desc">mapped stakeholders on REP granted formal escalation rights</div></div>
+        <div class="stat"><div class="label">Escalation triggers defined</div><div class="value" style="font-size:16px;">Per high-power actor</div><div class="desc">named trigger and response window for each</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">A map of stakeholder position</div>
+      <div class="diagram" style="flex-direction:column;gap:6px;">
+        <div style="display:flex;gap:14px;align-items:center;">
+          <div style="writing-mode:vertical-rl;transform:rotate(180deg);" class="axis-label">Power over delivery</div>
+          <div class="scatter-box">
+            <div class="qline-h"></div><div class="qline-v"></div>
+            <div class="qlabel" style="top:8px;left:10px;">Keep satisfied</div>
+            <div class="qlabel" style="top:8px;right:10px;">Manage closely</div>
+            <div class="qlabel" style="bottom:8px;left:10px;">Monitor</div>
+            <div class="qlabel" style="bottom:8px;right:10px;">Keep informed</div>
+            <div class="dot" style="left:82%;top:15%;"></div><div class="dotlabel" style="left:82%;top:15%;">Infrastructure Regulator</div>
+            <div class="dot" style="left:66%;top:24%;"></div><div class="dotlabel" style="left:66%;top:24%;">Grid Operator</div>
+            <div class="dot" style="left:58%;top:40%;"></div><div class="dotlabel" style="left:58%;top:40%;">Programme Financiers</div>
+            <div class="dot" style="left:22%;top:30%;"></div><div class="dotlabel" style="left:22%;top:30%;">Coastal Communities</div>
+            <div class="dot" style="left:18%;top:78%;"></div><div class="dotlabel" style="left:18%;top:82%;transform:translate(-50%,10%);">General Public</div>
+            <div class="dot" style="left:38%;top:80%;"></div><div class="dotlabel" style="left:38%;top:84%;transform:translate(-50%,10%);">Local Contractors</div>
+            <div class="dot" style="left:68%;top:70%;"></div><div class="dotlabel" style="left:68%;top:74%;transform:translate(-50%,10%);">Equipment Suppliers</div>
+          </div>
+        </div>
+        <div class="axis-label" style="margin-left:32px;">Interest in programme outcome</div>
+      </div>
+      <div class="panel-caption">Power / Interest Matrix, illustrative for REP · governance intensity is matched to mapped position, not assumed uniformly.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">15 / 19</span></div>
+</section>
+
+<!-- ============ 16 — THE BOLD BET (B / document mockup) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">The Bold Bet</div>
+      <div class="kicker">A public registry, not a private reform.</div>
+      <h2 class="title">Publish the contract, and the market starts pricing quality.</h2>
+      <p class="body-text">The bold bet: a public Contract Registry — a searchable database of infrastructure contract terms, risk allocations and delivery performance — published as a matter of statute. Once structurally public, mispriced risk and unenforced governance become visible to markets, not just regulators.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Registry scope</div><div class="value" style="font-size:18px;">All contracts &gt; €50m</div><div class="desc">statutory publication threshold from enactment</div></div>
+        <div class="stat"><div class="label">Fields published</div><div class="value">12</div><div class="desc">structured fields per contract, including risk allocation</div></div>
+        <div class="stat"><div class="label">Comparable precedent</div><div class="value">0 identified</div><div class="desc">no jurisdiction publishes at this granularity today</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">The instrument itself</div>
+      <div class="diagram">
+        <div class="doc-outer"><div class="doc-inner">
+          <div class="doc-tag">A statutory instrument</div>
+          <div class="doc-title">The Arya Island<br>Contract Registry</div>
+          <div class="doc-seal">FORCE</div>
+          <div class="doc-foot">Published · Searchable · Enforced<br>Anno 2026</div>
+        </div></div>
+      </div>
+      <div class="panel-caption">The Contract Registry converts governance from a private compliance exercise into a public, market-facing signal.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">16 / 19</span></div>
+</section>
+
+<!-- ============ 17 — APPLICATION · REP (A / bar chart) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">Application · REP</div>
+        <div class="kicker">Rail Electrification Programme, retrofitted.</div>
+        <h2 class="title">How FORCE would change REP's trajectory.</h2>
+        <p class="body-text">Retrofitting FORCE's pace and incentive pillars at the 2027 renewal converts REP's three remaining civils packages to trigger-based milestones and a capped gain-share, removing the largest driver of dispute: uncompensated specification change.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Current position</div><div class="value" style="font-size:18px;">€600m · 34 months</div><div class="desc">cost overrun and schedule slippage, anno 2026</div></div>
+        <div class="stat"><div class="label">Projected under FORCE</div><div class="value" style="font-size:18px;">€240m · 14 months</div><div class="desc">modelled residual, a 60% reduction on both measures</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">A ledger of retrofitted outcomes</div>
+      <div class="diagram" style="flex-direction:column;align-items:stretch;">
+        <div class="barchart" style="max-width:760px;margin:0 auto;">
+          <div class="chart-title">REP · Overrun and Slippage, Indexed to Current = 100</div>
+          <div class="bar-row"><div class="bar-name">Cost overrun, current<small>€600m against baseline</small></div><div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div><div class="bar-val">100</div></div>
+          <div class="bar-row"><div class="bar-name">Cost overrun, under FORCE<small>€240m projected</small></div><div class="bar-track"><div class="bar-fill light" style="width:40%;"></div></div><div class="bar-val">40</div></div>
+          <div class="bar-row"><div class="bar-name">Schedule slippage, current<small>34 months against baseline</small></div><div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div><div class="bar-val">100</div></div>
+          <div class="bar-row"><div class="bar-name">Schedule slippage, under FORCE<small>14 months projected</small></div><div class="bar-track"><div class="bar-fill light" style="width:41%;"></div></div><div class="bar-val">41</div></div>
+        </div>
+      </div>
+      <div class="panel-caption">Modelled effect of retrofitting FORCE's pace and incentive pillars at REP's 2027 renewal.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">17 / 19</span></div>
+</section>
+
+<!-- ============ 18 — APPLICATION · NGU (B / gauge) ============ -->
+<section class="slide bg-sage">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-b">
+    <div class="b-left">
+      <div class="eyebrow">Application · NGU</div>
+      <div class="kicker">National Grid Upgrade, retrofitted.</div>
+      <h2 class="title">Governance integration where technical dispute already exists.</h2>
+      <p class="body-text">NGU has missed three consecutive milestones and carries a formal dispute over specification responsibility. A CLEAR-DST assessment applied retrospectively scores NGU's delivery team below the pace-trigger threshold — this is a governance-readiness contract, not yet a pace-acceleration one.</p>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Milestones missed</div><div class="value">3</div><div class="desc">consecutive milestones missed on the transmission backbone</div></div>
+        <div class="stat"><div class="label">Dispute visibility lag</div><div class="value" style="font-size:18px;">18 months</div><div class="desc">between risk materialising and formal dispute notice</div></div>
+      </div>
+    </div>
+    <div class="b-right"><div class="panel">
+      <div class="panel-label">A readiness gauge</div>
+      <div class="diagram">
+        <svg viewBox="0 0 520 300" preserveAspectRatio="xMidYMid meet">
+          <text x="260" y="26" text-anchor="middle" font-style="italic" font-size="15" fill="#182920">NGU · Retrospective Governance Readiness</text>
+          <path d="M90,240 A170,170 0 0 1 430,240" fill="none" stroke="#24352a" stroke-opacity=".14" stroke-width="20" stroke-linecap="round"/>
+          <path d="M90,240 A170,170 0 0 1 430,240" fill="none" stroke="#1f5c3f" stroke-width="20" stroke-linecap="round" stroke-dasharray="294 534"/>
+          <line x1="371.7" y1="86.3" x2="360" y2="102.5" stroke="#a9822f" stroke-width="2.5"/>
+          <text x="404" y="82" font-size="10.5" fill="#a9822f">70% threshold</text>
+          <line x1="260" y1="240" x2="270.7" y2="70.3" stroke="#123423" stroke-width="3"/>
+          <circle cx="260" cy="240" r="9" fill="#123423"/>
+          <text x="260" y="205" text-anchor="middle" font-size="26" font-weight="700" fill="#123423">52%</text>
+          <text x="260" y="272" text-anchor="middle" font-size="10.5" letter-spacing=".07em" fill="#55503f">CLEAR-DST COMPOSITE, RETROSPECTIVE</text>
+        </svg>
+      </div>
+      <div class="panel-caption">NGU scores below the pace-trigger threshold: the priority retrofit is governance, not acceleration.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">18 / 19</span></div>
+</section>
+
+<!-- ============ 19 — APPLICATION · BFA (A / bar chart) ============ -->
+<section class="slide">
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div class="tmpl-a">
+    <div class="a-top">
+      <div>
+        <div class="eyebrow">Application · BFA</div>
+        <div class="kicker">Broadband For All, retrofitted.</div>
+        <h2 class="title">Incentive architecture where innovation is most needed.</h2>
+        <p class="body-text">BFA has reached 31% household coverage against a 72% interim target — the widest gap of the three programmes. Incentive Architecture applied at BFA's 2026 remobilisation ties gain-share explicitly to coverage acceleration and technology adoption, not just cost containment.</p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat"><div class="label">Current coverage</div><div class="value" style="font-size:18px;">31%, vs 72% target</div><div class="desc">household coverage against the 2025 interim target</div></div>
+        <div class="stat"><div class="label">2029 forecast, under FORCE</div><div class="value">58%</div><div class="desc">projected coverage under a gain-share contract</div></div>
+      </div>
+    </div>
+    <div class="a-bottom"><div class="panel">
+      <div class="panel-label">A ledger of coverage recovery</div>
+      <div class="diagram" style="flex-direction:column;align-items:stretch;">
+        <div class="barchart" style="max-width:760px;margin:0 auto;">
+          <div class="chart-title">BFA · Household Coverage, 2025–2029</div>
+          <div class="bar-row"><div class="bar-name">2025 interim target<small>Statutory milestone</small></div><div class="bar-track"><div class="bar-fill light" style="width:100%;"></div></div><div class="bar-val">72%</div></div>
+          <div class="bar-row"><div class="bar-name">Current coverage, 2026<small>Achieved to date</small></div><div class="bar-track"><div class="bar-fill" style="width:43.1%;"></div></div><div class="bar-val">31%</div></div>
+          <div class="bar-row"><div class="bar-name">Projected 2029, status quo<small>Continuation of current terms</small></div><div class="bar-track"><div class="bar-fill" style="width:54.2%;"></div></div><div class="bar-val">39%</div></div>
+          <div class="bar-row"><div class="bar-name">Projected 2029, under FORCE<small>Gain-share tied to acceleration</small></div><div class="bar-track"><div class="bar-fill" style="width:80.6%;"></div></div><div class="bar-val">58%</div></div>
+        </div>
+      </div>
+      <div class="panel-caption">Modelled coverage recovery under a gain-share incentive structure against continuation of current terms.</div>
+    </div></div>
+  </div>
+  <div class="footer"><span>Arya Island · The FORCE Framework</span><span class="pg">19 / 19</span></div>
+</section>
+
+</div>
+</body>
+</html>
