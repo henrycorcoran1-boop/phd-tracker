@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MetroLink AWDS — Programme Flow</title>
+<style>
+  :root{
+    --navy:#0b2e63; --blue:#1f5fd6; --indigo:#5b5be0; --sky:#3b82f6;
+    --ink:#0f1b3d; --muted:#5b6b8c; --line:#9fb3d6; --card-bd:#dbe4f5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#5a6477;}
+  body{font-family:"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);}
+  @page{ size:1600px 900px; margin:0; }
+  .slide{position:relative;width:1600px;height:900px;background:#fff;
+    padding:28px 44px 20px;display:flex;flex-direction:column;overflow:hidden;margin:0 auto;}
+  @media screen{ .slide{box-shadow:0 8px 30px rgba(0,0,0,.35);} }
+
+  .s-head{display:flex;align-items:center;justify-content:space-between;
+    border-bottom:2px solid #eef2fa;padding-bottom:12px;margin-bottom:10px;}
+  .s-head .left{display:flex;align-items:center;gap:16px;}
+  .s-head img.ml{height:40px;}
+  .s-title{font-size:25px;font-weight:800;color:var(--navy);}
+  .s-title small{display:block;font-size:13.5px;font-weight:600;color:var(--muted);margin-top:2px;}
+  .s-body{flex:1 1 auto;display:flex;flex-direction:column;min-height:0;justify-content:center;gap:6px;}
+  .s-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e6ecf7;padding-top:8px;margin-top:8px;}
+  .s-foot .logos{display:flex;align-items:center;gap:32px;}
+  .s-foot img.ar{height:21px;} .s-foot img.tt{height:28px;}
+  .s-foot .pg{font-size:12.5px;color:var(--muted);font-weight:600;}
+
+  .band-label{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.5px;color:#fff;
+    background:linear-gradient(135deg,var(--blue),var(--navy));padding:6px 16px;border-radius:20px;margin-bottom:12px;}
+  .band-label.proc{background:linear-gradient(135deg,#3b82f6,#1f5fd6);}
+
+  .flow{display:flex;align-items:stretch;width:100%;}
+  .stage{flex:1;background:#fff;border:1px solid var(--card-bd);border-top:5px solid var(--blue);
+    border-radius:11px;box-shadow:0 2px 6px rgba(20,45,99,.08);padding:12px 11px 11px;
+    display:flex;flex-direction:column;text-align:center;}
+  .stage .num{width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;
+    font-size:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;}
+  .stage .st{font-weight:800;font-size:12.6px;color:var(--navy);line-height:1.18;margin-bottom:6px;}
+  .stage .sd{font-size:10.2px;color:var(--ink);line-height:1.34;}
+  .stage .tag{margin-top:auto;font-size:9.4px;color:var(--muted);font-weight:700;border-top:1px dashed #cdd8ec;padding-top:6px;margin-top:10px;}
+  .arrow{flex:0 0 26px;display:flex;align-items:center;justify-content:center;}
+  .arrow::after{content:"";width:0;height:0;border-left:13px solid var(--line);
+    border-top:9px solid transparent;border-bottom:9px solid transparent;}
+
+  /* stage accent progression */
+  .s1{border-top-color:#3b82f6;} .s1 .num{background:#3b82f6;}
+  .s2{border-top-color:#2f6fe6;} .s2 .num{background:#2f6fe6;}
+  .s3{border-top-color:#1f5fd6;} .s3 .num{background:#1f5fd6;}
+  .s4{border-top-color:#5b5be0;} .s4 .num{background:#5b5be0;}
+  .s5{border-top-color:#5b5be0;} .s5 .num{background:#5b5be0;}
+  .s6{border-top-color:#2f6fe6;} .s6 .num{background:#2f6fe6;}
+  .s7{border-top-color:#1f5fd6;} .s7 .num{background:#1f5fd6;}
+
+  .midconnect{display:flex;flex-direction:column;align-items:center;margin:26px 0 16px;}
+  .midconnect .vline{width:2px;height:16px;background:var(--line);}
+  .midconnect .down::after{content:"";width:0;height:0;border-top:13px solid var(--line);
+    border-left:9px solid transparent;border-right:9px solid transparent;display:block;}
+  .midconnect .txt{font-size:11px;color:var(--muted);font-style:italic;margin-top:4px;}
+
+  /* procurement tail */
+  .flow.tail{width:78%;margin:0 auto;}
+  .stage.pcard{border-top-color:#7a86a8;background:#f6f8fc;}
+  .stage.pcard .num{background:#7a86a8;}
+  .stage.pcard .st{color:#33415c;}
+
+  .note{font-size:11px;color:var(--muted);font-style:italic;margin-top:22px;text-align:center;}
+  .keybar{display:flex;justify-content:center;gap:26px;margin-top:6px;font-size:10.5px;color:var(--muted);}
+  .keybar b{color:var(--navy);}
+</style>
+</head>
+<body>
+
+<section class="slide">
+  <div class="s-head">
+    <div class="left"><img class="ml" src="logos/metrolink.svg" alt="MetroLink">
+      <div class="s-title">AWDS Integrated Programme — Design-to-Tender Flow<small>The milestone gates each M1XX contract package passes through</small></div></div>
+  </div>
+
+  <div class="s-body">
+    <div><span class="band-label">STAGE 2 — DESIGN DEVELOPMENT → TENDER</span></div>
+    <div class="flow">
+      <div class="stage s1"><div class="num">1</div><div class="st">Pre-IDC Pack Issued</div>
+        <div class="sd">Design pack prepared and issued ready for the inter-disciplinary check.</div>
+        <div class="tag">from Jul 2026</div></div>
+      <div class="arrow"></div>
+      <div class="stage s2"><div class="num">2</div><div class="st">IDC</div>
+        <div class="sd">Inter-Disciplinary Check — multidiscipline design review &amp; coordination.</div>
+        <div class="tag">Aug–Sep 2026</div></div>
+      <div class="arrow"></div>
+      <div class="stage s3"><div class="num">3</div><div class="st">Full ITT Pack Issued — Rev 01</div>
+        <div class="sd">Complete tender design pack issued at Rev 01 for the package.</div>
+        <div class="tag">Oct 2026</div></div>
+      <div class="arrow"></div>
+      <div class="stage s4"><div class="num">4</div><div class="st">TII Instruction to Issue C01</div>
+        <div class="sd">TII instructs AWDS to issue the C01 (construction-issue) drawings.</div>
+        <div class="tag">Q4 2026</div></div>
+      <div class="arrow"></div>
+      <div class="stage s5"><div class="num">5</div><div class="st">AWDS C01 Submission</div>
+        <div class="sd">AWDS submits the C01 drawings to TII (C01 Drawings Submission to TII).</div>
+        <div class="tag">Q4 2026 – Q1 2027</div></div>
+      <div class="arrow"></div>
+      <div class="stage s6"><div class="num">6</div><div class="st">Ready for Tender</div>
+        <div class="sd">Tender documentation complete, checked and assured.</div>
+        <div class="tag">Q1 2027</div></div>
+      <div class="arrow"></div>
+      <div class="stage s7"><div class="num">7</div><div class="st">ITT Issue Date</div>
+        <div class="sd">Invitation to Tender issued to market (design-driven).</div>
+        <div class="tag">Q1 2027</div></div>
+    </div>
+
+    <div class="midconnect">
+      <div class="vline"></div><div class="down"></div>
+      <div class="txt">each package then flows into procurement &amp; award</div>
+    </div>
+
+    <div><span class="band-label proc">STAGE 3 — PROCUREMENT &amp; AWARD</span></div>
+    <div class="flow tail">
+      <div class="stage pcard"><div class="num">8</div><div class="st">Tender Period</div>
+        <div class="sd">Contractors price the works; queries &amp; clarifications managed.</div>
+        <div class="tag">2027</div></div>
+      <div class="arrow"></div>
+      <div class="stage pcard"><div class="num">9</div><div class="st">ITT Award</div>
+        <div class="sd">Preferred tenderer selected and the ITT awarded.</div>
+        <div class="tag">Q2 2027</div></div>
+      <div class="arrow"></div>
+      <div class="stage pcard"><div class="num">10</div><div class="st">Contract Award</div>
+        <div class="sd">NEC contract executed with the appointed contractor.</div>
+        <div class="tag">Q4 2027</div></div>
+      <div class="arrow"></div>
+      <div class="stage pcard"><div class="num">11</div><div class="st">Construction Start</div>
+        <div class="sd">Works commence on site; AWDS moves to construction-stage support.</div>
+        <div class="tag">2027 / 2028</div></div>
+    </div>
+
+    <div class="note">Indicative timing per the Integrated Programme (status 30-Jun-2026). Each M1XX package passes through the same gates on its own dates — see the P6 critical-path programme for package-specific milestones.</div>
+  </div>
+
+  <div class="s-foot"><div class="logos"><img class="ar" src="logos/atkinsrealis.svg"><img class="tt" src="logos/tetratech.svg"></div>
+    <div class="pg">MetroLink AWDS — Integrated Programme Flow</div></div>
+</section>
+
+</body>
+</html>
