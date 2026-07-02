@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Pack Status Summary</title>
+<style>
+  :root{--navy:#0b2e63;--blue:#1f5fd6;--ink:#0f1b3d;--muted:#5b6b8c;--card-bd:#dbe4f5;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#5a6477;}
+  body{font-family:"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);}
+  .slide{width:1600px;height:900px;background:#fff;padding:28px 44px 20px;display:flex;flex-direction:column;overflow:hidden;margin:0 auto;}
+  @media screen{.slide{box-shadow:0 8px 30px rgba(0,0,0,.35);}}
+  .s-head{display:flex;align-items:flex-start;justify-content:space-between;border-bottom:2px solid #eef2fa;padding-bottom:12px;margin-bottom:12px;}
+  .s-head img.ml{height:44px;}
+  .s-title{text-align:right;}
+  .s-title .t{font-size:25px;font-weight:800;color:var(--navy);}
+  .s-title .s{font-size:13.5px;font-weight:600;color:var(--muted);margin-top:2px;font-style:italic;}
+  .legend{font-size:12.5px;color:var(--ink);margin-bottom:16px;}
+  .legend b{color:var(--navy);}
+  .tables{display:flex;gap:26px;}
+  table{flex:1;border-collapse:collapse;}
+  th{background:var(--navy);color:#fff;font-size:13px;font-weight:700;text-align:left;padding:9px 12px;}
+  td{border:1px solid var(--card-bd);padding:8px 12px;font-size:13px;height:38px;}
+  td.code{font-weight:800;color:var(--navy);width:150px;background:#fff;}
+  td.status .n{font-weight:800;color:var(--blue);}
+  .st1{background:#ecf3ff;} .st2{background:#e1ecfb;} .st3{background:#d6e4f7;}
+  .note{font-size:11px;color:var(--muted);font-style:italic;margin-top:16px;}
+  .foot{display:flex;align-items:center;gap:30px;margin-top:auto;padding-top:12px;border-top:1px solid #e6ecf7;}
+  .foot img.ar{height:22px;} .foot img.tt{height:30px;}
+  .foot .pg{margin-left:auto;font-size:12.5px;color:var(--muted);font-weight:600;}
+</style></head>
+<body>
+<div class="slide">
+  <div class="s-head">
+    <img class="ml" src="logos/metrolink.svg" alt="MetroLink">
+    <div class="s-title"><div class="t">Design-to-Tender Workflow — Pack Status Summary</div>
+      <div class="s">Current workflow stage of each contract package</div></div>
+  </div>
+  <div class="legend"><b>Workflow stages:&nbsp;&nbsp;</b>1 Pre-IDC Pack&nbsp;·&nbsp;2 IDC&nbsp;·&nbsp;3 Full ITT Pack — Rev 01&nbsp;·&nbsp;4 TII Instruction to Issue C01&nbsp;·&nbsp;5 AWDS C01 Submission&nbsp;·&nbsp;6 Ready for Tender&nbsp;·&nbsp;7 ITT Issue Date</div>
+
+  <div class="tables">
+    <table>
+      <tr><th>Contract</th><th>Design-to-Tender Workflow Status</th></tr>
+      <tr><td class="code">M140</td><td class="status st2"><span class="n">2</span> · IDC</td></tr>
+      <tr><td class="code">M141</td><td class="status st2"><span class="n">2</span> · IDC</td></tr>
+      <tr><td class="code">M142</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+      <tr><td class="code">M145</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+      <tr><td class="code">M146</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+      <tr><td class="code">M147</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+      <tr><td class="code">M130</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+      <tr><td class="code">M135</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+    </table>
+    <table>
+      <tr><th>Contract</th><th>Design-to-Tender Workflow Status</th></tr>
+      <tr><td class="code">M138</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+      <tr><td class="code">M160</td><td class="status st3"><span class="n">3</span> · Full ITT Pack — Rev 01</td></tr>
+      <tr><td class="code">M161</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+      <tr><td class="code">M190</td><td class="status st2"><span class="n">2</span> · IDC</td></tr>
+      <tr><td class="code">M111</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+      <tr><td class="code">Minor Works</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+      <tr><td class="code">Env. Baseline</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+      <tr><td class="code">DAA Works</td><td class="status st1"><span class="n">1</span> · Pre-IDC Pack</td></tr>
+    </table>
+  </div>
+
+  <div class="note">Status indicative as at 30-Jun-2026 — to be confirmed and maintained against the live P6 integrated programme. Stage numbers correspond to the Design-to-Tender Workflow.</div>
+
+  <div class="foot"><img class="ar" src="logos/atkinsrealis.svg"><img class="tt" src="logos/tetratech.svg">
+    <div class="pg">MetroLink AWDS — Pack Status Summary</div></div>
+</div>
+</body></html>
