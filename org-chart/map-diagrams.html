@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<title>MetroLink AWDS — M100 Series Contract Packaging</title>
+<style>
+  :root{--navy:#0b2e63;--blue:#1f5fd6;--ink:#0f1b3d;--muted:#5b6b8c;--line:#9fb3d6;--card-bd:#dbe4f5;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#5a6477;}
+  body{font-family:"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);}
+  @page{ size:1600px 900px; margin:0; }
+  .slide{position:relative;width:1600px;height:900px;background:#fff;padding:24px 40px 16px;
+    display:flex;flex-direction:column;overflow:hidden;margin:0 auto;break-after:page;page-break-after:always;}
+  .slide:last-child{break-after:auto;page-break-after:auto;}
+  @media screen{.slide{margin:22px auto;box-shadow:0 8px 30px rgba(0,0,0,.35);}}
+  .s-head{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #eef2fa;padding-bottom:10px;margin-bottom:8px;}
+  .s-head .left{display:flex;align-items:center;gap:14px;}
+  .s-head img.ml{height:38px;}
+  .s-title{font-size:23px;font-weight:800;color:var(--navy);}
+  .s-title small{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-top:2px;}
+  .revtag{font-size:12px;font-weight:800;color:#fff;background:#7a86a8;padding:6px 13px;border-radius:16px;}
+  .s-body{flex:1 1 auto;min-height:0;}
+  .s-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e6ecf7;padding-top:6px;margin-top:6px;}
+  .s-foot .logos{display:flex;align-items:center;gap:30px;}
+  .s-foot img.ar{height:20px;} .s-foot img.tt{height:27px;}
+  .s-foot .pg{font-size:12px;color:var(--muted);font-weight:600;}
+
+  .diagram{position:relative;display:flex;align-items:flex-start;gap:0;height:710px;padding-top:6px;}
+  .axis-label{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-weight:800;
+    color:#2f4a7a;font-size:15px;letter-spacing:1px;height:690px;display:flex;align-items:center;justify-content:center;width:24px;}
+  .axis-label.arch-lab{color:#5b6b8c;}
+  .col{position:relative;height:690px;}
+  .zones .zone{position:absolute;left:4px;right:4px;border:1px solid rgba(0,0,0,.18);border-radius:3px;
+    display:flex;align-items:center;justify-content:center;}
+  .zones .zone span{font-weight:800;font-size:13px;color:#243b63;text-align:center;}
+  .zones.arch .zone span{color:#3a3a3a;}
+
+  .route .rline{position:absolute;left:58px;top:0;bottom:0;width:4px;background:#111;border-radius:2px;}
+  .route .tick{position:absolute;left:44px;width:12px;height:1px;background:#9aa3b5;}
+  .route .tick.maj{width:16px;left:40px;background:#6b7284;height:1.5px;}
+  .route .tlab{position:absolute;left:2px;width:34px;text-align:right;font-size:9px;color:#8a90a0;}
+  .route .dot{position:absolute;left:52px;width:15px;height:15px;border-radius:50%;background:#e2231a;border:2px solid #fff;box-shadow:0 0 0 1px #b01810;}
+  .route .dot.shaft{background:#39b54a;box-shadow:0 0 0 1px #2b8f39;}
+  .route .slab{position:absolute;left:76px;font-size:11.5px;color:#1a1a1a;white-space:nowrap;line-height:1.1;}
+  .route .slab b{color:#c0201a;}
+
+  .legend{width:470px;margin-left:14px;display:flex;flex-direction:column;gap:7px;}
+  .lgroup{border:1px solid #d7d7d7;border-radius:4px;overflow:hidden;}
+  .lhead{color:#fff;font-weight:800;font-size:11.5px;padding:5px 9px;}
+  .litem{color:#fff;font-size:10.7px;font-weight:600;padding:3px 9px 3px 16px;border-top:1px solid rgba(255,255,255,.25);}
+  .keybox{border:1px solid #cfd7e6;border-radius:6px;padding:8px 10px;margin-top:2px;background:#f7f9fc;}
+  .keybox .kt{font-weight:800;font-size:11.5px;color:var(--navy);margin-bottom:5px;}
+  .keybox .kr{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink);margin-bottom:3px;}
+  .keybox .kd{width:13px;height:13px;display:inline-block;}
+  .keybox .kd.station{border-radius:50%;background:#e2231a;border:2px solid #fff;box-shadow:0 0 0 1px #b01810;}
+  .keybox .kd.shaftk{border-radius:50%;background:#39b54a;border:2px solid #fff;box-shadow:0 0 0 1px #2b8f39;}
+  .keybox .kd.tri{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid #2f5aa8;box-shadow:none;}
+</style></head><body>
+
+<section class="slide">
+  <div class="s-head">
+    <div class="left"><img class="ml" src="logos/metrolink.svg" alt="MetroLink">
+      <div class="s-title">M100 Series — Contract Packaging<small>MetroLink alignment · contract package zones &amp; stations</small></div></div>
+    <div class="revtag">Revision P04 · 06 / 11 / 2025</div>
+  </div>
+  <div class="s-body">
+    <div class="diagram">
+      <div class="axis-label ework">Enabling Works</div>
+      <div class="col zones" style="width:200px;"><div class="zone" style="top:0px;height:93px;background:#bfe6e0;"><span>M141</span></div>
+<div class="zone" style="top:93px;height:93px;background:#bcd4f0;"><span>M142</span></div>
+<div class="zone" style="top:186px;height:168px;background:#f3c9e0;"><span>M146</span></div>
+<div class="zone" style="top:354px;height:205px;background:#f5efb0;"><span>M140</span></div>
+<div class="zone" style="top:559px;height:37px;background:#dcd6c8;"><span>M147</span></div>
+<div class="zone" style="top:597px;height:93px;background:#cfe9c8;"><span>M145</span></div></div>
+      <div class="col route" style="width:340px;">
+        <div class="rline"></div>
+        <div class="tick maj" style="top:0.0px;"></div>
+<div class="tlab" style="top:-7.0px;">1000</div>
+<div class="tick min" style="top:18.6px;"></div>
+<div class="tick maj" style="top:37.3px;"></div>
+<div class="tlab" style="top:30.3px;">2000</div>
+<div class="tick min" style="top:55.9px;"></div>
+<div class="tick maj" style="top:74.6px;"></div>
+<div class="tlab" style="top:67.6px;">3000</div>
+<div class="tick min" style="top:93.2px;"></div>
+<div class="tick maj" style="top:111.9px;"></div>
+<div class="tlab" style="top:104.9px;">4000</div>
+<div class="tick min" style="top:130.5px;"></div>
+<div class="tick maj" style="top:149.2px;"></div>
+<div class="tlab" style="top:142.2px;">5000</div>
+<div class="tick min" style="top:167.8px;"></div>
+<div class="tick maj" style="top:186.5px;"></div>
+<div class="tlab" style="top:179.5px;">6000</div>
+<div class="tick min" style="top:205.1px;"></div>
+<div class="tick maj" style="top:223.8px;"></div>
+<div class="tlab" style="top:216.8px;">7000</div>
+<div class="tick min" style="top:242.4px;"></div>
+<div class="tick maj" style="top:261.1px;"></div>
+<div class="tlab" style="top:254.1px;">8000</div>
+<div class="tick min" style="top:279.7px;"></div>
+<div class="tick maj" style="top:298.4px;"></div>
+<div class="tlab" style="top:291.4px;">9000</div>
+<div class="tick min" style="top:317.0px;"></div>
+<div class="tick maj" style="top:335.7px;"></div>
+<div class="tlab" style="top:328.7px;">10000</div>
+<div class="tick min" style="top:354.3px;"></div>
+<div class="tick maj" style="top:373.0px;"></div>
+<div class="tlab" style="top:366.0px;">11000</div>
+<div class="tick min" style="top:391.6px;"></div>
+<div class="tick maj" style="top:410.3px;"></div>
+<div class="tlab" style="top:403.3px;">12000</div>
+<div class="tick min" style="top:428.9px;"></div>
+<div class="tick maj" style="top:447.6px;"></div>
+<div class="tlab" style="top:440.6px;">13000</div>
+<div class="tick min" style="top:466.2px;"></div>
+<div class="tick maj" style="top:484.9px;"></div>
+<div class="tlab" style="top:477.9px;">14000</div>
+<div class="tick min" style="top:503.5px;"></div>
+<div class="tick maj" style="top:522.2px;"></div>
+<div class="tlab" style="top:515.2px;">15000</div>
+<div class="tick min" style="top:540.8px;"></div>
+<div class="tick maj" style="top:559.5px;"></div>
+<div class="tlab" style="top:552.5px;">16000</div>
+<div class="tick min" style="top:578.1px;"></div>
+<div class="tick maj" style="top:596.8px;"></div>
+<div class="tlab" style="top:589.8px;">17000</div>
+<div class="tick min" style="top:615.4px;"></div>
+<div class="tick maj" style="top:634.1px;"></div>
+<div class="tlab" style="top:627.1px;">18000</div>
+<div class="tick min" style="top:652.7px;"></div>
+<div class="tick maj" style="top:671.4px;"></div>
+<div class="tlab" style="top:664.4px;">19000</div>
+<div class="tick min" style="top:690.0px;"></div>
+        <div class="dot" style="top:1.5px;"></div>
+<div class="slab" style="top:-1.5px;"><b>M-11</b> Estuary Station</div>
+<div class="dot" style="top:68.6px;"></div>
+<div class="slab" style="top:65.6px;"><b>M-12</b> Seatown Station</div>
+<div class="dot" style="top:113.4px;"></div>
+<div class="slab" style="top:110.4px;"><b>M-15</b> Swords Central Station</div>
+<div class="dot" style="top:143.2px;"></div>
+<div class="slab" style="top:140.2px;"><b>M-17</b> Fosterstown Station</div>
+<div class="dot" style="top:217.8px;"></div>
+<div class="slab" style="top:214.8px;"><b>M-20</b> Dublin Airport Station</div>
+<div class="dot" style="top:281.2px;"></div>
+<div class="slab" style="top:278.2px;"><b>M-21</b> Dardistown Station</div>
+<div class="dot" style="top:340.9px;"></div>
+<div class="slab" style="top:337.9px;"><b>M-23</b> Northwood Station</div>
+<div class="dot" style="top:374.4px;"></div>
+<div class="slab" style="top:371.4px;"><b>M-25</b> Ballymun Station</div>
+<div class="dot" style="top:411.7px;"></div>
+<div class="slab" style="top:408.7px;"><b>M-27</b> Collins Avenue Station</div>
+<div class="dot" style="top:471.4px;"></div>
+<div class="slab" style="top:468.4px;"><b>M-29</b> Griffith Park Station</div>
+<div class="dot" style="top:505.0px;"></div>
+<div class="slab" style="top:502.0px;"><b>M-31</b> Glasnevin Station</div>
+<div class="dot" style="top:542.3px;"></div>
+<div class="slab" style="top:539.3px;"><b>M-33</b> Mater Station</div>
+<div class="dot" style="top:575.8px;"></div>
+<div class="slab" style="top:572.8px;"><b>M-35</b> O'Connell Street Station</div>
+<div class="dot" style="top:609.4px;"></div>
+<div class="slab" style="top:606.4px;"><b>M-37</b> Tara Station</div>
+<div class="dot" style="top:646.7px;"></div>
+<div class="slab" style="top:643.7px;"><b>M-39</b> St. Stephen's Green Station</div>
+<div class="dot" style="top:672.8px;"></div>
+<div class="slab" style="top:669.8px;"><b>M-41</b> Charlemont Station</div>
+      </div>
+      <div class="col zones arch" style="width:172px;"><div class="zone" style="top:0px;height:131px;background:#ededed;"><span>M130</span></div>
+<div class="zone" style="top:131px;height:242px;background:#dcdcdc;"><span>M135</span></div>
+<div class="zone" style="top:373px;height:186px;background:#d0d0d0;"><span>M138</span></div></div>
+      <div class="axis-label arch-lab">Archaeology</div>
+      <div class="legend"><div class="lgroup"><div class="lhead" style="background:#d98032;">M11 — Expedited Utilities & Enabling Contracts</div><div class="litem" style="background:#e39a52;">M111 Northwood Utilities</div><div class="litem" style="background:#e39a52;">Newtown Demolition</div></div>
+<div class="lgroup"><div class="lhead" style="background:#35619e;">M13 — Archaeology Qualification</div><div class="litem" style="background:#e39a52;">M130 Archaeology</div><div class="litem" style="background:#e39a52;">M130 Archaeology</div><div class="litem" style="background:#e39a52;">M130 Archaeology</div></div>
+<div class="lgroup"><div class="lhead" style="background:#98393b;">M14 — Utilities & Enabling Works</div><div class="litem" style="background:#b5484a;">M140 Ballymun M25 to Mater M33</div><div class="litem" style="background:#b5484a;">M141 Estuary M11 to Seatown M13</div><div class="litem" style="background:#b5484a;">M142 Seatown to Swords M14 to Airport M18</div><div class="litem" style="background:#b5484a;">M145 Tara, SSG, Charlemont</div><div class="litem" style="background:#b5484a;">M146 Airport to Northwood</div><div class="litem" style="background:#b5484a;">M147 O'Connell Street Works</div></div>
+<div class="lgroup"><div class="lhead" style="background:#35619e;">M16 — Independent Monitoring & Surveying</div><div class="litem" style="background:#4a76b4;">M160 Environmental Monitoring</div><div class="litem" style="background:#4a76b4;">M161 Settlement / Structural Monitoring</div></div>
+<div class="lgroup"><div class="lhead" style="background:#3a4a63;">M19 — Special Heritage</div><div class="litem" style="background:#e39a52;">M190 Special Heritage Contract</div></div></div>
+    </div>
+  </div>
+  <div class="s-foot"><div class="logos"><img class="ar" src="logos/atkinsrealis.svg"><img class="tt" src="logos/tetratech.svg"></div>
+    <div class="pg">MetroLink AWDS — M100 Series Contract Packaging · Rev P04 · 1 / 2</div></div>
+</section>
+
+<section class="slide">
+  <div class="s-head">
+    <div class="left"><img class="ml" src="logos/metrolink.svg" alt="MetroLink">
+      <div class="s-title">M100 Series — Contract Packaging<small>MetroLink alignment · contract package zones &amp; stations</small></div></div>
+    <div class="revtag">Revision P05 · 12 / 02 / 2026</div>
+  </div>
+  <div class="s-body">
+    <div class="diagram">
+      <div class="axis-label ework">Enabling Works</div>
+      <div class="col zones" style="width:200px;"><div class="zone" style="top:0px;height:93px;background:#bfe6e0;"><span>M141.FC.0002</span></div>
+<div class="zone" style="top:93px;height:93px;background:#bcd4f0;"><span>M141.FC.0003</span></div>
+<div class="zone" style="top:186px;height:168px;background:#f3c9e0;"><span>M144.FC.0002</span></div>
+<div class="zone" style="top:354px;height:205px;background:#f5efb0;"><span>M141.FC.0001</span></div>
+<div class="zone" style="top:559px;height:37px;background:#dcd6c8;"><span>M140.FC.0001</span></div>
+<div class="zone" style="top:597px;height:93px;background:#cfe9c8;"><span>M144.FC.0001</span></div></div>
+      <div class="col route" style="width:340px;">
+        <div class="rline"></div>
+        <div class="tick maj" style="top:0.0px;"></div>
+<div class="tlab" style="top:-7.0px;">1000</div>
+<div class="tick min" style="top:18.6px;"></div>
+<div class="tick maj" style="top:37.3px;"></div>
+<div class="tlab" style="top:30.3px;">2000</div>
+<div class="tick min" style="top:55.9px;"></div>
+<div class="tick maj" style="top:74.6px;"></div>
+<div class="tlab" style="top:67.6px;">3000</div>
+<div class="tick min" style="top:93.2px;"></div>
+<div class="tick maj" style="top:111.9px;"></div>
+<div class="tlab" style="top:104.9px;">4000</div>
+<div class="tick min" style="top:130.5px;"></div>
+<div class="tick maj" style="top:149.2px;"></div>
+<div class="tlab" style="top:142.2px;">5000</div>
+<div class="tick min" style="top:167.8px;"></div>
+<div class="tick maj" style="top:186.5px;"></div>
+<div class="tlab" style="top:179.5px;">6000</div>
+<div class="tick min" style="top:205.1px;"></div>
+<div class="tick maj" style="top:223.8px;"></div>
+<div class="tlab" style="top:216.8px;">7000</div>
+<div class="tick min" style="top:242.4px;"></div>
+<div class="tick maj" style="top:261.1px;"></div>
+<div class="tlab" style="top:254.1px;">8000</div>
+<div class="tick min" style="top:279.7px;"></div>
+<div class="tick maj" style="top:298.4px;"></div>
+<div class="tlab" style="top:291.4px;">9000</div>
+<div class="tick min" style="top:317.0px;"></div>
+<div class="tick maj" style="top:335.7px;"></div>
+<div class="tlab" style="top:328.7px;">10000</div>
+<div class="tick min" style="top:354.3px;"></div>
+<div class="tick maj" style="top:373.0px;"></div>
+<div class="tlab" style="top:366.0px;">11000</div>
+<div class="tick min" style="top:391.6px;"></div>
+<div class="tick maj" style="top:410.3px;"></div>
+<div class="tlab" style="top:403.3px;">12000</div>
+<div class="tick min" style="top:428.9px;"></div>
+<div class="tick maj" style="top:447.6px;"></div>
+<div class="tlab" style="top:440.6px;">13000</div>
+<div class="tick min" style="top:466.2px;"></div>
+<div class="tick maj" style="top:484.9px;"></div>
+<div class="tlab" style="top:477.9px;">14000</div>
+<div class="tick min" style="top:503.5px;"></div>
+<div class="tick maj" style="top:522.2px;"></div>
+<div class="tlab" style="top:515.2px;">15000</div>
+<div class="tick min" style="top:540.8px;"></div>
+<div class="tick maj" style="top:559.5px;"></div>
+<div class="tlab" style="top:552.5px;">16000</div>
+<div class="tick min" style="top:578.1px;"></div>
+<div class="tick maj" style="top:596.8px;"></div>
+<div class="tlab" style="top:589.8px;">17000</div>
+<div class="tick min" style="top:615.4px;"></div>
+<div class="tick maj" style="top:634.1px;"></div>
+<div class="tlab" style="top:627.1px;">18000</div>
+<div class="tick min" style="top:652.7px;"></div>
+<div class="tick maj" style="top:671.4px;"></div>
+<div class="tlab" style="top:664.4px;">19000</div>
+<div class="tick min" style="top:690.0px;"></div>
+        <div class="dot" style="top:1.5px;"></div>
+<div class="slab" style="top:-1.5px;"><b>M-11</b> Estuary Station</div>
+<div class="dot" style="top:68.6px;"></div>
+<div class="slab" style="top:65.6px;"><b>M-12</b> Seatown Station</div>
+<div class="dot" style="top:113.4px;"></div>
+<div class="slab" style="top:110.4px;"><b>M-15</b> Swords Central Station</div>
+<div class="dot" style="top:143.2px;"></div>
+<div class="slab" style="top:140.2px;"><b>M-17</b> Fosterstown Station</div>
+<div class="dot" style="top:217.8px;"></div>
+<div class="slab" style="top:214.8px;"><b>M-20</b> Dublin Airport Station</div>
+<div class="dot" style="top:281.2px;"></div>
+<div class="slab" style="top:278.2px;"><b>M-21</b> Dardistown Station</div>
+<div class="dot" style="top:340.9px;"></div>
+<div class="slab" style="top:337.9px;"><b>M-23</b> Northwood Station</div>
+<div class="dot" style="top:374.4px;"></div>
+<div class="slab" style="top:371.4px;"><b>M-25</b> Ballymun Station</div>
+<div class="dot" style="top:411.7px;"></div>
+<div class="slab" style="top:408.7px;"><b>M-27</b> Collins Avenue Station</div>
+<div class="dot shaft" style="top:434.1px;"></div>
+<div class="slab" style="top:431.1px;"><b>M-28</b> Albert College Intervention Shaft</div>
+<div class="dot" style="top:471.4px;"></div>
+<div class="slab" style="top:468.4px;"><b>M-29</b> Griffith Park Station</div>
+<div class="dot" style="top:505.0px;"></div>
+<div class="slab" style="top:502.0px;"><b>M-31</b> Glasnevin Station</div>
+<div class="dot" style="top:542.3px;"></div>
+<div class="slab" style="top:539.3px;"><b>M-33</b> Mater Station</div>
+<div class="dot" style="top:575.8px;"></div>
+<div class="slab" style="top:572.8px;"><b>M-35</b> O'Connell Street Station</div>
+<div class="dot" style="top:609.4px;"></div>
+<div class="slab" style="top:606.4px;"><b>M-37</b> Tara Station</div>
+<div class="dot" style="top:646.7px;"></div>
+<div class="slab" style="top:643.7px;"><b>M-39</b> St. Stephen's Green Station</div>
+<div class="dot" style="top:672.8px;"></div>
+<div class="slab" style="top:669.8px;"><b>M-41</b> Charlemont Station</div>
+      </div>
+      <div class="col zones arch" style="width:172px;"><div class="zone" style="top:0px;height:131px;background:#ededed;"><span>M130.QS.0001</span></div>
+<div class="zone" style="top:131px;height:242px;background:#dcdcdc;"><span>M130.QS.0002</span></div>
+<div class="zone" style="top:373px;height:186px;background:#d0d0d0;"><span>M130.QS.0003</span></div></div>
+      <div class="axis-label arch-lab">Archaeology</div>
+      <div class="legend"><div class="lgroup"><div class="lhead" style="background:#d98032;">M11 — Expedited Utilities & Enabling Contracts</div><div class="litem" style="background:#e39a52;">M110.CN.0001 Northwood Utilities</div></div>
+<div class="lgroup"><div class="lhead" style="background:#35619e;">M13 — Archaeology Qualification</div><div class="litem" style="background:#4a76b4;">M130.QS.0001 Archaeology</div><div class="litem" style="background:#4a76b4;">M130.QS.0002 Archaeology</div><div class="litem" style="background:#4a76b4;">M130.QS.0003 Archaeology</div></div>
+<div class="lgroup"><div class="lhead" style="background:#98393b;">M14 — Utilities & Enabling Works</div><div class="litem" style="background:#b5484a;">M141.FC.0001 Ballymun M25 to Mater M33</div><div class="litem" style="background:#b5484a;">M141.FC.0002 Estuary M11 to Seatown M13</div><div class="litem" style="background:#b5484a;">M141.FC.0003 Seatown to Swords M14 to Airport M18</div><div class="litem" style="background:#b5484a;">M144.FC.0001 Tara, SSG, Charlemont</div><div class="litem" style="background:#b5484a;">M144.FC.0002 Airport to Northwood</div><div class="litem" style="background:#b5484a;">M140.FC.0001 O'Connell Street Works</div></div>
+<div class="lgroup"><div class="lhead" style="background:#35619e;">M16 — Independent Monitoring & Surveying</div><div class="litem" style="background:#4a76b4;">M160.CN.0001 Environmental Monitoring</div><div class="litem" style="background:#4a76b4;">M160.CN.0002 Settlement / Structural</div></div>
+<div class="lgroup"><div class="lhead" style="background:#3a4a63;">M19 — Special Heritage</div><div class="litem" style="background:#e39a52;">M190 Special Heritage Contract</div></div>
+<div class="keybox"><div class="kt">Legend</div>
+          <div class="kr"><span class="kd station"></span> MetroLink Stations</div>
+          <div class="kr"><span class="kd tri"></span> M110 Northwood Utilities</div>
+          <div class="kr"><span class="kd shaftk"></span> Intervention Shaft</div></div></div>
+    </div>
+  </div>
+  <div class="s-foot"><div class="logos"><img class="ar" src="logos/atkinsrealis.svg"><img class="tt" src="logos/tetratech.svg"></div>
+    <div class="pg">MetroLink AWDS — M100 Series Contract Packaging · Rev P05 · 2 / 2</div></div>
+</section>
+</body></html>
