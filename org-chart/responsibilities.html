@@ -7,151 +7,194 @@
   :root{
     --navy:#0b2e63; --blue:#1f5fd6; --indigo:#5b5be0; --sky:#3b82f6;
     --ink:#0f1b3d; --muted:#5b6b8c; --line:#9fb3d6; --card-bd:#dbe4f5;
+    --mint:#cdf3ea; --mint-bd:#8fd9c8; --gold:#fff4e8; --gold-bd:#f0c89a;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:#5a6477;}
   body{font-family:"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);}
   @page{ size:1600px 900px; margin:0; }
   .slide{position:relative;width:1600px;height:900px;background:#fff;
-    padding:30px 46px 22px;display:flex;flex-direction:column;overflow:hidden;margin:0 auto;}
-  @media screen{ .slide{box-shadow:0 8px 30px rgba(0,0,0,.35);} }
+    padding:28px 44px 20px;display:flex;flex-direction:column;overflow:hidden;margin:0 auto;
+    break-after:page;page-break-after:always;}
+  .slide:last-child{break-after:auto;page-break-after:auto;}
+  @media screen{ .slide{margin:22px auto;box-shadow:0 8px 30px rgba(0,0,0,.35);} }
 
   .s-head{display:flex;align-items:center;justify-content:space-between;
-    border-bottom:2px solid #eef2fa;padding-bottom:14px;margin-bottom:8px;}
-  .s-head .left{display:flex;align-items:center;gap:18px;}
-  .s-head img.ml{height:42px;}
-  .s-title{font-size:26px;font-weight:800;color:var(--navy);}
-  .s-title small{display:block;font-size:14px;font-weight:600;color:var(--muted);margin-top:2px;}
-
-  .s-body{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:0;}
-  .s-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e6ecf7;padding-top:10px;margin-top:8px;}
-  .s-foot .logos{display:flex;align-items:center;gap:34px;}
-  .s-foot img.ar{height:22px;} .s-foot img.tt{height:30px;}
-  .s-foot .pg{font-size:13px;color:var(--muted);font-weight:600;}
+    border-bottom:2px solid #eef2fa;padding-bottom:12px;margin-bottom:6px;}
+  .s-head .left{display:flex;align-items:center;gap:16px;}
+  .s-head img.ml{height:40px;}
+  .s-title{font-size:25px;font-weight:800;color:var(--navy);}
+  .s-title small{display:block;font-size:13.5px;font-weight:600;color:var(--muted);margin-top:2px;}
+  .s-body{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;min-height:0;}
+  .s-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e6ecf7;padding-top:8px;margin-top:6px;}
+  .s-foot .logos{display:flex;align-items:center;gap:32px;}
+  .s-foot img.ar{height:21px;} .s-foot img.tt{height:28px;}
+  .s-foot .pg{font-size:12.5px;color:var(--muted);font-weight:600;}
 
   .v{width:2px;background:var(--line);}
   .bus{height:2px;background:var(--line);}
-  .stem{width:2px;height:14px;background:var(--line);}
+  .stem{width:2px;height:12px;background:var(--line);}
 
-  .rcard{background:#fff;border:1px solid var(--card-bd);border-radius:10px;border-top:4px solid var(--blue);
-    box-shadow:0 2px 6px rgba(20,45,99,.08);padding:11px 14px 12px;width:100%;}
-  .rcard .rt{font-weight:800;font-size:13.5px;color:var(--navy);text-align:center;margin-bottom:7px;line-height:1.18;}
-  .rcard ul{margin:0;padding-left:15px;}
-  .rcard li{font-size:11.4px;color:var(--ink);line-height:1.36;margin-bottom:4px;}
-  .rcard.director{border-top-color:var(--navy);}
-  .rcard.pm{border-top-color:var(--indigo);background:linear-gradient(180deg,#fff,#f5f5ff);}
-  .rcard.cost{border-top-color:var(--sky);background:#f8fbff;}
-  .rcard.cm{border-top-color:var(--sky);background:#f4f9ff;}
-  .rcard .sub{display:block;font-size:10px;font-weight:600;color:var(--muted);font-style:italic;margin-top:3px;line-height:1.25;}
-  .rcard .rt big{font-size:14.5px;}
+  /* top cards (Director / PM) */
+  .top{display:flex;flex-direction:column;align-items:center;width:620px;}
+  .rcard{background:#fff;border:1px solid var(--card-bd);border-radius:9px;border-top:4px solid var(--blue);
+    box-shadow:0 2px 5px rgba(20,45,99,.07);padding:9px 14px 10px;width:100%;}
+  .rcard .rt{font-weight:800;font-size:14px;color:var(--navy);text-align:center;margin-bottom:5px;}
+  .rcard ul{margin:0;padding-left:15px;} .rcard li{font-size:10.6px;line-height:1.3;margin-bottom:2px;}
+  .rcard.director{border-top-color:var(--navy);} .rcard.pm{border-top-color:var(--indigo);background:linear-gradient(180deg,#fff,#f5f5ff);}
 
-  .top{display:flex;flex-direction:column;align-items:center;width:560px;}
-  .leadrow{display:flex;justify-content:space-between;gap:13px;width:100%;align-items:flex-start;}
-  .leadrow .rcard .rt{font-size:12.8px;}
-  .leadrow .rcard li{font-size:10.4px;line-height:1.29;margin-bottom:3px;}
-  .leadrow .stem{height:11px;}
-  .col{flex:1;display:flex;flex-direction:column;align-items:center;}
+  /* leads container */
+  .leads-box{border:1.5px solid var(--card-bd);border-radius:12px;background:#f4f8ff;padding:14px 16px 16px;width:100%;}
+  .leads-title{font-size:13.5px;font-weight:800;color:var(--navy);text-align:center;margin-bottom:11px;}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;}
+  .lcard{background:#fff;border:1px solid var(--card-bd);border-radius:9px;border-top:4px solid var(--blue);
+    box-shadow:0 1px 4px rgba(20,45,99,.06);padding:9px 11px 8px;display:flex;flex-direction:column;}
+  .lcard .lt{font-weight:800;font-size:12.6px;color:var(--navy);text-align:center;line-height:1.15;margin-bottom:5px;}
+  .lcard .lt .sub{display:block;font-size:9.5px;font-weight:600;color:var(--muted);font-style:italic;margin-top:2px;}
+  .lcard ul{margin:0 0 6px;padding-left:14px;} .lcard li{font-size:10px;line-height:1.26;margin-bottom:2px;color:var(--ink);}
+  .lcard .team{margin-top:auto;border-top:1px dashed #cdd8ec;padding-top:5px;font-size:9.4px;color:var(--muted);line-height:1.28;}
+  .lcard .team b{color:var(--navy);}
+  .lcard.commercial{border-top-color:var(--indigo);}
+  .lcard.cost{border-top-color:var(--sky);background:#f8fbff;}
+  .lcard.cm{border-top-color:var(--sky);background:#f4f9ff;}
+  .lcard .newflag{color:#c43d20;font-weight:700;}
+  .foot-note{font-size:11px;color:var(--muted);font-style:italic;margin-top:8px;text-align:center;}
+
+  /* page 2 */
+  .banner{background:var(--gold);border:1px solid var(--gold-bd);border-radius:10px;color:#8a4b12;
+    padding:10px 18px;font-size:13.5px;margin-bottom:14px;width:100%;text-align:center;}
+  .banner b{color:#7a3f0e;}
+  .mtable{width:100%;border-collapse:collapse;}
+  .mtable th{background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;padding:8px 9px;text-align:left;border:1px solid #21447a;}
+  .mtable td{font-size:11px;padding:7px 9px;border:1px solid var(--card-bd);vertical-align:top;line-height:1.28;color:var(--ink);}
+  .mtable tr:nth-child(even) td{background:#f4f8ff;}
+  .mtable .mtg td{background:#eef3fb;font-weight:700;color:var(--navy);}
+  .mtable .own{font-weight:700;color:var(--blue);}
+  .rhythm{display:flex;gap:12px;width:100%;margin-top:14px;}
+  .wk{flex:1;border:1px solid var(--card-bd);border-radius:9px;background:#fff;box-shadow:0 1px 4px rgba(20,45,99,.06);
+    padding:10px 12px;}
+  .wk .wt{font-weight:800;font-size:12px;color:#fff;background:var(--blue);border-radius:6px;padding:3px 8px;display:inline-block;margin-bottom:7px;}
+  .wk ul{margin:0;padding-left:14px;} .wk li{font-size:10.4px;line-height:1.32;margin-bottom:3px;color:var(--ink);}
+  .sec-label{font-size:14px;font-weight:800;color:var(--navy);align-self:flex-start;margin:2px 0 8px;}
 </style>
 </head>
 <body>
+
+<!-- ================= PAGE 1 — ROLES & RESPONSIBILITIES ================= -->
 <section class="slide">
   <div class="s-head">
     <div class="left"><img class="ml" src="logos/metrolink.svg" alt="MetroLink">
-      <div class="s-title">AWDS Management Team — Roles &amp; Responsibilities<small>Management structure with core responsibilities by role</small></div></div>
+      <div class="s-title">AWDS Management Team — Roles &amp; Responsibilities<small>Core responsibilities by role, with the wider team beneath each lead</small></div></div>
   </div>
-
   <div class="s-body">
-    <!-- Director -->
     <div class="top">
-      <div class="rcard director">
-        <div class="rt"><big>AWDS Project Director</big></div>
-        <ul>
-          <li>Overall project leadership, strategy and key decision-making</li>
-          <li>Ultimate accountability for safety, quality, programme &amp; budget</li>
-          <li>Senior client / TII relationship and project governance</li>
-          <li>Chairs project board; approves major change and key risk</li>
-        </ul>
-      </div>
-      <div class="v" style="height:16px;"></div>
+      <div class="rcard director"><div class="rt">AWDS Project Director</div>
+        <ul><li>Overall project leadership, strategy and key decision-making</li>
+            <li>Ultimate accountability for safety, quality, programme &amp; budget</li>
+            <li>Senior client / TII relationship, governance &amp; major change</li></ul></div>
+      <div class="v" style="height:12px;"></div>
+      <div class="rcard pm"><div class="rt">AWDS Project Management Lead</div>
+        <ul><li>Day-to-day leadership of delivery across all workstreams &amp; packages</li>
+            <li>Owns programme, resourcing, risk, change and reporting</li>
+            <li>Single point of accountability; leads team integration</li></ul></div>
+      <div class="v" style="height:12px;"></div>
     </div>
 
-    <!-- PM Lead -->
-    <div class="top">
-      <div class="rcard pm">
-        <div class="rt"><big>AWDS Project Management Lead</big></div>
-        <ul>
-          <li>Day-to-day leadership of delivery across all workstreams</li>
-          <li>Owns programme, resourcing, risk, change and reporting</li>
-          <li>Single point of accountability for delivery performance</li>
-          <li>Leads integration and coordination across the team</li>
-        </ul>
-      </div>
-      <div class="v" style="height:16px;"></div>
-    </div>
+    <div class="leads-box">
+      <div class="leads-title">Reporting to the AWDS Project Management Lead</div>
+      <div class="grid">
+        <div class="lcard"><div class="lt">AWDS Deputy Project Manager</div>
+          <ul><li>Deputises for the PM Lead; supports daily delivery</li>
+              <li>Coordinates operations, interfaces &amp; milestones</li>
+              <li>Drives consistent process and progress tracking</li></ul>
+          <div class="team"><b>Team:</b> Project support, administration &amp; office management</div></div>
 
-    <div class="bus" style="width:92%;"></div>
+        <div class="lcard"><div class="lt">AWDS Design Management Lead</div>
+          <ul><li>Leads &amp; integrates multidisciplinary design</li>
+              <li>Owns design programme, interfaces &amp; technical integration</li>
+              <li>Manages the design reachback team and design change</li></ul>
+          <div class="team"><b>Team:</b> Design discipline leads (reachback), BIM &amp; GIS, Information Management</div></div>
 
-    <!-- Leads -->
-    <div class="leadrow" style="margin-top:0;">
-      <div class="col"><div class="stem"></div>
-        <div class="rcard"><div class="rt">AWDS Deputy Project Manager</div>
-          <ul><li>Deputises for the PM Lead and supports daily delivery</li>
-              <li>Coordinates operations, team interfaces and milestones</li>
-              <li>Drives consistent process and progress tracking</li>
-              <li>Supports stakeholder and interface management</li></ul></div></div>
+        <div class="lcard"><div class="lt">AWDS PMO Lead</div>
+          <ul><li>Establishes PMO governance, systems &amp; controls</li>
+              <li>Owns reporting, KPIs, baseline &amp; information mgmt</li>
+              <li>Coordinates finance, document control &amp; assurance</li></ul>
+          <div class="team"><b>Team:</b> Project controls, planning/scheduling, document control, risk</div></div>
 
-      <div class="col"><div class="stem"></div>
-        <div class="rcard"><div class="rt">AWDS Design Management Lead</div>
-          <ul><li>Leads and integrates multidisciplinary design development</li>
-              <li>Owns design programme, interfaces and technical integration</li>
-              <li>Responsible for design quality, assurance and approvals</li>
-              <li>Manages the design reachback team and design change</li></ul></div></div>
+        <div class="lcard"><div class="lt">AWDS Technical Delivery Lead</div>
+          <ul><li>Ensures technical compliance &amp; verification</li>
+              <li>Manages assurance processes &amp; technical documentation</li>
+              <li>Manages the design-to-construction technical interface</li></ul>
+          <div class="team"><b>Team:</b> Contracts / technical engineers, QA/QC, CEMP / environmental</div></div>
 
-      <div class="col"><div class="stem"></div>
-        <div class="rcard"><div class="rt">AWDS PMO Lead</div>
-          <ul><li>Establishes PMO governance, systems and project controls</li>
-              <li>Owns reporting, KPIs, baseline and information management</li>
-              <li>Coordinates finance, document control and assurance</li>
-              <li>Maintains programme baseline, dashboards and KPIs</li></ul></div></div>
-
-      <div class="col"><div class="stem"></div>
-        <div class="rcard"><div class="rt">AWDS Technical Delivery Lead</div>
-          <ul><li>Ensures technical compliance and verification across contracts</li>
-              <li>Manages assurance processes and technical documentation</li>
-              <li>Upholds engineering standards and resolves technical issues</li>
-              <li>Manages the design-to-construction technical interface</li></ul></div></div>
-
-      <div class="col"><div class="stem"></div>
-        <div class="rcard"><div class="rt">AWDS Procurement Lead</div>
-          <ul><li>Leads procurement strategy and supply-chain engagement</li>
+        <div class="lcard"><div class="lt">AWDS Procurement Lead</div>
+          <ul><li>Leads procurement strategy &amp; supply-chain engagement</li>
               <li>Manages tendering, evaluation and contract award</li>
-              <li>Ensures procurement compliance and governance</li>
-              <li>Coordinates the procurement support team and schedules</li></ul></div></div>
+              <li>Ensures procurement compliance and governance</li></ul>
+          <div class="team"><b>Team:</b> Procurement package leads &amp; procurement support</div></div>
 
-      <div class="col" style="flex:1.2;"><div class="stem"></div>
-        <div class="rcard cm"><div class="rt">AWDS Contract Manager
-          <span class="sub">(typical of all Contract Managers)</span></div>
+        <div class="lcard commercial"><div class="lt">AWDS Commercial Lead</div>
+          <ul><li>Owns commercial strategy, cost control &amp; change management</li>
+              <li><span class="newflag">Reviews scope documents</span> for commercial ambiguity &amp; consistency with the commercial / procurement strategy</li>
+              <li><span class="newflag">Owns the interface with contract development</span> for each M100 contract</li>
+              <li><span class="newflag">Owns the interface with Pinsent Masons</span> to develop agreements</li>
+              <li>Manages NEC contract administration &amp; commercial risk</li>
+              <li>Leads commercial reporting, estimating &amp; value management</li></ul>
+          <div class="team"><b>Team:</b> Quantity surveyors, estimators, cost management, commercial project controls</div></div>
+
+        <div class="lcard cost"><div class="lt">AWDS Cost Management Lead<span class="sub">reports to the Commercial Lead</span></div>
+          <ul><li>Manages cost planning, estimating &amp; forecasting</li>
+              <li>Controls budgets, cash flow and cost reporting</li>
+              <li>Supports change valuation &amp; commercial assurance</li></ul>
+          <div class="team"><b>Team:</b> Cost estimators &amp; cost clerks</div></div>
+
+        <div class="lcard cm"><div class="lt">AWDS Contract Manager<span class="sub">(typical of all Contract Managers)</span></div>
           <ul><li>Acts as the Project Manager for their contract / package</li>
               <li>Owns package delivery — safety, quality, programme &amp; budget</li>
-              <li>At construction stage, full-time point of contact to deal with RFIs, designs, site meetings, reporting, etc.</li></ul></div></div>
+              <li>Construction stage: full-time point of contact for RFIs, designs, site meetings &amp; reporting</li></ul>
+          <div class="team"><b>Team:</b> Contracts engineer, as-built / doc control, QS, utilities liaison, CEMP</div></div>
+      </div>
+    </div>
+    <div class="foot-note">New Commercial Lead responsibilities highlighted in red. Each lead's core team is shown beneath the role; full make-up is on the support &amp; design pages of the org-chart deck.</div>
+  </div>
+  <div class="s-foot"><div class="logos"><img class="ar" src="logos/atkinsrealis.svg"><img class="tt" src="logos/tetratech.svg"></div>
+    <div class="pg">MetroLink AWDS — Management Roles &amp; Responsibilities · 1 / 2</div></div>
+</section>
 
-      <div class="col"><div class="stem"></div>
-        <div class="rcard"><div class="rt">AWDS Commercial Lead</div>
-          <ul><li>Owns commercial strategy, cost control and change management</li>
-              <li>Manages NEC contract administration and commercial risk</li>
-              <li>Leads commercial reporting and value management</li>
-              <li>Oversees estimating, project controls and value engineering</li></ul></div>
-        <div class="v" style="height:12px;"></div>
-        <div class="rcard cost"><div class="rt">AWDS Cost Management Lead</div>
-          <ul><li>Manages cost planning, estimating and forecasting</li>
-              <li>Controls budgets, cash flow and cost reporting</li>
-              <li>Supports change valuation and commercial assurance</li>
-              <li>Maintains cost data, benchmarking and forecast accuracy</li></ul></div></div>
+<!-- ================= PAGE 2 — MEETING CADENCE ================= -->
+<section class="slide">
+  <div class="s-head">
+    <div class="left"><img class="ml" src="logos/metrolink.svg" alt="MetroLink">
+      <div class="s-title">Contract Management — Meeting Cadence &amp; Monthly Rhythm<small>How each contract is managed every month</small></div></div>
+  </div>
+  <div class="s-body">
+    <div class="banner"><b>Package-lead ownership:</b> Contract &amp; Procurement Package Leads own their package meetings, action logs and monthly reporting — keeping the wider team joined up. Standard agendas and a common monthly report format are used across all contracts.</div>
+
+    <div class="sec-label">Standard meeting cadence (per contract)</div>
+    <table class="mtable">
+      <thead><tr><th style="width:20%">Meeting</th><th style="width:12%">Frequency</th><th style="width:20%">Owner / Chair</th><th style="width:22%">Attendees</th><th style="width:26%">Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><b>Weekly Progress &amp; Coordination</b></td><td>Weekly</td><td class="own">Contract Manager</td><td>CM team + contractor PM</td><td>RFIs, day-to-day queries, 2-week look-ahead, site coordination</td></tr>
+        <tr><td><b>Design &amp; Technical Review</b></td><td>Fortnightly</td><td class="own">Contract Manager + Design Management Lead</td><td>Design (reachback) leads, contractor design team</td><td>Review contractor design proposals, technical queries, as-built status</td></tr>
+        <tr><td><b>Commercial / NEC Review</b></td><td>Monthly</td><td class="own">Commercial Lead (+ package QS)</td><td>CM, QS, Cost Management</td><td>Compensation events / change, applications, forecast, commercial risk</td></tr>
+        <tr><td><b>Procurement &amp; Package Coordination</b></td><td>Monthly</td><td class="own">Procurement Package Lead</td><td>Procurement, Contract Manager</td><td>Package procurement status, interfaces, joined-up forward planning</td></tr>
+        <tr><td><b>Utility Asset Owner Liaison</b></td><td>Monthly / as required</td><td class="own">Utilities Liaison + Contract Manager</td><td>Utility asset owners</td><td>Approvals, dependencies and coordination with asset owners</td></tr>
+        <tr><td><b>Monthly Contract Review</b></td><td>Monthly</td><td class="own">Contract Manager</td><td>Commercial, Technical, Design, Procurement reps</td><td>Consolidated progress, risk, change, programme &amp; reporting for the package</td></tr>
+        <tr class="mtg"><td><b>Programme Integration Board</b></td><td>Monthly</td><td class="own" style="color:#0b2e63">AWDS Project Management Lead</td><td>All Contract &amp; Procurement Package Leads</td><td>Cross-package alignment, dependencies, escalation &amp; joined-up delivery</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sec-label" style="margin-top:12px;">Monthly rhythm</div>
+    <div class="rhythm">
+      <div class="wk"><span class="wt">Week 1</span><ul><li>Weekly progress &amp; coordination</li><li>Design &amp; technical review</li><li>RFI &amp; design-proposal status</li></ul></div>
+      <div class="wk"><span class="wt">Week 2</span><ul><li>Commercial / NEC review</li><li>Procurement &amp; package coordination</li><li>Change &amp; risk updates</li></ul></div>
+      <div class="wk"><span class="wt">Week 3</span><ul><li>Utility asset-owner liaison</li><li>As-built drawing updates</li><li>Forecast &amp; programme refresh</li></ul></div>
+      <div class="wk"><span class="wt">Week 4</span><ul><li>Monthly contract review</li><li>Package monthly report issued</li><li>Feeds the Programme Integration Board</li></ul></div>
     </div>
   </div>
-
   <div class="s-foot"><div class="logos"><img class="ar" src="logos/atkinsrealis.svg"><img class="tt" src="logos/tetratech.svg"></div>
-    <div class="pg">MetroLink AWDS — Management Roles &amp; Responsibilities</div></div>
+    <div class="pg">MetroLink AWDS — Contract Management Cadence · 2 / 2</div></div>
 </section>
+
 </body>
 </html>
