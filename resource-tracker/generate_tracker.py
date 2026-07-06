@@ -1,54 +1,48 @@
 """
-Generates Resource_Tracker.xlsx - a resource/time tracker for a line manager
-with 4 direct reports, tracking project allocation and leave against a
-7.5 hour standard working day.
+Generates Resource_Tracker.xlsx - an MS-Project-style Gantt/resource
+calendar for a line manager with 5 direct reports. Each working day is a
+single coloured cell showing which project that person is on, picked
+from an editable 25-project dropdown. Week and 6-week bands sit above the
+day grid so the same sheet reads at a weekly or 6-weekly resolution.
 
 Run: python3 generate_tracker.py
 Output: Resource_Tracker.xlsx (in the same folder)
 """
-import openpyxl
+import colorsys
+from datetime import date, timedelta
+
 from openpyxl import Workbook
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side, NamedStyle
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.formatting.rule import FormulaRule
 from openpyxl.workbook.defined_name import DefinedName
-from openpyxl.chart import BarChart, PieChart, Reference
 from openpyxl.utils import get_column_letter
 
 # ---------------------------------------------------------------- constants
-NUM_TIMESHEET_ROWS = 1000          # data rows available on the Timesheet
-NUM_WEEKLY_ROWS = 60                # ~14 months of weekly summary rows
-NUM_ALLOCATION_SUMMARY_ROWS = 20    # rows reserved for allocations in summary
-STAFF_COUNT = 4
-DAY_HOURS = 7.5
+STAFF_COUNT = 5
+PROJECT_SLOTS = 25
+NUM_WEEKS = 26                 # ~6 months of rolling timeline; extend by copying columns
+BLOCK_WEEKS = 6                # the "6-weekly" band size
+DAY_COL_START = 2              # column B is the first day column
 
 NAVY = "1F3864"
 BLUE = "2E5395"
 LIGHT_BLUE = "D9E2F3"
-GREEN = "C6EFCE"
-GREEN_FONT = "006100"
-AMBER = "FFEB9C"
-AMBER_FONT = "9C6500"
-RED = "FFC7CE"
-RED_FONT = "9C0006"
 GREY = "F2F2F2"
+DARK_TEXT = "262626"
 
 HEADER_FILL = PatternFill("solid", fgColor=NAVY)
 HEADER_FONT = Font(color="FFFFFF", bold=True)
-SUBHEADER_FILL = PatternFill("solid", fgColor=LIGHT_BLUE)
-THIN = Side(style="thin", color="BFBFBF")
-BORDER = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
+BAND_FILL_A = PatternFill("solid", fgColor=BLUE)
+BAND_FILL_B = PatternFill("solid", fgColor="3D6BB3")
+WEEK_FILL_A = PatternFill("solid", fgColor=LIGHT_BLUE)
+WEEK_FILL_B = PatternFill("solid", fgColor="C3D3EE")
+
+THIN = Side(style="thin", color="D9D9D9")
+MED = Side(style="medium", color="808080")
+THICK = Side(style="thick", color="404040")
 
 wb = Workbook()
-
-
-def style_header_row(ws, row, first_col, last_col, fill=HEADER_FILL, font=HEADER_FONT):
-    for col in range(first_col, last_col + 1):
-        c = ws.cell(row=row, column=col)
-        c.fill = fill
-        c.font = font
-        c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-        c.border = BORDER
 
 
 def set_widths(ws, widths):
@@ -57,49 +51,67 @@ def set_widths(ws, widths):
 
 
 # =====================================================================
-# 1. INSTRUCTIONS SHEET
+# distinct pastel colour per project slot (also used as the Lists legend)
+# =====================================================================
+def project_palette(n):
+    colors = []
+    for i in range(n):
+        hue = (i * 0.6180339887) % 1.0   # golden-angle spacing = maximally distinct
+        r, g, b = colorsys.hls_to_rgb(hue, 0.82, 0.55)
+        colors.append("{:02X}{:02X}{:02X}".format(int(r * 255), int(g * 255), int(b * 255)))
+    return colors
+
+
+PALETTE = project_palette(PROJECT_SLOTS)
+
+# =====================================================================
+# 1. INSTRUCTIONS
 # =====================================================================
 ws_instr = wb.active
 ws_instr.title = "Instructions"
 ws_instr.sheet_view.showGridLines = False
 set_widths(ws_instr, {"A": 3, "B": 100})
 
-title = ws_instr.cell(row=2, column=2, value="Resource Tracker – How to Use")
+title = ws_instr.cell(row=2, column=2, value="Resource Gantt Tracker – How to Use")
 title.font = Font(size=18, bold=True, color=NAVY)
 
 lines = [
     ("", ""),
     ("bold", "1. Set up your team and projects on the 'Lists' tab"),
-    ("normal", "   Replace the 4 placeholder staff names with your team's real names. Add or "
-               "remove projects and leave types in the 'Allocation' column. Every dropdown in "
-               "this workbook reads from this tab automatically, so anything you add here shows "
-               "up as a new dropdown option immediately - no formulas to touch."),
+    ("normal", "   Replace the 5 placeholder names with your team's real names, and rename any of "
+               "the 25 project slots you need (leave the rest as-is for later - they'll just sit "
+               "unused in the dropdown until you rename them). Each project slot has its own "
+               "colour, shown as a swatch next to its name - that colour is what appears on the "
+               "Gantt grid, so the swatch also acts as your legend."),
     ("", ""),
-    ("bold", "2. Log time on the 'Timesheet' tab"),
-    ("normal", "   One row = one person, one date, one allocation (project or leave), and the "
-               "hours spent. If someone splits a day across two projects, just add two rows for "
-               "that date - e.g. Jane / Project Alpha / 4.5 hours, then Jane / Project Beta / 3 "
-               "hours. The standard day is 7.5 hours."),
-    ("normal", "   The 'Type', 'Week Ending' and 'Daily Total' columns fill in automatically. "
-               "'Daily Total' turns green at exactly 7.5 hours for that person/date, amber if "
-               "under, and red if over - so gaps or double-booked time jump out immediately."),
+    ("bold", "2. Fill in the 'Gantt' tab"),
+    ("normal", "   Row 6 holds the start date for the timeline (must be a Monday) - change it and "
+               "every date across the sheet shifts automatically. Below that, each of the 5 staff "
+               "rows has one cell per working day. Click a day cell and pick a project from the "
+               "dropdown; the cell fills with that project's colour automatically, giving you an "
+               "MS Project-style bar chart made of daily blocks."),
+    ("normal", "   Leave a cell blank if that person isn't assigned yet - it just stays white."),
+    ("normal", "   There's no hours tracking here - one colour = one person on one project for "
+               "that whole day. If you need to track leave too, just use one of the 25 slots for "
+               "'Annual Leave', 'Sick Leave', etc."),
     ("", ""),
-    ("bold", "3. Check the automated summaries"),
-    ("normal", "   'Weekly Summary' totals each person's hours per week against the 37.5 hour "
-               "target and flags the variance."),
-    ("normal", "   'Project & Leave Summary' breaks total hours down by project/leave type and "
-               "by person, with charts, so you can see at a glance where the team's time is "
-               "going."),
-    ("normal", "   'Dashboard' gives a one-page snapshot of the current week."),
+    ("bold", "3. Reading it weekly or 6-weekly"),
+    ("normal", "   Above the day cells, a 'Week Commencing' band groups every 5 days into a week, "
+               "and a '6-Week Block' band above that groups 6 weeks together - so you can read the "
+               "same grid at whichever resolution you need, without switching sheets."),
     ("", ""),
-    ("bold", "4. Extending the tracker"),
-    ("normal", "   The Timesheet has 1,000 pre-formatted rows ready to go. If you add a 5th team "
-               "member, add their name to the Lists tab, then copy a staff column formula across "
-               "on the Weekly Summary and Project & Leave Summary tabs (select an existing staff "
-               "column and drag/copy it one column over)."),
-    ("normal", "   All dropdowns are driven by named ranges (StaffList / AllocationList) that "
-               "auto-expand as you add rows to the Lists tab - you never need to edit the "
-               "dropdown itself."),
+    ("bold", "4. Days-per-project counts"),
+    ("normal", "   Below the grid, the 'Days per Project' table automatically counts how many days "
+               "in the current timeline each person has been assigned to each project - a quick "
+               "utilisation check with no manual maths."),
+    ("", ""),
+    ("bold", "5. Extending the timeline or team"),
+    ("normal", "   The Gantt tab ships with 26 weeks (about 6 months). To add more weeks, select "
+               "the last week's block of columns (including the band rows and the 5 staff rows) "
+               "and copy it to the right - the dates, borders and dropdowns will carry across."),
+    ("normal", "   To add a 6th team member, add their name to the Lists tab, then insert a row "
+               "on the Gantt tab below the last staff row and copy an existing staff row's "
+               "formatting/dropdown into it."),
 ]
 
 r = 4
@@ -114,341 +126,252 @@ for kind, text in lines:
     r += 1
 
 # =====================================================================
-# 2. LISTS SHEET (editable source data for every dropdown)
+# 2. LISTS SHEET (editable source data + colour legend)
 # =====================================================================
 ws_lists = wb.create_sheet("Lists")
 ws_lists.sheet_view.showGridLines = False
-set_widths(ws_lists, {"A": 24, "B": 3, "C": 28, "D": 14, "E": 3, "F": 60})
+set_widths(ws_lists, {"A": 22, "B": 4, "C": 30, "D": 3, "E": 60})
 
 ws_lists.cell(row=1, column=1, value="Staff Name")
-ws_lists.cell(row=1, column=3, value="Allocation (Project or Leave Type)")
-ws_lists.cell(row=1, column=4, value="Type")
-style_header_row(ws_lists, 1, 1, 1)
-style_header_row(ws_lists, 1, 3, 4)
+ws_lists.cell(row=1, column=3, value="Project (colour = Gantt colour)")
+for col in (1, 3):
+    c = ws_lists.cell(row=1, column=col)
+    c.fill = HEADER_FILL
+    c.font = HEADER_FONT
+    c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
 
 note = ws_lists.cell(
-    row=1, column=6,
-    value="Edit these lists freely. Add a row and it is picked up everywhere automatically "
-          "(dropdowns, summaries, charts) via the StaffList / AllocationList named ranges.",
+    row=1, column=5,
+    value="Edit these freely. Staff/project names update everywhere automatically (StaffList / "
+          "ProjectList named ranges). Each project's swatch colour is what shows on the Gantt grid.",
 )
 note.font = Font(italic=True, color="808080")
 note.alignment = Alignment(wrap_text=True, vertical="top")
 ws_lists.row_dimensions[1].height = 30
 
-staff_placeholder = ["Line Report 1", "Line Report 2", "Line Report 3", "Line Report 4"]
-for i, name in enumerate(staff_placeholder):
-    ws_lists.cell(row=2 + i, column=1, value=name).border = BORDER
+for i in range(STAFF_COUNT):
+    ws_lists.cell(row=2 + i, column=1, value=f"Team Member {i + 1}").border = Border(
+        left=THIN, right=THIN, top=THIN, bottom=THIN)
 
-allocations = [
-    ("Project A", "Project"),
-    ("Project B", "Project"),
-    ("Project C", "Project"),
-    ("Project D", "Project"),
-    ("Annual Leave", "Leave"),
-    ("Sick Leave", "Leave"),
-    ("Public Holiday", "Leave"),
-    ("Training / Development", "Leave"),
-    ("Other Absence", "Leave"),
-]
-for i, (name, typ) in enumerate(allocations):
-    ws_lists.cell(row=2 + i, column=3, value=name).border = BORDER
-    ws_lists.cell(row=2 + i, column=4, value=typ).border = BORDER
+for i in range(PROJECT_SLOTS):
+    row = 2 + i
+    cell = ws_lists.cell(row=row, column=3, value=f"Project {i + 1}")
+    cell.fill = PatternFill("solid", fgColor=PALETTE[i])
+    cell.font = Font(color=DARK_TEXT)
+    cell.border = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
 
-# keep the Type column self-consistent as rows are added
-type_dv = DataValidation(type="list", formula1='"Project,Leave"', allow_blank=True)
-ws_lists.add_data_validation(type_dv)
-type_dv.add(f"D2:D{NUM_ALLOCATION_SUMMARY_ROWS + 10}")
-
-# named, auto-expanding ranges used by every dropdown in the workbook
+# named, auto-expanding ranges used by the Gantt dropdowns
 wb.defined_names["StaffList"] = DefinedName(
     "StaffList", attr_text="OFFSET(Lists!$A$2,0,0,COUNTA(Lists!$A$2:$A$1000),1)"
 )
-wb.defined_names["AllocationList"] = DefinedName(
-    "AllocationList", attr_text="OFFSET(Lists!$C$2,0,0,COUNTA(Lists!$C$2:$C$1000),1)"
+wb.defined_names["ProjectList"] = DefinedName(
+    "ProjectList", attr_text="OFFSET(Lists!$C$2,0,0,COUNTA(Lists!$C$2:$C$1000),1)"
 )
 
 # =====================================================================
-# 3. TIMESHEET SHEET
+# 3. GANTT SHEET
 # =====================================================================
-ws_ts = wb.create_sheet("Timesheet")
-ws_ts.sheet_view.showGridLines = False
-headers = ["Date", "Staff Name", "Allocation (Project / Leave)", "Type",
-           "Hours", "Notes", "Week Ending", "Daily Total (person/date)"]
-for i, h in enumerate(headers, start=1):
-    ws_ts.cell(row=1, column=i, value=h)
-style_header_row(ws_ts, 1, 1, len(headers))
-ws_ts.freeze_panes = "A2"
-set_widths(ws_ts, {"A": 12, "B": 18, "C": 26, "D": 10, "E": 9, "F": 30, "G": 13, "H": 22})
+ws_g = wb.create_sheet("Gantt")
+ws_g.sheet_view.showGridLines = False
 
-staff_dv = DataValidation(type="list", formula1="=StaffList", allow_blank=True,
-                           showDropDown=False)
-staff_dv.error = "Please pick a name from the list (add new names on the Lists tab)."
-staff_dv.errorTitle = "Invalid staff name"
-ws_ts.add_data_validation(staff_dv)
+TOTAL_DAYS = NUM_WEEKS * 5
+last_day_col = DAY_COL_START + TOTAL_DAYS - 1
 
-alloc_dv = DataValidation(type="list", formula1="=AllocationList", allow_blank=True,
-                           showDropDown=False)
-alloc_dv.error = "Please pick a project or leave type from the list (add new ones on the Lists tab)."
-alloc_dv.errorTitle = "Invalid allocation"
-ws_ts.add_data_validation(alloc_dv)
+# ---- start date control -------------------------------------------------
+today = date.today()
+next_monday = today + timedelta(days=(7 - today.weekday()) % 7)
+ws_g.cell(row=1, column=1, value="Timeline Start Date (must be a Monday):").font = Font(bold=True)
+ws_g.cell(row=1, column=1).alignment = Alignment(horizontal="right", vertical="center")
+ws_g.merge_cells(start_row=1, start_column=1, end_row=1, end_column=4)
 
-hours_dv = DataValidation(type="decimal", operator="between", formula1="0", formula2="7.5",
-                           allow_blank=True)
-hours_dv.error = "Enter hours between 0 and 7.5 for a single row."
-hours_dv.errorTitle = "Invalid hours"
-ws_ts.add_data_validation(hours_dv)
+start_cell = ws_g.cell(row=1, column=5, value=next_monday)
+start_cell.number_format = "dd/mm/yyyy"
+start_cell.fill = PatternFill("solid", fgColor="FFF2CC")
+start_cell.font = Font(bold=True)
+start_cell.border = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
 
-for row in range(2, NUM_TIMESHEET_ROWS + 2):
-    ws_ts.cell(row=row, column=4,
-               value=f'=IF(C{row}="","",IFERROR(VLOOKUP(C{row},Lists!$C:$D,2,FALSE),""))')
-    ws_ts.cell(row=row, column=7,
-               value=f'=IF(A{row}="","",A{row}+(7-WEEKDAY(A{row},2)))')
-    ws_ts.cell(row=row, column=8,
-               value=f'=IF(OR(A{row}="",B{row}=""),"",'
-                     f'SUMIFS($E$2:$E${NUM_TIMESHEET_ROWS + 1},'
-                     f'$A$2:$A${NUM_TIMESHEET_ROWS + 1},A{row},'
-                     f'$B$2:$B${NUM_TIMESHEET_ROWS + 1},B{row}))')
-    ws_ts.cell(row=row, column=1).number_format = "dd/mm/yyyy"
-    ws_ts.cell(row=row, column=7).number_format = "dd/mm/yyyy"
-    for col in range(1, 9):
-        ws_ts.cell(row=row, column=col).border = BORDER
+start_ref = "$E$1"
 
-staff_dv.add(f"B2:B{NUM_TIMESHEET_ROWS + 1}")
-alloc_dv.add(f"C2:C{NUM_TIMESHEET_ROWS + 1}")
-hours_dv.add(f"E2:E{NUM_TIMESHEET_ROWS + 1}")
+# ---- column widths / static rows ----------------------------------------
+set_widths(ws_g, {"A": 20})
+for c in range(DAY_COL_START, last_day_col + 1):
+    ws_g.column_dimensions[get_column_letter(c)].width = 4.3
 
-# conditional formatting: daily total vs 7.5 target
-green_fill = PatternFill("solid", fgColor=GREEN)
-amber_fill = PatternFill("solid", fgColor=AMBER)
-red_fill = PatternFill("solid", fgColor=RED)
-leave_fill = PatternFill("solid", fgColor=LIGHT_BLUE)
+BAND_ROW = 3      # 6-week block band
+WEEK_ROW = 4      # week commencing band
+DATE_ROW = 5      # day-of-week + date
+FIRST_STAFF_ROW = 6
+LAST_STAFF_ROW = FIRST_STAFF_ROW + STAFF_COUNT - 1
 
-h_range = f"H2:H{NUM_TIMESHEET_ROWS + 1}"
-ws_ts.conditional_formatting.add(
-    h_range, FormulaRule(formula=[f'AND(H2<>"",H2=7.5)'], fill=green_fill,
-                          font=Font(color=GREEN_FONT)))
-ws_ts.conditional_formatting.add(
-    h_range, FormulaRule(formula=[f'AND(H2<>"",H2>7.5)'], fill=red_fill,
-                          font=Font(color=RED_FONT)))
-ws_ts.conditional_formatting.add(
-    h_range, FormulaRule(formula=[f'AND(H2<>"",H2>0,H2<7.5)'], fill=amber_fill,
-                          font=Font(color=AMBER_FONT)))
+ws_g.cell(row=BAND_ROW, column=1, value="6-Week Block").font = Font(bold=True, color="FFFFFF")
+ws_g.cell(row=WEEK_ROW, column=1, value="Week Commencing").font = Font(bold=True)
+ws_g.cell(row=DATE_ROW, column=1, value="Staff \\ Date").font = Font(bold=True, color="FFFFFF")
+for row, fill in ((BAND_ROW, HEADER_FILL), (DATE_ROW, HEADER_FILL)):
+    c = ws_g.cell(row=row, column=1)
+    c.fill = fill
+for c_row in (BAND_ROW, WEEK_ROW, DATE_ROW):
+    ws_g.cell(row=c_row, column=1).border = Border(left=THIN, right=MED, top=THIN, bottom=THIN)
 
-row_range = f"A2:F{NUM_TIMESHEET_ROWS + 1}"
-ws_ts.conditional_formatting.add(
-    row_range, FormulaRule(formula=['$D2="Leave"'], fill=leave_fill))
+ws_g.row_dimensions[BAND_ROW].height = 20
+ws_g.row_dimensions[WEEK_ROW].height = 20
+ws_g.row_dimensions[DATE_ROW].height = 30
+
+# ---- day headers, week bands, 6-week bands -------------------------------
+for i in range(TOTAL_DAYS):
+    col = DAY_COL_START + i
+    col_letter = get_column_letter(col)
+    week_idx = i // 5
+    day_in_week = i % 5
+    offset_days = week_idx * 7 + day_in_week
+
+    date_cell = ws_g.cell(row=DATE_ROW, column=col,
+                           value=f"={start_ref}+{offset_days}")
+    date_cell.number_format = "ddd\\ dd/mm"
+    date_cell.font = Font(size=9, bold=True, color="FFFFFF")
+    date_cell.alignment = Alignment(horizontal="center", vertical="center", textRotation=90)
+    date_cell.fill = HEADER_FILL
+
+    is_week_end = day_in_week == 4
+    is_block_end = (week_idx % BLOCK_WEEKS == BLOCK_WEEKS - 1) and is_week_end
+    right_border = THICK if is_block_end else (MED if is_week_end else THIN)
+    date_cell.border = Border(left=THIN, right=right_border, top=THIN, bottom=THIN)
+
+# week-commencing band: merge each block of 5 day columns, label = Monday's date
+for week_idx in range(NUM_WEEKS):
+    first_col = DAY_COL_START + week_idx * 5
+    last_col = first_col + 4
+    offset_days = week_idx * 7
+    ws_g.merge_cells(start_row=WEEK_ROW, start_column=first_col, end_row=WEEK_ROW, end_column=last_col)
+    cell = ws_g.cell(row=WEEK_ROW, column=first_col,
+                      value=f'="w/c "&TEXT({start_ref}+{offset_days},"dd/mm")')
+    cell.alignment = Alignment(horizontal="center", vertical="center")
+    cell.font = Font(size=9, bold=True)
+    cell.fill = WEEK_FILL_A if week_idx % 2 == 0 else WEEK_FILL_B
+    is_block_end = week_idx % BLOCK_WEEKS == BLOCK_WEEKS - 1
+    right_border = THICK if is_block_end else MED
+    cell.border = Border(left=THIN, right=right_border, top=THIN, bottom=THIN)
+    for col in range(first_col, last_col + 1):
+        ws_g.cell(row=WEEK_ROW, column=col).border = Border(
+            left=THIN, right=(right_border if col == last_col else THIN), top=THIN, bottom=THIN)
+
+# 6-week block band: merge each block of 30 day columns
+num_blocks = -(-NUM_WEEKS // BLOCK_WEEKS)
+for block_idx in range(num_blocks):
+    first_week = block_idx * BLOCK_WEEKS
+    last_week = min(first_week + BLOCK_WEEKS, NUM_WEEKS) - 1
+    first_col = DAY_COL_START + first_week * 5
+    last_col = DAY_COL_START + (last_week + 1) * 5 - 1
+    start_offset = first_week * 7
+    end_offset = last_week * 7 + 4
+    ws_g.merge_cells(start_row=BAND_ROW, start_column=first_col, end_row=BAND_ROW, end_column=last_col)
+    cell = ws_g.cell(
+        row=BAND_ROW, column=first_col,
+        value=f'="Block "&{block_idx + 1}&": "&TEXT({start_ref}+{start_offset},"dd/mm")&'
+              f'" - "&TEXT({start_ref}+{end_offset},"dd/mm")',
+    )
+    cell.alignment = Alignment(horizontal="center", vertical="center")
+    cell.font = Font(bold=True, color="FFFFFF")
+    cell.fill = BAND_FILL_A if block_idx % 2 == 0 else BAND_FILL_B
+    for col in range(first_col, last_col + 1):
+        ws_g.cell(row=BAND_ROW, column=col).border = Border(
+            left=THIN, right=(THICK if col == last_col else THIN), top=THIN, bottom=THIN)
+
+ws_g.freeze_panes = ws_g.cell(row=FIRST_STAFF_ROW, column=DAY_COL_START)
+
+# ---- staff rows -----------------------------------------------------------
+project_dv = DataValidation(type="list", formula1="=ProjectList", allow_blank=True,
+                             showDropDown=False)
+project_dv.error = "Pick a project from the list (add new ones on the Lists tab)."
+project_dv.errorTitle = "Invalid project"
+ws_g.add_data_validation(project_dv)
+
+for i in range(STAFF_COUNT):
+    row = FIRST_STAFF_ROW + i
+    name_cell = ws_g.cell(row=row, column=1, value=f"=Lists!$A${2 + i}")
+    name_cell.font = Font(bold=True)
+    name_cell.fill = PatternFill("solid", fgColor=GREY)
+    name_cell.border = Border(left=THIN, right=MED, top=THIN, bottom=THIN)
+    ws_g.row_dimensions[row].height = 18
+
+    for d in range(TOTAL_DAYS):
+        col = DAY_COL_START + d
+        week_idx = d // 5
+        day_in_week = d % 5
+        is_week_end = day_in_week == 4
+        is_block_end = (week_idx % BLOCK_WEEKS == BLOCK_WEEKS - 1) and is_week_end
+        right_border = THICK if is_block_end else (MED if is_week_end else THIN)
+        bottom_border = THICK if i == STAFF_COUNT - 1 else THIN
+        cell = ws_g.cell(row=row, column=col)
+        cell.border = Border(left=THIN, right=right_border, top=THIN, bottom=bottom_border)
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+
+grid_range = (f"{get_column_letter(DAY_COL_START)}{FIRST_STAFF_ROW}:"
+              f"{get_column_letter(last_day_col)}{LAST_STAFF_ROW}")
+project_dv.add(grid_range)
+
+top_left = ws_g.cell(row=FIRST_STAFF_ROW, column=DAY_COL_START).coordinate
+for i in range(PROJECT_SLOTS):
+    lists_ref = f"Lists!$C${2 + i}"
+    fill = PatternFill("solid", fgColor=PALETTE[i])
+    ws_g.conditional_formatting.add(
+        grid_range,
+        FormulaRule(formula=[f'AND({top_left}<>"",{top_left}={lists_ref})'], fill=fill),
+    )
 
 # =====================================================================
-# 4. WEEKLY SUMMARY SHEET
+# 4. DAYS-PER-PROJECT SUMMARY (below the grid)
 # =====================================================================
-ws_wk = wb.create_sheet("Weekly Summary")
-ws_wk.sheet_view.showGridLines = False
-ws_wk.cell(row=1, column=1, value="Week Ending")
+SUMMARY_TITLE_ROW = LAST_STAFF_ROW + 3
+SUMMARY_HEADER_ROW = SUMMARY_TITLE_ROW + 1
+SUMMARY_FIRST_ROW = SUMMARY_HEADER_ROW + 1
+SUMMARY_LAST_ROW = SUMMARY_FIRST_ROW + PROJECT_SLOTS - 1
+
+ws_g.cell(row=SUMMARY_TITLE_ROW, column=1, value="Days per Project (current timeline)").font = Font(
+    size=13, bold=True, color=NAVY)
+
+ws_g.cell(row=SUMMARY_HEADER_ROW, column=1, value="Project")
 for i in range(STAFF_COUNT):
     col = 2 + i
-    ws_wk.cell(row=1, column=col, value=f"=Lists!$A${2 + i}")
-ws_wk.cell(row=1, column=2 + STAFF_COUNT, value="Total Hours")
-ws_wk.cell(row=1, column=3 + STAFF_COUNT, value="Target Hours")
-ws_wk.cell(row=1, column=4 + STAFF_COUNT, value="Variance")
-last_col = 4 + STAFF_COUNT
-style_header_row(ws_wk, 1, 1, last_col)
-ws_wk.freeze_panes = "A2"
-set_widths(ws_wk, {get_column_letter(c): 16 for c in range(1, last_col + 1)})
-ws_wk.column_dimensions["A"].width = 14
+    ws_g.cell(row=SUMMARY_HEADER_ROW, column=col, value=f"=Lists!$A${2 + i}")
+total_col = 2 + STAFF_COUNT
+ws_g.cell(row=SUMMARY_HEADER_ROW, column=total_col, value="Total Days")
+for col in range(1, total_col + 1):
+    c = ws_g.cell(row=SUMMARY_HEADER_ROW, column=col)
+    c.fill = HEADER_FILL
+    c.font = HEADER_FONT
+    c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    c.border = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
 
-ws_wk.cell(row=2, column=1, value="=TODAY()-WEEKDAY(TODAY(),3)+6").number_format = "dd/mm/yyyy"
+grid_col_first = get_column_letter(DAY_COL_START)
+grid_col_last = get_column_letter(last_day_col)
 
-for row in range(2, NUM_WEEKLY_ROWS + 2):
-    if row > 2:
-        ws_wk.cell(row=row, column=1, value=f"=A{row - 1}+7")
-        ws_wk.cell(row=row, column=1).number_format = "dd/mm/yyyy"
-    for i in range(STAFF_COUNT):
-        col = 2 + i
+for i in range(PROJECT_SLOTS):
+    row = SUMMARY_FIRST_ROW + i
+    proj_cell = ws_g.cell(row=row, column=1, value=f"=Lists!$C${2 + i}")
+    proj_cell.fill = PatternFill("solid", fgColor=PALETTE[i])
+    proj_cell.font = Font(color=DARK_TEXT)
+    for j in range(STAFF_COUNT):
+        col = 2 + j
+        staff_row = FIRST_STAFF_ROW + j
         col_letter = get_column_letter(col)
-        ws_wk.cell(
+        ws_g.cell(
             row=row, column=col,
-            value=f'=IF(${col_letter}$1="","",'
-                  f'SUMIFS(Timesheet!$E:$E,Timesheet!$B:$B,{col_letter}$1,'
-                  f'Timesheet!$G:$G,$A{row}))',
+            value=(f"=COUNTIF({grid_col_first}{staff_row}:{grid_col_last}{staff_row},"
+                   f"$A{row})"),
         )
-    total_col = 2 + STAFF_COUNT
-    target_col = 3 + STAFF_COUNT
-    var_col = 4 + STAFF_COUNT
     first_staff_letter = get_column_letter(2)
     last_staff_letter = get_column_letter(1 + STAFF_COUNT)
-    ws_wk.cell(row=row, column=total_col,
-               value=f"=SUM({first_staff_letter}{row}:{last_staff_letter}{row})")
-    ws_wk.cell(row=row, column=target_col, value=f"=COUNTA(StaffList)*{DAY_HOURS}*5")
-    ws_wk.cell(row=row, column=var_col,
-               value=f"={get_column_letter(total_col)}{row}-{get_column_letter(target_col)}{row}")
-    for col in range(1, last_col + 1):
-        ws_wk.cell(row=row, column=col).border = BORDER
+    ws_g.cell(row=row, column=total_col,
+              value=f"=SUM({first_staff_letter}{row}:{last_staff_letter}{row})")
+    for col in range(1, total_col + 1):
+        ws_g.cell(row=row, column=col).border = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
 
-var_range = f"{get_column_letter(4 + STAFF_COUNT)}2:{get_column_letter(4 + STAFF_COUNT)}{NUM_WEEKLY_ROWS + 1}"
-ws_wk.conditional_formatting.add(
-    var_range, FormulaRule(formula=[f'{get_column_letter(4+STAFF_COUNT)}2=0'], fill=green_fill, font=Font(color=GREEN_FONT)))
-ws_wk.conditional_formatting.add(
-    var_range, FormulaRule(formula=[f'{get_column_letter(4+STAFF_COUNT)}2<0'], fill=amber_fill, font=Font(color=AMBER_FONT)))
-ws_wk.conditional_formatting.add(
-    var_range, FormulaRule(formula=[f'{get_column_letter(4+STAFF_COUNT)}2>0'], fill=red_fill, font=Font(color=RED_FONT)))
-
-note = ws_wk.cell(row=NUM_WEEKLY_ROWS + 3, column=1,
-                   value="Row 2's 'Week Ending' defaults to the current week (Sunday). Overwrite it "
-                         "with your first week if you want the tracker to start earlier - every row "
-                         "below rolls forward automatically in 7 day steps.")
-note.font = Font(italic=True, color="808080")
-note.alignment = Alignment(wrap_text=True)
-ws_wk.row_dimensions[NUM_WEEKLY_ROWS + 3].height = 30
-ws_wk.merge_cells(start_row=NUM_WEEKLY_ROWS + 3, start_column=1,
-                   end_row=NUM_WEEKLY_ROWS + 3, end_column=last_col)
-
-# =====================================================================
-# 5. PROJECT & LEAVE SUMMARY SHEET
-# =====================================================================
-ws_ps = wb.create_sheet("Project & Leave Summary")
-ws_ps.sheet_view.showGridLines = False
-ws_ps.cell(row=1, column=1, value="Allocation")
-ws_ps.cell(row=1, column=2, value="Type")
-for i in range(STAFF_COUNT):
-    col = 3 + i
-    ws_ps.cell(row=1, column=col, value=f"=Lists!$A${2 + i}")
-total_col = 3 + STAFF_COUNT
-ws_ps.cell(row=1, column=total_col, value="Total Hours")
-last_col = total_col
-style_header_row(ws_ps, 1, 1, last_col)
-ws_ps.freeze_panes = "A2"
-set_widths(ws_ps, {"A": 26, "B": 10}); set_widths(ws_ps, {get_column_letter(c): 16 for c in range(3, last_col + 1)})
-
-first_data_row = 2
-last_data_row = first_data_row + NUM_ALLOCATION_SUMMARY_ROWS - 1
-for i in range(NUM_ALLOCATION_SUMMARY_ROWS):
-    row = first_data_row + i
-    ws_ps.cell(row=row, column=1,
-               value=f'=IFERROR(INDEX(AllocationList,{i + 1}),"")')
-    ws_ps.cell(row=row, column=2,
-               value=f'=IF($A{row}="","",IFERROR(VLOOKUP($A{row},Lists!$C:$D,2,FALSE),""))')
-    for j in range(STAFF_COUNT):
-        col = 3 + j
-        col_letter = get_column_letter(col)
-        ws_ps.cell(
-            row=row, column=col,
-            value=f'=IF($A{row}="","",SUMIFS(Timesheet!$E:$E,Timesheet!$C:$C,$A{row},'
-                  f'Timesheet!$B:$B,{col_letter}$1))',
-        )
-    first_staff_letter = get_column_letter(3)
-    last_staff_letter = get_column_letter(2 + STAFF_COUNT)
-    ws_ps.cell(row=row, column=total_col,
-               value=f'=IF($A{row}="","",SUM({first_staff_letter}{row}:{last_staff_letter}{row}))')
-    for col in range(1, last_col + 1):
-        ws_ps.cell(row=row, column=col).border = BORDER
-
-grand_row = last_data_row + 2
-ws_ps.cell(row=grand_row, column=1, value="Grand Total").font = Font(bold=True)
-for col in range(3, last_col + 1):
+grand_row = SUMMARY_LAST_ROW + 1
+ws_g.cell(row=grand_row, column=1, value="Grand Total").font = Font(bold=True)
+for col in range(2, total_col + 1):
     col_letter = get_column_letter(col)
-    ws_ps.cell(row=grand_row, column=col,
-               value=f"=SUM({col_letter}{first_data_row}:{col_letter}{last_data_row})").font = Font(bold=True)
-
-proj_total_row = grand_row + 2
-leave_total_row = grand_row + 3
-ws_ps.cell(row=proj_total_row, column=1, value="Total Project Hours")
-ws_ps.cell(row=proj_total_row, column=total_col,
-           value=f'=SUMIF($B${first_data_row}:$B${last_data_row},"Project",'
-                 f'${get_column_letter(total_col)}${first_data_row}:${get_column_letter(total_col)}${last_data_row})')
-ws_ps.cell(row=leave_total_row, column=1, value="Total Leave Hours")
-ws_ps.cell(row=leave_total_row, column=total_col,
-           value=f'=SUMIF($B${first_data_row}:$B${last_data_row},"Leave",'
-                 f'${get_column_letter(total_col)}${first_data_row}:${get_column_letter(total_col)}${last_data_row})')
-
-# charts
-bar = BarChart()
-bar.title = "Hours by Allocation"
-bar.y_axis.title = "Hours"
-bar.x_axis.title = "Project / Leave Type"
-cats = Reference(ws_ps, min_col=1, min_row=first_data_row, max_row=last_data_row)
-data = Reference(ws_ps, min_col=total_col, min_row=1, max_row=last_data_row)
-bar.add_data(data, titles_from_data=True)
-bar.set_categories(cats)
-bar.width = 20
-bar.height = 10
-ws_ps.add_chart(bar, f"A{grand_row + 6}")
-
-pie = PieChart()
-pie.title = "Project vs Leave Time"
-pie_cats = Reference(ws_ps, min_col=1, min_row=proj_total_row, max_row=leave_total_row)
-pie_data = Reference(ws_ps, min_col=total_col, min_row=proj_total_row, max_row=leave_total_row)
-pie.add_data(pie_data)
-pie.set_categories(pie_cats)
-pie.width = 12
-pie.height = 10
-ws_ps.add_chart(pie, f"F{grand_row + 6}")
-
-note = ws_ps.cell(row=last_data_row + 1, column=1,
-                   value=f"{NUM_ALLOCATION_SUMMARY_ROWS} rows are reserved above for allocations pulled "
-                         f"from the Lists tab. If you add more than {NUM_ALLOCATION_SUMMARY_ROWS} "
-                         f"projects/leave types, copy the last data row's formulas down further.")
-note.font = Font(italic=True, color="808080")
-note.alignment = Alignment(wrap_text=True)
-ws_ps.merge_cells(start_row=last_data_row + 1, start_column=1, end_row=last_data_row + 1, end_column=last_col)
-
-# =====================================================================
-# 6. DASHBOARD SHEET
-# =====================================================================
-ws_db = wb.create_sheet("Dashboard")
-ws_db.sheet_view.showGridLines = False
-set_widths(ws_db, {"A": 20, "B": 16, "C": 14, "D": 14, "E": 16})
-
-title = ws_db.cell(row=1, column=1, value="Team Snapshot")
-title.font = Font(size=16, bold=True, color=NAVY)
-
-ws_db.cell(row=3, column=1, value="Current Week Ending:")
-ws_db.cell(row=3, column=1).font = Font(bold=True)
-ws_db.cell(row=3, column=2, value="=TODAY()-WEEKDAY(TODAY(),3)+6")
-ws_db.cell(row=3, column=2).number_format = "dd/mm/yyyy"
-
-headers = ["Staff Name", "Hours This Week", "Target", "Variance", "Status"]
-for i, h in enumerate(headers, start=1):
-    ws_db.cell(row=5, column=i, value=h)
-style_header_row(ws_db, 5, 1, 5)
-
-for i in range(STAFF_COUNT):
-    row = 6 + i
-    ws_db.cell(row=row, column=1, value=f"=Lists!$A${2 + i}")
-    ws_db.cell(row=row, column=2,
-               value=f'=IF($A{row}="","",SUMIFS(Timesheet!$E:$E,Timesheet!$B:$B,$A{row},'
-                     f'Timesheet!$G:$G,$B$3))')
-    ws_db.cell(row=row, column=3, value=f"={DAY_HOURS}*5")
-    ws_db.cell(row=row, column=4, value=f"=B{row}-C{row}")
-    ws_db.cell(row=row, column=5,
-               value=f'=IF(B{row}="","",IF(D{row}=0,"On Target",IF(D{row}>0,"Over","Under")))')
-    for col in range(1, 6):
-        ws_db.cell(row=row, column=col).border = BORDER
-
-status_range = f"E6:E{5 + STAFF_COUNT}"
-ws_db.conditional_formatting.add(status_range, FormulaRule(formula=['E6="On Target"'], fill=green_fill, font=Font(color=GREEN_FONT)))
-ws_db.conditional_formatting.add(status_range, FormulaRule(formula=['E6="Under"'], fill=amber_fill, font=Font(color=AMBER_FONT)))
-ws_db.conditional_formatting.add(status_range, FormulaRule(formula=['E6="Over"'], fill=red_fill, font=Font(color=RED_FONT)))
-
-bar2 = BarChart()
-bar2.title = "Hours by Allocation"
-bar2.y_axis.title = "Hours"
-cats2 = Reference(ws_ps, min_col=1, min_row=first_data_row, max_row=last_data_row)
-data2 = Reference(ws_ps, min_col=total_col, min_row=1, max_row=last_data_row)
-bar2.add_data(data2, titles_from_data=True)
-bar2.set_categories(cats2)
-bar2.width = 18
-bar2.height = 9
-ws_db.add_chart(bar2, "A12")
-
-pie2 = PieChart()
-pie2.title = "Project vs Leave Time"
-pie_cats2 = Reference(ws_ps, min_col=1, min_row=proj_total_row, max_row=leave_total_row)
-pie_data2 = Reference(ws_ps, min_col=total_col, min_row=proj_total_row, max_row=leave_total_row)
-pie2.add_data(pie_data2)
-pie2.set_categories(pie_cats2)
-pie2.width = 12
-pie2.height = 9
-ws_db.add_chart(pie2, "F12")
+    ws_g.cell(row=grand_row, column=col,
+              value=f"=SUM({col_letter}{SUMMARY_FIRST_ROW}:{col_letter}{SUMMARY_LAST_ROW})").font = Font(bold=True)
 
 # =====================================================================
 wb.active = wb.sheetnames.index("Instructions")
