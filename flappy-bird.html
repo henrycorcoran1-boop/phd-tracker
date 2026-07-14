@@ -12,6 +12,7 @@
   #wrap{display:flex;align-items:center;justify-content:center;height:100dvh;width:100vw;}
   #game{position:relative;box-shadow:0 0 40px rgba(0,0,0,.5);border-radius:6px;overflow:hidden;}
   canvas{display:block;background:#4EC0CA;touch-action:none;}
+  #tapzone{position:absolute;inset:0;background:transparent;border:none;padding:0;margin:0;cursor:pointer;-webkit-tap-highlight-color:transparent;}
   #hint{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:rgba(255,255,255,.85);
     font-size:12px;letter-spacing:.5px;text-shadow:0 1px 3px rgba(0,0,0,.6);pointer-events:none;}
 </style>
@@ -20,6 +21,7 @@
 <div id="wrap"><div id="game">
   <canvas id="c"></canvas>
   <div id="hint">tap / click / space to flap</div>
+  <button id="tapzone" aria-label="flap"></button>
 </div></div>
 <script>
 (function(){
@@ -312,7 +314,19 @@
     requestAnimationFrame(loop);
   }
 
-  canvas.addEventListener('pointerdown', function(e){ e.preventDefault(); flap(); });
+  var tapzone = document.getElementById('tapzone');
+  var lastFlapTime = 0;
+  function handleFlap(e){
+    var now = Date.now();
+    if (now - lastFlapTime < 150) return; // dedupe touchstart+click firing for the same tap
+    lastFlapTime = now;
+    if (e && e.cancelable) e.preventDefault();
+    flap();
+  }
+  ['pointerdown','touchstart','mousedown','click'].forEach(function(type){
+    tapzone.addEventListener(type, handleFlap, { passive: false });
+    canvas.addEventListener(type, handleFlap, { passive: false });
+  });
   window.addEventListener('keydown', function(e){
     if (e.code === 'Space' || e.code === 'ArrowUp'){ e.preventDefault(); flap(); }
   });
