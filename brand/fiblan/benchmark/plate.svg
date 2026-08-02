@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Fiblan Consulting">
+  <title>Fiblan Consulting — flush bracket plate, for square crops</title>
+  <rect x="5" y="5" width="54" height="54" rx="13" fill="#12303D"/>
+  <g transform="translate(32 32) scale(0.72) translate(-32 -32)">
+    <path d="M32 26 L14 44 M32 26 L50 44 M32 26 L32 49" fill="none" stroke="#F4F6F7" stroke-width="5.5" stroke-linecap="round"/>
+    <path d="M10 18 L54 18" stroke="#E8834F" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>

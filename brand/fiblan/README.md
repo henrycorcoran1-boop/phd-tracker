@@ -1,10 +1,34 @@
-# Fiblan Consulting — identity concepts
+# Fiblan Consulting — identity
 
-Six logo routes for a project management / civil engineering consultancy.
-First issue, 2 Aug 2026 — concepts for selection, not a finished identity.
+Logo work for a project management / civil engineering consultancy.
+
+- **Rev A** (2 Aug 2026) — six routes pitched for selection.
+- **Rev B** (2 Aug 2026) — **route 02, The Benchmark, selected and developed.**
+  See [`benchmark/`](benchmark/) for the working artwork.
 
 Every mark is drawn on one 64 × 64 grid with matched stroke weights, so the set
 reads as one hand. Pick the idea, not the drawing style.
+
+## Selected route — The Benchmark
+
+The Ordnance Survey cut benchmark: a broad arrow pointing up at a level bar,
+chiselled into walls and bridge abutments to fix a known height. It says the
+thing a consultancy wants to say — *we're the fixed reference everyone else
+measures from.*
+
+**Refined since Rev A.** The pitched version had legs long enough and a bar
+narrow enough that it read as a surveyor's tripod first. The barbs are now a
+true 45° and the bar is wider than the arrow, so it reads as an arrow pointing
+at a datum rather than three legs on the ground. `marks/02-benchmark.svg` carries
+the refined drawing, so there is one canonical benchmark across the repo.
+
+### Before this is printed anywhere
+
+The broad arrow is also the **British War Department's property mark** — which is
+exactly how it came to be cut into OS benchmarks. In a surveying context it reads
+purely as a benchmark, and cut benchmarks are all over Ireland from the historic
+survey. For an Irish practice it is still worth a deliberate decision rather than
+a discovery. `benchmark/trig-point-alt.svg` reaches the same world without it.
 
 ## The routes
 
@@ -21,16 +45,8 @@ A bridge span was drawn and set aside — the most-used image in the sector, and
 the version that stayed legible at small size was indistinguishable from a table.
 Route 04 reaches the same idea without the cliché.
 
-## Recommendation
-
-**Route 01 as the mark, Route 06 as its container.** They share the same F, so
-adopting both gives a system rather than two logos: 01 for letterhead, drawings
-and site boards; 06 for anything square — favicon, LinkedIn, app icon. 01 is the
-only route that is simultaneously a real letterform, a real structural idea, and
-legible at favicon size.
-
-If the identity should say *project management* before *civil engineering*, take
-03 instead — the same monogram carrying a programme.
+Route 01 was the recommendation at Rev A; route 02 was chosen. The other five
+are kept as a record of what was considered.
 
 ## Palette
 
@@ -50,25 +66,47 @@ by marking exactly one element.
 ## Files
 
 ```
-marks/            primary artwork, for light grounds
-marks-reversed/   for dark grounds — mark in Drafting Paper, accent lifted to #E8834F
-marks-mono/       single colour, for embroidery, engraving, fax-grade reproduction
-lockups/          mark + wordmark, route 01 (horizontal and stacked)
+benchmark/                 SELECTED ROUTE — use these
+  mark.svg                 primary artwork
+  mark-reversed.svg        for dark grounds
+  mark-mono.svg            single colour
+  favicon.svg              heavier cut — use below 24 px
+  plate.svg                square containment, for avatars and app icons
+  plate-reversed.svg
+  icon-192.svg
+  icon-512.svg
+  lockup-datum.svg         PRIMARY lockup — datum bar sets the level for the name
+  lockup-datum-reversed.svg
+  lockup-horizontal.svg
+  lockup-stacked.svg
+  trig-point-alt.svg       alternative, no broad arrow
+
+marks/            the six pitched concepts, light grounds
+marks-reversed/   the same, for dark grounds
+marks-mono/       the same, single colour
+lockups/          route 01 lockups, kept from Rev A
 ```
 
 ## Usage
 
-- **Minimum size** — 01, 04, 05 and 06 hold to 14 px. 03 needs 24 px before the
-  milestone diamond is worth keeping; below that, drop it. On 06, drop the bolt
-  holes below 24 px.
-- **Clear space** — keep the height of the F's stem clear on all four sides. On
-  the plate, measure from the plate edge, not the letter.
-- **Reversal** — never place the navy mark on a dark ground; use `marks-reversed/`.
+- **Minimum size** — the mark holds to 16 px, but only just. Use `favicon.svg`
+  below 24 px and `mark.svg` above it.
+- **Clear space** — keep the height of the arrow clear on all four sides. On the
+  plate, measure from the plate edge, not the arrow.
+- **Reversal** — never place the graphite mark on a dark ground; use the
+  `-reversed` files, where the accent lifts to `#E8834F` to hold contrast.
+- **The accent does one job.** Orange marks the datum bar and nothing else. If it
+  starts appearing on the arrow too, the idea of the mark is gone.
 
-## Before this goes live
+## Still outstanding
 
 The lockups set the wordmark in a Helvetica / Arial stack as a stand-in. For
 final artwork the type should be **Barlow** (a grotesque with transport-signage
 roots, apt for infrastructure) or **IBM Plex Sans** if a quieter voice is wanted —
-both free to license. Once chosen, the wordmark must be **converted to outlines**
-so the SVGs carry no font dependency and render identically everywhere.
+both free to license.
+
+Until then the wordmark's advance width is pinned with `textLength`, so a
+renderer without Helvetica cannot overflow the viewBox — at the cost of tracking
+that flexes slightly between machines. Once a face is chosen, **convert the
+wordmark to outlines** and re-fit the viewBox to the real artwork; the files then
+carry no font dependency and render identically everywhere.
