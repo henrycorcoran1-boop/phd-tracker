@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Slate — design tokens
+   Single source of truth for colour, type, spacing and motion.
+   ========================================================================== */
+
+:root {
+  /* Neutrals — cool grey ramp */
+  --grey-0:  #ffffff;
+  --grey-25: #fcfcfd;
+  --grey-50: #f6f7f9;
+  --grey-100:#eff1f4;
+  --grey-150:#e7eaef;
+  --grey-200:#dee2e8;
+  --grey-300:#c8ced7;
+  --grey-400:#9aa1ac;
+  --grey-500:#6f757f;
+  --grey-600:#545a63;
+  --grey-700:#3d424a;
+  --grey-800:#272b31;
+  --grey-900:#16181c;
+  --grey-950:#0c0d10;
+
+  /* Brand */
+  --accent:        #3b5bfd;
+  --accent-hover:  #2f4ce8;
+  --accent-active: #2742cf;
+  --accent-soft:   #eaeeff;
+  --accent-border: #c6d0ff;
+  --accent-text:   #2b44c9;
+
+  /* Status — deliberately muted, not primary-bright */
+  --st-backlog: #8b919b;
+  --st-planned: #5c7cad;
+  --st-active:  #c98a1e;
+  --st-review:  #7c62c4;
+  --st-done:    #3f9268;
+  --st-blocked: #c8563c;
+
+  /* Priority */
+  --pr-urgent: #c8563c;
+  --pr-high:   #cf8a2c;
+  --pr-medium: #5c7cad;
+  --pr-low:    #8b919b;
+
+  /* Semantic surfaces (light theme defaults) */
+  --canvas:        var(--grey-50);
+  --surface:       var(--grey-0);
+  --surface-2:     var(--grey-25);
+  --surface-3:     var(--grey-100);
+  --surface-inset: var(--grey-100);
+  --surface-hover: rgba(16, 24, 40, 0.04);
+  --surface-press: rgba(16, 24, 40, 0.07);
+  --overlay:       rgba(14, 17, 22, 0.36);
+
+  --border:        #e4e7ec;
+  --border-soft:   #edeff3;
+  --border-strong: #d3d8e0;
+
+  --text:    var(--grey-900);
+  --text-2:  var(--grey-600);
+  --text-3:  var(--grey-500);
+  --text-4:  var(--grey-400);
+  --text-on-accent: #ffffff;
+
+  --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.09), 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.09), 0 2px 4px rgba(16, 24, 40, 0.04);
+  --shadow-lg: 0 16px 40px rgba(16, 24, 40, 0.14), 0 4px 10px rgba(16, 24, 40, 0.06);
+  --shadow-drag: 0 12px 28px rgba(16, 24, 40, 0.20), 0 2px 6px rgba(16, 24, 40, 0.10);
+
+  /* Type */
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue",
+          Arial, "Noto Sans", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+               "Liberation Mono", monospace;
+
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-15: 15px;
+  --fs-16: 16px;
+  --fs-18: 18px;
+  --fs-22: 22px;
+  --fs-28: 28px;
+  --fs-34: 34px;
+
+  /* Spacing scale */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-full: 999px;
+
+  --ease: cubic-bezier(0.2, 0.6, 0.25, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 90ms;
+  --dur-2: 150ms;
+  --dur-3: 240ms;
+
+  --sidebar-w: 244px;
+  --topbar-h: 48px;
+  --panel-w: 460px;
+
+  --z-sticky: 20;
+  --z-drawer: 60;
+  --z-modal: 80;
+  --z-drag: 90;
+  --z-toast: 100;
+}
+
+:root[data-theme="dark"] {
+  --canvas:        #0c0d10;
+  --surface:       #131519;
+  --surface-2:     #171a1f;
+  --surface-3:     #1e2228;
+  --surface-inset: #1b1f25;
+  --surface-hover: rgba(255, 255, 255, 0.055);
+  --surface-press: rgba(255, 255, 255, 0.09);
+  --overlay:       rgba(0, 0, 0, 0.6);
+
+  --border:        #24282f;
+  --border-soft:   #1d2127;
+  --border-strong: #333941;
+
+  --text:   #e8eaed;
+  --text-2: #a2a8b2;
+  --text-3: #7e848e;
+  --text-4: #5f656e;
+
+  --accent:        #6c86ff;
+  --accent-hover:  #7f96ff;
+  --accent-active: #94a7ff;
+  --accent-soft:   #1a2044;
+  --accent-border: #2e3a72;
+  --accent-text:   #93a6ff;
+
+  --st-backlog: #868c96;
+  --st-planned: #7396c9;
+  --st-active:  #d9a13c;
+  --st-review:  #9a83dd;
+  --st-done:    #4fae7f;
+  --st-blocked: #dd6d51;
+
+  --pr-urgent: #dd6d51;
+  --pr-high:   #e0a24a;
+  --pr-medium: #7396c9;
+  --pr-low:    #868c96;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.62);
+  --shadow-drag: 0 14px 32px rgba(0, 0, 0, 0.66);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

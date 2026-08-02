@@ -1,0 +1,19 @@
+{
+  "name": "Slate — project management",
+  "short_name": "Slate",
+  "description": "Plan projects, assign work, set deadlines and track progress across boards, tables, calendars and a Gantt timeline.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b5bfd",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
