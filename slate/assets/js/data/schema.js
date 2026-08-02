@@ -9,8 +9,8 @@ export const COLLECTIONS = [
 
 /* Statuses ---------------------------------------------------------------- */
 export const STATUSES = [
-  { id: 'backlog',  name: 'Backlog',     color: 'var(--st-backlog)', group: 'open',   icon: 'circle' },
-  { id: 'todo',     name: 'To do',       color: 'var(--st-planned)', group: 'open',   icon: 'circle' },
+  { id: 'backlog',  name: 'Backlog',     color: 'var(--st-backlog)', group: 'open',   icon: 'circle', hollow: true },
+  { id: 'todo',     name: 'To do',       color: 'var(--st-planned)', group: 'open',   icon: 'circle', hollow: true },
   { id: 'doing',    name: 'In progress', color: 'var(--st-active)',  group: 'active', icon: 'circle' },
   { id: 'review',   name: 'In review',   color: 'var(--st-review)',  group: 'active', icon: 'circle' },
   { id: 'done',     name: 'Done',        color: 'var(--st-done)',    group: 'closed', icon: 'check' },
@@ -46,15 +46,18 @@ export const canManage = (role) => role === 'owner' || role === 'admin';
 export const canEdit = (role) => role !== 'guest';
 
 /* Palettes ---------------------------------------------------------------- */
+/* Low-chroma earth tones. These sit beside each other constantly — in the
+   sidebar, on cards, in avatar stacks — so they are kept close in value and
+   saturation to read as one family rather than a set of highlighter pens. */
 export const PROJECT_COLORS = [
-  '#3b5bfd', '#0f9d76', '#c8563c', '#7c62c4', '#c98a1e',
-  '#2d8bbd', '#c0498c', '#5c7cad', '#4a9d4a', '#a8622b',
+  '#3a5169', '#5a7355', '#9c4a38', '#7a6c8c', '#9a7328',
+  '#4f6d6b', '#8c5a6a', '#6c7b8b', '#6b7a4f', '#9c6b4a',
 ];
 
 export const AVATAR_COLORS = [
-  '#4f6bed', '#0f9d76', '#c8563c', '#7c62c4', '#c98a1e',
-  '#2d8bbd', '#c0498c', '#3f8f6f', '#a8622b', '#5a6b8c',
-  '#8a5cc4', '#b8863a',
+  '#5a6b7d', '#5a7355', '#9c6b4a', '#7a6c8c', '#8c7a3f',
+  '#4f6d6b', '#8c5a5a', '#6b6355', '#5f7a8c', '#7a6b4f',
+  '#6b5f7a', '#7d6b5a',
 ];
 
 export const LABEL_SUGGESTIONS = [

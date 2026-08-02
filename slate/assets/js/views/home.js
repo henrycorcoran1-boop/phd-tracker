@@ -11,7 +11,7 @@ import { state, currentWorkspace } from '../app/state.js';
 import { navigate } from '../app/router.js';
 import { openTaskPanel } from '../ui/taskpanel.js';
 import { openNewProject, quickCreateTask } from '../app/shell.js';
-import { avatar, avatarStack, statusPill, priorityMark, emptyState, dueChip } from '../ui/bits.js';
+import { avatar, avatarStack, statusPill, statusDot, priorityMark, emptyState, dueChip } from '../ui/bits.js';
 import { formatDue, formatDate, timeAgo, todayKey, dueTone } from '../lib/date.js';
 
 export function renderHome(host) {
@@ -174,7 +174,7 @@ function deadlinesCard(workspace) {
       const project = store.get('projects', task.projectId);
       const tone = dueTone(task.dueDate);
       body.appendChild(h('div.list-row', { onClick: () => openTaskPanel(task.id) },
-        h('span.dot', { style: { background: statusOf(task.status).color, flex: 'none' } }),
+        statusDot(task.status, 7),
         h('div.u-grow', { style: { minWidth: 0 } },
           h('div.list-row__title', task.title),
           h('div.list-row__sub', project ? project.name : '')),

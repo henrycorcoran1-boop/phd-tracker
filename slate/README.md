@@ -47,6 +47,18 @@ On the sign-in screen, **Explore the demo workspace** loads a populated studio �
 
 ---
 
+## Design language
+
+Editorial rather than dashboard. The rules, if you extend it:
+
+- **Warm paper and ink.** The neutral ramp (`--paper-*`) is warm, not blue-grey. Canvas `#faf8f4`, ink `#1a1815`.
+- **Colour is signal, never decoration.** Status and priority use low-chroma earth tones — moss, ochre, slate, rust — and appear as a small dot beside plain text, never as a tinted fill behind it. Overdue is the one place a colour is allowed to be loud.
+- **Primary actions are ink**, not a brand colour. `--accent` (a muted slate navy) is reserved for links, focus rings and selection.
+- **Hairlines, not boxes.** Shadows are near-zero; separation comes from 1px rules and whitespace. Radii stay in the 3–8px range.
+- **Type carries hierarchy.** A serif face (`--font-serif`, system stack) sets page titles, the sign-in headline and dashboard figures; the sans UI face handles everything functional. Section headings are small, uppercase and letterspaced rather than large and bold.
+
+Status marks distinguish *not started* from *in flight*: `hollow: true` statuses render as an empty ring, everything else as a filled dot.
+
 ## Architecture
 
 ```

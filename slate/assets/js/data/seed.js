@@ -12,11 +12,11 @@ import { key, addDays, today } from '../lib/date.js';
 const d = (offset) => key(addDays(today(), offset));
 
 const TEAM = [
-  { name: 'Priya Raman',    email: 'priya@northwind.studio',  title: 'Product lead',      color: '#4f6bed' },
-  { name: 'Tom Okafor',     email: 'tom@northwind.studio',    title: 'Engineering',       color: '#0f9d76' },
-  { name: 'Elena Vasquez',  email: 'elena@northwind.studio',  title: 'Design',            color: '#c0498c' },
-  { name: 'Sam Whitfield',  email: 'sam@northwind.studio',    title: 'Delivery manager',  color: '#c98a1e' },
-  { name: 'Nadia Haddad',   email: 'nadia@northwind.studio',  title: 'Research',          color: '#7c62c4' },
+  { name: 'Priya Raman',    email: 'priya@northwind.studio',  title: 'Product lead',      color: '#5a6b7d' },
+  { name: 'Tom Okafor',     email: 'tom@northwind.studio',    title: 'Engineering',       color: '#5a7355' },
+  { name: 'Elena Vasquez',  email: 'elena@northwind.studio',  title: 'Design',            color: '#8c5a6a' },
+  { name: 'Sam Whitfield',  email: 'sam@northwind.studio',    title: 'Delivery manager',  color: '#8c7a3f' },
+  { name: 'Nadia Haddad',   email: 'nadia@northwind.studio',  title: 'Research',          color: '#7a6c8c' },
 ];
 
 /**
@@ -68,7 +68,7 @@ function buildAtlas(workspace, people) {
     workspaceId: workspace.id,
     name: 'Atlas Platform',
     key: 'ATL',
-    color: '#3b5bfd',
+    color: '#3a5169',
     description: 'Rebuild of the core scheduling engine and the customer-facing dashboard.',
     startDate: d(-24),
     targetDate: d(46),
@@ -77,7 +77,7 @@ function buildAtlas(workspace, people) {
 
   const lists = ['Discovery', 'Build', 'Launch'].map((name, i) => store.insert('groups', makeGroup({
     projectId: project.id, name, order: i,
-    color: ['#7c62c4', '#3b5bfd', '#0f9d76'][i],
+    color: ['#7a6c8c', '#3a5169', '#5a7355'][i],
   })));
 
   const rows = [
@@ -146,7 +146,7 @@ function buildBrand(workspace, people) {
     workspaceId: workspace.id,
     name: 'Brand & Website',
     key: 'BRA',
-    color: '#c0498c',
+    color: '#8c5a6a',
     description: 'Refresh the brand system and rebuild the marketing site on it.',
     startDate: d(-10),
     targetDate: d(38),
@@ -155,7 +155,7 @@ function buildBrand(workspace, people) {
 
   const lists = ['Identity', 'Site build', 'Content'].map((name, i) => store.insert('groups', makeGroup({
     projectId: project.id, name, order: i,
-    color: ['#c0498c', '#2d8bbd', '#c98a1e'][i],
+    color: ['#8c5a6a', '#4f6d6b', '#9a7328'][i],
   })));
 
   const rows = [
@@ -195,7 +195,7 @@ function buildOps(workspace, people) {
     workspaceId: workspace.id,
     name: 'Client Onboarding',
     key: 'OPS',
-    color: '#0f9d76',
+    color: '#5a7355',
     description: 'Standardise how new clients are set up in their first thirty days.',
     startDate: d(-14),
     targetDate: d(30),
@@ -204,7 +204,7 @@ function buildOps(workspace, people) {
 
   const lists = ['Meridian Group', 'Halton Rail', 'Process'].map((name, i) => store.insert('groups', makeGroup({
     projectId: project.id, name, order: i,
-    color: ['#0f9d76', '#5c7cad', '#a8622b'][i],
+    color: ['#5a7355', '#6c7b8b', '#9c6b4a'][i],
   })));
 
   const rows = [
@@ -426,7 +426,7 @@ export function ensureDemoUser() {
       name: 'Alex Moore',
       email: DEMO_EMAIL,
       title: 'Studio director',
-      color: '#3b5bfd',
+      color: '#3a5169',
       pending: false,
     }));
   }

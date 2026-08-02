@@ -113,7 +113,7 @@ export function applyTheme() {
   const dark = choice === 'dark' || (choice === 'system' && media?.matches);
   document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
   document.querySelector('meta[name="theme-color"]')
-    ?.setAttribute('content', dark ? '#0c0d10' : '#ffffff');
+    ?.setAttribute('content', dark ? '#14120f' : '#faf8f4');
 }
 
 media?.addEventListener?.('change', () => {

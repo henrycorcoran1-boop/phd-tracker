@@ -16,7 +16,7 @@ import { state, isGroupCollapsed, toggleGroupCollapsed } from '../app/state.js';
 import { suspendRender, resumeRender } from '../app/shell.js';
 import { openTaskPanel } from '../ui/taskpanel.js';
 import { showMenu, toast } from '../ui/overlay.js';
-import { avatarStack, emptyState, openDatePicker } from '../ui/bits.js';
+import { avatarStack, emptyState, openDatePicker, statusDot } from '../ui/bits.js';
 import {
   toDate, key as dateKey, addDays, diffDays, today, todayKey, startOfWeek,
   startOfMonth, isWeekend, isSameDay, formatDate, formatRange, monthNames, DAY_MS,
@@ -152,7 +152,7 @@ function leftRow(row, project) {
     onClick: () => openTaskPanel(task.id),
   },
     h('span', { style: { width: '13px' } }),
-    h('span.dot', { style: { background: statusOf(task.status).color, flex: 'none' } }),
+    statusDot(task.status, 7),
     task.milestone ? icon('milestone', { size: 12, cls: 'u-muted' }) : null,
     h('span.grow-l__title', task.title),
     task.assigneeIds.length ? avatarStack(task.assigneeIds, { size: 'xs', max: 2 }) : null);

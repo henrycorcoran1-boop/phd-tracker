@@ -19,7 +19,7 @@ import {
 /* -- people --------------------------------------------------------------- */
 
 export function avatar(user, size = 'sm') {
-  if (!user) return h(`span.avatar.avatar--${size}`, { style: { background: 'var(--grey-400)' } }, '?');
+  if (!user) return h(`span.avatar.avatar--${size}`, { style: { background: 'var(--paper-400)' } }, '?');
   const el = h(`span.avatar.avatar--${size}`, {
     style: { background: user.color },
     class: user.pending ? 'avatar--pending' : '',
@@ -34,7 +34,7 @@ export function avatarStack(userIds, { size = 'sm', max = 3, onSurface2 = false 
   users.slice(0, max).forEach((user) => stack.appendChild(avatar(user, size)));
   if (users.length > max) {
     stack.appendChild(h(`span.avatar.avatar--${size}`, {
-      style: { background: 'var(--grey-500)' },
+      style: { background: 'var(--paper-500)' },
       title: users.slice(max).map((u) => u.name).join(', '),
     }, `+${users.length - max}`));
   }
@@ -46,14 +46,20 @@ export function avatarStack(userIds, { size = 'sm', max = 3, onSurface2 = false 
 export function statusPill(statusId, { compact = false } = {}) {
   const status = statusOf(statusId);
   return h('span.status-pill', { style: { '--pill-color': status.color } },
-    h('span.dot'),
+    h('span.dot', { class: status.hollow ? 'dot--hollow' : '' }),
     compact ? null : status.name);
 }
 
-export function statusDot(statusId, size = 9) {
+export function statusDot(statusId, size = 8) {
   const status = statusOf(statusId);
   return h('span.dot', {
-    style: { background: status.color, width: `${size}px`, height: `${size}px` },
+    class: status.hollow ? 'dot--hollow' : '',
+    style: {
+      '--pill-color': status.color,
+      background: status.color,
+      width: `${size}px`,
+      height: `${size}px`,
+    },
     title: status.name,
   });
 }

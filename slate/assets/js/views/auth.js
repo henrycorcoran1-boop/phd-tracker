@@ -204,11 +204,11 @@ function previewMock() {
   });
 
   const rows = [
-    ['62%', 'var(--accent)', '#3b5bfd'],
-    ['38%', 'var(--st-done)', '#0f9d76'],
-    ['78%', 'var(--st-active)', '#c98a1e'],
-    ['46%', 'var(--st-review)', '#7c62c4'],
-    ['58%', 'var(--st-planned)', '#5c7cad'],
+    ['62%', '#3a5169'],
+    ['38%', '#5a7355'],
+    ['78%', '#9a7328'],
+    ['46%', '#7a6c8c'],
+    ['58%', '#6c7b8b'],
   ];
 
   return h('div.auth-preview',
@@ -234,7 +234,7 @@ function previewMock() {
 }
 
 export function brandMark(size = 24) {
-  const svg = icon('mark', { size, stroke: 1.9 });
-  svg.style.color = 'var(--accent)';
+  const svg = icon('mark', { size, stroke: 1.8 });
+  svg.style.color = 'var(--text)';
   return svg;
 }

@@ -233,10 +233,6 @@ function taskCard(task, project) {
     'aria-label': task.title,
   });
 
-  if (state.groupBy !== 'status') {
-    card.appendChild(h('div.tcard__cover', { style: { '--cover': statusOf(task.status).color } }));
-  }
-
   card.appendChild(h('div.tcard__top',
     h('span.tcard__title', task.title),
     h('span.tcard__key', `${project.key}-${task.number}`)));
