@@ -175,6 +175,14 @@ export function makeTask(data = {}) {
     projectId: data.projectId,
     groupId: data.groupId || null,
     number: data.number || 0,
+    // Scheduling: duration and links drive the dates; startDate/dueDate below
+    // are the engine's output, cached so the other views can read them.
+    duration: data.duration ?? (data.milestone ? 0 : 1),
+    predecessors: data.predecessors
+      || (data.dependsOn || []).map((id) => ({ id, type: 'FS', lag: 0 })),
+    parentId: data.parentId || null,
+    manualStart: data.manualStart || null,
+    outlineOrder: data.outlineOrder ?? (data.order ?? now),
     title: data.title || 'New task',
     description: data.description || '',
     status: data.status || 'backlog',

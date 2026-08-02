@@ -1,0 +1,185 @@
+/* ==========================================================================
+   Print / PDF output for the Gantt chart.
+
+   The print document is built into .print-root by gantt-print.js and is
+   hidden on screen. Colours are fixed rather than themed — a plan printed
+   from dark mode should still be black on white.
+   ========================================================================== */
+
+.print-root { display: none; }
+
+@page {
+  size: A4 landscape;
+  margin: 10mm;
+}
+.print-root[data-paper="a3"] ~ * { /* keeps specificity simple */ }
+
+@media print {
+  /* Only the print document is shown */
+  body.is-printing > *:not(.print-root) { display: none !important; }
+  body.is-printing { overflow: visible !important; height: auto !important; }
+
+  .print-root {
+    display: block;
+    background: #fff;
+    color: #000;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    font-size: 8pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-page {
+    break-after: page;
+    page-break-after: always;
+    padding-bottom: 6mm;
+  }
+  .print-page:last-child { break-after: auto; page-break-after: auto; }
+
+  /* -- header ------------------------------------------------------------ */
+  .print-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12mm;
+    padding-bottom: 3mm;
+    border-bottom: 1.5pt solid #000;
+    margin-bottom: 2.5mm;
+  }
+  .print-title {
+    font-size: 15pt;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .print-sub { margin-top: 1.5mm; font-size: 8pt; color: #333; }
+  .print-meta { text-align: right; font-size: 8pt; color: #333; line-height: 1.6; white-space: nowrap; }
+
+  /* -- legend ------------------------------------------------------------ */
+  .print-legend {
+    display: flex;
+    gap: 6mm;
+    align-items: center;
+    margin-bottom: 2.5mm;
+    font-size: 7.5pt;
+    color: #222;
+  }
+  .print-legend__item { display: inline-flex; align-items: center; gap: 1.6mm; }
+  .print-legend__bar {
+    width: 9mm; height: 2.4mm;
+    background: #2a6ec4;
+    border: 0.4pt solid #10304f;
+    display: inline-block;
+  }
+  .print-legend__bar--critical { background: #c0392b; border-color: #6b1b12; }
+  .print-legend__bar--summary { background: #000; border: none; height: 1.6mm; }
+  .print-legend__diamond {
+    width: 2.6mm; height: 2.6mm;
+    background: #000;
+    transform: rotate(45deg);
+    display: inline-block;
+  }
+  .print-legend__progress {
+    width: 9mm; height: 1.2mm;
+    background: #000;
+    display: inline-block;
+  }
+
+  /* -- table ------------------------------------------------------------- */
+  .print-table { width: 100%; border: 0.5pt solid #999; }
+
+  .print-row {
+    display: grid;
+    grid-template-columns: 7mm 52mm 9mm 17mm 17mm 15mm 1fr;
+    min-height: 5.6mm;
+    border-bottom: 0.4pt solid #ccc;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .print-row--head {
+    background: #ebebeb;
+    border-bottom: 1pt solid #666;
+    font-weight: 700;
+    font-size: 7.5pt;
+  }
+  .print-row--summary { font-weight: 700; background: #f6f6f6; }
+
+  .print-cell {
+    padding: 0.9mm 1.2mm;
+    border-right: 0.4pt solid #ccc;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+  }
+  .print-cell--id { justify-content: center; color: #444; }
+  .print-cell--dur, .print-cell--date { justify-content: flex-end; font-variant-numeric: tabular-nums; }
+  .print-cell--pred { font-size: 7pt; color: #333; }
+  .print-cell--chart { border-right: none; padding: 0; position: relative; overflow: hidden; }
+  .print-row--head .print-cell--chart { padding: 0; }
+
+  /* -- timescale --------------------------------------------------------- */
+  .print-scale { position: relative; height: 100%; min-height: 8mm; }
+  .print-scale__tier { position: relative; height: 4mm; border-bottom: 0.4pt solid #bbb; }
+  .print-scale__tier:last-child { border-bottom: none; }
+  .print-scale__cell {
+    position: absolute;
+    top: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 0.4pt solid #ccc;
+    font-size: 6.5pt;
+    color: #333;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /* -- bars -------------------------------------------------------------- */
+  .print-vline {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 0;
+    border-left: 0.4pt solid #ddd;
+  }
+  .print-bar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2.6mm;
+    background: #2a6ec4;
+    border: 0.4pt solid #10304f;
+  }
+  .print-bar--critical { background: #c0392b; border-color: #6b1b12; }
+  .print-bar__progress {
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    height: 0.9mm;
+    background: #000;
+  }
+  .print-summary {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.6mm;
+    background: #000;
+  }
+  .print-diamond {
+    position: absolute;
+    top: 50%;
+    width: 2.4mm; height: 2.4mm;
+    margin-top: -1.2mm;
+    background: #000;
+    transform: rotate(45deg);
+  }
+  .print-barlabel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 6.5pt;
+    color: #333;
+    white-space: nowrap;
+  }
+}

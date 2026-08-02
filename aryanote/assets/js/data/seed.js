@@ -3,11 +3,13 @@
    ========================================================================== */
 
 import store from './store.js';
+import { rescheduleProject } from './api.js';
 import {
   makeUser, makeWorkspace, makeMember, makeProject, makeGroup, makeTask,
   makeComment, makeActivity, makeDoc, uid,
 } from './schema.js';
 import { key, addDays, today } from '../lib/date.js';
+import { workingDaysBetween } from './schedule.js';
 
 const d = (offset) => key(addDays(today(), offset));
 
@@ -55,6 +57,7 @@ export function seedWorkspace(ownerId, { name = 'Northwind Studio' } = {}) {
 
     seedDocs(workspace, projects, owner);
     seedActivity(workspace, projects, everyone);
+    projects.forEach((project) => rescheduleProject(project.id));
 
     return workspace;
   });
@@ -109,8 +112,8 @@ function buildAtlas(workspace, people) {
   link(created, 3, [2]);
   link(created, 6, [5]);
   link(created, 8, [6]);
-  link(created, 9, [7]);
-  link(created, 11, [6]);
+  link(created, 9, [7], 'SS', 2);
+  link(created, 11, [6], 'FF', 0);
   link(created, 13, [6, 8]);
   link(created, 16, [13, 14, 15]);
 
@@ -251,6 +254,9 @@ function addTasks(project, lists, rows) {
       assigneeIds: (row.a || []).map((u) => u.id),
       startDate: row.sd === undefined ? null : d(row.sd),
       dueDate: row.dd === undefined ? null : d(row.dd),
+      duration: row.ms ? 0 : Math.max(1, workingDaysBetween(d(row.sd), d(row.dd))),
+      manualStart: row.sd === undefined ? null : d(row.sd),
+      outlineOrder: index,
       estimate: row.est ?? null,
       progress: row.prog ?? 0,
       labels: row.lb || [],
@@ -267,11 +273,19 @@ function addTasks(project, lists, rows) {
   });
 }
 
-function link(tasks, targetIndex, dependencyIndexes) {
+function link(tasks, targetIndex, dependencyIndexes, type = 'FS', lag = 0) {
   const target = tasks[targetIndex];
   if (!target) return;
-  const dependsOn = dependencyIndexes.map((i) => tasks[i]?.id).filter(Boolean);
-  store.update('tasks', target.id, { dependsOn });
+  const predecessors = dependencyIndexes
+    .map((i) => tasks[i]?.id)
+    .filter(Boolean)
+    .map((id) => ({ id, type, lag }));
+  if (!predecessors.length) return;
+  store.update('tasks', target.id, {
+    predecessors,
+    dependsOn: predecessors.map((p) => p.id),
+    manualStart: null,
+  });
 }
 
 function addComments(task, entries) {

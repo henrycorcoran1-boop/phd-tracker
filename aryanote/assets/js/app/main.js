@@ -5,6 +5,7 @@
 import { $, h, mount } from '../lib/dom.js';
 import store from '../data/store.js';
 import { LocalAdapter } from '../data/adapter.js';
+import { runMigrations } from '../data/migrate.js';
 import * as auth from '../data/auth.js';
 import * as api from '../data/api.js';
 import { route, setNotFound, startRouter, navigate, currentQuery } from './router.js';
@@ -16,12 +17,15 @@ import { renderAuth } from '../views/auth.js';
 import { openTaskPanel, closeTaskPanel, isPanelOpen, openTaskId } from '../ui/taskpanel.js';
 import { openPalette, closePalette, isPaletteOpen } from '../ui/palette.js';
 import { closeMenu, closeModal, toast } from '../ui/overlay.js';
-import { resetTimelineScroll } from '../views/timeline.js';
+
 
 const root = $('#root');
 
 async function boot() {
-  await store.init(new LocalAdapter());
+  const adapter = new LocalAdapter();
+  adapter.adoptLegacyNamespace('slate.v1');
+  await store.init(adapter);
+  await runMigrations();
   await loadPrefs();
   applyTheme();
 
@@ -95,7 +99,6 @@ function enter(params, view) {
 
   const changedProject = projectId && projectId !== state.projectId;
   const changedWorkspace = workspace.id !== state.workspaceId;
-  if (changedProject || changedWorkspace) resetTimelineScroll();
   if (changedWorkspace) setFilters({ query: '', status: [], priority: [], assignee: [], label: [] });
 
   state.workspaceId = workspace.id;
@@ -223,7 +226,7 @@ function showShortcuts() {
 /* -- go ------------------------------------------------------------------- */
 
 boot().catch((err) => {
-  console.error('[slate] failed to start', err);
+  console.error('[aryanote] failed to start', err);
   mount(root, h('div', {
     style: {
       display: 'grid', placeItems: 'center', height: '100%',
@@ -231,7 +234,7 @@ boot().catch((err) => {
     },
   },
     h('div',
-      h('h1', { style: { fontSize: '18px', marginBottom: '8px' } }, 'Slate could not start'),
+      h('h1', { style: { fontSize: '18px', marginBottom: '8px' } }, 'AryaNote could not start'),
       h('p', { style: { color: 'var(--text-3)', fontSize: '14px', maxWidth: '420px' } },
         'Something went wrong while loading your data. Opening the browser console will show the details.'),
       h('pre', {

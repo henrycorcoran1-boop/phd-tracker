@@ -203,7 +203,7 @@ async function exportData() {
   const url = URL.createObjectURL(blob);
   const link = h('a', {
     href: url,
-    download: `slate-export-${new Date().toISOString().slice(0, 10)}.json`,
+    download: `aryanote-export-${new Date().toISOString().slice(0, 10)}.json`,
   });
   document.body.appendChild(link);
   link.click();

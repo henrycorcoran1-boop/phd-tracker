@@ -139,7 +139,7 @@ function formColumn(mode) {
     h('div.auth__inner',
       h('div.auth__brand',
         brandMark(26),
-        h('span.auth__brand-name', 'Slate')),
+        h('span.auth__brand-name', 'AryaNote')),
       h('h1.auth__title', isSignup ? 'Create your workspace' : 'Welcome back'),
       h('p.auth__sub', isSignup
         ? 'Plan the work, share it with your team, and see where it stands.'

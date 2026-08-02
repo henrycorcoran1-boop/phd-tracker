@@ -21,7 +21,7 @@ import { renderHome } from '../views/home.js';
 import { renderMyWork } from '../views/mywork.js';
 import { renderBoard } from '../views/board.js';
 import { renderTable } from '../views/table.js';
-import { renderTimeline } from '../views/timeline.js';
+import { renderGantt } from '../views/gantt.js';
 import { renderCalendar } from '../views/calendar.js';
 import { renderPeople } from '../views/people.js';
 import { renderDocs } from '../views/docs.js';
@@ -235,7 +235,7 @@ function renderViewBody(host, workspace, project) {
     case 'settings': return renderSettings(host);
     case 'board': return renderBoard(host, project);
     case 'table': return renderTable(host, project);
-    case 'timeline': return renderTimeline(host, project);
+    case 'timeline': return renderGantt(host, project);
     case 'calendar': return renderCalendar(host, project);
     default: return renderHome(host);
   }
@@ -247,7 +247,7 @@ function projectViewBar(workspace, project) {
   const tabs = [
     ['board', 'Board', 'board'],
     ['table', 'Table', 'table'],
-    ['timeline', 'Timeline', 'timeline'],
+    ['timeline', 'Gantt Chart', 'timeline'],
     ['calendar', 'Calendar', 'calendar'],
     ['docs', 'Docs', 'doc'],
   ];
@@ -265,8 +265,11 @@ function projectViewBar(workspace, project) {
   });
 
   const filterCount = activeFilterCount();
+  if (context.view === 'timeline') {
+    return h('div.viewbar', tabRow);
+  }
+
   const toolbar = h('div.toolbar',
-    context.view === 'timeline' ? zoomControl() : null,
     search,
     h('button.filter-btn', {
       type: 'button',

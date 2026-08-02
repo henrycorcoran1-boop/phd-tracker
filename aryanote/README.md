@@ -1,8 +1,8 @@
-# Slate
+# AryaNote
 
 A project management workspace — boards, tables, calendars, a real Gantt timeline, docs and team assignment. No build step, no dependencies, no server: it is plain ES modules and CSS, so it deploys anywhere static files can be served, including the GitHub Pages setup this repository already uses.
 
-Live path once merged to `main`: **`/slate/`**
+Live path once merged to `main`: **`/aryanote/`**
 
 ---
 
@@ -21,8 +21,48 @@ Live path once merged to `main`: **`/slate/`**
 **Four views per project**
 - **Board** — kanban by task list or status, with pointer-based drag and drop (mouse, pen and touch), inline card creation.
 - **Table** — dense grouped rows, sortable columns, inline rename, cell-level editing of status, priority, assignees and dates.
-- **Timeline** — a genuine Gantt: draggable bars, resize handles on both ends, finish-to-start dependency arrows (highlighted red when a task starts before its predecessor finishes), group roll-up bars, a today marker, and day / week / month / quarter zoom.
+- **Gantt Chart** — modelled on Microsoft Project; see below.
 - **Calendar** — month grid by due date, click a day to add.
+
+## The Gantt Chart view
+
+This is a real scheduling tool, not a bar chart. Dates are **derived**: a task has a duration in working days and a set of predecessor links, and the engine computes Start and Finish from them. Change a duration and everything downstream moves.
+
+**Entry table** (left) — ID, Task Name, Duration, Start, Finish, Predecessors, Resource Names. Double-click any cell to edit; Enter commits and moves down, Tab moves across, Escape cancels. Drag the splitter to widen it.
+
+**Predecessors** use MSP's own notation, typed straight into the column:
+
+| Entry | Meaning |
+| --- | --- |
+| `4` | Finish-to-start on row 4, no lag |
+| `4FS+2d` | Finish-to-start with 2 days lag |
+| `7SS` | Start-to-start |
+| `9FF-1d` | Finish-to-finish, 1 day lead |
+| `3SF` | Start-to-finish |
+
+Multiple links are comma-separated. All four link types carry lead/lag, and a link that would close a loop is rejected rather than silently breaking the plan — circular references are detected and flagged in the indicators column.
+
+**Chart** (right) — blue task bars with a black progress bar inside, black summary bars with down-turned end caps, black milestone diamonds, and orthogonal link arrows routed per link type. The **critical path** is computed with a full backward pass (total slack) and can be toggled red. Non-working days are shaded, today is a dashed red line, and the timescale switches between Days, Weeks, Months and Quarters.
+
+**Editing** — insert and delete rows, indent/outdent to build the outline (indenting turns a task into a summary), select two or more rows and Link them finish-to-start, or Unlink. Drag a bar to reschedule it, drag either end to change its duration. Right-click a bar for the quick actions. The Task Information dialog gives the General and Predecessors tabs, with a type dropdown and lag field per link.
+
+**Working time** — Monday to Friday by default, so a 5-day task starting Monday finishes Friday and durations never silently absorb a weekend. The calendar is a single object in `data/schedule.js` if you need to change it.
+
+**Export to PDF** — builds a dedicated print document (project header, legend, repeated column headers, page breaks between row blocks) and hands it to the browser's print dialog; choose *Save as PDF* as the destination. A4, A3 or Letter landscape, over the whole project or the next 3/12 months. The output is vector with selectable text. Turn on "Background graphics" in the print dialog so the bars are included.
+
+### Where it stops short of Microsoft Project
+
+Worth knowing before anyone plans a programme on it:
+
+- **Resources are names, not effort.** There is no work/units model, no cost, no resource levelling and no over-allocation warning. Assigning three people to a task does not shorten it.
+- **One constraint type.** Editing Start pins a task, equivalent to Start-No-Earlier-Than. The other seven MSP constraint types, deadlines and task calendars are not implemented.
+- **Auto-scheduled only.** There is no manually-scheduled task mode with the placeholder dates MSP allows.
+- **Days, not hours.** Durations are whole working days; elapsed durations (`3ed`) and part-days are not supported.
+- **No baselines**, so no plan-versus-actual variance, and no earned value.
+- **One calendar** for the whole project — no per-task or per-resource calendars, and holidays are an empty list you would populate in code.
+- **No .mpp import or export.** JSON export in Settings is the only round trip.
+
+The parts people actually use daily — the entry grid, the four link types with lag, duration-driven rescheduling, the outline, the critical path and printing — are here and behave the way they do in MSP.
 
 **Across the workspace**
 - Home dashboard: open/overdue/due-today counts, per-project progress split by status, upcoming deadlines, workload per person, recent activity.
@@ -40,7 +80,7 @@ It is static, but ES modules need HTTP — opening `index.html` from the filesys
 ```bash
 # from the repository root
 python3 -m http.server 8000
-# then open http://localhost:8000/slate/
+# then open http://localhost:8000/aryanote/
 ```
 
 On the sign-in screen, **Explore the demo workspace** loads a populated studio — three projects, six people, ~40 tasks with dependencies and comments — dated relative to today, so the timeline always looks current.
@@ -62,7 +102,7 @@ Status marks distinguish *not started* from *in flight*: `hollow: true` statuses
 ## Architecture
 
 ```
-slate/
+aryanote/
 ├── index.html                  app shell + pre-paint theme script
 ├── manifest.webmanifest
 └── assets/
@@ -70,10 +110,12 @@ slate/
     │   ├── tokens.css          colour, type, spacing, motion; light + dark
     │   ├── base.css            reset and shared components
     │   ├── app.css             shell, sidebar, topbar, auth
-    │   └── views.css           board, table, gantt, calendar, panel, docs
+    │   ├── views.css           board, table, calendar, panel, docs
+    │   ├── gantt.css           MS Project-style Gantt chart
+    │   └── print.css           PDF / print output
     └── js/
         ├── lib/                dom, date, markdown, icons  (no app knowledge)
-        ├── data/               adapter, store, schema, api, auth, seed
+        ├── data/               adapter, store, schema, api, auth, schedule, seed
         ├── app/                main, router, state, shell
         ├── views/              one module per screen
         └── ui/                 overlay, bits, taskpanel, palette

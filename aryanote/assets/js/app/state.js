@@ -37,7 +37,7 @@ export function onStateChange(fn) {
 
 export function emitStateChange(reason = '') {
   for (const fn of Array.from(listeners)) {
-    try { fn(reason); } catch (err) { console.error('[slate] state listener failed', err); }
+    try { fn(reason); } catch (err) { console.error('[aryanote] state listener failed', err); }
   }
 }
 

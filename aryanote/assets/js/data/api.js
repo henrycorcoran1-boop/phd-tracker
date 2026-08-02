@@ -10,6 +10,7 @@ import {
   keyFrom, isDoneStatus, PROJECT_COLORS, PRIORITY_ORDER, statusOf, STATUSES,
 } from './schema.js';
 import { todayKey, toDate, diffDays, key as dateKey } from '../lib/date.js';
+import { schedule, wouldCycle } from './schedule.js';
 
 /* -- session-scoped actor ------------------------------------------------- */
 let actorId = null;
@@ -373,6 +374,214 @@ function addDaysKey(key, days) {
   const d = toDate(key);
   d.setDate(d.getDate() + days);
   return d;
+}
+
+/* -- scheduling ----------------------------------------------------------- */
+
+/**
+ * Run the scheduler over a project and cache the resulting dates back onto
+ * the tasks, so board, table and calendar all read the same plan. Returns the
+ * computed map keyed by task id.
+ */
+export function rescheduleProject(projectId) {
+  const tasks = tasksOf(projectId);
+  if (!tasks.length) return new Map();
+
+  const computed = schedule(tasks.map((task) => ({
+    id: task.id,
+    parentId: task.parentId || null,
+    duration: task.duration ?? 1,
+    predecessors: task.predecessors || [],
+    manualStart: task.manualStart || null,
+    milestone: task.milestone,
+  })));
+
+  store.batch(() => {
+    for (const task of tasks) {
+      const c = computed.get(task.id);
+      if (!c) continue;
+      const startDate = dateKey(c.start);
+      const dueDate = dateKey(c.finish);
+      if (task.startDate !== startDate || task.dueDate !== dueDate) {
+        // Written directly: a recalculation is not a user edit worth logging.
+        store.update('tasks', task.id, { startDate, dueDate });
+      }
+    }
+  });
+
+  return computed;
+}
+
+/** Ordered rows for the Gantt: group summaries followed by their tasks. */
+export function outlineRows(projectId) {
+  const groups = groupsOf(projectId);
+  const tasks = tasksOf(projectId);
+  const rows = [];
+
+  const byParent = new Map();
+  for (const task of tasks) {
+    const parent = task.parentId && tasks.some((t) => t.id === task.parentId)
+      ? task.parentId : null;
+    if (!byParent.has(parent)) byParent.set(parent, []);
+    byParent.get(parent).push(task);
+  }
+  for (const list of byParent.values()) {
+    list.sort((a, b) => (a.outlineOrder ?? a.order) - (b.outlineOrder ?? b.order));
+  }
+
+  const pushTask = (task, level) => {
+    rows.push({ kind: 'task', task, level });
+    (byParent.get(task.id) || []).forEach((child) => pushTask(child, level + 1));
+  };
+
+  for (const group of groups) {
+    const members = (byParent.get(null) || []).filter((t) => t.groupId === group.id);
+    rows.push({ kind: 'group', group, level: 0 });
+    members.forEach((task) => pushTask(task, 1));
+  }
+
+  const orphans = (byParent.get(null) || [])
+    .filter((task) => !groups.some((g) => g.id === task.groupId));
+  if (orphans.length) {
+    rows.push({ kind: 'group', group: { id: '__none', name: 'Unassigned', color: 'var(--text-4)' }, level: 0 });
+    orphans.forEach((task) => pushTask(task, 1));
+  }
+
+  return rows;
+}
+
+/** Insert a task directly beneath `afterTaskId`, at the same outline level. */
+export function insertTaskAfter(projectId, afterTaskId, data = {}) {
+  const after = afterTaskId ? store.get('tasks', afterTaskId) : null;
+  const siblings = tasksOf(projectId)
+    .filter((t) => (t.parentId || null) === (after?.parentId || null))
+    .sort((a, b) => (a.outlineOrder ?? a.order) - (b.outlineOrder ?? b.order));
+
+  let outlineOrder = 0;
+  if (after) {
+    const index = siblings.findIndex((t) => t.id === after.id);
+    const next = siblings[index + 1];
+    const base = after.outlineOrder ?? after.order;
+    outlineOrder = next ? (base + (next.outlineOrder ?? next.order)) / 2 : base + 1;
+  } else if (siblings.length) {
+    outlineOrder = Math.min(...siblings.map((t) => t.outlineOrder ?? t.order)) - 1;
+  }
+
+  return createTask(projectId, {
+    title: data.title ?? '',
+    status: data.status || 'todo',
+    groupId: data.groupId !== undefined ? data.groupId : (after?.groupId ?? null),
+    parentId: data.parentId !== undefined ? data.parentId : (after?.parentId ?? null),
+    duration: data.duration ?? 1,
+    outlineOrder,
+    order: outlineOrder,
+    ...data,
+  });
+}
+
+/** Indent a task so it becomes a child of the row above it. */
+export function indentTask(projectId, taskId) {
+  const rows = outlineRows(projectId).filter((r) => r.kind === 'task');
+  const index = rows.findIndex((r) => r.task.id === taskId);
+  if (index <= 0) return null;
+
+  const task = rows[index].task;
+  const above = rows[index - 1].task;
+  if (above.id === task.parentId) return null;
+
+  // The new parent is the row above, or its ancestor at the matching level.
+  let candidate = above;
+  while (candidate && levelOfTask(candidate) > levelOfTask(task)) {
+    candidate = store.get('tasks', candidate.parentId);
+  }
+  if (!candidate) return null;
+
+  return updateTask(taskId, {
+    parentId: candidate.id,
+    groupId: candidate.groupId,
+  }, { verb: 'indented the task' });
+}
+
+export function outdentTask(taskId) {
+  const task = store.get('tasks', taskId);
+  if (!task?.parentId) return null;
+  const parent = store.get('tasks', task.parentId);
+  return updateTask(taskId, {
+    parentId: parent?.parentId || null,
+    groupId: parent?.groupId ?? task.groupId,
+  }, { verb: 'outdented the task' });
+}
+
+function levelOfTask(task, depth = 0) {
+  if (!task?.parentId || depth > 30) return 0;
+  return 1 + levelOfTask(store.get('tasks', task.parentId), depth + 1);
+}
+
+/** Link tasks in sequence with finish-to-start, as MSP's chain button does. */
+export function linkTasks(taskIds) {
+  return store.batch(() => {
+    for (let i = 1; i < taskIds.length; i += 1) {
+      const target = store.get('tasks', taskIds[i]);
+      if (!target) continue;
+      const predId = taskIds[i - 1];
+      if (target.predecessors?.some((link) => link.id === predId)) continue;
+      if (wouldCycle(tasksOf(target.projectId), target.id, predId)) continue;
+      store.update('tasks', target.id, {
+        predecessors: [...(target.predecessors || []), { id: predId, type: 'FS', lag: 0 }],
+        manualStart: null,
+      });
+    }
+    const first = store.get('tasks', taskIds[0]);
+    if (first) rescheduleProject(first.projectId);
+  });
+}
+
+export function unlinkTasks(taskIds) {
+  return store.batch(() => {
+    const set = new Set(taskIds);
+    for (const id of taskIds) {
+      const task = store.get('tasks', id);
+      if (!task) continue;
+      store.update('tasks', id, {
+        predecessors: (task.predecessors || []).filter((link) => !set.has(link.id)),
+      });
+    }
+    const first = store.get('tasks', taskIds[0]);
+    if (first) rescheduleProject(first.projectId);
+  });
+}
+
+export function setPredecessors(taskId, links) {
+  const task = store.get('tasks', taskId);
+  if (!task) return null;
+  const safe = links.filter((link) =>
+    link.id !== taskId && !wouldCycle(tasksOf(task.projectId), taskId, link.id));
+  const result = updateTask(taskId, {
+    predecessors: safe,
+    manualStart: safe.length ? null : task.manualStart,
+  }, { verb: 'changed predecessors' });
+  rescheduleProject(task.projectId);
+  return { task: result, rejected: links.length - safe.length };
+}
+
+export function setDuration(taskId, duration) {
+  const task = store.get('tasks', taskId);
+  if (!task) return null;
+  const result = updateTask(taskId, {
+    duration: Math.max(0, duration),
+    milestone: duration === 0,
+  }, { verb: 'changed the duration' });
+  rescheduleProject(task.projectId);
+  return result;
+}
+
+/** Pin a task to a start date (MSP's Start-No-Earlier-Than in effect). */
+export function setManualStart(taskId, startKey) {
+  const task = store.get('tasks', taskId);
+  if (!task) return null;
+  const result = updateTask(taskId, { manualStart: startKey }, { verb: 'rescheduled' });
+  rescheduleProject(task.projectId);
+  return result;
 }
 
 /* -- dependencies --------------------------------------------------------- */

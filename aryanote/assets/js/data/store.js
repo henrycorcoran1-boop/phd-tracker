@@ -211,7 +211,7 @@ class Store {
       this.notifyQueued = false;
       const changed = new Set(this.dirty);
       for (const fn of Array.from(this.subscribers)) {
-        try { fn(changed); } catch (err) { console.error('[slate] subscriber failed', err); }
+        try { fn(changed); } catch (err) { console.error('[aryanote] subscriber failed', err); }
       }
     });
   }
@@ -219,7 +219,7 @@ class Store {
   /** Force an immediate re-render pass (used after imperative bulk edits). */
   notify() {
     for (const fn of Array.from(this.subscribers)) {
-      try { fn(new Set(this.dirty)); } catch (err) { console.error('[slate] subscriber failed', err); }
+      try { fn(new Set(this.dirty)); } catch (err) { console.error('[aryanote] subscriber failed', err); }
     }
   }
 
@@ -236,7 +236,7 @@ class Store {
     this.dirty.clear();
     await Promise.all(collections.map((name) =>
       this.adapter.write(name, this.all(name)).catch((err) => {
-        console.error(`[slate] failed to persist ${name}`, err);
+        console.error(`[aryanote] failed to persist ${name}`, err);
         this.dirty.add(name);
       })));
   }

@@ -14,7 +14,7 @@
    code assumes storage is local or synchronous.
    ========================================================================== */
 
-const NS = 'slate.v1';
+const NS = 'aryanote.v1';
 
 export class LocalAdapter {
   constructor(namespace = NS) {
@@ -39,7 +39,7 @@ export class LocalAdapter {
       // rather than losing the user's in-flight edits.
       this.available = false;
       this.memory.set(key, value);
-      console.warn('[slate] localStorage unavailable, continuing in memory', err);
+      console.warn('[aryanote] localStorage unavailable, continuing in memory', err);
     }
   }
 
@@ -50,7 +50,7 @@ export class LocalAdapter {
       const parsed = JSON.parse(raw);
       return Array.isArray(parsed) ? parsed : [];
     } catch (err) {
-      console.warn(`[slate] could not parse "${collection}"`, err);
+      console.warn(`[aryanote] could not parse "${collection}"`, err);
       return [];
     }
   }
@@ -67,6 +67,37 @@ export class LocalAdapter {
 
   async writeMeta(key, value) {
     this._set(`${this.ns}:meta:${key}`, JSON.stringify(value));
+  }
+
+  /**
+   * Adopt data written under a previous namespace (the app was called Slate
+   * before AryaNote). Only runs when this namespace is still empty, so it can
+   * never clobber current data.
+   */
+  adoptLegacyNamespace(oldNs) {
+    if (!this.available || oldNs === this.ns) return 0;
+    try {
+      const keys = [];
+      let hasCurrent = false;
+      for (let i = 0; i < window.localStorage.length; i += 1) {
+        const key = window.localStorage.key(i);
+        if (!key) continue;
+        if (key.startsWith(`${this.ns}:`)) hasCurrent = true;
+        else if (key.startsWith(`${oldNs}:`)) keys.push(key);
+      }
+      if (hasCurrent || !keys.length) return 0;
+
+      for (const key of keys) {
+        const value = window.localStorage.getItem(key);
+        if (value !== null) {
+          window.localStorage.setItem(`${this.ns}:${key.slice(oldNs.length + 1)}`, value);
+        }
+      }
+      return keys.length;
+    } catch (err) {
+      console.warn('[aryanote] could not adopt legacy data', err);
+      return 0;
+    }
   }
 
   async clearAll() {
@@ -127,7 +158,7 @@ export class RestAdapter {
 
 function probeStorage() {
   try {
-    const probe = '__slate_probe__';
+    const probe = '__aryanote_probe__';
     window.localStorage.setItem(probe, '1');
     window.localStorage.removeItem(probe);
     return true;

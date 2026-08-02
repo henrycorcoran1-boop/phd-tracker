@@ -1,0 +1,436 @@
+/* ==========================================================================
+   Gantt Chart view, following Microsoft Project's conventions.
+
+   This view deliberately breaks from the editorial palette used elsewhere:
+   planners read Gantt charts by shape and colour convention, and those
+   conventions (blue bars, black summary bars with end caps, black milestone
+   diamonds, red critical path) carry meaning. Changing them for taste would
+   make the chart harder to read, not nicer.
+   ========================================================================== */
+
+.msp {
+  --msp-row-h: 26px;
+  --msp-head-h: 44px;
+  --msp-bar: #2a6ec4;
+  --msp-bar-progress: #1b1b1b;
+  --msp-summary: #1b1b1b;
+  --msp-critical: #c0392b;
+  --msp-critical-progress: #6b1b12;
+  --msp-milestone: #1b1b1b;
+  --msp-grid: #d9d6cf;
+  --msp-grid-strong: #b9b5ac;
+  --msp-nonworking: #eceae4;
+  --msp-select: #cfe0f5;
+  --msp-link: #4a4a4a;
+
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: var(--msp-split, 620px) 5px 1fr;
+  overflow: hidden;
+  background: var(--surface);
+  font-size: 12px;
+}
+
+:root[data-theme="dark"] .msp {
+  --msp-bar: #4b90e2;
+  --msp-summary: #e8e6e0;
+  --msp-bar-progress: #0d0d0d;
+  --msp-milestone: #e8e6e0;
+  --msp-grid: #34302a;
+  --msp-grid-strong: #4a453d;
+  --msp-nonworking: #201d19;
+  --msp-select: #2b3d54;
+  --msp-link: #9a948a;
+}
+
+/* -- toolbar -------------------------------------------------------------- */
+
+.msp-bar {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex: none;
+  height: 38px;
+  padding: 0 var(--s-3);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+  overflow-x: auto;
+}
+.msp-bar__sep {
+  width: 1px;
+  height: 20px;
+  margin: 0 5px;
+  background: var(--border);
+  flex: none;
+}
+.msp-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease);
+}
+.msp-tool:hover { background: var(--surface-hover); border-color: var(--border); color: var(--text); }
+.msp-tool:disabled { opacity: 0.4; pointer-events: none; }
+.msp-tool.is-on { background: var(--surface-press); border-color: var(--border); color: var(--text); }
+
+/* -- entry table ---------------------------------------------------------- */
+
+.msp__left {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border-right: 1px solid var(--msp-grid-strong);
+}
+.msp__left-scroll { flex: 1; overflow: hidden; }
+
+.msp-grid { width: 100%; }
+
+.msp-grid__head {
+  display: grid;
+  grid-template-columns: var(--msp-cols);
+  height: var(--msp-head-h);
+  align-items: stretch;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--msp-grid-strong);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+.msp-grid__th {
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  border-right: 1px solid var(--msp-grid);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  user-select: none;
+}
+.msp-grid__th--center { justify-content: center; }
+.msp-grid__th--right { justify-content: flex-end; }
+
+.msp-row {
+  display: grid;
+  grid-template-columns: var(--msp-cols);
+  height: var(--msp-row-h);
+  align-items: stretch;
+  border-bottom: 1px solid var(--msp-grid);
+  cursor: default;
+}
+.msp-row.is-selected { background: var(--msp-select); }
+.msp-row.is-summary { font-weight: 700; }
+.msp-row:hover:not(.is-selected) { background: var(--surface-hover); }
+
+.msp-cell {
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  border-right: 1px solid var(--msp-grid);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.msp-cell--center { justify-content: center; }
+.msp-cell--right { justify-content: flex-end; }
+.msp-cell--id {
+  justify-content: center;
+  background: var(--surface-2);
+  color: var(--text-3);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.msp-row.is-selected .msp-cell--id { background: var(--msp-select); }
+.msp-cell--name { gap: 4px; }
+.msp-cell--nums { font-variant-numeric: tabular-nums; }
+.msp-cell.is-editing { padding: 0; }
+
+.msp-cell__input {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0 5px;
+  border: 2px solid var(--msp-bar);
+  border-radius: 0;
+  background: var(--surface);
+  font-size: 12px;
+  font-family: var(--font);
+}
+.msp-cell__input:focus { box-shadow: none; border-color: var(--msp-bar); }
+
+.msp-indent { flex: none; }
+.msp-twist {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex: none;
+  color: var(--text-2);
+}
+.msp-twist svg { transition: transform var(--dur-1) var(--ease); }
+.msp-row.is-collapsed .msp-twist svg { transform: rotate(-90deg); }
+.msp-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.msp-row.is-summary .msp-name { font-weight: 700; }
+
+.msp-flag { flex: none; color: var(--text-3); display: inline-flex; }
+.msp-flag--critical { color: var(--msp-critical); }
+
+/* -- splitter ------------------------------------------------------------- */
+
+.msp__split {
+  cursor: col-resize;
+  background: var(--surface-2);
+  border-right: 1px solid var(--msp-grid-strong);
+  position: relative;
+}
+.msp__split::after {
+  content: "";
+  position: absolute;
+  inset: 0 -3px;
+}
+.msp__split:hover { background: var(--msp-select); }
+
+/* -- chart ---------------------------------------------------------------- */
+
+.msp__right { position: relative; overflow: auto; min-width: 0; }
+.msp__canvas { position: relative; }
+
+.msp-scale {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  height: var(--msp-head-h);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--msp-grid-strong);
+}
+.msp-scale__tier {
+  position: relative;
+  height: 22px;
+  border-bottom: 1px solid var(--msp-grid);
+}
+.msp-scale__tier:last-child { border-bottom: none; }
+.msp-scale__cell {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--msp-grid);
+  font-size: 10px;
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  font-variant-numeric: tabular-nums;
+}
+.msp-scale__cell--major { font-weight: 600; justify-content: flex-start; padding-left: 6px; }
+.msp-scale__cell.is-today { color: var(--msp-critical); font-weight: 700; }
+
+.msp-chart { position: relative; }
+
+.msp-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--msp-row-h);
+  border-bottom: 1px solid var(--msp-grid);
+}
+.msp-band.is-selected { background: var(--msp-select); }
+
+.msp-nonworking {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--msp-nonworking);
+}
+.msp-vline { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--msp-grid); }
+.msp-vline--major { background: var(--msp-grid-strong); }
+.msp-today {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1px dashed var(--msp-critical);
+  z-index: 2;
+}
+
+/* Task bars */
+.msp-taskbar {
+  position: absolute;
+  height: 12px;
+  background: var(--msp-bar);
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  cursor: move;
+  z-index: 3;
+}
+.msp-taskbar.is-critical { background: var(--msp-critical); }
+.msp-taskbar__progress {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 4px;
+  background: var(--msp-bar-progress);
+  pointer-events: none;
+}
+.msp-taskbar__grip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  cursor: ew-resize;
+}
+.msp-taskbar__grip--s { left: -2px; }
+.msp-taskbar__grip--e { right: -2px; }
+.msp-taskbar.is-dragging { opacity: 0.75; z-index: 8; }
+
+/* Summary bars — black, thin, with the down-turned end caps MSP draws */
+.msp-summarybar {
+  position: absolute;
+  height: 7px;
+  background: var(--msp-summary);
+  z-index: 3;
+  pointer-events: none;
+}
+.msp-summarybar::before,
+.msp-summarybar::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  border-top: 6px solid var(--msp-summary);
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+.msp-summarybar::before { left: 0; border-right-width: 7px; border-left-width: 0; }
+.msp-summarybar::after { right: 0; border-left-width: 7px; border-right-width: 0; }
+
+/* Milestones — black diamond with the date beside it */
+.msp-milestone {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  background: var(--msp-milestone);
+  transform: rotate(45deg);
+  cursor: move;
+  z-index: 4;
+}
+.msp-milestone.is-critical { background: var(--msp-critical); }
+
+.msp-barlabel {
+  position: absolute;
+  height: var(--msp-row-h);
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  color: var(--text-2);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Link lines */
+.msp-links {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+.msp-links path {
+  fill: none;
+  stroke: var(--msp-link);
+  stroke-width: 1;
+}
+.msp-links path.is-critical { stroke: var(--msp-critical); }
+.msp-links polygon { fill: var(--msp-link); }
+.msp-links polygon.is-critical { fill: var(--msp-critical); }
+
+/* Drag tooltip */
+.msp-tip {
+  position: fixed;
+  z-index: var(--z-toast);
+  padding: 5px 8px;
+  background: #ffffe1;
+  border: 1px solid #8a8a6a;
+  color: #1b1b1b;
+  font-size: 11px;
+  line-height: 1.5;
+  pointer-events: none;
+  box-shadow: var(--shadow-md);
+  font-variant-numeric: tabular-nums;
+}
+
+/* -- legend --------------------------------------------------------------- */
+
+.msp-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--text-2);
+}
+.msp-legend__item { display: inline-flex; align-items: center; gap: 6px; }
+.msp-legend__swatch { width: 22px; height: 9px; background: var(--msp-bar); border: 1px solid rgba(0,0,0,.35); }
+.msp-legend__swatch--critical { background: var(--msp-critical); }
+.msp-legend__swatch--summary { height: 6px; background: var(--msp-summary); border: none; }
+.msp-legend__swatch--milestone {
+  width: 10px; height: 10px; background: var(--msp-milestone);
+  transform: rotate(45deg); border: none;
+}
+
+/* -- task information dialog ---------------------------------------------- */
+
+.ti-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--s-4);
+}
+.ti-tab {
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+  border: 1px solid transparent;
+  border-bottom: none;
+  margin-bottom: -1px;
+}
+.ti-tab.is-active {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+  font-weight: 600;
+}
+.ti-grid {
+  display: grid;
+  grid-template-columns: 1fr 120px 90px;
+  gap: 6px;
+  align-items: center;
+}
+.ti-grid__head {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.ti-grid .input, .ti-grid .select { height: 30px; min-height: 30px; font-size: 12px; }
+
+@media (max-width: 860px) {
+  .msp { grid-template-columns: 240px 5px 1fr; }
+}

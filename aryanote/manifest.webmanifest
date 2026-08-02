@@ -1,6 +1,6 @@
 {
-  "name": "Slate — project management",
-  "short_name": "Slate",
+  "name": "AryaNote — project management",
+  "short_name": "AryaNote",
   "description": "Plan projects, assign work, set deadlines and track progress across boards, tables, calendars and a Gantt timeline.",
   "start_url": "./",
   "scope": "./",
