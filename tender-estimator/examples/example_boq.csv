@@ -1,0 +1,31 @@
+project_id,project_type,region,date,section,ref,description,unit,quantity,category
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Cabling & Terminations,1.01,Fusion splice fibre optic cable including tray and closure,nr,473.0,Cabling & Terminations
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Professional Services & Surveys,1.02,UTILITY DETECTION SURVEY AND SLIT TRENCHING PRIOR TO EXCAVATION,nr,85.0,Professional Services & Surveys
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Cabling & Terminations,1.03,Terminate MV cable into switchgear including testing,nr,12.0,Cabling & Terminations
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Chambers & Jointing Bays,1.04,Raise or lower existing chamber to finished road level,nr,35.0,Chambers & Jointing Bays
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Preliminaries & Site Setup,1.05,"Site set up, welfare unit and secure compound",week,59.0,Preliminaries & Site Setup
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Cabling & Terminations,1.06,"Earthing installation inc. rods, tape and connections",item,1.0,Cabling & Terminations
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Traffic Management,1.07,Preparation and approval of traffic management plan (Chapter 8),item,1.0,Traffic Management
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Excavation & Earthworks,1.08,Excavation in rock inc. breaking and removal,m3,2026.21,Excavation & Earthworks
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Excavation & Earthworks,1.09,Dewatering of excavations including pumps and settlement tank,week,12.0,Excavation & Earthworks
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Testing & Commissioning,1.10,Insulation resistance and continuity testing of installed cable,nr,116.0,Testing & Commissioning
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Preliminaries & Site Setup,2.01,MOBILISATION AND DEMOBILISATION OF PLANT TO SITE,item,1.0,Preliminaries & Site Setup
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Road Reinstatement & Surfacing,2.02,SUPPLY AND LAY 30mm AC10 surface course,m2,2496.93,Road Reinstatement & Surfacing
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Road Reinstatement & Surfacing,2.03,Supply and lay 30mm AC10 surface course,m2,1168.54,Road Reinstatement & Surfacing
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Testing & Commissioning,2.04,Testing and energisation of MV network including switching,item,1.0,Testing & Commissioning
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Plant & Equipment Supply,2.05,Supply and erect 8m public lighting column with LED lantern,nr,73.0,Plant & Equipment Supply
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Testing & Commissioning,2.06,TESTING AND ENERGISATION OF MV NETWORK INCLUDING SWITCHING (as drawing),item,1.0,Testing & Commissioning
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Cabling & Terminations,2.07,Pull in LV service cable 95mm2 to dwelling c/w duct entry,m,1709.29,Cabling & Terminations
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Traffic Management,2.08,PROVISION OF TRAFFIC MANAGEMENT WITH TWO-WAY PORTABLE SIGNALS,week,30.0,Traffic Management
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Ducting & Cable Protection,2.09,Supply and lay cable protection tiles and marker tape,m,235.14,Ducting & Cable Protection
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Road Reinstatement & Surfacing,2.10,Supply and lay precast concrete kerbing including haunching,m,276.14,Road Reinstatement & Surfacing
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Road Reinstatement & Surfacing,3.01,Reinstate road markings to match existing,m,879.46,Road Reinstatement & Surfacing
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Cabling & Terminations,3.02,Terminate MV cable into switchgear c/w testing,nr,39.0,Cabling & Terminations
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Preliminaries & Site Setup,3.03,"Site set up, welfare unit and secure compound",week,42.0,Preliminaries & Site Setup
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Testing & Commissioning,3.04,Insulation resistance and continuity testing of installed cable (as drawing),nr,38.0,Testing & Commissioning
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Testing & Commissioning,3.05,Insulation resistance and continuity testing of installed cable,nr,163.0,Testing & Commissioning
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Excavation & Earthworks,3.06,EXCAVATE TRENCH 900MM WIDE X 1.5M DEEP IN SOFT GROUND INCL. SUPPORT AND BACKFILL,m,849.33,Excavation & Earthworks
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Ducting & Cable Protection,3.07,SUPPLY AND LAY 160MM DIA TWINWALL DUCT INCLUDING DRAW ROPE,m,3410.01,Ducting & Cable Protection
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Chambers & Jointing Bays,3.08,Raise or lower existing chamber to finished road level,nr,39.0,Chambers & Jointing Bays
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Road Reinstatement & Surfacing,3.09,SUPPLY AND LAY 30mm AC10 surface course,m2,3516.17,Road Reinstatement & Surfacing
+TENDER-507,MV Cable Installation,Dublin,2023-09-18,Cabling & Terminations,3.10,Blow in fibre optic cable to existing subduct,m,3734.02,Cabling & Terminations
