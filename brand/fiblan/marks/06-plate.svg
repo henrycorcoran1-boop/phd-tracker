@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Fiblan Consulting — Plate monogram">
+  <title>Fiblan Consulting — Plate Monogram</title>
+  <rect x="5" y="5" width="54" height="54" rx="13" fill="#12303D"/>
+  <rect x="23" y="19" width="7" height="27" rx="3.5" fill="#F4F6F7"/>
+  <rect x="23" y="19" width="20" height="7" rx="3.5" fill="#F4F6F7"/>
+  <rect x="23" y="29.5" width="14" height="7" rx="3.5" fill="#F4F6F7"/>
+  <circle cx="14" cy="14" r="2.2" fill="#D2622F"/>
+  <circle cx="50" cy="14" r="2.2" fill="#D2622F"/>
+  <circle cx="14" cy="50" r="2.2" fill="#D2622F"/>
+  <circle cx="50" cy="50" r="2.2" fill="#D2622F"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 232 80" width="232" height="80" role="img" aria-label="Fiblan Consulting">
+  <title>Fiblan Consulting — horizontal lockup</title>
+  <g transform="translate(4 12) scale(0.875)">
+    <rect x="14" y="8" width="9" height="48" rx="4.5" fill="#12303D"/>
+    <rect x="14" y="8" width="38" height="9" rx="4.5" fill="#12303D"/>
+    <rect x="14" y="28" width="26" height="9" rx="4.5" fill="#12303D"/>
+    <path d="M23 37 L38 37 L23 52 Z" fill="#D2622F"/>
+  </g>
+  <path d="M74 18 L74 62" stroke="#C3D1D8" stroke-width="1"/>
+  <text x="92" y="41" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="31" font-weight="700" letter-spacing="0.5" fill="#12303D">FIBLAN</text>
+  <text x="93" y="59" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11" font-weight="500" letter-spacing="4.1" fill="#5C7180">CONSULTING</text>
+</svg>
