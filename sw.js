@@ -22,6 +22,13 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  // AryaNote (/aryanote/) is a separate app that ships its own updates.
+  // This worker is cache-first, so handling those requests here would pin
+  // visitors to whichever build they happened to load first, and would serve
+  // this site's index.html as the offline fallback for AryaNote's routes.
+  // Let them go straight to the network instead.
+  if (new URL(e.request.url).pathname.includes('/aryanote/')) return;
+
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;
