@@ -1,0 +1,184 @@
+/* ==========================================================================
+   AryaNote — design tokens
+
+   Editorial register: warm paper, near-black ink, hairline rules. Colour is
+   reserved for signal (status, overdue) and kept at low chroma so nothing in
+   the interface shouts. Hierarchy comes from type and whitespace.
+   ========================================================================== */
+
+:root {
+  /* Warm neutral ramp — paper through ink */
+  --paper-0:   #ffffff;
+  --paper-25:  #fdfcfa;
+  --paper-50:  #faf8f4;
+  --paper-100: #f4f1ea;
+  --paper-150: #edeae1;
+  --paper-200: #e5e1d6;
+  --paper-300: #d4cec1;
+  --paper-400: #a8a295;
+  --paper-500: #7d776b;
+  --paper-600: #5e584e;
+  --paper-700: #45403a;
+  --paper-800: #2b2823;
+  --paper-900: #1a1815;
+  --paper-950: #0f0e0c;
+
+  /* Interactive — a muted slate navy, for links, focus and selection only.
+     Primary actions use ink, not a colour. */
+  --accent:        #3a5169;
+  --accent-hover:  #31465b;
+  --accent-active: #293b4d;
+  --accent-soft:   #eceef1;
+  --accent-border: #c5cfd9;
+  --accent-text:   #2f4358;
+
+  /* Status — muted earth tones, never used as a fill behind text */
+  --st-backlog: #a19a8d;
+  --st-planned: #6c7b8b;
+  --st-active:  #9a7328;
+  --st-review:  #7a6c8c;
+  --st-done:    #5a7355;
+  --st-blocked: #9c4a38;
+
+  /* Priority */
+  --pr-urgent: #9c4a38;
+  --pr-high:   #9a7328;
+  --pr-medium: #6c7b8b;
+  --pr-low:    #a19a8d;
+
+  /* Semantic surfaces */
+  --canvas:        var(--paper-50);
+  --surface:       var(--paper-0);
+  --surface-2:     var(--paper-25);
+  --surface-3:     var(--paper-100);
+  --surface-inset: var(--paper-100);
+  --surface-hover: rgba(26, 24, 21, 0.035);
+  --surface-press: rgba(26, 24, 21, 0.062);
+  --overlay:       rgba(26, 24, 21, 0.28);
+
+  --border:        #e7e3da;
+  --border-soft:   #f0ede6;
+  --border-strong: #d6d0c3;
+
+  --text:    var(--paper-900);
+  --text-2:  var(--paper-600);
+  --text-3:  #837d71;
+  --text-4:  var(--paper-400);
+  --text-on-accent: #ffffff;
+
+  /* Shadows are almost absent — hairlines do the separating */
+  --shadow-xs: none;
+  --shadow-sm: 0 1px 2px rgba(26, 24, 21, 0.05);
+  --shadow-md: 0 2px 8px rgba(26, 24, 21, 0.07);
+  --shadow-lg: 0 12px 32px rgba(26, 24, 21, 0.11), 0 2px 6px rgba(26, 24, 21, 0.05);
+  --shadow-drag: 0 10px 24px rgba(26, 24, 21, 0.16);
+
+  /* Type — serif for display, sans for interface */
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue",
+          Arial, "Noto Sans", sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua",
+                Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+               "Liberation Mono", monospace;
+
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-15: 15px;
+  --fs-16: 16px;
+  --fs-18: 18px;
+  --fs-22: 22px;
+  --fs-28: 28px;
+  --fs-34: 34px;
+  --fs-42: 42px;
+
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  /* Tighter geometry — nothing pill-shaped except avatars */
+  --r-xs: 3px;
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 8px;
+  --r-xl: 10px;
+  --r-full: 999px;
+
+  --ease: cubic-bezier(0.2, 0.6, 0.25, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 90ms;
+  --dur-2: 150ms;
+  --dur-3: 240ms;
+
+  --sidebar-w: 248px;
+  --topbar-h: 50px;
+  --panel-w: 468px;
+
+  --z-sticky: 20;
+  --z-drawer: 60;
+  --z-modal: 80;
+  --z-drag: 90;
+  --z-toast: 100;
+}
+
+:root[data-theme="dark"] {
+  /* Warm-tinted dark, not a cool black */
+  --canvas:        #14120f;
+  --surface:       #1a1815;
+  --surface-2:     #1f1d19;
+  --surface-3:     #272420;
+  --surface-inset: #232019;
+  --surface-hover: rgba(255, 252, 245, 0.05);
+  --surface-press: rgba(255, 252, 245, 0.085);
+  --overlay:       rgba(8, 7, 6, 0.6);
+
+  --border:        #2e2a24;
+  --border-soft:   #26231e;
+  --border-strong: #423d35;
+
+  --text:   #ece8e0;
+  --text-2: #a49d91;
+  --text-3: #857f74;
+  --text-4: #655f56;
+  --text-on-accent: #14120f;
+
+  --accent:        #8fa6bd;
+  --accent-hover:  #a3b6c9;
+  --accent-active: #b6c5d4;
+  --accent-soft:   #22262b;
+  --accent-border: #38414c;
+  --accent-text:   #9db2c7;
+
+  --st-backlog: #918a7e;
+  --st-planned: #8497aa;
+  --st-active:  #c09442;
+  --st-review:  #9a89ae;
+  --st-done:    #7a9673;
+  --st-blocked: #c06a53;
+
+  --pr-urgent: #c06a53;
+  --pr-high:   #c09442;
+  --pr-medium: #8497aa;
+  --pr-low:    #918a7e;
+
+  --shadow-xs: none;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 2px 10px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.6);
+  --shadow-drag: 0 12px 28px rgba(0, 0, 0, 0.62);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
