@@ -1,0 +1,127 @@
+<!-- ===================== DESIGN PARAMETERS ===================== -->
+<section class="chapter">
+  <div class="chapter-label">Part Two</div>
+  <h1 id="s-params">Design Parameters<span class="sub">The numbers that follow from the evidence review, and the design decisions they force</span></h1>
+
+  <p class="lead">An evidence sweep across the measurement, psychological safety, innovative behaviour, artificial intelligence readiness and absorptive capacity literatures was run against the Revision A design in September 2026. It returned five findings that change the design rather than decorate it. Three of them cannot be repaired after fieldwork opens. This chapter states the parameters they fix, with the arithmetic, so that they are decided once and referenced everywhere else.</p>
+
+  <div class="box guard">
+    <span class="box-title">The three that cannot be repaired later</span>
+    <ol>
+      <li><strong>Respondents per team.</strong> Four to five members per team cannot produce a reliable team mean at any plausible intraclass correlation. The whole team-level programme rests on this number and it is fixed at recruitment, not at analysis.</li>
+      <li><strong>Anonymity.</strong> A genuinely anonymous survey carries no team key. Without a team key there is no aggregation, no multilevel model, no set-theoretic analysis and no team-level diagnostic. The specification changes to confidential and team-linked, and the ethics application must be written on that basis.</li>
+      <li><strong>Instrument composition.</strong> Every comparator measure the analysis needs must be in the instrument when it is frozen. Two of them were absent from Revision A and one was budgeted at half its published length.</li>
+    </ol>
+  </div>
+
+  <h2 id="s-sample">The sample design and the arithmetic that fixes it</h2>
+
+  <p>Team-mean reliability is not a property of the construct. It is a property of the design, and it is calculable in advance. The reliability of a team mean is given by the Spearman-Brown relation between the intraclass correlation and the number of respondents per team, so the question of whether team-level scores are usable is answered by arithmetic before any data exists.</p>
+
+  <div class="caption tbl above">Reliability of the team mean, computed as ICC(2) = <em>k</em>&nbsp;&times;&nbsp;ICC(1)&nbsp;/&nbsp;[1&nbsp;+&nbsp;(<em>k</em>&nbsp;&minus;&nbsp;1)&nbsp;&times;&nbsp;ICC(1)]. Shaded cells reach the conventional threshold of 0.70. Perceptual climate data in organisations typically returns an ICC(1) between 0.05 and 0.20.</div>
+  <table>
+    <thead><tr><th style="width:22%">Respondents per team</th><th class="mid">ICC(1) = .05</th><th class="mid">.10</th><th class="mid">.15</th><th class="mid">.20</th><th class="mid">.25</th></tr></thead>
+    <tbody>
+      <tr><td class="ref">4</td><td class="mid">.17</td><td class="mid">.31</td><td class="mid">.41</td><td class="mid">.50</td><td class="mid">.57</td></tr>
+      <tr><td class="ref">5 &nbsp;<span class="tag red">Revision A</span></td><td class="mid">.21</td><td class="mid">.36</td><td class="mid">.47</td><td class="mid">.56</td><td class="mid">.63</td></tr>
+      <tr><td class="ref">8</td><td class="mid">.30</td><td class="mid">.47</td><td class="mid">.59</td><td class="mid">.67</td><td class="mid" style="background:#dfebd9;font-weight:700">.73</td></tr>
+      <tr><td class="ref">10</td><td class="mid">.35</td><td class="mid">.53</td><td class="mid">.64</td><td class="mid" style="background:#dfebd9;font-weight:700">.71</td><td class="mid" style="background:#dfebd9;font-weight:700">.77</td></tr>
+      <tr><td class="ref">12 &nbsp;<span class="tag green">Revision B</span></td><td class="mid">.39</td><td class="mid">.57</td><td class="mid">.68</td><td class="mid" style="background:#dfebd9;font-weight:700">.75</td><td class="mid" style="background:#dfebd9;font-weight:700">.80</td></tr>
+      <tr><td class="ref">15</td><td class="mid">.44</td><td class="mid">.63</td><td class="mid" style="background:#dfebd9;font-weight:700">.73</td><td class="mid" style="background:#dfebd9;font-weight:700">.79</td><td class="mid" style="background:#dfebd9;font-weight:700">.83</td></tr>
+      <tr><td class="ref">20</td><td class="mid">.51</td><td class="mid">.69</td><td class="mid" style="background:#dfebd9;font-weight:700">.78</td><td class="mid" style="background:#dfebd9;font-weight:700">.83</td><td class="mid" style="background:#dfebd9;font-weight:700">.87</td></tr>
+    </tbody>
+  </table>
+
+  <p>The Revision A row is the second one. At five respondents per team, team-mean reliability does not reach 0.70 anywhere in the plausible range, and reaches 0.63 only at an intraclass correlation of 0.25 that perceptual climate data rarely produces. That is not a marginal result to be argued around in a limitations paragraph. It means every team-level score in the thesis, every configurational case and every diagnostic output would rest on a mean the design cannot make reliable.</p>
+
+  <p>The design is therefore changed. Recruitment targets fewer teams with more respondents in each, which is also cheaper per team in access terms because it exploits an access agreement more fully rather than negotiating another one.</p>
+
+  <div class="caption tbl above">Sample design at Revision B, with the requirement each figure satisfies. One design has to satisfy all five simultaneously, which is why the target is a range rather than a single number.</div>
+  <table class="long">
+    <thead><tr><th style="width:26%">Parameter</th><th style="width:16%">Revision A</th><th style="width:18%">Revision B</th><th style="width:40%">What fixes it</th></tr></thead>
+    <tbody>
+      <tr><td>Teams</td><td>75 to 100</td><td><strong>50 to 60</strong></td><td>Set-theoretic analysis at four or five conditions needs an intermediate-N sample and enough cases to populate a truth table without the solution becoming an artefact of counterfactual assumptions. Multilevel estimation needs at least fifty level-two units for stable variance components and cross-level interactions.</td></tr>
+      <tr><td>Respondents per team</td><td>4 to 5</td><td><strong>10 to 12</strong></td><td>Team-mean reliability, per the table above. Ten is the working minimum at an intraclass correlation of 0.20; twelve gives margin at 0.15.</td></tr>
+      <tr><td>Individual responses</td><td>300 to 500</td><td><strong>500 to 720</strong></td><td>Ordinal confirmatory factor analysis of a sixty-item, six-factor model, and graded-response calibration, both require several hundred usable responses. Five hundred is the working target and four hundred the absolute floor.</td></tr>
+      <tr><td>Minimum team for a score</td><td>not stated</td><td><strong>5 respondents</strong></td><td>Below five, no team-level score is computed and none is displayed. Five to seven is provisional and labelled as such. This is also the confidentiality floor promised to participants.</td></tr>
+      <tr><td>Per role group</td><td>not stated</td><td><strong>150 to 200</strong></td><td>Measurement invariance across contractor, consultant and client roles has to be testable, and it is the test an examiner will ask for. Under this figure, restrict the comparative claims rather than assert them.</td></tr>
+      <tr><td>Matched dyad sub-study</td><td>none</td><td><strong>100 to 150 dyads</strong></td><td>Self-reported behaviour predicted by self-reported climate is the canonical vulnerable design. A separate, non-anonymous convergent-validity sub-study with supervisor ratings is the pre-emptive answer.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box gate">
+    <span class="box-title">The trade this makes</span>
+    <p>Fifty to sixty teams is fewer cases for the configurational analysis than Revision A promised, and it sits close to the floor for set-theoretic work at five conditions. That is the cost of buying reliable team means, and it is the right trade: an unreliable team score makes every downstream analysis uninterpretable, whereas a smaller case base makes the configurational solution more cautious. Fix the condition set at four before fieldwork rather than five, and the truth table becomes sixteen configurations rather than thirty-two, which the case base can support.</p>
+  </div>
+
+  <h2 id="s-admin">Administration: confidential, team-linked, two waves</h2>
+
+  <p>Revision A specified an anonymous survey. Anonymity and the analysis plan are incompatible, and the incompatibility is silent: the survey runs, the data arrives, and only then does it become apparent that responses cannot be grouped. The specification changes as follows, and the change belongs in the ethics application rather than in a later amendment.</p>
+
+  <ol class="instructions">
+    <li><strong>Confidential, not anonymous.</strong> Responses are unattributable to an individual but linked to a project team code, a role category and an employer type. Say exactly this in the participant information sheet. Claiming anonymity for data that carries a team key is a misrepresentation to participants as well as a compliance problem.</li>
+    <li><strong>Self-generated identification code.</strong> A short code constructed by the respondent from fixed personal facts, such as the first two letters of a parent's given name, the two-digit day of birth and the first two letters of their town of birth, links a respondent's two waves without the researcher ever holding an identifier. This single device buys temporal separation and split-sample aggregation at no cost to confidentiality.</li>
+    <li><strong>Two waves, two to four weeks apart.</strong> The CLEAR climate block at wave one; the behavioural and voice blocks at wave two. Same-occasion, same-source measurement of predictor and outcome is the objection that no statistical correction now answers, and separating the waves is the only remedy that works.</li>
+    <li><strong>Different response formats by block.</strong> Agreement anchors for the climate items, frequency anchors for the behavioural items. This is a procedural remedy for method variance, and frequency anchors are also what a graded-response model needs to produce usable category thresholds on behaviours with a low base rate.</li>
+    <li><strong>A marker variable, chosen a priori.</strong> Theoretically unrelated to everything else in the model, carried in wave one, and analysed with a confirmatory-factor marker technique. The single-factor test is not an acceptable substitute and should not appear in the thesis except in a sentence explaining why it is not used.</li>
+    <li><strong>At least one criterion not reported by the same respondents.</strong> A team-level outcome from a separate informant, and at least one non-survey indicator per project: accepted improvement suggestions, requests for information converted into approved design changes, method statements revised on operative initiative, or a tool adoption rate. Pre-register the expected correlation with self-rated behaviour at a modest value so that a modest correlation reads as convergent validity rather than as failure.</li>
+  </ol>
+
+  <h2 id="s-composition">Instrument composition and the length budget</h2>
+
+  <p>The analysis plan requires comparator measures, and each one exists to answer a specific objection. Two were missing from Revision A entirely, and the absorptive capacity scale was budgeted at roughly half its published length, which would have forfeited the validity evidence it was carried for.</p>
+
+  <div class="caption tbl above">Instrument composition at Revision B. The wave column is what makes the length tolerable: no respondent sees the whole instrument at one sitting.</div>
+  <table class="long">
+    <thead><tr><th style="width:30%">Block</th><th style="width:10%" class="mid">Items</th><th style="width:10%" class="mid">Wave</th><th style="width:50%">Why it is carried</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CLEAR</strong>, four dimensions</td><td class="mid">40</td><td class="mid">1</td><td>The instrument under development. Agreement anchors, team referent throughout.</td></tr>
+      <tr><td>Psychological safety, established scale</td><td class="mid">7</td><td class="mid">1</td><td>Used verbatim rather than paraphrased, so that the reported reliabilities and meta-analytic effect sizes the thesis relies on still apply. Also the discriminant test for the Environment dimension.</td></tr>
+      <tr><td>Absorptive capacity, published scale</td><td class="mid">14 to 20</td><td class="mid">1</td><td>Answers the construct redundancy objection. Carried in full: a hand-cut short version of a validated scale is not that scale and cannot inherit its evidence.</td></tr>
+      <tr><td>Organisational antecedents comparator</td><td class="mid">6 to 8</td><td class="mid">1</td><td><strong>New at Revision B.</strong> Connectedness and formalisation subscales. This is the comparator that answers the objection an examiner will actually raise, which is not that CLEAR duplicates absorptive capacity but that Architecture and Environment paraphrase its known organisational antecedents.</td></tr>
+      <tr><td>Readiness comparator</td><td class="mid">6 to 12</td><td class="mid">1</td><td><strong>New at Revision B.</strong> A validated organisational readiness for change measure, providing the convergent evidence without which the construct validity claim cannot be tested at all.</td></tr>
+      <tr><td>Marker variable</td><td class="mid">3 to 4</td><td class="mid">1</td><td>Method variance assessment. Must be theoretically unrelated to everything else.</td></tr>
+      <tr><td>Artificial intelligence object block</td><td class="mid">4 to 8</td><td class="mid">1</td><td>One or two items per dimension naming machine-derived output as the object of judgement. Scored separately and never folded into the dimension scores.</td></tr>
+      <tr><td>Artificial intelligence capability index</td><td class="mid">6 to 10</td><td class="mid">1</td><td>An inventory of tooling, data access and skill actually held, not a perception, so that the interaction in H5 has something to interact with.</td></tr>
+      <tr><td>Innovative work behaviour</td><td class="mid">13</td><td class="mid">2</td><td>A dyadically validated ten-item scale plus a three-item realisation subscale retained verbatim for comparability. Frequency anchors.</td></tr>
+      <tr><td>Voice, promotive and prohibitive</td><td class="mid">10</td><td class="mid">2</td><td>Modelled as two constructs and never collapsed into one score. Prohibitive voice is the psychological-safety-proximal path.</td></tr>
+      <tr><td>Embedding and sustainability</td><td class="mid">3 to 4</td><td class="mid">2</td><td><strong>New at Revision B.</strong> The four-phase behaviour scales stop at implementation, and the thesis argues that construction fails at conversion into sustained practice. Adapted items require their own content validity evidence.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box guard">
+    <span class="box-title">Length discipline, restated</span>
+    <p>Wave one is roughly ninety items and wave two roughly thirty. Both must be tested for completion time at Stage B6, and if either exceeds what a site-based respondent will complete without satisficing, the reduction comes from the CLEAR pool and never from a published comparator. A shortened published scale forfeits exactly the comparability it was carried for, and there is then no reason to have carried it.</p>
+  </div>
+
+  <h2 id="s-banding">The banding problem</h2>
+
+  <p>Revision A routed organisations to interventions on cut-points of 0.5 and 0.8. Those numbers have no derivation, no validation and no uncertainty attached, and they carry the most consequential decision the artefact makes. This is the point at which an examiner asks what the false positive rate is, and there has to be an answer.</p>
+
+  <p>Three defensible derivations exist and the programme commits to one before the artefact routes anyone.</p>
+
+  <ol class="instructions">
+    <li><strong>Criterion-referenced.</strong> Receiver operating characteristic analysis against a graded external criterion, such as the proportion of machine-derived outputs reaching an authorised decision or the count of implemented employee-originated changes. Report the area under the curve with its confidence interval, require it to clear a pre-stated threshold before claiming decision utility, and select the cut by a stated optimality rule.</li>
+    <li><strong>Standard-setting.</strong> A documented exercise with a panel of at least eight construction and organisational behaviour experts over two rounds, using a bookmark or modified Angoff procedure, with inter-panellist agreement reported alongside the resulting cuts.</li>
+    <li><strong>No bands at all.</strong> Report the estimate with its confidence interval and label as indeterminate any case whose interval straddles a cut. This is the least satisfying option for a practitioner and the most honest, and it is what the artefact does in the interim.</li>
+  </ol>
+
+  <p>Whichever is chosen, three reporting obligations attach. Classification consistency and decision accuracy are reported, and no intervention is routed on a cut whose consistency falls below the stated threshold. A buffer band is displayed rather than a hard line, because at a scale reliability of 0.80 the standard error of measurement is close to 0.45 standard deviations and the resulting interval is wide enough to change how a reader acts. And the proportion of teams whose interval straddles a boundary is reported, because if that proportion is large the banding is a description of measurement error rather than of the organisation.</p>
+
+  <div class="box guard">
+    <span class="box-title">Two further prohibitions on the score</span>
+    <p><strong>The enablement ratio is never computed as a share of a total across the four dimensions.</strong> A constant-sum transformation reintroduces the ipsative linear dependency that invalidates factor analysis, correlation and regression on the resulting scores, which is the well-documented defect of quadrant-based culture instruments. Each dimension is scored independently, on its own metric, against its own cut.</p>
+    <p><strong>Team-level score reliability is reported as ICC(2), never as an internal consistency coefficient.</strong> Internal consistency describes agreement among items within a respondent; ICC(2) describes the reliability of the team mean. Reporting the former to justify a team-level band is a level-of-analysis error and it will be caught.</p>
+  </div>
+
+  <h2 id="s-dispersion">Dispersion as a variable, not a nuisance</h2>
+
+  <p>Aggregation treats within-team disagreement as noise to be justified away. That is a mistake here, and correcting it is cheap. Two teams with the same mean and different levels of internal agreement are different organisations, and the difference is exactly the kind of configurational condition the thesis is looking for.</p>
+
+  <ul class="checks">
+    <li>Report the within-team standard deviation beside every dimension mean, in the analysis and in the artefact.</li>
+    <li>Enter dispersion as a separate condition in the set-theoretic calibration rather than discarding it.</li>
+    <li>Suppress the band and report the team as contested where within-team dispersion exceeds a pre-stated value on the response metric, rather than averaging a disagreement into a false consensus.</li>
+    <li>State the role composition of the responding group alongside every team score, because whose judgements formed the average is part of what the average means.</li>
+  </ul>
+</section>

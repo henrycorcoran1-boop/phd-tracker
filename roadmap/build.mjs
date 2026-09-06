@@ -27,6 +27,7 @@ const PARTIALS = [
   '01b-atglance.html',
   '02-programme.html',
   '03-theory.html',
+  '04a-parameters.html',
   '04-infrastructure.html',
   '05-workstream-a.html',
   '06-workstream-b.html',
@@ -36,6 +37,7 @@ const PARTIALS = [
   '10-control.html',
   '11-appendices.html',
   '12-references.html',
+  '12b-references.html',
 ];
 
 /** Read a font file and return a CSS @font-face rule with the file inlined. */

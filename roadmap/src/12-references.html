@@ -1,0 +1,104 @@
+<!-- ===================== APPENDIX F: THRESHOLDS ===================== -->
+<section class="chapter">
+  <div class="chapter-label">Appendix F</div>
+  <h1 class="unnumbered" id="s-appF">Binding Thresholds<span class="sub">Every analytical cutoff in one place, with the authority behind each</span></h1>
+
+  <p>Guardrail G6 requires that every threshold live in one version-controlled file with its source attached, and that the code read it from there. This appendix is the human-readable form of <code>config/thresholds.yml</code>. Where the two disagree, one of them is wrong and is corrected; they are never left to disagree. Author-year references resolve in Appendix G, and each must be confirmed against the publisher record before it is carried into a manuscript.</p>
+
+  <div class="caption tbl above">Binding thresholds. Values marked <span class="tag amber">decide</span> require a decision before the stage runs and are recorded in the pre-registration.</div>
+  <table class="long">
+    <thead><tr><th style="width:26%">Parameter</th><th style="width:26%">Value</th><th style="width:16%">Stage</th><th style="width:32%">Authority</th></tr></thead>
+    <tbody>
+
+      <tr class="group"><td colspan="4">Item development and content validity</td></tr>
+      <tr><td>Item pool at pilot</td><td>At least three times the target length per dimension; 18 to 25 per dimension if the adaptive form is retained</td><td>B5</td><td>Adaptive administration requires a bank, not a form</td></tr>
+      <tr><td>Content validity panel</td><td>At least 8 independent raters spanning contractor, consultant and client roles</td><td>B5</td><td>Standard content validity practice</td></tr>
+      <tr><td>Item-level content validity index</td><td>&#8805; 0.78 to retain</td><td>B5</td><td>Conventional retention criterion</td></tr>
+      <tr><td>Scale-level content validity index</td><td>&#8805; 0.90 average</td><td>B5</td><td>Conventional retention criterion</td></tr>
+      <tr><td>Cognitive interviews</td><td>8 to 12 respondents spanning roles, including at least one site-based and one senior</td><td>B6</td><td>Comprehension testing convention</td></tr>
+      <tr><td>Pilot sample</td><td>&#8805; 150 respondents</td><td>B7</td><td>Sufficient to inspect category frequencies item by item</td></tr>
+      <tr><td>Response category collapse</td><td>Collapse any category endorsed by under 10 per cent, or where category curves are non-monotonic</td><td>B7, C6</td><td>Threshold estimation stability</td></tr>
+
+      <tr class="group"><td colspan="4">Sampling</td></tr>
+      <tr><td>Teams</td><td>50 to 60</td><td>B1, C7</td><td>Multilevel estimation floor (Maas and Hox, 2005); intermediate-N requirement for set-theoretic analysis</td></tr>
+      <tr><td>Respondents per team</td><td>10 to 12</td><td>B1</td><td>Team-mean reliability arithmetic, Section 4.1</td></tr>
+      <tr><td>Individual responses</td><td>500 target, 400 absolute floor</td><td>B1, C7</td><td>Ordinal factor model with roughly 60 items and 6 factors; graded-response calibration</td></tr>
+      <tr><td>Minimum for a team score</td><td>5 respondents; 5 to 7 flagged provisional</td><td>C3, D3</td><td>Also the confidentiality floor promised to participants</td></tr>
+      <tr><td>Per role group for invariance</td><td>150 to 200</td><td>C3</td><td>Otherwise restrict the comparative claims</td></tr>
+      <tr><td>Matched dyad sub-study</td><td>100 to 150 dyads</td><td>B7, C5</td><td>Convergent validity for the self-reported behaviour measure</td></tr>
+      <tr><td>Test-retest subsample</td><td>&#8805; 100, at 2 to 4 weeks</td><td>C2</td><td>Required to estimate transient error (Shaffer, DeGeest and Li, 2016)</td></tr>
+
+      <tr class="group"><td colspan="4">Measurement model</td></tr>
+      <tr><td>Estimator</td><td>Robust weighted least squares on polychoric correlations; robust maximum likelihood as a reported sensitivity analysis</td><td>C2</td><td>Rhemtulla, Brosseau-Liard and Savalei (2012)</td></tr>
+      <tr><td>Fit, comparative indices</td><td>&#8805; 0.95 desirable, &#8805; 0.90 floor</td><td>C2</td><td>Hu and Bentler (1999), reported as heuristics rather than gates</td></tr>
+      <tr><td>Fit, approximation index</td><td>&#8804; 0.06 desirable, &#8804; 0.08 tolerable, with its 90 per cent interval</td><td>C2</td><td>Hu and Bentler (1999)</td></tr>
+      <tr><td>Fit, residual index</td><td>&#8804; 0.08</td><td>C2</td><td>Hu and Bentler (1999)</td></tr>
+      <tr><td>Standardised residuals</td><td>Flag any absolute value above 2.58</td><td>C2</td><td>Local misfit diagnosis, reported alongside global fit</td></tr>
+      <tr><td>Competing specifications</td><td>One-factor, four-factor correlated, second-order, bifactor. The four-factor model must beat the one-factor model by at least 0.010 on the comparative index</td><td>C2</td><td>Required to justify the CLEAR structure at all</td></tr>
+      <tr><td>Loading retention</td><td>&#8805; 0.40 standardised</td><td>C2</td><td>Pre-specified before inspection</td></tr>
+      <tr><td>Reliability</td><td>Categorical omega with bootstrap interval: &#8805; 0.80 for research use, &#8805; 0.90 before any individual or team decision. Alpha reported as a legacy figure only</td><td>C2</td><td>McNeish (2018)</td></tr>
+      <tr><td>Discriminant validity</td><td>Heterotrait-monotrait ratio with 5,000 bootstrap resamples. Upper bound of the 95 per cent interval below 0.85 against external constructs; below 0.90 between CLEAR dimensions</td><td>C2</td><td>Henseler, Ringle and Sarstedt (2015)</td></tr>
+      <tr><td>Discriminant supplement</td><td>Nested comparison against a model with the factor correlation fixed at 1.0, reporting the change in fit as well as the test statistic</td><td>C2</td><td>Sensitive to sample size; reported as a supplement rather than a replacement</td></tr>
+      <tr><td>Incremental validity</td><td>Pre-registered increment over each comparator: 0.03 minimum defensible, 0.05 target <span class="tag amber">decide</span></td><td>C5</td><td>Commit in advance, and commit to reporting a null result</td></tr>
+      <tr><td>Formative and reflective audit</td><td>Run on every item before any factor model. Formative blocks report indicator collinearity below 3.3 and bootstrapped weights, never alpha or average variance extracted</td><td>B5, C2</td><td>Jarvis, MacKenzie and Podsakoff (2003)</td></tr>
+
+      <tr class="group"><td colspan="4">Invariance</td></tr>
+      <tr><td>Sequence for ordinal indicators</td><td>Configural, then thresholds, then loadings, then intercepts</td><td>C3</td><td>Categorical-outcome procedures, not the continuous sequence</td></tr>
+      <tr><td>Acceptance criteria</td><td>Change in comparative index &#8804; 0.010 with change in approximation index &#8804; 0.015; tighten to 0.005 and 0.010 where any group has fewer than 300 cases</td><td>C3</td><td>Chen (2007)</td></tr>
+      <tr><td>Differential item functioning</td><td>Flag at a pseudo-R-squared change of 0.02 or more</td><td>C3</td><td>Ordinal logistic supplement to the invariance sequence</td></tr>
+      <tr><td>Partial invariance</td><td>Name the non-invariant items and state which comparisons remain permissible</td><td>C3</td><td>Reporting obligation, not an option</td></tr>
+
+      <tr class="group"><td colspan="4">Aggregation</td></tr>
+      <tr><td>Between-group variance</td><td>ICC(1) &#8805; 0.05 floor, &#8805; 0.10 working target, with a significant variance test</td><td>C3</td><td>Typical organisational range is 0.05 to 0.20</td></tr>
+      <tr><td>Team-mean reliability</td><td>ICC(2) &#8805; 0.70 preferred, &#8805; 0.60 floor with an explicit caveat and no comparison of means</td><td>C3</td><td>Conventional threshold; the design in Section 4.1 exists to reach it</td></tr>
+      <tr><td>Within-group agreement</td><td>Median &#8805; 0.70, computed under at least two null distributions and reported as a range</td><td>C3</td><td>LeBreton and Senter (2008)</td></tr>
+      <tr><td>Team response rate</td><td>&#8805; 40 per cent of the roster</td><td>C3</td><td>Guards against a self-selected minority defining the team score</td></tr>
+      <tr><td>Composition model</td><td>Referent-shift consensus, named and tested rather than assumed</td><td>B5, C3</td><td>Chan (1998)</td></tr>
+      <tr><td>Isomorphism</td><td>Multilevel factor analysis demonstrating a coherent between-level structure before any team-level claim</td><td>C3</td><td>Aggregation statistics do not answer this question</td></tr>
+      <tr><td>Dispersion reporting</td><td>Within-team standard deviation reported beside every mean; band suppressed and the team reported as contested above the stated value <span class="tag amber">decide</span></td><td>C3, D4</td><td>Dispersion is a condition, not a nuisance</td></tr>
+
+      <tr class="group"><td colspan="4">Configurational analysis</td></tr>
+      <tr><td>Conditions</td><td>Fixed at four before fieldwork, giving 16 configurations</td><td>C4</td><td>Matched to the revised case base of 50 to 60 teams</td></tr>
+      <tr><td>Calibration anchors</td><td>Declared per condition with a written justification for each of the three anchors</td><td>C4</td><td>The most frequently and most correctly criticised element of published set-theoretic work</td></tr>
+      <tr><td>Raw consistency</td><td>&#8805; 0.80, with 0.75 as an absolute minimum</td><td>C4</td><td>Current reporting standard</td></tr>
+      <tr><td>Proportional reduction in inconsistency</td><td>&#8805; 0.70</td><td>C4</td><td>Guards against configurations sufficient for both the outcome and its negation</td></tr>
+      <tr><td>Frequency threshold</td><td>&#8805; 2 cases per retained configuration at this sample size</td><td>C4</td><td>Reported alongside the coverage achieved</td></tr>
+      <tr><td>Necessity</td><td>Consistency &#8805; 0.90, with coverage reported; tested statistically, not read from a plot</td><td>C4</td><td>Necessity is examined before sufficiency</td></tr>
+      <tr><td>Robustness protocol</td><td>Anchors varied by &plusmn; 0.05 and consistency evaluated at both 0.80 and 0.85, with the sensitivity reported</td><td>C4</td><td>A solution that survives one parameter setting is not a finding</td></tr>
+
+      <tr class="group"><td colspan="4">Structural model</td></tr>
+      <tr><td>Indirect effects</td><td>Monte Carlo or resampling intervals, never normal-theory standard errors</td><td>C5</td><td>The sampling distribution of a product is not symmetric</td></tr>
+      <tr><td>Power anchors</td><td>For a correlation of 0.15, at least 346 individuals; for 0.20, at least 194</td><td>C7</td><td>Anchored to meta-analytic estimates (Frazier et al., 2017) rather than to hoped-for effects</td></tr>
+      <tr><td>Functional form</td><td>A quadratic term tested in every outcome model and reported whether or not it is significant</td><td>C5</td><td>Eldor, Hodor and Cappelli (2023)</td></tr>
+      <tr><td>Method variance</td><td>Marker variable analysed with a confirmatory-factor technique, reporting the change in every substantive correlation. The single-factor test is not used</td><td>C2, C5</td><td>Williams, Hartman and Cavazotte (2010); Podsakoff et al. (2003)</td></tr>
+      <tr><td>Split-sample aggregation</td><td>On teams with sufficient respondents, predictor and outcome aggregated from disjoint halves; both estimates reported</td><td>C3, C5</td><td>Ostroff, Kinicki and Clark (2002)</td></tr>
+
+      <tr class="group"><td colspan="4">Item response and adaptive administration</td></tr>
+      <tr><td>Calibration sample</td><td>250 minimum, 500 target usable responses per dimension</td><td>C6</td><td>Five-category graded-response threshold stability</td></tr>
+      <tr><td>Threshold ordering</td><td>No disordered thresholds; collapse any category that is never modal</td><td>C6</td><td>Disordering indicates a category respondents do not use</td></tr>
+      <tr><td>Test information</td><td>&#8805; 10, equivalent to a standard error of about 0.32, across the working range of the trait</td><td>C6</td><td>Precision target expressed as a standard error, never as an item count</td></tr>
+      <tr><td>Adaptive stopping</td><td>Standard error &#8804; 0.30 or 16 items, whichever comes first, with exposure control pre-specified</td><td>C6, D2</td><td>Configurable, read from configuration rather than hard-coded</td></tr>
+      <tr><td>Simulated adaptive study</td><td>&#8805; 1,000 simulated respondents before any live adaptive administration</td><td>C6</td><td>Precision, exposure and length distribution all reported</td></tr>
+      <tr><td>Stage assumption</td><td>Invariant item ordering tested explicitly. If it fails, bands are reported as a continuum with intervals</td><td>C6</td><td>The test maturity grids never run</td></tr>
+
+      <tr class="group"><td colspan="4">Banding and decision</td></tr>
+      <tr><td>Derivation</td><td>Criterion-referenced, standard-setting, or no bands at all. Asserted values are not permitted <span class="tag amber">decide</span></td><td>4.4, D4</td><td>An undefended cut routes real organisations to real interventions</td></tr>
+      <tr><td>Criterion-referenced route</td><td>Area under the curve &#8805; 0.70 with its interval before decision utility is claimed</td><td>D4</td><td>Reported with sensitivity and specificity at the chosen cut</td></tr>
+      <tr><td>Standard-setting route</td><td>&#8805; 8 panellists, two rounds, inter-panellist agreement reported</td><td>D4</td><td>Bookmark or modified Angoff procedure</td></tr>
+      <tr><td>Classification consistency</td><td>&#8805; 0.80 before an intervention is routed on a cut</td><td>D4</td><td>Reported with decision accuracy</td></tr>
+      <tr><td>Uncertainty display</td><td>A buffer band rather than a hard line, and the proportion of teams whose interval straddles a boundary reported</td><td>D4</td><td>At a reliability of 0.80 the standard error of measurement is about 0.45 standard deviations</td></tr>
+      <tr><td>Composite score</td><td>None, anywhere. Dimensions scored independently and never as a share of a total</td><td>D4</td><td>Guardrail G7; a constant-sum transformation reintroduces ipsative dependency</td></tr>
+
+      <tr class="group"><td colspan="4">Review and reproducibility</td></tr>
+      <tr><td>Databases</td><td>&#8805; 2 large multidisciplinary sources with differing coverage, plus &#8805; 1 discipline-specific source</td><td>A2</td><td>Coverage overlap between the large indexes is substantial but incomplete</td></tr>
+      <tr><td>Dual screening</td><td>Pre-specified proportion and a pre-committed chance-corrected agreement threshold <span class="tag amber">decide</span></td><td>A1, A4</td><td>Fixed in the protocol rather than after seeing the result</td></tr>
+      <tr><td>Simulation replications</td><td>&#8805; 500 per design cell, reporting bias, root mean square error and interval coverage</td><td>C1, C7</td><td>Turns the simulation from a demonstration into a parameter-recovery study</td></tr>
+      <tr><td>Failure conditions</td><td>At least four generative conditions under which the pipeline should fail, demonstrated to fail</td><td>C1</td><td>A simulation that cannot fail the instrument is not a test of it</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box note">
+    <span class="box-title">On the word threshold</span>
+    <p>Several of the values above are conventions rather than laws, and two of the most-used were derived under conditions that do not match this design. They are adopted because a stated convention with its source attached is defensible and an unstated one is not. Where a value is used, it is cited; where it is contested, the contest is acknowledged in the methods chapter rather than concealed by silence. That is the whole of the argument for having this appendix.</p>
+  </div>
+</section>
