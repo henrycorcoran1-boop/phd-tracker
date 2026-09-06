@@ -24,6 +24,7 @@ const OUT = path.join(HERE, 'build');
 const PARTIALS = [
   '00-cover.html',
   '01-frontmatter.html',
+  '01b-atglance.html',
   '02-programme.html',
   '03-theory.html',
   '04-infrastructure.html',
