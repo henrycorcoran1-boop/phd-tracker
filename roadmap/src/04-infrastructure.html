@@ -1,0 +1,177 @@
+<!-- ===================== PART TWO: INFRASTRUCTURE ===================== -->
+<section class="chapter">
+  <div class="chapter-label">Part Two</div>
+  <h1 id="s-infrastructure">Infrastructure and Standing Conventions<span class="sub">Repositories, guardrails and the technical stack that everything else assumes</span></h1>
+
+  <p class="lead">No primary data exists yet. Fieldwork opens in the second quarter of 2027, and everything built before then is built against simulated data and swapped over later. That is a design decision rather than a workaround. It removes eighteen months of schedule risk, and it means the analysis code is debugged before the first real response arrives, at which point debugging competes with a submission deadline.</p>
+
+  <h2 id="s-repos">Two repositories, not one</h2>
+
+  <p>Research and product are kept apart. Institutional intellectual property in a research repository is a different question from intellectual property in a product repository, and disentangling the two later is considerably harder than separating them now. The only coupling is a single versioned file, and it crosses in one direction.</p>
+
+  <figure>
+    <svg viewBox="0 0 700 214" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The two-repository architecture and the single parameter file that couples them">
+      <defs>
+        <marker id="rpA" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#2f5d8c"/></marker>
+      </defs>
+      <g font-family="Inter, sans-serif">
+        <rect x="0" y="14" width="292" height="182" rx="3" fill="#f6fafd" stroke="#2f5d8c" stroke-width="1.2"/>
+        <text x="12" y="34" font-size="10" font-weight="700" fill="#1e3c5f">phd-culture-conversion</text>
+        <text x="12" y="47" font-size="7.4" font-weight="600" letter-spacing="0.8" fill="#5288c0">PRIVATE &#183; RESEARCH</text>
+        <line x1="12" y1="54" x2="280" y2="54" stroke="#cfdcea" stroke-width="0.8"/>
+        <g font-size="8.4" fill="#25415e">
+          <text x="16" y="72">Workstream A &#183; systematic review</text>
+          <text x="16" y="88">Workstream B &#183; construct development</text>
+          <text x="16" y="104">Workstream C &#183; analysis pipeline</text>
+          <text x="16" y="120">Simulated datasets, seeded and committed</text>
+          <text x="16" y="136">Manuscripts and thesis</text>
+        </g>
+        <rect x="16" y="148" width="264" height="34" rx="2" fill="#dde9f5" stroke="#2f5d8c" stroke-width="0.9"/>
+        <text x="148" y="162" font-size="8.4" font-weight="700" fill="#1e3c5f" text-anchor="middle">outputs/parameters/</text>
+        <text x="148" y="175" font-size="8.4" font-weight="700" fill="#1e3c5f" text-anchor="middle">item-parameters.json</text>
+
+        <rect x="408" y="14" width="292" height="182" rx="3" fill="#fbfaff" stroke="#4e3f7a" stroke-width="1.2"/>
+        <text x="420" y="34" font-size="10" font-weight="700" fill="#3d3163">clear-dst</text>
+        <text x="420" y="47" font-size="7.4" font-weight="600" letter-spacing="0.8" fill="#7a6ba8">PRIVATE &#183; ARTEFACT</text>
+        <line x1="420" y1="54" x2="688" y2="54" stroke="#ddd6ee" stroke-width="0.8"/>
+        <g font-size="8.4" fill="#3d3163">
+          <text x="424" y="72">Workstream D &#183; adaptive engine and interface</text>
+          <text x="424" y="88">Parameter loader with schema validation</text>
+          <text x="424" y="104">Configurational profile, no aggregate score</text>
+          <text x="424" y="120">Intervention routing and re-measurement</text>
+          <text x="424" y="136">Evaluation instrumentation, consent gated</text>
+        </g>
+        <rect x="424" y="148" width="264" height="34" rx="2" fill="#e5e0f2" stroke="#4e3f7a" stroke-width="0.9"/>
+        <text x="556" y="162" font-size="8.4" font-weight="700" fill="#3d3163" text-anchor="middle">calibration version recorded against</text>
+        <text x="556" y="175" font-size="8.4" font-weight="700" fill="#3d3163" text-anchor="middle">every response set</text>
+
+        <path d="M 292 165 L 350 165 L 350 165 L 406 165" fill="none" stroke="#2f5d8c" stroke-width="1.4" marker-end="url(#rpA)"/>
+        <text x="350" y="156" font-size="8" font-weight="700" fill="#2f5d8c" text-anchor="middle">one file,</text>
+        <text x="350" y="186" font-size="8" font-weight="700" fill="#2f5d8c" text-anchor="middle">one direction</text>
+
+        <rect x="300" y="34" width="100" height="86" rx="2" fill="#ffffff" stroke="#d5d5d5" stroke-width="0.9" stroke-dasharray="4 2"/>
+        <text x="350" y="52" font-size="7.6" font-weight="700" fill="#99302f" text-anchor="middle">NEVER CROSSES</text>
+        <g font-size="7.6" fill="#6f6f6f" text-anchor="middle">
+          <text x="350" y="70">raw responses</text>
+          <text x="350" y="84">organisation names</text>
+          <text x="350" y="98">free text</text>
+          <text x="350" y="112">analysis code</text>
+        </g>
+        <text x="350" y="8" font-size="7.6" font-weight="700" letter-spacing="1" fill="#99302f" text-anchor="middle">THE BOUNDARY</text>
+      </g>
+    </svg>
+  </figure>
+  <div class="caption fig">Repository separation. If a task appears to require both repositories at once, the answer is to export a parameter file, never to merge them.</div>
+
+  <h2 id="s-tree">Research repository layout</h2>
+
+  <p>The layout below replaces the Revision A structure. Two directories are new. <code>construct/</code> holds Workstream B, which Revision A omitted despite the mixed-methods design requiring it. <code>config/</code> holds every analytical threshold in version-controlled files rather than scattered through scripts, so that a decision such as a fuzzy-set calibration anchor is visible in a diff rather than buried in an argument.</p>
+
+<pre><span class="k">phd-culture-conversion/</span>              <span class="c"># private</span>
+├── CLAUDE.md                       <span class="c"># standing context, derived from this roadmap</span>
+├── renv.lock                       <span class="c"># locked R dependencies</span>
+├── _targets.R                      <span class="c"># pipeline orchestration</span>
+├── config/
+│   ├── thresholds.yml              <span class="c"># every analytical cutoff, in one place</span>
+│   ├── calibration-anchors.yml     <span class="c"># fsQCA anchors, with the reason for each</span>
+│   └── seeds.yml                   <span class="c"># one seed per stochastic target</span>
+├── data/
+│   ├── raw/                        <span class="c"># gitignored at creation, never committed</span>
+│   ├── simulated/                  <span class="c"># committed, seeded, reproducible</span>
+│   └── derived/                    <span class="c"># gitignored, rebuilt by the pipeline</span>
+├── review/                         <span class="c"># Workstream A</span>
+│   ├── protocol/                   <span class="c"># registered protocol and any amendments</span>
+│   ├── search/                     <span class="c"># strings, database exports, run log</span>
+│   ├── screening/                  <span class="c"># decision log, agreement analysis</span>
+│   ├── extraction/                 <span class="c"># instrument characteristics</span>
+│   └── appraisal/                  <span class="c"># six-criterion rubric scoring</span>
+├── construct/                      <span class="c"># Workstream B</span>
+│   ├── protocol/                   <span class="c"># interview guide, sampling frame</span>
+│   ├── coding/                     <span class="c"># coding frame and analytic memos only</span>
+│   ├── item-pool/                  <span class="c"># item development log, allocation decisions</span>
+│   ├── content-validity/           <span class="c"># expert panel ratings, CVI computation</span>
+│   └── pilot/                      <span class="c"># cognitive interview log, pilot psychometrics</span>
+├── analysis/                       <span class="c"># Workstream C</span>
+│   ├── simulate/                   <span class="c"># data generator</span>
+│   ├── measurement/                <span class="c"># ordinal CFA, reliability, HTMT</span>
+│   ├── invariance/                 <span class="c"># threshold, metric, scalar; aggregation</span>
+│   ├── configurational/            <span class="c"># NCA, fsQCA</span>
+│   ├── structural/                 <span class="c"># multilevel moderated mediation</span>
+│   ├── irt/                        <span class="c"># GRM calibration, CAT simulation, export</span>
+│   └── feasibility/                <span class="c"># design analysis grid for pre-registration</span>
+├── outputs/
+│   ├── figures/                    <span class="c"># generated only; never hand-edited</span>
+│   ├── tables/
+│   └── parameters/                 <span class="c"># item-parameters.json crosses to clear-dst</span>
+├── manuscripts/                    <span class="c"># Quarto; no hand-typed results</span>
+└── thesis/
+</pre>
+
+  <h2 id="s-guardrails">Standing guardrails</h2>
+
+  <p>These are absolute. They are not style preferences and they are not negotiable against a deadline. Each is stated with the failure it prevents, because a rule whose purpose is forgotten is a rule that gets suspended.</p>
+
+  <div class="box guard">
+    <span class="box-title">G1 &nbsp;Never fabricate</span>
+    <p>No invented data, results, statistics, citations, digital object identifiers or page numbers, in any file, for any reason, including as a placeholder. Where a number is needed and does not exist, write <span class="todo">TODO_FROM_PIPELINE</span> and stop. A fabricated placeholder that survives into a manuscript is an academic integrity failure, not a formatting error, and it is not recoverable by explanation after the fact.</p>
+  </div>
+
+  <div class="box guard">
+    <span class="box-title">G2 &nbsp;Numbers reach manuscripts only through the pipeline</span>
+    <p>Manuscript files never contain hand-typed results. Values arrive through generated table and figure artefacts or through inline references to pipeline outputs. When a number changes, it changes in one place. This is what makes the manuscripts survive a re-analysis, and a re-analysis is certain: reviewers ask for one.</p>
+  </div>
+
+  <div class="box guard">
+    <span class="box-title">G3 &nbsp;Simulated data is labelled as such, everywhere, always</span>
+    <p>Every simulated dataset, every figure built from one and every table derived from one carries <code>SIMULATED</code> in the filename and in the object metadata. There must exist no path by which a simulated result can be mistaken for an empirical one, including by a co-author, a reviewer, or the candidate eighteen months from now. The label is removed only when the file is deleted.</p>
+  </div>
+
+  <div class="box guard">
+    <span class="box-title">G4 &nbsp;No participant data in version control, ever</span>
+    <p><code>data/raw/</code> is gitignored at creation, before any file lands in it, and the ignore is verified before the first commit rather than after. Organisation names, individual names, interview transcripts and free-text responses do not enter either repository in any form. Pseudonymised identifiers only. Workstream B is the highest-risk stage for this rule, because transcripts are text files and text files look harmless.</p>
+  </div>
+
+  <div class="box guard">
+    <span class="box-title">G5 &nbsp;Everything is seeded and reproducible</span>
+    <p>Every stochastic operation takes an explicit seed drawn from <code>config/seeds.yml</code>. The whole pipeline rebuilds from raw inputs with a single command. A result that cannot be regenerated does not exist and is not reported.</p>
+  </div>
+
+  <div class="box guard">
+    <span class="box-title">G6 &nbsp;Every threshold lives in one file</span>
+    <p>Fit index cutoffs, discriminant validity thresholds, agreement criteria, fuzzy-set calibration anchors, consistency and coverage thresholds, adaptive stopping rules: all of them are declared in <code>config/thresholds.yml</code> with the source that justifies each, and are read from there by the code. A threshold that appears as a literal inside a script is a threshold nobody will be able to defend under questioning.</p>
+  </div>
+
+  <div class="box guard">
+    <span class="box-title">G7 &nbsp;The artefact never displays an aggregate readiness score</span>
+    <p>The absence of a single number is a theoretical commitment, not an oversight. An aggregate score would permit exactly the substitution the thesis argues against, in which a composite figure stands in for knowing which condition binds. This rule survives every usability complaint it attracts, and it will attract some.</p>
+  </div>
+
+  <div class="box guard">
+    <span class="box-title">G8 &nbsp;British English throughout</span>
+    <p>Code comments, documentation, output labels, item wording and manuscripts. Analyse, behaviour, organisation, modelling, centre, programme. The instrument is administered to Irish respondents and inconsistent orthography in a survey item is a small credibility cost paid on every page.</p>
+  </div>
+
+  <h2 id="s-stack">Technical stack</h2>
+
+  <div class="caption tbl above">Stack, with the reason each component is fixed rather than chosen later.</div>
+  <table class="long">
+    <thead><tr><th style="width:22%">Layer</th><th style="width:30%">Component</th><th style="width:48%">Why it is fixed now</th></tr></thead>
+    <tbody>
+      <tr><td>Orchestration</td><td><code>targets</code></td><td>Declares the dependency graph so that changing one input invalidates exactly the downstream results and nothing else. Without it, reproducibility depends on remembering what to re-run.</td></tr>
+      <tr><td>Dependencies</td><td><code>renv</code></td><td>Locks package versions. Several of the packages below have changed interface across recent major versions, and an examiner will ask which version produced a given result.</td></tr>
+      <tr><td>Factor models</td><td><code>lavaan</code>, <code>semTools</code></td><td>Ordinal estimation, invariance testing including the ordinal threshold step, and reliability coefficients appropriate to categorical indicators.</td></tr>
+      <tr><td>Reliability</td><td><code>psych</code>, <code>MBESS</code></td><td>Categorical omega with confidence intervals. Coefficient alpha alone will not satisfy a psychometrically literate reviewer.</td></tr>
+      <tr><td>Item response theory</td><td><code>mirt</code></td><td>Graded response calibration, item and test information, and simulated adaptive administration in the same package as the calibration.</td></tr>
+      <tr><td>Necessity</td><td><code>NCA</code></td><td>Ceiling line estimation, effect sizes and bottleneck tables.</td></tr>
+      <tr><td>Set-theoretic</td><td><code>QCA</code></td><td>Calibration, truth table construction, minimisation and the robustness protocols the method now requires.</td></tr>
+      <tr><td>Reporting</td><td><code>quarto</code></td><td>Inline references to pipeline objects, which is what makes guardrail G2 enforceable rather than aspirational.</td></tr>
+      <tr><td>Artefact</td><td>TypeScript, Next.js App Router, PostgreSQL, Prisma</td><td>Type safety across the parameter contract, and a relational store for longitudinal re-measurement, which a document store would make awkward.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box note">
+    <span class="box-title">Verify before assuming</span>
+    <p>Package names and interfaces are checked against current releases at the point of setup rather than assumed from memory. Several of the packages above have changed function signatures across major versions, and the failure mode is silent: an argument that has been renamed is ignored, the model fits, and the result is wrong in a way nothing warns about.</p>
+  </div>
+</section>

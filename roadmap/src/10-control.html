@@ -1,0 +1,290 @@
+<!-- ===================== PART FOUR: SEQUENCING AND CONTROL ===================== -->
+<section class="chapter">
+  <div class="chapter-label">Part Four</div>
+  <h1 id="s-sequence">Sequencing, Gates and Timeline<span class="sub">What is built when, what blocks what, and the criterion that closes each stage</span></h1>
+
+  <h2 id="s-buildorder">Build order</h2>
+
+  <p>The ordering below is not a preference. Each entry blocks the ones beneath it, and the two long-lead items, ethics and access, start on day one because neither is under the candidate's control and both can absorb months without warning.</p>
+
+  <div class="caption tbl above">Build order with blocking relationships. Items 1 to 9 can all be completed before survey fieldwork opens, which is the point of the sequence.</div>
+  <table class="long">
+    <thead><tr><th style="width:6%">Order</th><th style="width:40%">Work</th><th style="width:27%">Blocks</th><th style="width:27%">Blocked by</th></tr></thead>
+    <tbody>
+      <tr><td class="ref">1</td><td>Repository scaffold, gitignore verification, dependency lock, pipeline skeleton, thresholds and seeds files</td><td>Everything</td><td>Nothing</td></tr>
+      <tr><td class="ref">2</td><td>Stage B1: ethics application and access negotiation</td><td>B3, all fieldwork, E2</td><td>Nothing. Start immediately.</td></tr>
+      <tr><td class="ref">3</td><td>Stages A1 to A3: protocol, registration, search, deduplication</td><td>A4 onward</td><td>Item 1</td></tr>
+      <tr><td class="ref">4</td><td>Stage C1: the data generator</td><td>All of Workstream C</td><td>Item 1</td></tr>
+      <tr><td class="ref">5</td><td>Stages A4 to A6: screening, appraisal, Paper 1</td><td>B5 item inheritance</td><td>Item 3</td></tr>
+      <tr><td class="ref">6</td><td>Stages B2 to B4: interviews and analysis</td><td>B5, Paper 2</td><td>Items 2 and 4</td></tr>
+      <tr><td class="ref">7</td><td>Stages C2 to C5 on simulated data</td><td>C7, and the field analysis</td><td>Item 4</td></tr>
+      <tr><td class="ref">8</td><td>Stage B5 to B7: item generation, content validity, cognitive testing, pilot</td><td>Survey fieldwork, Workstream D</td><td>Items 5 and 6</td></tr>
+      <tr><td class="ref">9</td><td>Stage C7: feasibility grid and pre-registration</td><td>Survey fieldwork opening</td><td>Item 7</td></tr>
+      <tr><td class="ref">10</td><td>Stages D1 to D4 on pilot parameters</td><td>D5 to D7</td><td>Item 8</td></tr>
+      <tr><td class="ref">11</td><td>Survey fieldwork</td><td>The field analysis, C6</td><td>Items 8 and 9</td></tr>
+      <tr><td class="ref">12</td><td>Stage C6: calibration and adaptive simulation</td><td>The parameter swap</td><td>Item 11</td></tr>
+      <tr><td class="ref">13</td><td>Stages D5 to D7 and the parameter swap</td><td>E2</td><td>Items 10 and 12</td></tr>
+      <tr><td class="ref">14</td><td>Stages E1 to E3: evaluation and design principles</td><td>Paper 4, thesis</td><td>Item 13</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="s-timeline">Indicative timeline</h2>
+
+  <p>The schedule below is anchored on one fixed point carried from the previous revision, which is that fieldwork opens in the second quarter of 2027. Everything else is derived from the dependency structure. The dates are indicative and must be reconciled against the actual registration date, the funding end date and the submission deadline before this roadmap is treated as a plan of record.</p>
+
+  <figure>
+    <svg viewBox="0 0 760 372" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Programme timeline from late 2026 to late 2029 with stage gates">
+      <g font-family="Inter, sans-serif">
+        <!-- column headers -->
+        <g font-size="7.4" font-weight="700" fill="#57606b" text-anchor="middle">
+          <text x="196" y="10">Q4</text><text x="244" y="10">Q1</text><text x="292" y="10">Q2</text><text x="340" y="10">Q3</text><text x="388" y="10">Q4</text>
+          <text x="436" y="10">Q1</text><text x="484" y="10">Q2</text><text x="532" y="10">Q3</text><text x="580" y="10">Q4</text>
+          <text x="628" y="10">Q1</text><text x="676" y="10">Q2</text><text x="724" y="10">Q3</text>
+        </g>
+        <g font-size="8" font-weight="700" fill="#1e3c5f" text-anchor="middle">
+          <text x="196" y="22">2026</text><text x="316" y="22">2027</text><text x="508" y="22">2028</text><text x="676" y="22">2029</text>
+        </g>
+        <g stroke="#e6e6e6" stroke-width="0.7">
+          <line x1="172" y1="26" x2="172" y2="330"/><line x1="220" y1="26" x2="220" y2="330"/><line x1="268" y1="26" x2="268" y2="330"/>
+          <line x1="316" y1="26" x2="316" y2="330"/><line x1="364" y1="26" x2="364" y2="330"/><line x1="412" y1="26" x2="412" y2="330"/>
+          <line x1="460" y1="26" x2="460" y2="330"/><line x1="508" y1="26" x2="508" y2="330"/><line x1="556" y1="26" x2="556" y2="330"/>
+          <line x1="604" y1="26" x2="604" y2="330"/><line x1="652" y1="26" x2="652" y2="330"/><line x1="700" y1="26" x2="700" y2="330"/>
+          <line x1="748" y1="26" x2="748" y2="330"/>
+        </g>
+        <g stroke="#b9c4cf" stroke-width="1"><line x1="268" y1="26" x2="268" y2="336"/><line x1="460" y1="26" x2="460" y2="336"/><line x1="604" y1="26" x2="604" y2="336"/></g>
+
+        <!-- rows -->
+        <g font-size="7.8" fill="#25415e">
+          <text x="0" y="41">Scaffold, thresholds, seeds</text>
+          <text x="0" y="59">B1 &#183; Ethics and access</text>
+          <text x="0" y="77">A1&#8211;A3 &#183; Protocol, search, dedup</text>
+          <text x="0" y="95">C1 &#183; Data generator</text>
+          <text x="0" y="113">A4&#8211;A6 &#183; Screening to Paper 1</text>
+          <text x="0" y="131">B2&#8211;B4 &#183; Interviews and analysis</text>
+          <text x="0" y="149">C2&#8211;C5 &#183; Pipeline on simulated data</text>
+          <text x="0" y="167">B5&#8211;B7 &#183; Items, content validity, pilot</text>
+          <text x="0" y="185">C7 &#183; Feasibility and pre-registration</text>
+          <text x="0" y="203">D1&#8211;D4 &#183; Artefact on pilot parameters</text>
+          <text x="0" y="221">Survey fieldwork</text>
+          <text x="0" y="239">Field analysis, C2&#8211;C5 re-run</text>
+          <text x="0" y="257">C6 &#183; Calibration and adaptive study</text>
+          <text x="0" y="275">D5&#8211;D7 &#183; Routing, swap, telemetry</text>
+          <text x="0" y="293">E1&#8211;E2 &#183; Artefact evaluation</text>
+          <text x="0" y="311">E3&#8211;E5 &#183; Principles, thesis, viva</text>
+        </g>
+
+        <g>
+          <rect x="172" y="34" width="48" height="10" rx="1.5" fill="#8a939d"/>
+          <rect x="172" y="52" width="144" height="10" rx="1.5" fill="#99302f"/>
+          <rect x="172" y="70" width="96" height="10" rx="1.5" fill="#2f5d8c"/>
+          <rect x="172" y="88" width="96" height="10" rx="1.5" fill="#1e3c5f"/>
+          <rect x="220" y="106" width="96" height="10" rx="1.5" fill="#2f5d8c"/>
+          <rect x="268" y="124" width="96" height="10" rx="1.5" fill="#1f6f6a"/>
+          <rect x="268" y="142" width="96" height="10" rx="1.5" fill="#1e3c5f"/>
+          <rect x="316" y="160" width="96" height="10" rx="1.5" fill="#1f6f6a"/>
+          <rect x="340" y="178" width="48" height="10" rx="1.5" fill="#3a6b37"/>
+          <rect x="340" y="196" width="120" height="10" rx="1.5" fill="#4e3f7a"/>
+          <rect x="412" y="214" width="96" height="10" rx="1.5" fill="#99302f"/>
+          <rect x="484" y="232" width="72" height="10" rx="1.5" fill="#1e3c5f"/>
+          <rect x="508" y="250" width="72" height="10" rx="1.5" fill="#1e3c5f"/>
+          <rect x="532" y="268" width="72" height="10" rx="1.5" fill="#4e3f7a"/>
+          <rect x="556" y="286" width="96" height="10" rx="1.5" fill="#4e3f7a"/>
+          <rect x="628" y="304" width="120" height="10" rx="1.5" fill="#3a6b37"/>
+        </g>
+
+        <!-- milestones -->
+        <g>
+          <path d="M 316 111 l 5 5 l -5 5 l -5 -5 z" fill="#ffffff" stroke="#3a6b37" stroke-width="1.4"/>
+          <path d="M 364 129 l 5 5 l -5 5 l -5 -5 z" fill="#ffffff" stroke="#3a6b37" stroke-width="1.4"/>
+          <path d="M 388 183 l 5 5 l -5 5 l -5 -5 z" fill="#ffffff" stroke="#3a6b37" stroke-width="1.4"/>
+          <path d="M 412 165 l 5 5 l -5 5 l -5 -5 z" fill="#ffffff" stroke="#3a6b37" stroke-width="1.4"/>
+          <path d="M 580 255 l 5 5 l -5 5 l -5 -5 z" fill="#ffffff" stroke="#3a6b37" stroke-width="1.4"/>
+          <path d="M 652 291 l 5 5 l -5 5 l -5 -5 z" fill="#ffffff" stroke="#3a6b37" stroke-width="1.4"/>
+          <path d="M 748 309 l 5 5 l -5 5 l -5 -5 z" fill="#ffffff" stroke="#3a6b37" stroke-width="1.4"/>
+        </g>
+
+        <line x1="0" y1="336" x2="760" y2="336" stroke="#e6e6e6" stroke-width="0.8"/>
+        <g font-size="7.2" fill="#57606b">
+          <text x="0" y="350">Milestones:</text>
+          <text x="52" y="350">Paper 1 submitted (2027 Q2) &#183; Paper 2 drafted (2027 Q3) &#183; Instrument frozen (2027 Q4) &#183; Pre-registration lodged (2027 Q4)</text>
+          <text x="52" y="362">Papers 3 and 5 submitted (2028 Q4) &#183; Paper 4 submitted (2029 Q1) &#183; Thesis submitted (2029 Q3)</text>
+        </g>
+        <g font-size="7.2" font-weight="600">
+          <rect x="560" y="344" width="9" height="7" fill="#99302f"/><text x="574" y="350" fill="#57606b">Not fully controllable</text>
+          <rect x="560" y="356" width="9" height="7" fill="#3a6b37"/><text x="574" y="362" fill="#57606b">Gate or milestone</text>
+        </g>
+      </g>
+    </svg>
+  </figure>
+  <div class="caption fig">Indicative programme timeline. The two bars in red are the items least under the candidate's control, and both sit on the critical path. Dates require reconciliation against the registration and funding record before adoption.</div>
+
+  <h2 id="s-gates">Stage gates</h2>
+
+  <p>A gate is a criterion, not a review meeting. Work does not pass a gate because the date arrived.</p>
+
+  <div class="caption tbl above">Stage gates and the evidence that closes each.</div>
+  <table class="long">
+    <thead><tr><th class="ref" style="width:8%">Gate</th><th style="width:46%">Criterion</th><th style="width:46%">Evidence that closes it</th></tr></thead>
+    <tbody>
+      <tr><td class="ref">A1</td><td>Two screeners independently reach acceptable agreement on twenty pilot records without conferring</td><td>Agreement statistic on the pilot set, with the criteria revision it prompted</td></tr>
+      <tr><td class="ref">A4</td><td>The flow diagram regenerates from the screening log and matches the manuscript</td><td>Single-command rebuild producing identical counts</td></tr>
+      <tr><td class="ref">A6</td><td>The review reproduces from raw exports with no manual step</td><td>Clean pipeline run and completed reporting checklist</td></tr>
+      <tr><td class="ref">B1</td><td>Ethics approved and access agreements signed for enough organisations to reach the C7 recruitment target</td><td>Approval letter and signed agreements, filed</td></tr>
+      <tr><td class="ref">B7</td><td>Instrument frozen with full item traceability, and provisional parameters consumed by the artefact</td><td>Item development log, and a successful parameter load in the artefact repository</td></tr>
+      <tr><td class="ref">C2</td><td>The code recovers the four-factor structure from the four-factor world and the three-factor structure from the three-factor world</td><td>Both recovery runs, reported</td></tr>
+      <tr><td class="ref">C7</td><td>Full pipeline runs end to end on simulated data; recruitment target derived; pre-registration lodged</td><td>Pipeline run log, feasibility grid, timestamped registration</td></tr>
+      <tr><td class="ref">D2</td><td>Cross-language parity holds across the full simulated corpus, automatically, on every change</td><td>Continuous integration record showing the parity test running and passing</td></tr>
+      <tr><td class="ref">D7</td><td>Artefact deployable, no composite score present, evaluation instrumentation ready</td><td>Passing composite-absence test, and the telemetry specification signed off against E1</td></tr>
+      <tr><td class="ref">E2</td><td>Both clearances confirmed in writing before any real participant is recruited</td><td>Ethics amendment and intellectual property position, dated and filed</td></tr>
+      <tr><td class="ref">E5</td><td>Every number in the thesis traces to a pipeline, every item to a log, every screening decision to a record</td><td>Live reproducibility demonstration from raw inputs</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===================== RISK ===================== -->
+<section class="chapter">
+  <div class="chapter-label">Part Four</div>
+  <h1 id="s-risk">Risk Register<span class="sub">What can go wrong, how likely it is, and what has already been built to absorb it</span></h1>
+
+  <p class="lead">A risk register whose entries have no owner and no mitigation is a document written to be filed. Every entry below names the stage that carries it and the specific thing that has been built into the design to absorb it. Four of these risks are structural, meaning they cannot be eliminated and must be managed and reported.</p>
+
+  <figure>
+    <svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Risk severity and likelihood matrix">
+      <g font-family="Inter, sans-serif">
+        <rect x="86" y="14" width="176" height="66" fill="#fdf8ec"/>
+        <rect x="262" y="14" width="176" height="66" fill="#f9e6d8"/>
+        <rect x="438" y="14" width="176" height="66" fill="#f6dedd"/>
+        <rect x="86" y="80" width="176" height="66" fill="#f3f8f1"/>
+        <rect x="262" y="80" width="176" height="66" fill="#fdf8ec"/>
+        <rect x="438" y="80" width="176" height="66" fill="#f9e6d8"/>
+        <rect x="86" y="146" width="176" height="66" fill="#f3f8f1"/>
+        <rect x="262" y="146" width="176" height="66" fill="#f3f8f1"/>
+        <rect x="438" y="146" width="176" height="66" fill="#fdf8ec"/>
+        <g stroke="#ffffff" stroke-width="1.4" fill="none">
+          <path d="M 262 14 L 262 212 M 438 14 L 438 212 M 86 80 L 614 80 M 86 146 L 614 146"/>
+        </g>
+        <rect x="86" y="14" width="528" height="198" fill="none" stroke="#c8c8c8" stroke-width="0.8"/>
+
+        <text transform="rotate(-90 24 113)" x="24" y="113" font-size="8" font-weight="700" letter-spacing="1.2" fill="#57606b" text-anchor="middle">LIKELIHOOD</text>
+        <g font-size="7.6" font-weight="600" fill="#57606b" text-anchor="end">
+          <text x="78" y="50">High</text><text x="78" y="116">Medium</text><text x="78" y="182">Low</text>
+        </g>
+        <text x="350" y="238" font-size="8" font-weight="700" letter-spacing="1.2" fill="#57606b" text-anchor="middle">CONSEQUENCE FOR THE THESIS</text>
+        <g font-size="7.6" font-weight="600" fill="#57606b" text-anchor="middle">
+          <text x="174" y="226">Manageable</text><text x="350" y="226">Serious</text><text x="526" y="226">Critical</text>
+        </g>
+
+        <g font-size="7.6" font-weight="700" text-anchor="middle">
+          <circle cx="500" cy="36" r="10" fill="#99302f"/><text x="500" y="39" fill="#ffffff">R1</text>
+          <circle cx="546" cy="52" r="10" fill="#99302f"/><text x="546" y="55" fill="#ffffff">R2</text>
+          <circle cx="330" cy="40" r="10" fill="#8a6100"/><text x="330" y="43" fill="#ffffff">R3</text>
+          <circle cx="500" cy="102" r="10" fill="#99302f"/><text x="500" y="105" fill="#ffffff">R4</text>
+          <circle cx="546" cy="122" r="10" fill="#99302f"/><text x="546" y="125" fill="#ffffff">R5</text>
+          <circle cx="352" cy="106" r="10" fill="#8a6100"/><text x="352" y="109" fill="#ffffff">R6</text>
+          <circle cx="396" cy="126" r="10" fill="#8a6100"/><text x="396" y="129" fill="#ffffff">R7</text>
+          <circle cx="196" cy="60" r="10" fill="#8a6100"/><text x="196" y="63" fill="#ffffff">R8</text>
+          <circle cx="510" cy="170" r="10" fill="#8a6100"/><text x="510" y="173" fill="#ffffff">R9</text>
+          <circle cx="330" cy="176" r="10" fill="#3a6b37"/><text x="330" y="179" fill="#ffffff">R10</text>
+          <circle cx="196" cy="176" r="10" fill="#3a6b37"/><text x="196" y="179" fill="#ffffff">R11</text>
+        </g>
+      </g>
+    </svg>
+  </figure>
+  <div class="caption fig">Risk position at Revision B. The upper right quadrant contains the risks that would change the shape of the thesis rather than delay it, and all four are addressed by design decisions already taken rather than by contingency.</div>
+
+  <div class="caption tbl above">Risk register. Structural risks cannot be eliminated; they are managed, quantified and reported.</div>
+  <table class="long">
+    <thead><tr><th class="ref" style="width:6%">Ref.</th><th style="width:29%">Risk</th><th style="width:8%">Stage</th><th style="width:57%">Mitigation already built into the design</th></tr></thead>
+    <tbody>
+      <tr><td class="ref">R1</td><td><strong>Team-mean reliability is too low to defend aggregation</strong>, because four to five respondents per team bounds it structurally <span class="tag red">structural</span></td><td>C3</td><td>Quantified in advance across the intraclass correlation sweep at Stage C1, mapped at C3 and priced at C7. Three responses pre-selected: raise respondents per team where access permits, run the structural model at individual level with cluster-robust errors, or report honestly against the interpretive standards and argue on the other two statistics. The decision is recorded in the pre-registration rather than taken after seeing the data.</td></tr>
+      <tr><td class="ref">R2</td><td><strong>The calibration sample is too small for stable graded-response parameters</strong>, and the promised adaptive short form cannot reach the precision claimed <span class="tag red">structural</span></td><td>C6</td><td>The arithmetic is confronted in Stage C6 rather than discovered. Precision is restated as a standard error target instead of an item count, a multidimensional model is fitted to borrow information across correlated dimensions, and the fallback is a sixteen to twenty item adaptive form which remains a reduction of more than half.</td></tr>
+      <tr><td class="ref">R3</td><td><strong>Recruitment falls short of the team target</strong>, leaving the multilevel model underpowered</td><td>B1, C7</td><td>Access is item two in the build order and starts on day one. The design-effect-adjusted single-level fallback is built and tested on simulated data at Stage C5, so switching to it is a sample-size decision made against a pre-registered threshold rather than an improvisation.</td></tr>
+      <tr><td class="ref">R4</td><td><strong>The four-factor structure does not hold</strong> and the social conditions collapse into one</td><td>C2</td><td>The three-factor rival is generated, specified and pre-registered as a competing model rather than treated as a fallback. The consequence for the artefact, three intervention classes rather than four, is worked out in advance so that the finding is reportable rather than disruptive.</td></tr>
+      <tr><td class="ref">R5</td><td><strong>The instrument is challenged as a climate measure presented as a culture measure</strong></td><td>C2, thesis</td><td>The measurement claim is stated narrowly and defended on its own terms in Chapter 3, the composition model is named, and the qualitative phase carries the deeper cultural account that survey items cannot reach. Conceding the distinction is stronger than defending the broader claim.</td></tr>
+      <tr><td class="ref">R6</td><td><strong>Construct redundancy against realised absorptive capacity</strong></td><td>B5, C2</td><td>A short validated absorptive capacity scale is carried in the instrument from Stage B5 and discriminant validity is tested against it directly at Stage C2. The objection is answered with data rather than with argument, at a cost of eight items.</td></tr>
+      <tr><td class="ref">R7</td><td><strong>Common method variance inflates the culture-to-innovation relationship</strong></td><td>B5, C2, C5</td><td>Separate informant for the team-level outcome, temporal separation between predictor and outcome blocks, and a marker variable carried in the instrument. Procedural remedies designed in rather than statistical remedies applied after.</td></tr>
+      <tr><td class="ref">R8</td><td><strong>Set-theoretic analysis is criticised for arbitrary calibration</strong></td><td>C4</td><td>Anchors are declared in a version-controlled configuration file with a written justification for each, and the robustness protocol varies anchors and thresholds across a stated range with the sensitivity reported.</td></tr>
+      <tr><td class="ref">R9</td><td><strong>Ethics or intellectual property clearance is delayed past the evaluation window</strong></td><td>B1, D1, E2</td><td>One ethics application covers all three phases rather than three sequential applications. The intellectual property enquiry opens at Stage D1, long before the artefact meets a participant. Both are tracked as blocking items rather than administrative tasks.</td></tr>
+      <tr><td class="ref">R10</td><td><strong>Review timelines delay the thesis</strong></td><td>E4</td><td>Papers 1 and 2 depend on nothing downstream and are submitted while empirical work runs. The thesis is assembled from shared sources so that it does not wait on acceptance.</td></tr>
+      <tr><td class="ref">R11</td><td><strong>Participant data reaches version control</strong></td><td>B3, all</td><td>The ignore rule is verified before any data exists rather than after. Transcripts and raw responses live outside the repository entirely, and the repository holds only coding frames, memos and aggregate output.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box guard">
+    <span class="box-title">The two risks that must be reported rather than solved</span>
+    <p>R1 and R2 are properties of the design at the sample size available, not defects to be engineered away. Both are named in the limitations section with their consequence for interpretation stated, and both are quantified by the simulation work rather than estimated. A thesis that names its structural constraints and prices them is in a stronger position than one that discovers them under examination.</p>
+  </div>
+</section>
+
+<!-- ===================== ETHICS ===================== -->
+<section class="chapter">
+  <div class="chapter-label">Part Four</div>
+  <h1 id="s-ethics">Ethics, Data Protection and Intellectual Property<span class="sub">The obligations that constrain what may be collected, stored, reported and deployed</span></h1>
+
+  <h2 id="s-coercion">The employer and employee problem</h2>
+
+  <p>Access is granted by management and data is given by employees. That asymmetry is the defining ethical feature of this study and a generic consent form does not answer it. An employee who understands that their organisation has sponsored the research, that their manager knows the survey is running, and that their team is small, has good reason to answer carefully rather than honestly. Every design decision below exists to reduce that reason.</p>
+
+  <ol class="instructions">
+    <li>State in the participant information sheet, in plain terms, that participation is voluntary, that no list of participants or non-participants is provided to the employer, and that no individual response is ever returned to the organisation in any form.</li>
+    <li>Set and publish a minimum number of respondents below which no team-level result is produced, and enforce it in the data layer of the artefact rather than as a reporting convention. Tell participants the number.</li>
+    <li>Suppress any breakdown that would identify an individual by combination of characteristics. A team of four with one female member and one role-specific breakdown has been identified whatever the field labels say.</li>
+    <li>Arrange administration so that a manager cannot observe who is completing the instrument and who is not, and say in the information sheet how that has been arranged.</li>
+    <li>Give participants a route to withdraw that does not require contacting anyone in their organisation, and state the point after which withdrawal is no longer possible because the data has been aggregated beyond recovery.</li>
+  </ol>
+
+  <h2 id="s-dataprotection">Data protection</h2>
+
+  <ol class="instructions">
+    <li>Establish and record the lawful basis for processing before collection, and reflect it accurately in the information sheet. Consent and the public interest basis carry different obligations and different withdrawal consequences, and the choice must be made deliberately with the institution's data protection office rather than assumed.</li>
+    <li>Distinguish pseudonymised from anonymised data honestly throughout. Data holding a re-identification key is pseudonymised and remains personal data under the applicable regime; describing it as anonymous in a consent form is a misrepresentation to participants as well as a compliance failure.</li>
+    <li>Apply data minimisation to the instrument itself. Every demographic field must justify its presence against a specific analytical use, and fields collected because they might be interesting are precisely the fields that enable re-identification.</li>
+    <li>Set the retention period and the destruction point for recordings, transcripts and identifier keys, record them in the data management plan, and diarise them. A retention schedule that is never executed is not a retention schedule.</li>
+    <li>Assess whether the processing triggers a formal impact assessment, taking into account employee data, systematic evaluation of personal aspects, and the artefact's telemetry. Where it does, complete it before collection rather than in parallel with it.</li>
+    <li>Treat the artefact as a separate processing activity with its own basis, its own retention and its own subject-rights routes, since it stores responses beyond the research study and continues after it.</li>
+  </ol>
+
+  <div class="box guard">
+    <span class="box-title">Institutional dependency</span>
+    <p>The lawful basis, the impact assessment trigger and the precise ethics route are institutional determinations, not decisions the candidate makes alone. Confirm each with the institution's research ethics committee and data protection office in writing, and file the confirmations. This roadmap states the obligations to be discharged; it does not substitute for that confirmation.</p>
+  </div>
+
+  <h2 id="s-ip">Intellectual property</h2>
+
+  <p>Two questions are settled before the artefact meets a participant, and both are settled in writing. The first is ownership of software developed by a registered candidate using institutional resources, which varies by institution and by funding source and is rarely what people assume. The second is what may be done with the artefact afterwards: whether it can be licensed, commercialised, released openly, or used with organisations outside the study.</p>
+
+  <ol class="instructions">
+    <li>Open the enquiry at Stage D1, when the parameter file first crosses the repository boundary and the question becomes concrete.</li>
+    <li>Establish the position in writing, covering ownership, permitted use during the study, and permitted use afterwards.</li>
+    <li>Establish separately what participating organisations may do with their own profile data, and state it in the access agreement rather than leaving it to be argued later.</li>
+    <li>Record the licence status of every inherited instrument item from Stage A5. Reproducing copyrighted items without permission is an infringement whether or not the resulting instrument is commercialised.</li>
+    <li>Decide the position on releasing the item parameters and the instrument openly. Open release strengthens the contribution and constrains commercialisation, and the two cannot both be maximised.</li>
+  </ol>
+</section>
+
+<!-- ===================== PROHIBITIONS ===================== -->
+<section class="chapter">
+  <div class="chapter-label">Part Four</div>
+  <h1 id="s-prohibitions">Prohibitions<span class="sub">The list that does not get suspended when the schedule slips</span></h1>
+
+  <p class="lead">Each of the following prevents a specific failure that is either irreversible or expensive to reverse. They are listed together because the moment any one of them looks negotiable is the moment the schedule is under pressure, which is exactly when the reasoning behind them is least accessible.</p>
+
+  <div class="caption tbl above">Prohibitions, with the failure each prevents.</div>
+  <table class="long">
+    <thead><tr><th style="width:44%">Do not</th><th style="width:56%">Because</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Write results, statistics or citations into any manuscript file directly</strong></td><td>A hand-typed number cannot be updated when the analysis changes, and it will not be updated. This is how a manuscript comes to disagree with its own pipeline.</td></tr>
+      <tr><td><strong>Merge the two repositories</strong></td><td>Institutional intellectual property in a research repository is a different question from intellectual property in a product repository. If a task appears to need both, export a parameter file.</td></tr>
+      <tr><td><strong>Commit anything to <code>data/raw/</code>, or any transcript anywhere</strong></td><td>Git history is not erasable in practice once shared, and the consent given to participants did not extend to this.</td></tr>
+      <tr><td><strong>Add an aggregate readiness score to the artefact</strong></td><td>It permits exactly the substitution the thesis argues against, and it will be requested by users who find the profile harder to read than a number.</td></tr>
+      <tr><td><strong>Deploy the artefact to real participants before both clearances</strong></td><td>Data collected without clearance is unusable, and the harm to the institutional relationship outlasts the study.</td></tr>
+      <tr><td><strong>Build the analysis pipeline for the four-condition case only</strong></td><td>The instrument may collapse to three dimensions, and the code must be proven to detect that before the data arrives rather than being written under deadline afterwards.</td></tr>
+      <tr><td><strong>Remove the <code>SIMULATED</code> label from any output at any stage</strong></td><td>There must exist no path by which a simulated result is mistaken for an empirical one, including by the candidate.</td></tr>
+      <tr><td><strong>Fit by modification index and report the result as confirmatory</strong></td><td>It is detectable, it is common, and it converts a confirmatory analysis into an exploratory one without saying so.</td></tr>
+      <tr><td><strong>Set fuzzy-set calibration anchors at sample quantiles without a substantive reason</strong></td><td>It is the most frequently and most correctly criticised element of published set-theoretic work.</td></tr>
+      <tr><td><strong>Report a single agreement statistic as sufficient evidence for aggregation</strong></td><td>ICC(1), ICC(2) and within-group agreement answer different questions, and reporting only the favourable one is a choice a reader will notice.</td></tr>
+      <tr><td><strong>Add a measure to the analysis plan after the instrument is frozen</strong></td><td>It cannot be recovered at any price once fieldwork has run. Check the plan against the instrument before Stage B7 closes.</td></tr>
+      <tr><td><strong>Start a sixth research output</strong></td><td>The programme produces five. Anything new goes into the postdoctoral proposal, which is where the deferred material has been accumulating for exactly this purpose.</td></tr>
+    </tbody>
+  </table>
+</section>

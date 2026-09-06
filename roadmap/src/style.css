@@ -1,0 +1,543 @@
+/* ==========================================================================
+   Doctoral Programme Roadmap - house style
+   Typography and page furniture follow Corcoran_PhD_DraftClean_v05:
+   A4, narrow margins, justified 11pt serif body in #262626, numbered
+   headings, right-aligned chapter plates in #404040, grey bold captions,
+   horizontal-rule-only tables. Literata substitutes for Century Schoolbook.
+   British English throughout.
+   ========================================================================== */
+
+:root {
+  --ink: #1a1a1a;
+  --body: #262626;
+  --muted: #6f6f6f;
+  --grey-caption: #7f7f7f;
+  --plate: #404040;
+  --rule: #d5d5d5;
+  --rule-soft: #e6e6e6;
+  --tint: #f4f6f9;
+
+  --blue-900: #1e3c5f;
+  --blue-700: #2f5d8c;
+  --blue-500: #5288c0;
+  --blue-100: #dde9f5;
+  --blue-050: #eef4fb;
+
+  --teal-700: #1f6f6a;
+  --teal-100: #d7eae8;
+
+  --amber-700: #8a6100;
+  --amber-100: #fbeed2;
+
+  --red-700: #99302f;
+  --red-100: #f6dedd;
+
+  --green-700: #3a6b37;
+  --green-100: #dfebd9;
+
+  --violet-700: #4e3f7a;
+  --violet-100: #e5e0f2;
+}
+
+@page { size: A4; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  margin: 0;
+  font-family: 'Literata', 'Century Schoolbook', Georgia, serif;
+  font-size: 10.4pt;
+  line-height: 1.52;
+  color: var(--body);
+  counter-reset: h1 fig tbl;
+  text-rendering: optimizeLegibility;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* ---------- Structure -------------------------------------------------- */
+
+section.chapter { break-before: page; }
+section.chapter:first-of-type { break-before: auto; }
+
+.chapter-label {
+  text-align: right;
+  font-size: 20pt;
+  font-weight: 700;
+  color: var(--plate);
+  border-bottom: 1.4pt solid var(--plate);
+  padding-bottom: 2mm;
+  margin: 0 0 7mm 0;
+  letter-spacing: 0.01em;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Literata', Georgia, serif;
+  color: var(--ink);
+  font-weight: 700;
+  break-after: avoid;
+  break-inside: avoid;
+  margin: 0;
+  line-height: 1.24;
+}
+
+h1 {
+  font-size: 15pt;
+  counter-increment: h1;
+  counter-reset: h2;
+  margin: 0 0 3mm 0;
+}
+h1::before { content: counter(h1) "\00a0\00a0"; }
+
+h2 {
+  font-size: 12.6pt;
+  counter-increment: h2;
+  counter-reset: h3;
+  margin: 7mm 0 2mm 0;
+}
+h2::before { content: counter(h1) "." counter(h2) "\00a0\00a0"; }
+
+h3 {
+  font-size: 11.2pt;
+  counter-increment: h3;
+  counter-reset: h4;
+  margin: 5.5mm 0 1.6mm 0;
+}
+h3::before { content: counter(h1) "." counter(h2) "." counter(h3) "\00a0\00a0"; }
+
+h4 {
+  font-size: 10.4pt;
+  counter-increment: h4;
+  margin: 4.5mm 0 1.2mm 0;
+}
+h4::before { content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "\00a0\00a0"; }
+
+/* Headings that sit outside the numbering scheme (front matter, appendices) */
+h1.unnumbered, h2.unnumbered, h3.unnumbered { counter-increment: none; }
+h1.unnumbered::before, h2.unnumbered::before, h3.unnumbered::before { content: none; }
+
+h1 .sub, h2 .sub {
+  display: block;
+  font-size: 9.4pt;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 1.2mm;
+}
+
+p {
+  margin: 0 0 3.2mm 0;
+  text-align: justify;
+  hyphens: auto;
+  orphans: 2;
+  widows: 2;
+}
+p.lead {
+  font-size: 11pt;
+  color: var(--ink);
+}
+p.tight { margin-bottom: 1.6mm; }
+
+ul, ol { margin: 0 0 3.2mm 0; padding-left: 6.5mm; }
+li { margin-bottom: 1.3mm; text-align: justify; hyphens: auto; }
+li > ul, li > ol { margin-top: 1.3mm; margin-bottom: 0; }
+
+strong { font-weight: 700; color: var(--ink); }
+em { font-style: italic; }
+
+code, .mono {
+  font-family: 'Liberation Mono', 'DejaVu Sans Mono', monospace;
+  font-size: 8.6pt;
+  background: var(--tint);
+  padding: 0.3mm 1mm;
+  border-radius: 1px;
+  color: var(--blue-900);
+}
+
+pre {
+  font-family: 'Liberation Mono', 'DejaVu Sans Mono', monospace;
+  font-size: 8pt;
+  line-height: 1.42;
+  background: var(--tint);
+  border: 0.5pt solid var(--rule);
+  border-left: 2pt solid var(--blue-700);
+  padding: 3mm 4mm;
+  margin: 0 0 4mm 0;
+  white-space: pre;
+  overflow: hidden;
+  break-inside: avoid;
+  color: #333;
+}
+pre .c { color: #7a7a7a; font-style: italic; }
+pre .k { color: var(--blue-700); font-weight: 700; }
+
+/* ---------- Captions ---------------------------------------------------- */
+
+.caption {
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--grey-caption);
+  margin: 1.6mm 0 4.5mm 0;
+  text-align: left;
+  break-after: avoid;
+  break-inside: avoid;
+  line-height: 1.35;
+}
+.caption.above { margin: 0 0 1.6mm 0; }
+.caption::before { font-weight: 700; }
+.caption.fig::before { counter-increment: fig; content: "Figure " counter(fig) " \2013\00a0"; }
+.caption.tbl::before { counter-increment: tbl; content: "Table " counter(tbl) " \2013\00a0"; }
+
+figure { margin: 5mm 0 0 0; break-inside: avoid; }
+figure svg { display: block; width: 100%; height: auto; }
+
+/* ---------- Tables ------------------------------------------------------ */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.1pt;
+  line-height: 1.4;
+  margin: 0 0 4.5mm 0;
+  break-inside: avoid;
+}
+table.long { break-inside: auto; }
+table.long tr { break-inside: avoid; }
+thead { display: table-header-group; }
+th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--ink);
+  border-top: 1pt solid var(--plate);
+  border-bottom: 0.6pt solid var(--plate);
+  padding: 1.7mm 2.2mm 1.7mm 0;
+  vertical-align: bottom;
+}
+td {
+  padding: 1.6mm 2.2mm 1.6mm 0;
+  border-bottom: 0.4pt solid var(--rule);
+  vertical-align: top;
+  hyphens: auto;
+}
+tbody tr:last-child td { border-bottom: 1pt solid var(--plate); }
+td.ref, th.ref { white-space: nowrap; font-weight: 600; color: var(--blue-900); padding-right: 3mm; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+td.mid, th.mid { text-align: center; }
+tbody tr.group td {
+  background: var(--tint);
+  font-weight: 700;
+  color: var(--blue-900);
+  font-size: 8.6pt;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1.4mm 2.2mm 1.4mm 1.5mm;
+  border-bottom: 0.4pt solid var(--rule);
+}
+
+/* ---------- Callouts ---------------------------------------------------- */
+
+.box {
+  break-inside: avoid;
+  margin: 0 0 4.5mm 0;
+  padding: 3mm 4mm 2.2mm 4mm;
+  border: 0.5pt solid var(--rule);
+  border-left: 2.4pt solid var(--blue-700);
+  background: var(--blue-050);
+  font-size: 9.6pt;
+  line-height: 1.46;
+}
+.box > :last-child { margin-bottom: 0; }
+.box .box-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.6pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue-700);
+  margin: 0 0 1.6mm 0;
+  display: block;
+}
+.box.guard { border-left-color: var(--red-700); background: #fdf4f4; }
+.box.guard .box-title { color: var(--red-700); }
+.box.deliv { border-left-color: var(--green-700); background: #f3f8f1; }
+.box.deliv .box-title { color: var(--green-700); }
+.box.gate { border-left-color: var(--amber-700); background: #fdf8ec; }
+.box.gate .box-title { color: var(--amber-700); }
+.box.note { border-left-color: var(--violet-700); background: #f4f2fa; }
+.box.note .box-title { color: var(--violet-700); }
+.box ul, .box ol { padding-left: 5.5mm; margin-bottom: 2mm; }
+.box li { margin-bottom: 1mm; }
+
+/* ---------- Stage blocks ------------------------------------------------ */
+
+.stage { margin: 0 0 6mm 0; }
+.stage-head {
+  display: flex;
+  align-items: baseline;
+  gap: 3mm;
+  border-bottom: 0.8pt solid var(--blue-700);
+  padding-bottom: 1.4mm;
+  margin-bottom: 2.6mm;
+  break-after: avoid;
+}
+.stage-ref {
+  font-family: 'Inter', sans-serif;
+  font-size: 8.4pt;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--blue-700);
+  padding: 0.8mm 2mm;
+  border-radius: 1.5px;
+  white-space: nowrap;
+}
+.stage-name { font-size: 11.4pt; font-weight: 700; color: var(--ink); flex: 1; }
+.stage-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.8pt;
+  color: var(--muted);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.subhead {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.8pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue-700);
+  margin: 3.4mm 0 1.4mm 0;
+  break-after: avoid;
+}
+.subhead.first { margin-top: 0; }
+
+ol.instructions { counter-reset: instr; list-style: none; padding-left: 0; }
+ol.instructions > li {
+  counter-increment: instr;
+  position: relative;
+  padding-left: 7.5mm;
+  margin-bottom: 1.8mm;
+}
+ol.instructions > li::before {
+  content: counter(instr);
+  position: absolute;
+  left: 0;
+  top: 0.2mm;
+  font-family: 'Inter', sans-serif;
+  font-size: 7.6pt;
+  font-weight: 700;
+  color: var(--blue-700);
+  border: 0.6pt solid var(--blue-500);
+  border-radius: 50%;
+  width: 4.4mm;
+  height: 4.4mm;
+  line-height: 4.2mm;
+  text-align: center;
+}
+
+ul.checks { list-style: none; padding-left: 0; }
+ul.checks > li {
+  position: relative;
+  padding-left: 6mm;
+  margin-bottom: 1.4mm;
+}
+ul.checks > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.1mm;
+  width: 3.1mm;
+  height: 3.1mm;
+  border: 0.7pt solid var(--green-700);
+  border-radius: 0.6px;
+}
+
+/* ---------- Cover ------------------------------------------------------- */
+
+.cover { min-height: 258mm; display: flex; flex-direction: column; }
+.cover > * { flex: 0 0 auto; }
+.cover-rule { height: 3.2mm; background: var(--blue-900); margin-bottom: 0; }
+.cover-rule-thin { height: 0.7mm; background: var(--blue-500); margin-bottom: 14mm; }
+.cover-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 8.4pt;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blue-700);
+  margin-bottom: 6mm;
+}
+.cover h1.cover-title {
+  font-size: 25pt;
+  line-height: 1.16;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin: 0 0 6mm 0;
+  counter-increment: none;
+}
+.cover h1.cover-title::before { content: none; }
+.cover .cover-sub {
+  font-size: 12.6pt;
+  font-style: italic;
+  color: var(--blue-900);
+  line-height: 1.4;
+  margin: 0 0 9mm 0;
+  max-width: 145mm;
+  text-align: left;
+}
+.cover-meta {
+  border-top: 0.6pt solid var(--rule);
+  padding-top: 5mm;
+  display: grid;
+  grid-template-columns: 34mm 1fr;
+  gap: 2.4mm 4mm;
+  font-size: 9.6pt;
+}
+.cover-meta dt {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.6pt;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.8mm;
+}
+.cover-meta dd { margin: 0; color: var(--ink); }
+.cover-spacer { flex: 1; }
+.cover-foot {
+  border-top: 0.6pt solid var(--rule);
+  padding-top: 3.5mm;
+  font-size: 8.2pt;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 8mm;
+  align-items: baseline;
+}
+.cover-foot span:last-child { white-space: nowrap; }
+
+/* ---------- Contents ---------------------------------------------------- */
+
+.toc { font-size: 9.6pt; }
+.toc .toc-part {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.8pt;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue-700);
+  margin: 5mm 0 2mm 0;
+  border-bottom: 0.5pt solid var(--rule);
+  padding-bottom: 1.2mm;
+}
+.toc .l1, .toc .l2, .toc .l3 { display: flex; align-items: baseline; }
+.toc .l1 { font-weight: 700; color: var(--ink); margin: 2.4mm 0 1mm 0; }
+.toc .l2 { margin: 0 0 0.7mm 4.5mm; color: var(--body); }
+.toc .l3 { margin: 0 0 0.7mm 4.5mm; color: #4a4a4a; font-size: 9.1pt; }
+.toc .l3 .sref {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.6pt;
+  font-weight: 700;
+  color: var(--blue-700);
+  min-width: 8mm;
+  flex: 0 0 auto;
+}
+.toc .pg {
+  margin-left: auto;
+  padding-left: 3mm;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  font-weight: 400;
+  flex: 0 0 auto;
+}
+.toc .l1 .pg { color: var(--ink); font-weight: 700; }
+.toc-list div { display: flex; align-items: baseline; }
+.toc-list .pg { margin-left: auto; padding-left: 3mm; font-variant-numeric: tabular-nums; color: var(--muted); }
+.toc-list { font-size: 9.2pt; }
+.toc-list div { margin-bottom: 1.1mm; }
+.toc-list .ref {
+  font-family: 'Inter', sans-serif;
+  font-size: 8pt;
+  font-weight: 600;
+  color: var(--blue-700);
+  display: inline-block;
+  min-width: 17mm;
+}
+
+/* ---------- Small utilities --------------------------------------------- */
+
+.rule { border: 0; border-top: 0.5pt solid var(--rule); margin: 5mm 0; }
+.pagebreak { break-after: page; }
+.avoid { break-inside: avoid; }
+.sans { font-family: 'Inter', sans-serif; }
+.smallcaps {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.8pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.muted { color: var(--muted); }
+.todo {
+  font-family: 'Liberation Mono', monospace;
+  font-size: 8.2pt;
+  color: var(--red-700);
+  background: var(--red-100);
+  padding: 0.3mm 1.2mm;
+  border-radius: 1px;
+  font-weight: 700;
+}
+.tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.4pt;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.5mm 1.6mm;
+  border-radius: 1.5px;
+  white-space: nowrap;
+}
+.tag.blue { background: var(--blue-100); color: var(--blue-900); }
+.tag.teal { background: var(--teal-100); color: var(--teal-700); }
+.tag.amber { background: var(--amber-100); color: var(--amber-700); }
+.tag.red { background: var(--red-100); color: var(--red-700); }
+.tag.green { background: var(--green-100); color: var(--green-700); }
+.tag.violet { background: var(--violet-100); color: var(--violet-700); }
+.tag.grey { background: #ececec; color: #555; }
+
+.refs { font-size: 9pt; line-height: 1.42; }
+.refs p {
+  padding-left: 6mm;
+  text-indent: -6mm;
+  margin-bottom: 2.2mm;
+  text-align: left;
+}
+.refs .unverified { color: var(--red-700); font-weight: 700; font-size: 8pt; }
+
+.two-col { column-count: 2; column-gap: 7mm; }
+.two-col > * { break-inside: avoid; }
+
+.kpi-row { display: flex; gap: 3mm; margin: 0 0 4.5mm 0; break-inside: avoid; }
+.kpi {
+  flex: 1;
+  border: 0.5pt solid var(--rule);
+  border-top: 2pt solid var(--blue-700);
+  padding: 2.6mm 3mm;
+  background: #fbfcfe;
+}
+.kpi .kpi-val {
+  font-family: 'Inter', sans-serif;
+  font-size: 15pt;
+  font-weight: 700;
+  color: var(--blue-900);
+  line-height: 1.1;
+}
+.kpi .kpi-lab {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.4pt;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 1mm;
+}

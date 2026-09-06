@@ -1,0 +1,302 @@
+<!-- ===================== WORKSTREAM D ===================== -->
+<section class="chapter">
+  <div class="chapter-label">Part Three</div>
+  <h1 id="s-wsd">Workstream D: The CLEAR-DST Artefact<span class="sub">Built on pilot parameters now, swapped to calibrated parameters later, deployed only after clearance</span></h1>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val">7</div><div class="kpi-lab">Stages</div></div>
+    <div class="kpi"><div class="kpi-val">B7</div><div class="kpi-lab">Needs only pilot parameters to start</div></div>
+    <div class="kpi"><div class="kpi-val">0</div><div class="kpi-lab">Aggregate scores, ever</div></div>
+    <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lab">Blocking clearances before deployment</div></div>
+  </div>
+
+  <p class="lead">Build against pilot parameters now and swap in the calibrated parameters later. The adaptive engine, the interface, the profile logic and the evaluation instrumentation do not need final item parameters to be built correctly, and waiting for fieldwork would put the entire artefact on the critical path for no benefit. What the artefact does need before it meets a real participant is an ethics amendment and a settled institutional intellectual property position, and both of those are started early precisely because neither is under the candidate's control.</p>
+
+  <div class="box guard">
+    <span class="box-title">Two blocking conditions</span>
+    <p>The artefact may be built freely and deployed to no one. Before it is put in front of a single real participant, the ethics approval must cover the artefact evaluation specifically, and the institutional position on intellectual property in university-developed software must be settled in writing. Both are pursued from Stage B1 and Stage D1 respectively, because both take months and neither can be compressed at the end.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 700 268" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CLEAR-DST artefact architecture and the parameter contract">
+      <defs>
+        <marker id="arA" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#4e3f7a"/></marker>
+      </defs>
+      <g font-family="Inter, sans-serif">
+        <rect x="0" y="18" width="150" height="60" rx="2" fill="#e5e0f2" stroke="#4e3f7a" stroke-width="1.1"/>
+        <text x="75" y="36" font-size="8.8" font-weight="700" fill="#3d3163" text-anchor="middle">D1 &#183; Parameter loader</text>
+        <text x="75" y="50" font-size="7.4" fill="#5b5080" text-anchor="middle">schema validation,</text>
+        <text x="75" y="60" font-size="7.4" fill="#5b5080" text-anchor="middle">calibration version pinned</text>
+        <text x="75" y="72" font-size="7.4" fill="#5b5080" text-anchor="middle">to every response set</text>
+
+        <rect x="0" y="100" width="150" height="52" rx="2" fill="#ffffff" stroke="#4e3f7a" stroke-width="1"/>
+        <text x="75" y="118" font-size="8.8" font-weight="700" fill="#3d3163" text-anchor="middle">D2 &#183; Adaptive engine</text>
+        <text x="75" y="132" font-size="7.4" fill="#5b5080" text-anchor="middle">selection, estimation,</text>
+        <text x="75" y="142" font-size="7.4" fill="#5b5080" text-anchor="middle">exposure, stopping rules</text>
+
+        <rect x="0" y="174" width="150" height="52" rx="2" fill="#ffffff" stroke="#4e3f7a" stroke-width="1"/>
+        <text x="75" y="192" font-size="8.8" font-weight="700" fill="#3d3163" text-anchor="middle">D3 &#183; Response capture</text>
+        <text x="75" y="206" font-size="7.4" fill="#5b5080" text-anchor="middle">team aggregation,</text>
+        <text x="75" y="216" font-size="7.4" fill="#5b5080" text-anchor="middle">partial completion handled</text>
+
+        <rect x="196" y="60" width="182" height="76" rx="2" fill="#e5e0f2" stroke="#4e3f7a" stroke-width="1.4"/>
+        <text x="287" y="80" font-size="9.2" font-weight="700" fill="#3d3163" text-anchor="middle">D4 &#183; Configurational profile</text>
+        <text x="287" y="96" font-size="7.6" fill="#5b5080" text-anchor="middle">four estimates with uncertainty</text>
+        <text x="287" y="108" font-size="7.6" fill="#5b5080" text-anchor="middle">binding condition identified</text>
+        <text x="287" y="126" font-size="7.6" font-weight="700" fill="#99302f" text-anchor="middle">no aggregate score, anywhere</text>
+
+        <rect x="196" y="164" width="182" height="52" rx="2" fill="#ffffff" stroke="#4e3f7a" stroke-width="1"/>
+        <text x="287" y="182" font-size="8.8" font-weight="700" fill="#3d3163" text-anchor="middle">D5 &#183; Intervention routing</text>
+        <text x="287" y="196" font-size="7.4" fill="#5b5080" text-anchor="middle">keyed to the binding condition,</text>
+        <text x="287" y="206" font-size="7.4" fill="#5b5080" text-anchor="middle">evidenced from C4 and B4</text>
+
+        <rect x="424" y="60" width="150" height="52" rx="2" fill="#ffffff" stroke="#4e3f7a" stroke-width="1"/>
+        <text x="499" y="78" font-size="8.8" font-weight="700" fill="#3d3163" text-anchor="middle">D6 &#183; Re-measurement</text>
+        <text x="499" y="92" font-size="7.4" fill="#5b5080" text-anchor="middle">change tracked against the</text>
+        <text x="499" y="102" font-size="7.4" fill="#5b5080" text-anchor="middle">calibration version used</text>
+
+        <rect x="424" y="164" width="150" height="52" rx="2" fill="#ffffff" stroke="#4e3f7a" stroke-width="1"/>
+        <text x="499" y="182" font-size="8.8" font-weight="700" fill="#3d3163" text-anchor="middle">D7 &#183; Evaluation</text>
+        <text x="499" y="196" font-size="7.4" fill="#5b5080" text-anchor="middle">task timing, completion,</text>
+        <text x="499" y="206" font-size="7.4" fill="#5b5080" text-anchor="middle">acceptance, consent gated</text>
+
+        <g stroke="#4e3f7a" stroke-width="1" fill="none" marker-end="url(#arA)">
+          <path d="M 75 80 L 75 98"/>
+          <path d="M 152 126 L 174 126 L 174 98 L 194 98"/>
+          <path d="M 152 200 L 174 200 L 174 98 L 194 98"/>
+          <path d="M 287 138 L 287 162"/>
+          <path d="M 380 98 L 422 90"/>
+          <path d="M 380 190 L 422 190"/>
+          <path d="M 499 114 L 499 130 L 60 130 L 60 172" stroke-dasharray="3.5 2.5"/>
+        </g>
+        <text x="270" y="146" font-size="7.2" font-style="italic" fill="#7a6ba8" text-anchor="end">re-measurement loop</text>
+
+        <rect x="596" y="18" width="104" height="60" rx="2" fill="#dde9f5" stroke="#2f5d8c" stroke-width="1.1"/>
+        <text x="648" y="36" font-size="8.4" font-weight="700" fill="#1e3c5f" text-anchor="middle">R reference</text>
+        <text x="648" y="48" font-size="7.4" fill="#25415e" text-anchor="middle">implementation</text>
+        <text x="648" y="62" font-size="7.4" font-weight="700" fill="#2f5d8c" text-anchor="middle">parity test,</text>
+        <text x="648" y="72" font-size="7.4" font-weight="700" fill="#2f5d8c" text-anchor="middle">mandatory</text>
+        <path d="M 596 48 L 158 48" fill="none" stroke="#2f5d8c" stroke-width="1" stroke-dasharray="3 2"/>
+        <path d="M 158 48 L 158 118 L 152 118" fill="none" stroke="#2f5d8c" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#arA)"/>
+
+        <line x1="0" y1="240" x2="700" y2="240" stroke="#e6e6e6" stroke-width="0.8"/>
+        <text x="0" y="256" font-size="7.6" font-weight="700" fill="#99302f">BLOCKING BEFORE ANY REAL PARTICIPANT:</text>
+        <text x="216" y="256" font-size="7.6" fill="#57606b">ethics amendment covering artefact evaluation &#183; institutional intellectual property position settled in writing</text>
+      </g>
+    </svg>
+  </figure>
+  <div class="caption fig">Artefact architecture. The dashed line from the R reference implementation is the cross-language parity test, which is a mandatory component rather than a quality improvement.</div>
+
+  <!-- D1 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">D1</span>
+      <span class="stage-name">Parameter contract and loader</span>
+      <span class="stage-meta">Depends on B7 &#183; The only coupling between repositories</span>
+    </div>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Publish the schema for <code>item-parameters.json</code> before writing either producer or consumer, and version the schema itself. The file carries: calibration version, calibration date, model type, sample description, provisional or final status, and per item the dimension, discrimination and category thresholds.</li>
+      <li>Validate on load and fail loudly. A parameter file that does not match the schema stops the application; it does not degrade to a default. Silent fallback in a psychometric engine produces plausible numbers from wrong parameters, which is worse than an error.</li>
+      <li>Record the calibration version against every response set at the moment of administration, not at the moment of reporting. A profile computed under one calibration and re-displayed under another is not comparable to itself.</li>
+      <li>Write the swap procedure as a documented, tested operation: how the file is replaced, what happens to response sets collected under the previous version, and how the interface communicates that earlier and later measurements are not directly comparable.</li>
+      <li>Begin the institutional intellectual property enquiry at this stage. The parameter file is the boundary between research output and product, and the ownership question becomes concrete the moment it crosses.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Published, versioned schema for the parameter file</li>
+        <li>Loader with validation that fails closed, with tests for every malformed case</li>
+        <li>Calibration version recorded against every response set at administration time</li>
+        <li>Documented and tested parameter swap procedure</li>
+        <li>Intellectual property enquiry opened, with a written record of the position</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- D2 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">D2</span>
+      <span class="stage-name">Adaptive engine and the parity test</span>
+      <span class="stage-meta">Depends on D1 &#183; Highest technical risk in Workstream D</span>
+    </div>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Implement maximum information item selection, ability estimation, exposure control and content balancing across the four dimensions. Content balancing is not optional here: an unconstrained algorithm will spend its budget on whichever dimension is most informative and return no estimate for another.</li>
+      <li>Express stopping rules as standard error targets with a maximum length, configurable rather than hard-coded, and read from configuration so that the C6 decision on precision can be applied without a code change.</li>
+      <li>Build the cross-language parity test as a first-class part of the test suite. Identical simulated response vectors are run through the TypeScript engine and the R reference implementation, and the test asserts agreement on ability estimates, standard errors and item selection sequence to a stated tolerance.</li>
+      <li>Run the parity test on every change to either implementation, and fail the build on divergence. A psychometric engine that silently diverges from its reference is worse than no engine at all, because the results look plausible and nothing signals otherwise.</li>
+      <li>Cover the degenerate cases in tests: all responses at one extreme, a single response, an abandoned session, and a dimension in which no item has been administered. Each has a defined behaviour and none of them is a crash or a fabricated estimate.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Adaptive engine with configurable selection, estimation, exposure and stopping</li>
+        <li>Content balancing guaranteeing an estimate for every dimension</li>
+        <li>Cross-language parity test in continuous integration, failing the build on divergence</li>
+        <li>Documented tolerance with the justification for its value</li>
+        <li>Degenerate case tests, each with defined behaviour</li>
+      </ul>
+    </div>
+
+    <div class="box gate">
+      <span class="box-title">Gate D2</span>
+      <p>Parity holds across the full simulated response corpus from Stage C6, including the degenerate cases, and the test runs automatically. Parity established once by hand is not parity; it is a coincidence with a date on it.</p>
+    </div>
+  </div>
+
+  <!-- D3 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">D3</span>
+      <span class="stage-name">Response capture and team aggregation</span>
+      <span class="stage-meta">Depends on D2 &#183; Carries the confidentiality rule</span>
+    </div>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Model the data so that an individual response set belongs to a person, a team, an organisation and a measurement occasion, and so that the team-level profile is computed rather than stored as an editable value.</li>
+      <li>Implement the same aggregation logic the analysis uses, and test it against the R implementation on the same simulated data. Two different aggregation rules between the research and the product is a silent inconsistency that would surface as an unexplained discrepancy in the evaluation study.</li>
+      <li>Handle partial completion explicitly. Define the minimum number of respondents below which a team profile is not computed, and enforce it in the data layer rather than in the interface, so that it cannot be bypassed.</li>
+      <li>Enforce the confidentiality floor at the same level: below the minimum number of respondents, no team-level output is produced or displayed to anyone, including an administrator. This is an ethics commitment made in the consent form, so it is enforced in code rather than in policy.</li>
+      <li>Store no free text in the first release. Free text is the fastest route to an inadvertent identification and to a data protection problem, and nothing in the diagnostic requires it.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Data model supporting longitudinal re-measurement by team and occasion</li>
+        <li>Aggregation logic tested against the R implementation on identical inputs</li>
+        <li>Minimum respondent rule enforced in the data layer</li>
+        <li>Confidentiality floor enforced in code, with tests attempting to bypass it</li>
+        <li>No free-text capture in the release used for evaluation</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- D4 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">D4</span>
+      <span class="stage-name">Configurational profile output</span>
+      <span class="stage-meta">Depends on D3 &#183; The theoretical commitment made visible</span>
+    </div>
+    <p>This is where the thesis becomes an interface. Everything the argument claims about measurement error is either enforced here or abandoned here.</p>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Display four dimension estimates, each with its uncertainty shown rather than implied. An estimate presented without its interval invites a precision the data does not support, and with four to five respondents per team the intervals will be wide enough to change how a reader acts.</li>
+      <li>Identify the binding condition explicitly, using the bottleneck logic from Stage C4 rather than by picking the lowest score. The lowest score and the binding condition are not the same thing, and conflating them would reintroduce the ranking logic the thesis argues against.</li>
+      <li>Display no aggregate readiness score, no overall percentage, no letter grade and no composite index, at any point in the interface, in any export, or in any notification. Guardrail G7 is enforced by a test that fails if a composite is computed anywhere in the codebase.</li>
+      <li>Present the profile so that two organisations with the same mean and different binding conditions are visibly different. If the interface cannot show that difference, it has not represented the theory.</li>
+      <li>State the calibration version and the number of respondents on every profile view, since both bound what the profile can be read to mean.</li>
+      <li>Write the interpretation guidance into the interface rather than into a separate document. A diagnostic whose output requires a manual will be misread in the field.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Four-dimension profile view with uncertainty displayed</li>
+        <li>Binding condition identified through bottleneck logic, not by minimum score</li>
+        <li>Automated test asserting that no composite score exists anywhere in the codebase</li>
+        <li>Profile view showing calibration version and respondent count</li>
+        <li>Embedded interpretation guidance</li>
+        <li>Two worked example profiles with equal means and different binding conditions</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- D5 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">D5</span>
+      <span class="stage-name">Intervention routing</span>
+      <span class="stage-meta">Depends on D4, C4 &#183; Answers RQ4.2</span>
+    </div>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Build the intervention library keyed to the four intervention classes from the partition principle, so that each binding condition routes to a distinct class of action rather than to a general improvement list.</li>
+      <li>Attach evidence to every intervention: what it is, what it is expected to change, and the source of that expectation, whether from the review corpus, the practitioner interviews, or the configurational analysis. An intervention without a stated basis is advice, and the artefact is not in the advice business.</li>
+      <li>Distinguish clearly between interventions with empirical support and those derived from practitioner accounts, and label them differently in the interface. Overstating the evidence base of an intervention is the artefact's version of a fabricated citation.</li>
+      <li>Prioritise by the bottleneck ordering from Stage C4 together with implementation feasibility, and expose the reason for the ordering rather than only the result.</li>
+      <li>Where the analysis provides no evidenced intervention for a binding condition, say so in the interface. A gap honestly displayed is more useful than a generic recommendation.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Intervention library, keyed to the four classes, with an evidence field on every entry</li>
+        <li>Evidence-strength labelling distinguishing empirical from practitioner-derived</li>
+        <li>Prioritisation logic exposing its own reasoning</li>
+        <li>Explicit handling of conditions for which no evidenced intervention exists</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- D6 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">D6</span>
+      <span class="stage-name">Re-measurement and change tracking</span>
+      <span class="stage-meta">Depends on D4</span>
+    </div>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Support successive administrations to the same team, with the composition of the responding group recorded at each occasion, because a change in the profile and a change in who answered are easily confused.</li>
+      <li>Compute change per dimension with an interval, and never present a change as meaningful when it falls inside the measurement error. This is where an adaptive instrument with wide intervals will most tempt over-interpretation.</li>
+      <li>Block comparison across calibration versions, or where it is permitted, mark it explicitly and state the limitation in the view itself.</li>
+      <li>Record the interventions undertaken between occasions, so that the re-measurement has something to be interpreted against. Without that record the change data cannot support any claim about what caused it.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Longitudinal profile view with respondent composition recorded per occasion</li>
+        <li>Change estimates with intervals, and suppression of changes within measurement error</li>
+        <li>Cross-calibration comparison blocked or explicitly flagged</li>
+        <li>Intervention record linked to the interval between occasions</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- D7 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">D7</span>
+      <span class="stage-name">Evaluation instrumentation</span>
+      <span class="stage-meta">Depends on D4 &#183; Blocks Workstream E</span>
+    </div>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Instrument the measures the evaluation study needs: task completion, time on task, abandonment point, the acceptance measures, and whatever behavioural trace the evaluation design specifies. Decide these with Stage E1 rather than instrumenting first and designing the study around whatever was captured.</li>
+      <li>Gate all evaluation telemetry behind explicit consent, separate from consent to complete the diagnostic. A participant who agreed to answer questions has not thereby agreed to have their interaction recorded.</li>
+      <li>Make the telemetry inspectable by the participant and deletable on request, and build the deletion path rather than describing it.</li>
+      <li>Capture the artefact version and the calibration version against every evaluation session, so that evaluation results can be attributed to a specific build.</li>
+      <li>Instrument the decision-change measure that RQ4.3 requires: what the participant intended to do before seeing the profile, and what they intended after. Retrofitting this measure is not possible once the evaluation has run.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Evaluation telemetry specified jointly with Stage E1</li>
+        <li>Separate consent gate for telemetry, with a tested deletion path</li>
+        <li>Artefact and calibration version recorded per session</li>
+        <li>Before-and-after decision-intent capture for RQ4.3</li>
+      </ul>
+    </div>
+
+    <div class="box gate">
+      <span class="box-title">Gate D7 &#183; Workstream D definition of done</span>
+      <p>A deployable diagnostic running on pilot parameters, with the TypeScript engine verified against the R reference in continuous integration, a documented and tested parameter swap procedure, an automated test proving no aggregate score exists, and evaluation instrumentation ready. Deployment to real participants waits on the two blocking clearances and on nothing else.</p>
+    </div>
+  </div>
+</section>

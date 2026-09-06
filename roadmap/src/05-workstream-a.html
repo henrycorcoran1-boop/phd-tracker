@@ -1,0 +1,312 @@
+<!-- ===================== WORKSTREAM A ===================== -->
+<section class="chapter">
+  <div class="chapter-label">Part Three</div>
+  <h1 id="s-wsa">Workstream A: Evidence Base<span class="sub">A PRISMA 2020 systematic review of how culture, innovation readiness and artificial intelligence readiness are currently measured</span></h1>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val">6</div><div class="kpi-lab">Stages</div></div>
+    <div class="kpi"><div class="kpi-val">A1</div><div class="kpi-lab">Starts immediately</div></div>
+    <div class="kpi"><div class="kpi-val">P1</div><div class="kpi-lab">Feeds Paper 1, Chapter 2</div></div>
+    <div class="kpi"><div class="kpi-val">B5</div><div class="kpi-lab">Blocks item writing</div></div>
+  </div>
+
+  <p class="lead">This workstream does two jobs at once, and the second is the one that matters more. Its visible product is a published systematic review. Its structural product is the item pool inheritance and the justification for building a new instrument rather than adopting an existing one. If the review finds an adequate instrument already validated for this purpose, the programme changes shape and it is far cheaper to discover that in 2026 than in 2028.</p>
+
+  <p>Scope: instruments that claim to measure organisational culture, climate for innovation, innovation readiness, digital readiness or artificial intelligence readiness in organisational settings, published from 2005 to the search date, with construction and engineering applications extracted separately. Appraisal is against a six-criterion measurement rubric derived from established measurement-property taxonomies rather than from a rubric invented for the occasion.</p>
+
+  <div class="box guard">
+    <span class="box-title">The question the review must actually answer</span>
+    <p>Not what instruments exist. That produces a catalogue and catalogues are not publishable. The question is: <em>what do these instruments measure the maturity of, and what do they leave unmeasured?</em> The expected finding, which the review must be capable of contradicting, is that the literature measures the presence of technology and the existence of policy, and does not measure the organisational conditions under which either becomes a changed decision. Design the extraction form so that this claim can be evidenced item by item, not asserted in the discussion.</p>
+  </div>
+
+  <!-- A1 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">A1</span>
+      <span class="stage-name">Protocol, rubric and registration</span>
+      <span class="stage-meta">Blocks all of A &#183; No dependencies</span>
+    </div>
+    <p>The protocol is written and registered before the first search runs. Registration is not a formality: it is what separates a systematic review from a narrative review with a flow diagram, and reviewers at the target journals increasingly check.</p>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Write the review question in a structured form, naming the population (organisations and teams in project-based and comparable settings), the construct (culture, climate for innovation, innovation readiness, artificial intelligence readiness), the instrument type (self-report questionnaires and structured maturity assessments), and the measurement properties to be appraised.</li>
+      <li>Specify inclusion and exclusion criteria in operational terms, so that two screeners applying them independently reach the same decision without discussion. Vague criteria are the single largest source of screening disagreement, and disagreement is expensive at full-text stage.</li>
+      <li>Define the six appraisal criteria and their scoring anchors in full before any record is read. Appendix B carries the rubric; it is reproduced verbatim in the protocol. The criteria are construct definition, theoretical anchoring, object of measurement, level of analysis, psychometric evidence, and predictive evidence.</li>
+      <li>Specify the dual-screening plan: what proportion of records is screened by two people, at which stages, and which chance-corrected agreement statistic is reported. Fix the acceptable threshold in the protocol rather than after seeing the result.</li>
+      <li>Register the protocol. Check the eligibility rules of the health-focused registers first, and where the review falls outside their scope, register on an open repository with a timestamped, non-editable record. Record the registration identifier in <code>review/protocol/</code>.</li>
+      <li>Pre-specify the synthesis approach: narrative synthesis structured by measurement property, with the appraisal matrix as the primary result. State that meta-analysis is not appropriate and why, so that a reviewer does not ask for one.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Registered protocol with a public identifier and date, stored in <code>review/protocol/</code></li>
+        <li>Six-criterion appraisal rubric with anchors and worked examples for each criterion</li>
+        <li>Operational inclusion and exclusion criteria, screener-testable</li>
+        <li>Dual-screening plan with a pre-committed agreement threshold</li>
+        <li>Second screener identified and briefed, with the briefing recorded</li>
+      </ul>
+    </div>
+
+    <div class="box gate">
+      <span class="box-title">Gate A1</span>
+      <p>Two people independently screen the same twenty pilot records against the draft criteria and reach acceptable agreement without conferring. If they do not, the criteria are the problem, not the screeners. Revise and repeat before proceeding.</p>
+    </div>
+  </div>
+
+  <!-- A2 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">A2</span>
+      <span class="stage-name">Search design and execution</span>
+      <span class="stage-meta">Depends on A1</span>
+    </div>
+    <p>A search is a reproducible artefact, not an activity. Every string, every database, every filter and every date is recorded such that a third party could re-run the search and obtain the same yield within the drift introduced by database updates.</p>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Build the search string from three concept blocks joined with AND: the construct block, the measurement block, and the setting block. Within each block, terms are joined with OR and include the variants the literature actually uses, which are more numerous than expected. Innovation climate, innovation readiness, absorptive capacity, digital readiness, artificial intelligence readiness, technology readiness, maturity model and organisational capability all appear for the same underlying idea.</li>
+      <li>Develop the string against a known-item set: assemble ten to fifteen papers that must be retrieved, and iterate until the string returns all of them. A string that misses a known item is a string that is missing a term, and known-item testing is the only way to find out which one.</li>
+      <li>Search a minimum of two large multidisciplinary databases with different coverage profiles, plus at least one discipline-specific source for construction and engineering. Coverage overlap between the large indexes is substantial but incomplete, and searching only one is a criticism that costs nothing to avoid.</li>
+      <li>Record for each database: the exact string, the fields searched, the filters applied, the date of the search, and the number of records returned. Export in a structured format and preserve the export file untouched alongside the parsed output.</li>
+      <li>Supplement the database search with backward and forward citation chasing on the included set, and record what each supplementary method contributed. Hand-searching that is not recorded cannot be reported.</li>
+      <li>Write the parser as code. Manual reformatting of exports is not reproducible and introduces errors that are invisible afterwards.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Search strings for every database, in full, ready for reproduction in an appendix</li>
+        <li>Untouched raw exports in <code>review/search/</code>, alongside the parsed record table</li>
+        <li>Search run log: database, string, fields, filters, date, yield</li>
+        <li>Known-item test result showing full recall of the seed set</li>
+        <li>Supplementary search log with the contribution of each method</li>
+      </ul>
+    </div>
+
+    <div class="box gate">
+      <span class="box-title">Gate A2</span>
+      <p>The parser runs from the raw exports to the record table with no manual step, and the record count it produces matches the sum of the yields in the run log.</p>
+    </div>
+  </div>
+
+  <!-- A3 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">A3</span>
+      <span class="stage-name">Deduplication and record management</span>
+      <span class="stage-meta">Depends on A2</span>
+    </div>
+    <p>Deduplication is where PRISMA counts most often become indefensible, because silent merges cannot be audited afterwards.</p>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Match on digital object identifier first, as an exact match. Records with identical identifiers are merged automatically and the merge is logged.</li>
+      <li>Apply fuzzy matching on normalised title plus year to the remainder. Every near-match is routed to a review queue for a human decision. Nothing is merged silently on a similarity score.</li>
+      <li>Log every merge decision with both record identifiers, the matching method, the similarity value where applicable, and the decision. The log is a file in the repository, not a state inside a reference manager.</li>
+      <li>Retain the pre-deduplication record table. The PRISMA figure needs both counts and reconstructing the earlier one later is not possible.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Deduplicated record table, with a stable identifier per record that persists through every later stage</li>
+        <li>Merge decision log, complete and machine-readable</li>
+        <li>Pre-deduplication and post-deduplication counts, derived from the data</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- A4 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">A4</span>
+      <span class="stage-name">Screening and agreement</span>
+      <span class="stage-meta">Depends on A3</span>
+    </div>
+    <p>One row per record per stage. That structure is what makes the flow diagram derivable and the process auditable, and it costs nothing to adopt at the start and a great deal to retrofit.</p>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Build the screening log with one row per record per stage, carrying: record identifier, stage, decision, reason code, screener, and timestamp. Reason codes come from a closed list defined in A1, because free-text exclusion reasons cannot be counted.</li>
+      <li>Screen titles and abstracts against the inclusion criteria, erring toward retention. A record wrongly excluded at this stage is never seen again; a record wrongly retained costs one full-text read.</li>
+      <li>Dual-screen the pre-specified subsample independently, resolve disagreements by discussion, and record how each disagreement resolved. Compute and report the chance-corrected agreement statistic named in the protocol.</li>
+      <li>Retrieve full texts for everything surviving. Records that cannot be retrieved are reported as such with a count, not quietly dropped.</li>
+      <li>Screen full texts, recording a single primary exclusion reason per excluded record. The reason distribution is itself a reportable result, and a large count against one reason usually indicates a criterion that was ambiguous.</li>
+      <li>Generate the flow diagram from the screening log. It is derived, never drawn. A hand-drawn flow diagram will eventually disagree with the record table and the disagreement will be found by a reviewer.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Complete screening log reconstructing every decision by record, stage, screener and reason</li>
+        <li>Agreement analysis on the dual-screened subsample, with the statistic and its interpretation</li>
+        <li>Generated flow diagram, reproducible from the log by a single command</li>
+        <li>Full-text exclusion table with reasons and counts</li>
+      </ul>
+    </div>
+
+    <div class="box gate">
+      <span class="box-title">Gate A4</span>
+      <p>Regenerating the flow diagram from the screening log reproduces every count in the manuscript with no manual step, and agreement on the dual-screened subsample meets the threshold pre-committed in A1. Agreement below threshold is reported rather than concealed, with the criteria revision that followed.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 700 322" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PRISMA 2020 flow diagram template with counts derived from the screening log">
+      <defs>
+        <marker id="prA" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#2f5d8c"/></marker>
+      </defs>
+      <g font-family="Inter, sans-serif">
+        <text x="0" y="10" font-size="7.6" font-weight="700" letter-spacing="1.2" fill="#2f5d8c">IDENTIFICATION</text>
+        <text x="0" y="118" font-size="7.6" font-weight="700" letter-spacing="1.2" fill="#2f5d8c">SCREENING</text>
+        <text x="0" y="272" font-size="7.6" font-weight="700" letter-spacing="1.2" fill="#2f5d8c">INCLUDED</text>
+        <line x1="0" y1="14" x2="700" y2="14" stroke="#e6e6e6" stroke-width="0.7"/>
+        <line x1="0" y1="122" x2="700" y2="122" stroke="#e6e6e6" stroke-width="0.7"/>
+        <line x1="0" y1="276" x2="700" y2="276" stroke="#e6e6e6" stroke-width="0.7"/>
+
+        <g stroke="#2f5d8c" stroke-width="0.9" fill="#dde9f5">
+          <rect x="118" y="24" width="228" height="34" rx="2"/>
+          <rect x="118" y="70" width="228" height="34" rx="2"/>
+          <rect x="118" y="132" width="228" height="34" rx="2"/>
+          <rect x="118" y="178" width="228" height="34" rx="2"/>
+          <rect x="118" y="224" width="228" height="34" rx="2"/>
+        </g>
+        <g stroke="#8a939d" stroke-width="0.9" fill="#f4f6f9">
+          <rect x="404" y="70" width="252" height="34" rx="2"/>
+          <rect x="404" y="132" width="252" height="34" rx="2"/>
+          <rect x="404" y="178" width="252" height="34" rx="2"/>
+          <rect x="404" y="224" width="252" height="34" rx="2"/>
+        </g>
+        <rect x="118" y="286" width="228" height="30" rx="2" fill="#dfebd9" stroke="#3a6b37" stroke-width="1.2"/>
+
+        <g font-size="8.4" fill="#1e3c5f">
+          <text x="128" y="39">Records identified from databases</text>
+          <text x="128" y="52" font-size="7.6" fill="#5a6a7a">and supplementary methods</text>
+          <text x="128" y="85">Records after duplicates removed</text>
+          <text x="128" y="98" font-size="7.6" fill="#5a6a7a">merge log accompanies this count</text>
+          <text x="128" y="147">Records screened on title and abstract</text>
+          <text x="128" y="160" font-size="7.6" fill="#5a6a7a">dual-screened subsample reported</text>
+          <text x="128" y="193">Full texts sought for retrieval</text>
+          <text x="128" y="206" font-size="7.6" fill="#5a6a7a">non-retrieval reported, not dropped</text>
+          <text x="128" y="239">Full texts assessed for eligibility</text>
+          <text x="128" y="252" font-size="7.6" fill="#5a6a7a">one primary reason per exclusion</text>
+        </g>
+        <g font-size="8.4" fill="#57606b">
+          <text x="414" y="85">Duplicates removed</text>
+          <text x="414" y="98" font-size="7.6">exact identifier match, then reviewed fuzzy match</text>
+          <text x="414" y="147">Records excluded at title and abstract</text>
+          <text x="414" y="160" font-size="7.6">by closed-list reason code</text>
+          <text x="414" y="193">Full texts not retrieved</text>
+          <text x="414" y="239">Full texts excluded, with reasons</text>
+          <text x="414" y="252" font-size="7.6">reason distribution is itself a result</text>
+        </g>
+        <text x="128" y="300" font-size="8.8" font-weight="700" fill="#2c5229">Instruments included in the appraisal matrix</text>
+        <text x="128" y="311" font-size="7.6" fill="#3a6b37">grouped by instrument, not by paper: one instrument may appear in many studies</text>
+
+        <g stroke="#2f5d8c" stroke-width="1" fill="none" marker-end="url(#prA)">
+          <path d="M 232 58 L 232 68"/>
+          <path d="M 232 104 L 232 130"/>
+          <path d="M 232 166 L 232 176"/>
+          <path d="M 232 212 L 232 222"/>
+          <path d="M 232 258 L 232 284"/>
+          <path d="M 346 87 L 402 87"/>
+          <path d="M 346 149 L 402 149"/>
+          <path d="M 346 195 L 402 195"/>
+          <path d="M 346 241 L 402 241"/>
+        </g>
+
+        <g font-family="Liberation Mono, monospace" font-size="7.6" font-weight="700" fill="#99302f" text-anchor="end">
+          <text x="340" y="39">TODO_FROM_PIPELINE</text>
+          <text x="340" y="85">TODO_FROM_PIPELINE</text>
+          <text x="340" y="147">TODO_FROM_PIPELINE</text>
+          <text x="340" y="193">TODO_FROM_PIPELINE</text>
+          <text x="340" y="239">TODO_FROM_PIPELINE</text>
+          <text x="340" y="300">TODO_FROM_PIPELINE</text>
+          <text x="650" y="85">TODO</text>
+          <text x="650" y="147">TODO</text>
+          <text x="650" y="193">TODO</text>
+          <text x="650" y="239">TODO</text>
+        </g>
+      </g>
+    </svg>
+  </figure>
+  <div class="caption fig">Flow diagram template for Workstream A. Every count is a placeholder until the screening log supplies it, and the diagram is generated from that log rather than drawn. A count typed by hand here is a guardrail G1 violation.</div>
+
+  <!-- A5 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">A5</span>
+      <span class="stage-name">Extraction and measurement appraisal</span>
+      <span class="stage-meta">Depends on A4 &#183; Blocks B5</span>
+    </div>
+    <p>Extraction is where the review earns its contribution. A form that captures only bibliographic characteristics produces a catalogue. A form built around the six criteria produces an argument.</p>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Extract at the level of the instrument, not the paper. One instrument may appear across many studies with different evidence attached, and the appraisal is of the instrument as it now stands with all its accumulated evidence.</li>
+      <li>For each instrument capture: the construct label used by its authors, the construct definition given, the theoretical source, the object of measurement (technology, policy, capability, perception or behaviour), the intended level of analysis, the level at which it was validated, the number of items and dimensions, the response format, the sample and setting, and the reported measurement evidence.</li>
+      <li>Score each instrument against the six criteria using the anchors from A1. Every score carries an evidence field quoting or citing exactly what justified it. A score without evidence is an opinion and will be treated as one.</li>
+      <li>Extract the object of measurement with particular care, because this field carries the review's central claim. Record whether items ask about the presence of a technology, the existence of a policy, a perceived condition, or an observed behaviour, and count them.</li>
+      <li>Record the level-of-analysis mismatch explicitly: instruments claiming to measure an organisational property from individual responses without an aggregation justification are a specific and countable defect, not a general weakness.</li>
+      <li>Dual-extract a subsample and report agreement on the appraisal scores, not only on the screening decisions. Appraisal is more subjective than screening and is where a reviewer will probe.</li>
+      <li>Extract the item stems of any instrument whose licence permits it, into <code>review/extraction/</code>. This becomes the inherited item pool for Stage B5 and is the single most valuable by-product of the review.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Extraction table, one row per instrument, with every field populated or explicitly marked as not reported</li>
+        <li>Scored appraisal matrix across the six criteria, with an evidence field on every cell</li>
+        <li>Object-of-measurement tabulation, item-counted, supporting or refuting the review's central claim</li>
+        <li>Level-of-analysis defect count with the instruments named</li>
+        <li>Inherited item pool with provenance and licence status recorded per item</li>
+        <li>Dual-extraction agreement on appraisal scores</li>
+      </ul>
+    </div>
+
+    <div class="box guard">
+      <span class="box-title">Integrity condition</span>
+      <p>The review must be capable of concluding that an adequate instrument already exists. If the appraisal is designed such that no existing instrument can pass, it is not an appraisal, it is a justification. Write the anchors so that a hypothetical instrument could score well on all six criteria, and say in the protocol what the programme would do if one did.</p>
+    </div>
+  </div>
+
+  <!-- A6 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">A6</span>
+      <span class="stage-name">Synthesis and reporting</span>
+      <span class="stage-meta">Depends on A5 &#183; Delivers Paper 1</span>
+    </div>
+    <p>The synthesis is organised by measurement property rather than by instrument or by chronology. Organising by instrument produces a list; organising by property produces the comparative claim that makes the review useful.</p>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Build the corpus characteristics table from the record table by code, covering publication years, settings, sectors, instrument types and sample sizes.</li>
+      <li>Structure the narrative synthesis by criterion. For each of the six, state what the corpus does well, what it does badly, and what the pattern implies for anyone who intends to use these instruments to make a decision.</li>
+      <li>Write the construction sub-analysis as a distinct section. Whether construction-specific instruments differ from general organisational instruments is a question practitioners in the field will ask first.</li>
+      <li>Report the artificial intelligence readiness sub-corpus separately, including whether those instruments have any psychometric validation at all as distinct from face-valid maturity grids.</li>
+      <li>Write the gap statement as a specific, evidenced claim about what is unmeasured, tied to the tabulated object-of-measurement counts. Position the programme's instrument against that gap in the final paragraph and nowhere earlier.</li>
+      <li>Produce the reporting artefacts through the pipeline: flow diagram, appraisal matrix, corpus characteristics table, and the completed reporting checklist required by the target journal.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Paper 1 manuscript, with every count and table generated rather than typed</li>
+        <li>Completed PRISMA 2020 checklist, including the abstract checklist</li>
+        <li>Appraisal matrix as a publishable figure or table</li>
+        <li>Corpus characteristics table</li>
+        <li>Gap statement, evidenced from the extraction data</li>
+        <li>Chapter 2 draft derived from the same source files</li>
+      </ul>
+    </div>
+
+    <div class="box gate">
+      <span class="box-title">Gate A6 &#183; Workstream A definition of done</span>
+      <p>Running the pipeline from the raw database exports reproduces every count, figure and table in the manuscript with no manual step, and the screening log reconstructs every decision. Until that is true, the review is a draft regardless of how finished the prose looks.</p>
+    </div>
+  </div>
+</section>

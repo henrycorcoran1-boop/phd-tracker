@@ -1,0 +1,423 @@
+<!-- ===================== WORKSTREAM C ===================== -->
+<section class="chapter">
+  <div class="chapter-label">Part Three</div>
+  <h1 id="s-wsc">Workstream C: Measurement and Analysis Pipeline<span class="sub">Built, debugged and proven against simulated data before a single real response exists</span></h1>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val">7</div><div class="kpi-lab">Stages</div></div>
+    <div class="kpi"><div class="kpi-val">C1</div><div class="kpi-lab">Blocks everything else</div></div>
+    <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lab">Worlds to recover: four-factor and three-factor</div></div>
+    <div class="kpi"><div class="kpi-val">C7</div><div class="kpi-lab">Feeds the pre-registration</div></div>
+  </div>
+
+  <p class="lead">The whole of this workstream is written and tested before fieldwork opens. That is the single most valuable decision in the programme. Code written against real data under submission pressure is code written once and checked never, and every analytical decision made after seeing the data is a decision a reviewer is entitled to treat as opportunistic. Writing it first converts the analysis plan from a promise into an executable artefact.</p>
+
+  <figure>
+    <svg viewBox="0 0 700 258" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The analysis pipeline dependency graph">
+      <defs>
+        <marker id="dgA" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="5.6" markerHeight="5.6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#2f5d8c"/></marker>
+      </defs>
+      <g font-family="Inter, sans-serif">
+        <rect x="0" y="24" width="120" height="52" rx="2" fill="#1e3c5f"/>
+        <text x="60" y="44" font-size="9.4" font-weight="700" fill="#ffffff" text-anchor="middle">C1 &#183; Generator</text>
+        <text x="60" y="57" font-size="7.4" fill="#c9dcef" text-anchor="middle">seeded, parameterised,</text>
+        <text x="60" y="67" font-size="7.4" fill="#c9dcef" text-anchor="middle">two dimensional worlds</text>
+
+        <g stroke="#2f5d8c" stroke-width="1" fill="#dde9f5">
+          <rect x="164" y="0" width="128" height="44" rx="2"/>
+          <rect x="164" y="56" width="128" height="44" rx="2"/>
+          <rect x="336" y="0" width="128" height="44" rx="2"/>
+          <rect x="336" y="56" width="128" height="44" rx="2"/>
+          <rect x="336" y="112" width="128" height="44" rx="2"/>
+          <rect x="508" y="56" width="128" height="44" rx="2"/>
+        </g>
+        <g font-size="9" font-weight="700" fill="#1e3c5f" text-anchor="middle">
+          <text x="228" y="18">C2 &#183; Measurement</text>
+          <text x="228" y="74">C3 &#183; Invariance</text>
+          <text x="400" y="18">C4 &#183; Configurational</text>
+          <text x="400" y="74">C5 &#183; Structural</text>
+          <text x="400" y="130">C6 &#183; IRT and CAT</text>
+          <text x="572" y="74">C7 &#183; Feasibility</text>
+        </g>
+        <g font-size="7.4" fill="#25415e" text-anchor="middle">
+          <text x="228" y="30">ordinal CFA, omega, HTMT</text>
+          <text x="228" y="86">threshold to scalar;</text>
+          <text x="228" y="96">ICC and agreement</text>
+          <text x="400" y="30">NCA then fsQCA</text>
+          <text x="400" y="86">multilevel moderated</text>
+          <text x="400" y="96">mediation; H5 and H6</text>
+          <text x="400" y="142">graded response;</text>
+          <text x="400" y="152">simulated adaptive study</text>
+          <text x="572" y="86">design analysis grid</text>
+          <text x="572" y="96">across ICC and effect size</text>
+        </g>
+
+        <g stroke="#2f5d8c" stroke-width="1" fill="none" marker-end="url(#dgA)">
+          <path d="M 122 40 L 142 40 L 142 22 L 162 22"/>
+          <path d="M 122 60 L 142 60 L 142 78 L 162 78"/>
+          <path d="M 294 22 L 315 22 L 315 22 L 334 22"/>
+          <path d="M 294 78 L 315 78 L 315 22 L 334 22"/>
+          <path d="M 294 78 L 315 78 L 334 78"/>
+          <path d="M 294 78 L 315 78 L 315 134 L 334 134"/>
+          <path d="M 466 78 L 506 78"/>
+          <path d="M 466 22 L 486 22 L 486 56"/>
+        </g>
+
+        <rect x="508" y="128" width="180" height="40" rx="2" fill="#e5e0f2" stroke="#4e3f7a" stroke-width="1"/>
+        <text x="598" y="144" font-size="8.6" font-weight="700" fill="#3d3163" text-anchor="middle">item-parameters.json</text>
+        <text x="598" y="157" font-size="7.4" fill="#5b5080" text-anchor="middle">crosses to Workstream D</text>
+        <path d="M 466 134 L 506 138" fill="none" stroke="#4e3f7a" stroke-width="1" marker-end="url(#dgA)"/>
+
+        <rect x="508" y="0" width="180" height="40" rx="2" fill="#dfebd9" stroke="#3a6b37" stroke-width="1"/>
+        <text x="598" y="16" font-size="8.6" font-weight="700" fill="#2c5229" text-anchor="middle">Pre-registration</text>
+        <text x="598" y="29" font-size="7.4" fill="#3a6b37" text-anchor="middle">lodged before fieldwork opens</text>
+        <path d="M 638 56 L 638 44" fill="none" stroke="#3a6b37" stroke-width="1" marker-end="url(#dgA)"/>
+
+        <line x1="0" y1="188" x2="700" y2="188" stroke="#e6e6e6" stroke-width="0.8"/>
+        <text x="0" y="204" font-size="7.6" font-weight="700" letter-spacing="1.2" fill="#2f5d8c">THE SWAP</text>
+        <rect x="0" y="212" width="212" height="40" rx="2" fill="#f4f6f9" stroke="#8a939d" stroke-width="0.9" stroke-dasharray="4 2"/>
+        <text x="106" y="228" font-size="8.4" font-weight="600" fill="#57606b" text-anchor="middle">SIMULATED input</text>
+        <text x="106" y="241" font-size="7.4" fill="#57606b" text-anchor="middle">every stage above runs on this first</text>
+        <path d="M 216 232 L 258 232" fill="none" stroke="#2f5d8c" stroke-width="1.2" marker-end="url(#dgA)"/>
+        <rect x="262" y="212" width="212" height="40" rx="2" fill="#dde9f5" stroke="#2f5d8c" stroke-width="1"/>
+        <text x="368" y="228" font-size="8.4" font-weight="700" fill="#1e3c5f" text-anchor="middle">Field data, Q2 2027 onward</text>
+        <text x="368" y="241" font-size="7.4" fill="#25415e" text-anchor="middle">one input target changes; nothing else does</text>
+        <text x="486" y="228" font-size="7.6" font-weight="600" fill="#99302f">If any code changes at the swap,</text>
+        <text x="486" y="240" font-size="7.6" font-weight="600" fill="#99302f">the simulation was not faithful.</text>
+      </g>
+    </svg>
+  </figure>
+  <div class="caption fig">The analysis pipeline as a dependency graph. The swap from simulated to field data changes one input target and nothing else; any code change required at that moment is evidence that the generator did not match the planned design.</div>
+
+  <!-- C1 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">C1</span>
+      <span class="stage-name">The data generator</span>
+      <span class="stage-meta">Build this first &#183; Blocks C2 to C7</span>
+    </div>
+    <p>The generator produces a nested dataset matching the planned design exactly: teams of four to five members, four dimensions of ten items, five-point ordinal responses, plus the artificial intelligence capability index, the carried absorptive capacity and psychological safety scales, the innovative work behaviour measure, and a team-level outcome from a separate informant.</p>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Parameterise the intraclass correlation so that aggregation can be tested at plausible values rather than at a single optimistic one. Sweep the realistic organisational range and observe what happens to the aggregation statistics at each value.</li>
+      <li>Parameterise the dimensional structure with two worlds: a four-condition world matching the CLEAR partition, and a three-condition world in which two dimensions collapse. Both must be generated and both must be correctly recovered by the Stage C2 code. Building only for the four-factor case leaves the programme with no tested code on the day the four-factor model fails.</li>
+      <li>Parameterise the effect sizes on the culture-to-innovation relationship, on the mediation paths, and on the artificial intelligence interaction, so that the feasibility grid in C7 has something to vary.</li>
+      <li>Model response compression and social desirability explicitly, since the pilot showed both. Compression is generated by shrinking the usable response range; social desirability by an additive respondent-level shift correlated with a marker. Code that has never seen compressed responses will behave unexpectedly when it meets them.</li>
+      <li>Model missingness and partial team completion. Real teams will not all return four members, and the aggregation and multilevel code must be exercised against teams of two, three and five before it meets them for real.</li>
+      <li>Attach metadata to every generated object recording the generating parameters, the seed and the word <code>SIMULATED</code>, and carry that metadata into every downstream figure and table automatically rather than by convention.</li>
+      <li>Write the generator's own tests: for a large sample at known parameters, the recovered parameters must match the generating parameters within a stated tolerance. A generator that is not itself verified silently invalidates every stage that depends on it.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Generator function with a documented parameter interface, seeded throughout</li>
+        <li>Four-condition and three-condition generating worlds, both exercised</li>
+        <li>Compression, social desirability, missingness and partial completion switches</li>
+        <li>Parameter recovery test at large sample, passing within tolerance</li>
+        <li>Committed simulated datasets in <code>data/simulated/</code>, each labelled and reproducible from its seed</li>
+      </ul>
+    </div>
+
+    <div class="box guard">
+      <span class="box-title">The three-condition world is not a contingency</span>
+      <p>It is a specified rival model, tested against the four-condition model on the same data at Stage C2. Treating it as a fallback to be reached for if the preferred model fails is what produces the appearance of post hoc model fitting. Specify both in the pre-registration, state which is preferred and why, and report the comparison whichever way it falls.</p>
+    </div>
+  </div>
+
+  <!-- C2 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">C2</span>
+      <span class="stage-name">Measurement model</span>
+      <span class="stage-meta">Depends on C1 &#183; Answers RO4</span>
+    </div>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Treat five-point items as ordinal and estimate accordingly, using a robust weighted least squares estimator with polychoric correlations. Treating five-category items as continuous biases loadings downward and produces fit statistics that are not comparable to the ordinal literature.</li>
+      <li>Fit the four-factor model and the three-factor rival on the same data and compare them. Report both, with the comparison statistic and the decision rule stated in advance in <code>config/thresholds.yml</code>.</li>
+      <li>Report robust fit indices, and state in the methods chapter that conventional cutoffs were derived under maximum likelihood with continuous indicators and are contested for categorical estimation. Report the indices, give the cutoffs used, and cite the source of the cutoffs rather than presenting them as neutral facts.</li>
+      <li>Resist modification indices. Every correlated residual added to reach acceptable fit is a departure from the specified model and must be justified substantively and reported as a departure. Fitting by modification index and reporting the result as confirmatory is one of the most common and most easily detected failures in this literature.</li>
+      <li>Report reliability with an omega coefficient appropriate to categorical indicators, with a confidence interval. Coefficient alpha may be reported alongside for comparability with older studies but is not the primary evidence, because its assumptions are not met here.</li>
+      <li>Assess discriminant validity with the heterotrait-monotrait ratio against the threshold pre-committed in the protocol, and report the inferential form as well as the point estimate. The partition principle from Part One is what this test puts at risk, so a failure here is theoretically informative rather than merely inconvenient.</li>
+      <li>Run the discriminant test against the carried absorptive capacity scale as well as between CLEAR dimensions. This is the answer to the construct redundancy objection and it is only available if B5 carried the scale.</li>
+      <li>Assess common method variance using the marker variable carried from B5, not with a single-factor test. Report the marker-adjusted estimates alongside the unadjusted ones.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Fitted four-factor and three-factor models with a reported comparison</li>
+        <li>Standardised loadings, residuals and any departures from specification, each justified</li>
+        <li>Categorical omega per dimension with confidence intervals</li>
+        <li>Heterotrait-monotrait matrix with inferential bounds, between dimensions and against absorptive capacity</li>
+        <li>Marker-variable method-variance assessment</li>
+        <li>Recovery demonstration: the code correctly identifies the four-factor world as four-factor and the three-factor world as three-factor</li>
+      </ul>
+    </div>
+
+    <div class="box gate">
+      <span class="box-title">Gate C2</span>
+      <p>On simulated data from the four-condition world the code selects the four-factor model; on simulated data from the three-condition world it selects the three-factor model. If it cannot distinguish them, the measurement model has no diagnostic value and the instrument needs more discriminating items before fieldwork, not after.</p>
+    </div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 700 168" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Competing four-factor and three-factor measurement structures">
+      <g font-family="Inter, sans-serif">
+        <text x="0" y="10" font-size="7.8" font-weight="700" letter-spacing="1.2" fill="#2f5d8c">MODEL 1 &#183; FOUR FACTORS, PREFERRED</text>
+        <text x="368" y="10" font-size="7.8" font-weight="700" letter-spacing="1.2" fill="#8a6100">MODEL 2 &#183; THREE FACTORS, SPECIFIED RIVAL</text>
+        <line x1="0" y1="14" x2="330" y2="14" stroke="#e6e6e6" stroke-width="0.7"/>
+        <line x1="368" y1="14" x2="700" y2="14" stroke="#e6e6e6" stroke-width="0.7"/>
+
+        <g>
+          <g fill="#dde9f5" stroke="#2f5d8c" stroke-width="0.9">
+            <ellipse cx="42" cy="40" rx="34" ry="16"/>
+            <ellipse cx="124" cy="40" rx="34" ry="16"/>
+            <ellipse cx="206" cy="40" rx="34" ry="16"/>
+            <ellipse cx="288" cy="40" rx="34" ry="16"/>
+          </g>
+          <g font-size="9" font-weight="700" fill="#1e3c5f" text-anchor="middle">
+            <text x="42" y="43">L</text><text x="124" y="43">E</text><text x="206" y="43">A</text><text x="288" y="43">R</text>
+          </g>
+          <g stroke="#2f5d8c" stroke-width="0.7" fill="none">
+            <path d="M 42 56 L 20 78"/><path d="M 42 56 L 42 78"/><path d="M 42 56 L 64 78"/>
+            <path d="M 124 56 L 102 78"/><path d="M 124 56 L 124 78"/><path d="M 124 56 L 146 78"/>
+            <path d="M 206 56 L 184 78"/><path d="M 206 56 L 206 78"/><path d="M 206 56 L 228 78"/>
+            <path d="M 288 56 L 266 78"/><path d="M 288 56 L 288 78"/><path d="M 288 56 L 310 78"/>
+          </g>
+          <g fill="#ffffff" stroke="#5288c0" stroke-width="0.7">
+            <rect x="12" y="80" width="16" height="12"/><rect x="34" y="80" width="16" height="12"/><rect x="56" y="80" width="16" height="12"/>
+            <rect x="94" y="80" width="16" height="12"/><rect x="116" y="80" width="16" height="12"/><rect x="138" y="80" width="16" height="12"/>
+            <rect x="176" y="80" width="16" height="12"/><rect x="198" y="80" width="16" height="12"/><rect x="220" y="80" width="16" height="12"/>
+            <rect x="258" y="80" width="16" height="12"/><rect x="280" y="80" width="16" height="12"/><rect x="302" y="80" width="16" height="12"/>
+          </g>
+          <text x="165" y="112" font-size="7.8" fill="#25415e" text-anchor="middle">Ten ordinal items per dimension, shown reduced.</text>
+          <text x="165" y="124" font-size="7.8" fill="#25415e" text-anchor="middle">Discriminant validity between all six pairs must hold.</text>
+          <text x="165" y="140" font-size="7.8" font-weight="700" fill="#2f5d8c" text-anchor="middle">Supports: four intervention classes, four binding conditions,</text>
+          <text x="165" y="152" font-size="7.8" font-weight="700" fill="#2f5d8c" text-anchor="middle">a four-condition configurational analysis.</text>
+        </g>
+
+        <g>
+          <g fill="#fbeed2" stroke="#8a6100" stroke-width="0.9">
+            <ellipse cx="424" cy="40" rx="44" ry="16"/>
+            <ellipse cx="534" cy="40" rx="38" ry="16"/>
+            <ellipse cx="638" cy="40" rx="38" ry="16"/>
+          </g>
+          <g font-size="8.6" font-weight="700" fill="#6b4c00" text-anchor="middle">
+            <text x="424" y="43">L + E</text><text x="534" y="43">A</text><text x="638" y="43">R</text>
+          </g>
+          <g stroke="#8a6100" stroke-width="0.7" fill="none">
+            <path d="M 424 56 L 392 78"/><path d="M 424 56 L 412 78"/><path d="M 424 56 L 436 78"/><path d="M 424 56 L 456 78"/>
+            <path d="M 534 56 L 512 78"/><path d="M 534 56 L 534 78"/><path d="M 534 56 L 556 78"/>
+            <path d="M 638 56 L 616 78"/><path d="M 638 56 L 638 78"/><path d="M 638 56 L 660 78"/>
+          </g>
+          <g fill="#ffffff" stroke="#c09a3e" stroke-width="0.7">
+            <rect x="384" y="80" width="16" height="12"/><rect x="404" y="80" width="16" height="12"/><rect x="428" y="80" width="16" height="12"/><rect x="448" y="80" width="16" height="12"/>
+            <rect x="504" y="80" width="16" height="12"/><rect x="526" y="80" width="16" height="12"/><rect x="548" y="80" width="16" height="12"/>
+            <rect x="608" y="80" width="16" height="12"/><rect x="630" y="80" width="16" height="12"/><rect x="652" y="80" width="16" height="12"/>
+          </g>
+          <text x="534" y="112" font-size="7.8" fill="#6b4c00" text-anchor="middle">The social conditions collapse: respondents do not</text>
+          <text x="534" y="124" font-size="7.8" fill="#6b4c00" text-anchor="middle">distinguish leader behaviour from peer climate.</text>
+          <text x="534" y="140" font-size="7.8" font-weight="700" fill="#8a6100" text-anchor="middle">Consequence: three intervention classes, and the vertical</text>
+          <text x="534" y="152" font-size="7.8" font-weight="700" fill="#8a6100" text-anchor="middle">and horizontal claim in H2 becomes untestable.</text>
+        </g>
+      </g>
+    </svg>
+  </figure>
+  <div class="caption fig">The two measurement structures the pipeline must be able to tell apart. The three-factor rival is not a lesser outcome, it is a substantive finding with direct consequences for the artefact's intervention routing, and it is specified in advance for that reason.</div>
+
+  <!-- C3 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">C3</span>
+      <span class="stage-name">Invariance and aggregation</span>
+      <span class="stage-meta">Depends on C2 &#183; The design's weakest joint</span>
+    </div>
+    <p>Aggregation from individual perceptions to a team score is a claim about the data, not a convenience. It has to be earned, and the design makes earning it harder than it looks.</p>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Test measurement invariance across organisation type and firm-size tier following the sequence appropriate to ordinal indicators, which begins with thresholds rather than with loadings. Using the continuous-indicator sequence on ordinal data tests the wrong constraints in the wrong order.</li>
+      <li>Evaluate each step against the change criteria pre-committed in <code>config/thresholds.yml</code>, citing their source. Where full invariance fails, establish partial invariance, name the non-invariant parameters, and state exactly what comparisons remain permissible.</li>
+      <li>Compute ICC(1), ICC(2) and within-group agreement for every dimension, and report all three. ICC(1) speaks to whether team membership matters; ICC(2) to whether the team mean is reliable; agreement to whether members actually agree. They answer different questions and reporting only one is a common and consequential shortcut.</li>
+      <li>Compute within-group agreement under more than one null distribution rather than the uniform null alone, and report the range. A single null assumption produces an agreement figure that is easy to challenge.</li>
+      <li>Report the significance test on between-team variance. Aggregating when teams do not differ is aggregating noise.</li>
+      <li>Run the aggregation diagnostics across the intraclass correlation sweep from C1 and record where they fail, before fieldwork. This tells the programme what the field data must look like for aggregation to be defensible, and that is information worth having in advance.</li>
+    </ol>
+
+    <div class="box guard">
+      <span class="box-title">A structural problem the design must confront now</span>
+      <p>ICC(2), the reliability of a team mean, rises with both the intraclass correlation and the number of respondents per team. With four to five members per team, ICC(2) remains modest across the entire plausible range of intraclass correlation values for organisational perception data. The consequence is that the team means may not reach conventional reliability even when the underlying construct behaves exactly as theorised.</p>
+      <p>Three responses are available, and the choice is made now rather than after the data arrives. First, increase respondents per team where access permits, which raises ICC(2) directly and is the only response that solves rather than manages the problem. Second, run the configurational analysis at team level as planned but report the structural model with individual-level predictors and cluster-robust standard errors, which does not require reliable team means. Third, report ICC(2) honestly against the interpretive standards and argue the case on ICC(1) and agreement, which is defensible but must be argued rather than assumed. Stage C7 quantifies the trade-off; the decision belongs in the pre-registration.</p>
+    </div>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Invariance sequence results across organisation type and firm-size tier, with the criteria and their source</li>
+        <li>Partial invariance findings, with the permissible comparisons stated</li>
+        <li>ICC(1), ICC(2) and agreement per dimension, with the between-team variance test</li>
+        <li>Agreement computed under multiple null distributions, reported as a range</li>
+        <li>Aggregation defensibility map across the intraclass correlation sweep</li>
+        <li>Aggregation decision recorded in the pre-registration, with its fallback</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C4 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">C4</span>
+      <span class="stage-name">Configurational analysis</span>
+      <span class="stage-meta">Depends on C3 &#183; Tests H3 and H4 &#183; Primary result</span>
+    </div>
+    <p>The configurational analysis is the primary test, and the structural model complements it rather than replacing it. That ordering follows from the theory: if the claim is that the binding condition differs between organisations, an analysis that estimates one average effect per condition cannot test it.</p>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Run necessity before sufficiency. A condition that is necessary will appear in every sufficient configuration and will be misread as a driver if necessity is not established separately.</li>
+      <li>Conduct necessary condition analysis with both ceiling line estimators, report effect sizes against the published interpretation bands, and test necessity statistically rather than reading it from a scatter plot. Produce the bottleneck table, which is the output the artefact's intervention routing depends on.</li>
+      <li>Set calibration anchors in <code>config/calibration-anchors.yml</code> with a written justification for each of the three anchors on every condition. Anchors set at sample quantiles without a substantive reason are the most frequently criticised element of published set-theoretic work, and the criticism is usually correct.</li>
+      <li>Avoid setting any case exactly at the crossover point, since such cases are dropped from the analysis. Check for and report them.</li>
+      <li>Construct the truth table with a frequency threshold appropriate to the sample size and report how many cases and what proportion of the total the retained configurations cover. Report the extent of limited diversity honestly: with four conditions there are sixteen logically possible configurations, and a sample of this size will not populate all of them.</li>
+      <li>Apply the consistency and proportional reduction in inconsistency thresholds pre-committed in the configuration file, and report all three solution types. Present the intermediate solution as primary with the directional expectations stated in advance, and report the parsimonious solution alongside so that core and peripheral conditions can be distinguished.</li>
+      <li>Run the robustness protocol: vary the calibration anchors, the consistency threshold and the frequency threshold across a stated range, and report how the solution changes. A solution that survives only at one parameter setting is not a finding.</li>
+      <li>Run the parallel analysis on the artificial-intelligence-enabled outcome to answer RQ3.3, and compare which conditions bind for machine-derived output against which bind for employee ideas. Any difference between the two solutions is a genuinely novel result.</li>
+      <li>Analyse the negation of the outcome as well. Configurations sufficient for low readiness are not the mirror image of those sufficient for high readiness, and reporting only one half invites the criticism that causal asymmetry was assumed rather than examined.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Calibration file with a written justification for every anchor on every condition</li>
+        <li>Necessity results with effect sizes, statistical tests and the bottleneck table</li>
+        <li>Truth table with frequency and consistency thresholds, and a limited-diversity statement</li>
+        <li>Complex, parsimonious and intermediate solutions, with core and peripheral conditions marked</li>
+        <li>Robustness report across anchors and thresholds</li>
+        <li>Parallel solution on the artificial intelligence outcome, compared against the innovation outcome</li>
+        <li>Solution for the negated outcome</li>
+        <li>Configuration-to-intervention mapping, which Stage D5 consumes directly</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C5 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">C5</span>
+      <span class="stage-name">Structural model</span>
+      <span class="stage-meta">Depends on C3 &#183; Tests H1, H2, H5, H6</span>
+    </div>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Begin by partitioning variance. Report the unconditional model and the proportion of variance lying between teams for every outcome, before any predictor enters. This is what makes H1 a real test rather than a formality.</li>
+      <li>Specify the mediation within a multilevel structural equation framework rather than by entering group means as predictors in a single-level model, because the latter conflates within-team and between-team effects and produces indirect effects that are not interpretable at either level.</li>
+      <li>Obtain confidence intervals for indirect effects by Monte Carlo or a comparable resampling method, not from a normal-theory standard error, since the sampling distribution of a product is not symmetric.</li>
+      <li>Test the vertical and horizontal claim in H2 by specifying competing indirect paths in the same model rather than in separate models, so that the comparison is within a single estimated structure.</li>
+      <li>Test H5 as a moderation of the artificial intelligence outcome by the capability index, reporting the interaction and the simple slopes across the range of the cultural profile. Report the main effect of capability with the interaction in the model, because H5 predicts it will not survive.</li>
+      <li>Test H6 as a nested model comparison on the same outcome with the same sample: cultural profile against technology maturity score, then both together. Pre-specify the comparison criterion in the pre-registration, and pre-specify what would count as the maturity score winning.</li>
+      <li>Build the single-level fallback now, not later: design-effect-adjusted analysis with cluster-robust standard errors, ready to run if recruitment falls short of what C7 shows the multilevel model needs. Building the fallback in advance means the decision to use it is a sample-size decision rather than a decision made under duress.</li>
+      <li>Carry firm size and organisation type as controls throughout, and report the model with and without them.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Variance partition for every outcome, reported before predictors</li>
+        <li>Multilevel mediation with competing indirect paths and Monte Carlo intervals</li>
+        <li>Moderation results for H5 with simple slopes and the capability main effect</li>
+        <li>Nested comparison for H6 with the pre-specified criterion</li>
+        <li>Single-level fallback, built and tested on simulated data</li>
+        <li>Control-variable sensitivity, models reported with and without</li>
+      </ul>
+    </div>
+
+    <div class="box note">
+      <span class="box-title">On reporting order</span>
+      <p>Chapter 5 reports the configurational results first and the structural results second. That order follows the theory, and reversing it would signal that the configurational analysis is a robustness check on a regression, which is the opposite of the argument. Reviewers at construction management journals are more familiar with the structural form, so the chapter must earn the ordering with a short paragraph explaining why the question requires it.</p>
+    </div>
+  </div>
+
+  <!-- C6 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">C6</span>
+      <span class="stage-name">Item response calibration and adaptive simulation</span>
+      <span class="stage-meta">Depends on C2 &#183; Supplies Workstream D &#183; Feasibility risk</span>
+    </div>
+    <p>This stage carries the largest gap between what the programme has promised and what the sample can support, and confronting that gap now is considerably cheaper than confronting it in the viva.</p>
+
+    <div class="box guard">
+      <span class="box-title">The arithmetic that has to be faced</span>
+      <p>The artefact is specified to reach equivalent measurement precision in eight to twelve items rather than the full instrument. With four dimensions, each requiring its own ability estimate, eight to twelve items means two or three items per dimension. Two or three graded-response items cannot produce a standard error comparable to that of a ten-item scale, whatever the item selection algorithm does, because the information simply is not there. The claim as written is not achievable and must be restated before it appears in a paper.</p>
+      <p>Three routes are available. The first is to restate the target: an adaptive form of sixteen to twenty items, four to five per dimension, is still a reduction of more than half and is honestly defensible. The second is to fit a multidimensional graded response model that borrows information across correlated dimensions, which genuinely improves efficiency when the dimensions correlate as CLEAR's are expected to, and which would itself be a methodological contribution in this literature. The third is to accept a lower precision target for screening use and report the standard error attained rather than claiming equivalence. Route two is preferred, route one is the fallback, and route three is what the artefact does in the interim. Whichever is chosen, the target is stated as a standard error, never as an item count.</p>
+    </div>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Establish the assumptions before fitting: sufficient unidimensionality within each dimension, local independence, and monotonicity. A graded response model fitted to a dimension that is not unidimensional produces parameters that mean nothing.</li>
+      <li>Fit the graded response model per dimension with full item fit diagnostics, and inspect category thresholds for disordering. Disordered thresholds usually indicate a response category that respondents do not use, which is a finding about the instrument and a candidate for collapse.</li>
+      <li>Produce item and test information functions per dimension and identify where on the trait continuum the instrument is precise. An instrument informative only at the extremes is of little use for diagnosis, since organisations near the middle are the ones that need to know which condition binds.</li>
+      <li>Establish the calibration sample requirement against the simulation literature and compare it honestly with what the planned fieldwork will yield. Record the gap in the risk register and state the mitigation.</li>
+      <li>Fit the multidimensional model alongside the per-dimension models and compare the precision achieved at fixed test length. This comparison is the evidence for whichever route is taken.</li>
+      <li>Run the simulated adaptive study: maximum information selection, ability estimation, exposure control, content balancing so that every dimension is represented, and stopping rules expressed as standard error targets with a maximum length. Compare against full-form administration on precision, exposure and the standard error trajectory.</li>
+      <li>Export item parameters as versioned JSON against a published schema, with the calibration version, the sample it was calibrated on, and whether it is provisional or final recorded inside the file rather than in a filename.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Assumption checks per dimension, reported rather than assumed</li>
+        <li>Calibrated parameters with item fit statistics and threshold ordering</li>
+        <li>Item and test information functions, with the precision range stated</li>
+        <li>Calibration sample requirement against planned yield, with the gap named</li>
+        <li>Multidimensional versus per-dimension precision comparison at fixed length</li>
+        <li>Simulated adaptive study: precision, exposure, standard error trajectory, length distribution</li>
+        <li>Restated precision target, expressed as a standard error and not an item count</li>
+        <li><code>item-parameters.json</code> against a published schema, versioned</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C7 -->
+  <div class="stage">
+    <div class="stage-head">
+      <span class="stage-ref">C7</span>
+      <span class="stage-name">Feasibility and design analysis</span>
+      <span class="stage-meta">Depends on C1 to C5 &#183; Delivers the pre-registration</span>
+    </div>
+    <p>This stage converts the simulator from scaffolding into a methodological contribution. It establishes what the planned sample can and cannot detect, and it does so before recruitment rather than as a post hoc power calculation, which is not informative.</p>
+
+    <div class="subhead">Instructions</div>
+    <ol class="instructions">
+      <li>Define the grid: number of teams, respondents per team, intraclass correlation, and effect size on each key path. Run the full pipeline across the grid with many replications per cell and record detection rates, parameter bias and interval coverage.</li>
+      <li>Report power for each hypothesis separately. The cross-level interaction in H5 will require substantially more than the main effects in H1, and a single overall power figure conceals that.</li>
+      <li>Report the aggregation surface alongside power: at which combinations of intraclass correlation and team size does the aggregation argument hold, and at which does it fail. This is the output that decides the recruitment target.</li>
+      <li>Report the configurational feasibility separately, since set-theoretic analysis is governed by case numbers and diversity rather than by statistical power. State the minimum number of cases and the expected extent of limited diversity.</li>
+      <li>Derive the recruitment target from the grid rather than from convention, and state the minimum below which the multilevel model is abandoned in favour of the single-level fallback. Put that number in the pre-registration so that the decision is made in advance.</li>
+      <li>Write the pre-registration: hypotheses, measures, sampling, exclusion rules, the full analysis plan for each stage, every threshold, the aggregation decision and its fallback, the H6 comparison criterion, and what happens if each hypothesis fails. Lodge it before fieldwork opens.</li>
+    </ol>
+
+    <div class="box deliv">
+      <span class="box-title">Key deliverables</span>
+      <ul class="checks">
+        <li>Design analysis grid results: detection rate, bias and coverage per cell per hypothesis</li>
+        <li>Aggregation defensibility surface across intraclass correlation and team size</li>
+        <li>Configurational feasibility statement with minimum case numbers</li>
+        <li>Recruitment target with the abandonment threshold for the multilevel model</li>
+        <li>Lodged pre-registration with a public timestamp</li>
+        <li>Methods paper material: the simulation study is publishable in its own right within Paper 3 rather than as a sixth output</li>
+      </ul>
+    </div>
+
+    <div class="box gate">
+      <span class="box-title">Gate C7 &#183; Workstream C definition of done</span>
+      <p>A single command runs the full pipeline end to end on simulated data and produces every figure and table the manuscripts need; the code correctly recovers both the four-condition and the three-condition structures from their respective worlds; the feasibility grid has produced a recruitment target; and the pre-registration is lodged. Fieldwork does not open until all four are true.</p>
+    </div>
+  </div>
+</section>
