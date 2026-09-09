@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>:root{color-scheme:light dark}html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>M100 Advance Works Organogram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;450;500;600&display=swap">
+
+<style>
+/* ============================================================
+   TOKENS. Light palette defined on bare :root, redefined for
+   the two dark states. Nothing is coloured outside these sets.
+   ============================================================ */
+:root{
+  --ground:#EDF0F4;
+  --surface:#FFFFFF;
+  --surface-2:#F5F8FA;
+  --surface-3:#E7ECF1;
+  --ink:#0F1B29;
+  --ink-2:#46586C;
+  --ink-3:#718294;
+  --rule:#D3DBE4;
+  --rule-2:#BAC6D2;
+  --accent:#00706A;
+  --accent-2:#DCEEEC;
+  --tech:#2A4A97;
+  --tech-2:#E2E8F7;
+  --proc:#8F560E;
+  --proc-2:#F6EADA;
+  --pkg-strength:90%;
+  --pkg-blend:#0B1420;
+  --pkg-tint:7%;
+  --pkg-edge:26%;
+  --shadow:0 1px 2px rgba(15,27,41,.05), 0 10px 26px -18px rgba(15,27,41,.35);
+  --shadow-lift:0 2px 4px rgba(15,27,41,.07), 0 16px 34px -20px rgba(15,27,41,.45);
+
+  --label-w:236px;
+  --col-min:158px;
+  --colgap:12px;
+  --rowgap:12px;
+
+  --display:"Barlow Semi Condensed","Helvetica Neue",Arial,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0B131C;
+    --surface:#151F2B;
+    --surface-2:#111B25;
+    --surface-3:#1D2937;
+    --ink:#E9EFF5;
+    --ink-2:#A6B6C7;
+    --ink-3:#7E90A3;
+    --rule:#27333F;
+    --rule-2:#3A4A59;
+    --accent:#43C0AF;
+    --accent-2:#0D2B29;
+    --tech:#89A6EC;
+    --tech-2:#151F38;
+    --proc:#DCA75C;
+    --proc-2:#2A2114;
+    --pkg-strength:58%;
+    --pkg-blend:#FFFFFF;
+    --pkg-tint:15%;
+    --pkg-edge:38%;
+    --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 26px -18px rgba(0,0,0,.9);
+    --shadow-lift:0 2px 5px rgba(0,0,0,.5), 0 18px 36px -20px rgba(0,0,0,1);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0B131C;
+  --surface:#151F2B;
+  --surface-2:#111B25;
+  --surface-3:#1D2937;
+  --ink:#E9EFF5;
+  --ink-2:#A6B6C7;
+  --ink-3:#7E90A3;
+  --rule:#27333F;
+  --rule-2:#3A4A59;
+  --accent:#43C0AF;
+  --accent-2:#0D2B29;
+  --tech:#89A6EC;
+  --tech-2:#151F38;
+  --proc:#DCA75C;
+  --proc-2:#2A2114;
+  --pkg-strength:58%;
+  --pkg-blend:#FFFFFF;
+  --pkg-tint:15%;
+  --pkg-edge:38%;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 26px -18px rgba(0,0,0,.9);
+  --shadow-lift:0 2px 5px rgba(0,0,0,.5), 0 18px 36px -20px rgba(0,0,0,1);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.page{max-width:1560px;margin:0 auto;padding:28px 24px 72px}
+
+/* ============================================================
+   TITLE BLOCK. Modelled on an engineering drawing title block.
+   ============================================================ */
+.titleblock{
+  display:grid;
+  grid-template-columns:minmax(320px,1.15fr) minmax(340px,1fr);
+  border:1px solid var(--rule-2);
+  background:var(--surface);
+  box-shadow:var(--shadow);
+}
+.tb-main{padding:22px 26px 20px;border-right:1px solid var(--rule-2);display:flex;flex-direction:column;gap:10px}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent);
+}
+h1{
+  font-family:var(--display);font-weight:700;font-size:clamp(30px,4.4vw,46px);
+  line-height:1.02;letter-spacing:-.005em;margin:0;text-wrap:balance;
+}
+.subtitle{font-size:15px;color:var(--ink-2);max-width:56ch;margin:0}
+.tb-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.tag{
+  font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.05em;
+  padding:3px 8px;border:1px solid var(--rule-2);color:var(--ink-2);background:var(--surface-2);
+}
+.tb-meta{display:grid;grid-template-columns:1fr 1fr;align-content:start}
+.mcell{padding:11px 16px;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule)}
+.mcell:nth-child(2n){border-right:0}
+.mcell.wide{grid-column:1 / -1}
+.mkey{
+  font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:3px;
+}
+.mval{font-size:13.5px;font-weight:500;color:var(--ink);line-height:1.35}
+.mval.mono{font-family:var(--mono);font-size:12.5px}
+
+/* ============================================================
+   CONTROLS
+   ============================================================ */
+.controls{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;
+  margin:20px 0 6px;padding:12px 16px;
+  background:var(--surface);border:1px solid var(--rule);box-shadow:var(--shadow);
+}
+.ctl-label{
+  font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);
+}
+.segmented{display:flex;border:1px solid var(--rule-2);background:var(--surface-2)}
+.segmented button{
+  font-family:var(--body);font-size:13px;font-weight:500;color:var(--ink-2);
+  background:none;border:0;padding:7px 15px;cursor:pointer;white-space:nowrap;
+  border-right:1px solid var(--rule-2);transition:background .14s,color .14s;
+}
+.segmented button:last-child{border-right:0}
+.segmented button:hover{background:var(--surface-3);color:var(--ink)}
+.segmented button[aria-pressed="true"]{background:var(--accent);color:var(--surface);font-weight:600}
+:root[data-theme="dark"] .segmented button[aria-pressed="true"],
+.segmented button[aria-pressed="true"]{color:#fff}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .segmented button[aria-pressed="true"]{color:#06201E}
+}
+:root[data-theme="dark"] .segmented button[aria-pressed="true"]{color:#06201E}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-left:auto;align-items:center}
+.lg{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-2)}
+.lg .swatch{width:26px;height:0;border-top:2px solid var(--ink-2);flex:none}
+.lg .swatch.solid{border-top-color:var(--ink-2)}
+.lg .swatch.tech{border-top:2px dashed var(--tech)}
+.lg .swatch.proc{border-top:2px dashed var(--proc)}
+.lg .swatch.client{border-top:2px dotted var(--accent)}
+
+.focusnote{
+  font-size:12.5px;color:var(--ink-3);font-style:italic;
+}
+button.ghost{
+  font-family:var(--body);font-size:12.5px;color:var(--accent);background:none;
+  border:1px solid var(--rule-2);padding:6px 12px;cursor:pointer;
+}
+button.ghost:hover{background:var(--accent-2)}
+button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ============================================================
+   COMMAND SPINE
+   ============================================================ */
+.spine{margin:22px 0 0;display:flex;flex-direction:column;align-items:center;gap:0}
+.node{
+  background:var(--surface);border:1px solid var(--rule-2);box-shadow:var(--shadow);
+  padding:12px 20px;text-align:center;min-width:270px;max-width:420px;
+}
+.node .nrole{font-family:var(--display);font-weight:600;font-size:19px;line-height:1.15;letter-spacing:.005em}
+.node .norg{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+.node .nnote{font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.4}
+.node.client{border-style:dashed;border-color:var(--accent);background:var(--accent-2)}
+.node.client .norg{color:var(--accent)}
+.connector{width:0;border-left:2px solid var(--rule-2);height:22px}
+.connector.dotted{border-left-style:dotted;border-left-color:var(--accent);height:30px;position:relative}
+.connector .clabel{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);white-space:nowrap;
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);
+}
+.spine-row{display:flex;align-items:stretch;justify-content:center;gap:0;width:100%}
+.staff{
+  display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;
+  margin-top:14px;
+}
+.staffbox{
+  background:var(--surface-2);border:1px solid var(--rule);border-top:3px solid var(--accent);
+  padding:9px 14px;min-width:184px;
+}
+.staffbox .sname{font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.2}
+.staffbox .sdesc{font-size:11.5px;color:var(--ink-3);margin-top:3px;line-height:1.35}
+.staff-caption{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);text-align:center;margin-top:16px;
+}
+
+/* ============================================================
+   MATRIX
+   ============================================================ */
+.sectionhead{
+  display:flex;align-items:baseline;gap:12px;margin:38px 0 4px;
+  border-bottom:1px solid var(--rule-2);padding-bottom:8px;
+}
+.sectionhead h2{
+  font-family:var(--display);font-weight:600;font-size:24px;margin:0;letter-spacing:.005em;
+}
+.sectionhead .shnote{font-size:13px;color:var(--ink-2);margin-left:auto;text-align:right;max-width:52ch}
+
+.scroller{overflow-x:auto;padding:14px 2px 6px;scrollbar-width:thin}
+/* --tpl is declared here, not on :root, so that --ncols resolves on the
+   same element the template is substituted on. */
+.matrix{
+  position:relative;min-width:1330px;
+  --ncols:7;
+  --tpl:var(--label-w) repeat(var(--ncols),minmax(var(--col-min),1fr));
+}
+.bands{
+  position:absolute;inset:0;display:grid;grid-template-columns:var(--tpl);
+  gap:0 var(--colgap);padding:10px;pointer-events:none;z-index:0;
+}
+.band{
+  border:1px solid color-mix(in srgb, var(--pkg) var(--pkg-edge), var(--rule));
+  background:color-mix(in srgb, var(--pkg) var(--pkg-tint), var(--surface));
+  border-radius:3px;transition:opacity .18s;margin:-5px;
+}
+.band.ghost{border-style:dashed;background:var(--surface-2)}
+.rows{position:relative;z-index:1;display:flex;flex-direction:column;gap:var(--rowgap);padding:10px}
+.mrow{
+  display:grid;grid-template-columns:var(--tpl);gap:0 var(--colgap);position:relative;align-items:stretch;
+}
+.rail{
+  position:absolute;left:calc(var(--label-w) + var(--colgap));right:10px;top:50%;
+  border-top:2px dashed var(--ink-3);z-index:0;pointer-events:none;
+}
+.rail.tech{border-top-color:var(--tech)}
+.rail.proc{border-top-color:var(--proc)}
+.rail.solid{border-top:2px solid var(--rule-2)}
+
+/* anchor cards sitting in the label column */
+.anchor{
+  position:relative;z-index:2;background:var(--surface);border:1px solid var(--rule-2);
+  padding:11px 14px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow);
+}
+.anchor.tech{border-left:4px solid var(--tech)}
+.anchor.proc{border-left:4px solid var(--proc)}
+.anchor.line{border-left:4px solid var(--rule-2)}
+.anchor.plain{background:none;border:0;box-shadow:none;padding-left:4px}
+.anchor .arole{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.15}
+.anchor .adesc{font-size:11.5px;color:var(--ink-3);margin-top:4px;line-height:1.4}
+.anchor .aline{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  margin-top:6px;color:var(--ink-3);
+}
+.anchor.tech .aline{color:var(--tech)}
+.anchor.proc .aline{color:var(--proc)}
+
+/* package column headers */
+.pkghead{
+  position:relative;z-index:2;background:var(--surface);
+  border:1px solid color-mix(in srgb, var(--pkg) var(--pkg-edge), var(--rule));
+  border-top:4px solid var(--pkg);padding:11px 12px 12px;cursor:pointer;text-align:left;
+  font-family:inherit;display:flex;flex-direction:column;gap:5px;transition:box-shadow .16s,transform .16s;
+  width:100%;
+}
+.pkghead:hover{box-shadow:var(--shadow-lift);transform:translateY(-1px)}
+.pkghead.ghost{border-style:dashed;border-top-style:solid}
+.pkgref{
+  font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:.04em;
+  color:color-mix(in srgb, var(--pkg) var(--pkg-strength), var(--pkg-blend));
+}
+.pkgname{font-family:var(--display);font-weight:600;font-size:16.5px;line-height:1.12;color:var(--ink)}
+.pkgscope{font-size:11.5px;color:var(--ink-2);line-height:1.42}
+.pkgform{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-3);margin-top:auto;padding-top:5px;border-top:1px solid var(--rule);
+}
+
+/* role cells */
+.cell{
+  position:relative;z-index:2;background:var(--surface);border:1px solid var(--rule);
+  padding:10px 12px;display:flex;flex-direction:column;gap:3px;min-height:78px;
+  box-shadow:var(--shadow);
+}
+.cell.core{border-left:3px solid color-mix(in srgb, var(--pkg) var(--pkg-strength), var(--pkg-blend))}
+.cell.muted{background:var(--surface-2);box-shadow:none;border-style:dashed}
+.cell .crole{font-family:var(--display);font-weight:600;font-size:15px;line-height:1.18}
+.cell .cname{
+  font-family:var(--mono);font-size:11px;color:var(--ink-3);
+  border-bottom:1px dashed var(--rule-2);padding-bottom:2px;margin-top:2px;
+}
+.cell .cdesc{font-size:11.5px;color:var(--ink-2);line-height:1.4}
+.cell .cpkg{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;font-weight:500;
+  color:color-mix(in srgb, var(--pkg) var(--pkg-strength), var(--pkg-blend));
+}
+
+/* focus state */
+.matrix.focused .band:not(.on),
+.matrix.focused .pkghead:not(.on),
+.matrix.focused .cell:not(.on){opacity:.2}
+.matrix.focused .band.on{box-shadow:var(--shadow-lift)}
+
+/* ============================================================
+   SHARED SERVICES + FUNCTION VIEW
+   ============================================================ */
+.sharedband{
+  margin-top:14px;border:1px solid var(--rule-2);background:var(--surface-2);
+  padding:14px 16px;
+}
+.sharedband h3{
+  font-family:var(--display);font-weight:600;font-size:17px;margin:0 0 3px;
+}
+.sharedband .sbnote{font-size:12.5px;color:var(--ink-2);margin:0 0 12px;max-width:78ch}
+.sharedgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:10px}
+.sharedgrid .cell{min-height:0}
+
+.fnpanels{display:flex;flex-direction:column;gap:16px;margin-top:16px}
+.fnpanel{border:1px solid var(--rule-2);background:var(--surface);box-shadow:var(--shadow)}
+.fnpanel > header{
+  display:flex;align-items:flex-start;gap:14px;padding:14px 18px;
+  border-bottom:1px solid var(--rule);
+}
+.fnpanel.tech > header{border-left:5px solid var(--tech)}
+.fnpanel.proc > header{border-left:5px solid var(--proc)}
+.fnpanel.shared > header{border-left:5px solid var(--accent)}
+.fnpanel h3{font-family:var(--display);font-weight:600;font-size:20px;margin:0;line-height:1.15}
+.fnpanel .fnsub{font-size:12.5px;color:var(--ink-2);margin:4px 0 0;max-width:70ch}
+.fnpanel .fncount{
+  margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-3);white-space:nowrap;padding-top:4px;
+}
+.fnrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(188px,1fr));gap:10px;padding:14px 18px 18px}
+
+/* ============================================================
+   NOTES
+   ============================================================ */
+.notes{
+  margin-top:34px;border-top:1px solid var(--rule-2);padding-top:18px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px 34px;
+}
+.notes section h4{
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 8px;
+}
+.notes ol,.notes ul{margin:0;padding-left:18px}
+.notes li{font-size:12.5px;color:var(--ink-2);line-height:1.55;margin-bottom:7px;max-width:62ch}
+.notes a{color:var(--accent)}
+.flag{
+  display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;padding:1px 6px;border:1px solid currentColor;margin-right:5px;
+  color:var(--proc);vertical-align:1px;
+}
+.flag.ok{color:var(--accent)}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important;animation:none !important}
+}
+@media (max-width:820px){
+  .titleblock{grid-template-columns:1fr}
+  .tb-main{border-right:0;border-bottom:1px solid var(--rule-2)}
+  .legend{margin-left:0}
+}
+
+/* ============================================================
+   PRINT. A3 landscape, light tokens forced, no controls.
+   ============================================================ */
+@media print{
+  :root{
+    --ground:#fff;--surface:#fff;--surface-2:#fff;--surface-3:#f2f4f7;
+    --ink:#0F1B29;--ink-2:#3d4d5f;--ink-3:#5f7084;--rule:#c8d2dc;--rule-2:#9aa8b6;
+    --pkg-strength:92%;--pkg-blend:#0B1420;--pkg-tint:9%;--pkg-edge:34%;
+    --shadow:none;--shadow-lift:none;
+  }
+  @page{size:A3 landscape;margin:12mm}
+  body{background:#fff;font-size:11px}
+  .page{padding:0;max-width:none}
+  .controls,.focusnote{display:none !important}
+  .scroller{overflow:visible}
+  .matrix{min-width:0}
+  .matrix.focused .band:not(.on),
+  .matrix.focused .pkghead:not(.on),
+  .matrix.focused .cell:not(.on){opacity:1}
+  .spine,.matrixwrap,.fnpanel,.sharedband{break-inside:avoid}
+  .notes{break-before:page}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ========== TITLE BLOCK ========== -->
+  <div class="titleblock">
+    <div class="tb-main">
+      <div class="eyebrow">Transport Infrastructure Ireland &nbsp;/&nbsp; MetroLink Programme</div>
+      <h1>M100 Advance Works</h1>
+      <p class="subtitle">
+        Design services organogram for the AtkinsRéalis detailed design commission. Each advance
+        works contract carries its own delivery team, and every team holds a Technical Manager
+        and a Procurement Manager as its paired core.
+      </p>
+      <div class="tb-tags">
+        <span class="tag">7 CONTRACT PACKAGES</span>
+        <span class="tag">MATRIX ORGANISATION</span>
+        <span class="tag">NEC4 SUITE</span>
+        <span class="tag">DRAFT FOR REVIEW</span>
+      </div>
+    </div>
+    <div class="tb-meta">
+      <div class="mcell"><span class="mkey">Client</span><span class="mval">Transport Infrastructure Ireland</span></div>
+      <div class="mcell"><span class="mkey">Programme</span><span class="mval">MetroLink, Greater Dublin Area</span></div>
+      <div class="mcell"><span class="mkey">Designer</span><span class="mval">AtkinsRéalis</span></div>
+      <div class="mcell"><span class="mkey">Subconsultant</span><span class="mval">RPS, a Tetra Tech company</span></div>
+      <div class="mcell"><span class="mkey">Commission</span><span class="mval">M100 Advance Works detailed design</span></div>
+      <div class="mcell"><span class="mkey">Works contract form</span><span class="mval mono">NEC4 ECC</span></div>
+      <div class="mcell"><span class="mkey">Revision</span><span class="mval mono">P01</span></div>
+      <div class="mcell"><span class="mkey">Date</span><span class="mval mono">09.09.2026</span></div>
+      <div class="mcell wide" style="border-bottom:0">
+        <span class="mkey">Status</span>
+        <span class="mval">Draft structure. Role titles issued without names pending confirmation of the team list.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== CONTROLS ========== -->
+  <div class="controls">
+    <span class="ctl-label">Read as</span>
+    <div class="segmented" role="group" aria-label="Chart view">
+      <button id="btn-contract" aria-pressed="true">By contract</button>
+      <button id="btn-function" aria-pressed="false">By function</button>
+    </div>
+    <span class="focusnote" id="focusnote">Select a contract header to isolate its team.</span>
+    <button class="ghost" id="btn-clear" hidden>Clear selection</button>
+    <div class="legend">
+      <span class="lg"><span class="swatch solid"></span>Line management</span>
+      <span class="lg"><span class="swatch tech"></span>Technical function</span>
+      <span class="lg"><span class="swatch proc"></span>Procurement function</span>
+      <span class="lg"><span class="swatch client"></span>Client interface</span>
+    </div>
+  </div>
+
+  <!-- ========== SPINE ========== -->
+  <div class="spine" id="spine">
+    <div class="node client">
+      <div class="norg">Client</div>
+      <div class="nrole">TII MetroLink Programme</div>
+      <div class="nnote">Advance Works Programme Manager and package sponsors. Outside the AtkinsRéalis line of management.</div>
+    </div>
+    <div class="connector dotted"><span class="clabel">Design services contract</span></div>
+    <div class="node">
+      <div class="norg">AtkinsRéalis</div>
+      <div class="nrole">Project Director</div>
+      <div class="nnote">Contractual accountability for the commission. Owns the client relationship and commercial performance.</div>
+    </div>
+    <div class="connector"></div>
+    <div class="node">
+      <div class="norg">AtkinsRéalis</div>
+      <div class="nrole">Design Manager, M100</div>
+      <div class="nnote">Day to day control of the seven package teams. Chairs the package leads forum.</div>
+    </div>
+    <div class="staff">
+      <div class="staffbox"><div class="sname">Programme Controls</div><div class="sdesc">Schedule, risk, change and earned value across all packages</div></div>
+      <div class="staffbox"><div class="sname">PSDP &amp; Design Safety</div><div class="sdesc">Project Supervisor Design Process duties under the Construction Regulations</div></div>
+      <div class="staffbox"><div class="sname">Quality &amp; Technical Assurance</div><div class="sdesc">Independent design review, TII standards compliance and departures</div></div>
+    </div>
+    <div class="staff-caption">Programme functions serving all seven packages</div>
+  </div>
+
+  <!-- ========== CONTRACT VIEW ========== -->
+  <div id="view-contract">
+    <div class="sectionhead">
+      <h2>Contract package teams</h2>
+      <span class="shnote">
+        Read down a column for the team accountable for one contract. Read across a row for the
+        functional line that person also answers to.
+      </span>
+    </div>
+    <div class="scroller">
+      <div class="matrix" id="matrix">
+        <div class="bands" id="bands"></div>
+        <div class="rows" id="rows"></div>
+      </div>
+    </div>
+
+    <div class="sharedband">
+      <h3>Shared delivery services</h3>
+      <p class="sbnote">
+        Drawn from a single resource pool and tasked into packages by the Design Manager. These
+        roles are not embedded in any one contract team, which is the distinction the chart above
+        is built to show.
+      </p>
+      <div class="sharedgrid" id="sharedgrid"></div>
+    </div>
+  </div>
+
+  <!-- ========== FUNCTION VIEW ========== -->
+  <div id="view-function" hidden>
+    <div class="sectionhead">
+      <h2>Functional lines</h2>
+      <span class="shnote">
+        The same people, regrouped by discipline. Every card names the contract that person sits
+        under, which is what makes this a matrix rather than a second hierarchy.
+      </span>
+    </div>
+    <div class="fnpanels" id="fnpanels"></div>
+  </div>
+
+  <!-- ========== NOTES ========== -->
+  <div class="notes">
+    <section>
+      <h4>How to read this chart</h4>
+      <ul>
+        <li><strong>Solid connectors</strong> carry line management. A Package Delivery Lead answers to the Design Manager for cost, programme and deliverable acceptance.</li>
+        <li><strong>Dashed rails</strong> carry functional authority. A Technical Manager takes technical direction and design assurance from the Technical Director; a Procurement Manager takes commercial governance from the Head of Procurement and Commercial.</li>
+        <li>Each contract team therefore has one operational reporting line and one functional line. Neither substitutes for the other, and a dispute between them escalates to the Design Manager.</li>
+        <li>The <strong>dotted client link</strong> is a contractual interface, not a reporting line. TII package sponsors instruct through the Project Director.</li>
+      </ul>
+    </section>
+    <section>
+      <h4>Sourcing and confidence</h4>
+      <ul>
+        <li><span class="flag ok">Public</span>Client, programme, designer, subconsultant and the M110 to M160 package references are drawn from TII, MetroLink and AtkinsRéalis published material.</li>
+        <li><span class="flag ok">Public</span>TII states the Advance Works programme comprises seven contracts. Six carry published references. The seventh column is shown unresolved rather than invented.</li>
+        <li><span class="flag">Assumed</span>The internal team structure, role titles and the split between package embedded and shared services are a proposed organisation, not a published one. Confirm against the commission organisation chart before issue.</li>
+        <li><span class="flag">Assumed</span>M140 and M150 are shown as a north and south split of the utility diversion scope. Confirm the actual basis of division.</li>
+        <li><span class="flag">Open</span>Personal names are not populated. Each role card carries an empty name rule ready for the team list.</li>
+      </ul>
+    </section>
+    <section>
+      <h4>Before executive issue</h4>
+      <ol>
+        <li>Confirm the seventh package reference and scope, or delete the column.</li>
+        <li>Populate names and grades against every role card.</li>
+        <li>Confirm which roles RPS resources rather than AtkinsRéalis, and mark them.</li>
+        <li>Confirm whether the PSDP duty holder sits with AtkinsRéalis on all seven packages.</li>
+        <li>Set the revision to P02 and record the approver in the title block.</li>
+      </ol>
+    </section>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATA. Edit this block to change the chart. Everything below
+   renders from it, so adding a package or a name is a one line
+   change and the layout follows.
+   ============================================================ */
+const PACKAGES = [
+  { ref:'M110', name:'Land Access &amp; Demolition', colour:'#C0492F', form:'NEC4 ECC',
+    scope:'Land referencing, site clearance and demolition to achieve site readiness.',
+    discipline:'Structures &amp; Demolition' },
+  { ref:'M120', name:'Heritage', colour:'#7D5BA6', form:'NEC4 ECC',
+    scope:'Recording, protection and relocation of built heritage assets on the route.',
+    discipline:'Conservation &amp; Built Heritage' },
+  { ref:'M130', name:'Archaeology', colour:'#A87A24', form:'NEC4 ECC',
+    scope:'Licensed archaeological testing, excavation and resolution ahead of main works.',
+    discipline:'Archaeological Services' },
+  { ref:'M140', name:'Utility Diversions', colour:'#2A6EB8', form:'NEC4 ECC',
+    scope:'Diversion and protection of third party utilities. Undertaker interface.',
+    discipline:'Utilities Engineering' },
+  { ref:'M150', name:'Utility Diversions', colour:'#0E8FA8', form:'NEC4 ECC',
+    scope:'Second diversion package. Undertaker interface and traffic management design.',
+    discipline:'Utilities Engineering' },
+  { ref:'M160', name:'Environmental Monitoring', colour:'#4C8B3C', form:'NEC4 ECC',
+    scope:'Baseline and construction phase noise, vibration, air and water monitoring.',
+    discipline:'Environmental Science' },
+  { ref:'Package 7', name:'Reference to confirm', colour:'#7A8794', form:'Form to confirm', ghost:true,
+    scope:'TII states seven Advance Works contracts. Six references are published. Confirm the seventh.',
+    discipline:'To confirm' }
+];
+
+const ROWS = [
+  { id:'lead', role:'Package Delivery Lead', rail:'solid', core:false,
+    anchor:{ cls:'line', role:'Design Manager, M100', desc:'Holds the seven package leads. Owns commission programme and deliverable acceptance.', line:'Line management' },
+    desc:'Single point of accountability for the package.' },
+  { id:'tech', role:'Technical Manager', rail:'tech', core:true,
+    anchor:{ cls:'tech', role:'Technical Director', desc:'Design Authority for the commission. Sets technical standards and signs off departures.', line:'Functional line, technical' },
+    desc:'Owns design content, technical assurance and interface with the package discipline team.' },
+  { id:'proc', role:'Procurement Manager', rail:'proc', core:true,
+    anchor:{ cls:'proc', role:'Head of Procurement &amp; Commercial', desc:'Commercial governance, tender strategy and supply chain assurance across the commission.', line:'Functional line, commercial' },
+    desc:'Owns tender documentation, supply chain engagement and commercial support to the package.' },
+  { id:'disc', role:'Lead Discipline Engineer', rail:null, core:false, muted:true,
+    anchor:{ cls:'plain', role:'Package discipline teams', desc:'Report to the package Technical Manager. Discipline varies by contract scope.', line:'' },
+    desc:null }
+];
+
+const SHARED = [
+  { role:'BIM &amp; Digital Delivery', desc:'Common data environment, model coordination and information standards' },
+  { role:'Document Control', desc:'Deliverable register, transmittals and TII submission protocol' },
+  { role:'Environmental &amp; Consents', desc:'Railway Order compliance, licences and statutory consents' },
+  { role:'Stakeholder &amp; Utility Liaison', desc:'Undertaker, local authority and landowner engagement' },
+  { role:'GIS &amp; Survey', desc:'Route wide survey control, utility records and spatial data' }
+];
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+const $ = (s, r) => (r || document).querySelector(s);
+const el = (tag, cls, html) => {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (html != null) n.innerHTML = html;
+  return n;
+};
+
+const matrix = $('#matrix');
+matrix.style.setProperty('--ncols', PACKAGES.length);
+
+/* column tint bands, one per package, sitting behind the cells */
+const bands = $('#bands');
+bands.appendChild(el('div'));
+PACKAGES.forEach(p => {
+  const b = el('div', 'band' + (p.ghost ? ' ghost' : ''));
+  b.style.setProperty('--pkg', p.colour);
+  b.dataset.col = p.ref;
+  bands.appendChild(b);
+});
+
+const rows = $('#rows');
+
+/* header row */
+const headRow = el('div', 'mrow');
+headRow.appendChild(el('div', 'anchor plain',
+  '<div class="arole" style="font-size:15px">Contract package</div>' +
+  '<div class="adesc">Seven Advance Works contracts let by TII under the M100 programme.</div>'));
+PACKAGES.forEach(p => {
+  const h = el('button', 'pkghead' + (p.ghost ? ' ghost' : ''),
+    '<span class="pkgref">' + p.ref + '</span>' +
+    '<span class="pkgname">' + p.name + '</span>' +
+    '<span class="pkgscope">' + p.scope + '</span>' +
+    '<span class="pkgform">' + p.form + '</span>');
+  h.style.setProperty('--pkg', p.colour);
+  h.dataset.col = p.ref;
+  h.setAttribute('aria-pressed', 'false');
+  h.title = 'Isolate the ' + p.ref + ' team';
+  headRow.appendChild(h);
+});
+rows.appendChild(headRow);
+
+/* one row per role, each with its functional rail */
+ROWS.forEach(r => {
+  const row = el('div', 'mrow');
+  if (r.rail) row.appendChild(el('div', 'rail ' + r.rail));
+
+  const a = r.anchor;
+  row.appendChild(el('div', 'anchor ' + a.cls,
+    '<div class="arole">' + a.role + '</div>' +
+    '<div class="adesc">' + a.desc + '</div>' +
+    (a.line ? '<div class="aline">' + a.line + '</div>' : '')));
+
+  PACKAGES.forEach(p => {
+    const c = el('div', 'cell' + (r.core ? ' core' : '') + (r.muted ? ' muted' : ''));
+    c.style.setProperty('--pkg', p.colour);
+    c.dataset.col = p.ref;
+    const roleText = r.id === 'disc' ? p.discipline + ' Lead' : r.role;
+    c.innerHTML =
+      '<span class="cpkg">' + p.ref + '</span>' +
+      '<span class="crole">' + roleText + '</span>' +
+      '<span class="cname">&nbsp;</span>' +
+      (r.desc ? '<span class="cdesc">' + r.desc + '</span>' : '');
+    row.appendChild(c);
+  });
+  rows.appendChild(row);
+});
+
+/* shared services */
+const sg = $('#sharedgrid');
+SHARED.forEach(s => {
+  sg.appendChild(el('div', 'cell',
+    '<span class="crole">' + s.role + '</span>' +
+    '<span class="cname">&nbsp;</span>' +
+    '<span class="cdesc">' + s.desc + '</span>'));
+});
+
+/* function view, built from the same data */
+const fnpanels = $('#fnpanels');
+[
+  { id:'tech', cls:'tech', title:'Technical line', head:'Technical Director, Design Authority',
+    sub:'Every package Technical Manager takes technical direction from this line whilst sitting inside their contract team.' },
+  { id:'proc', cls:'proc', title:'Procurement line', head:'Head of Procurement and Commercial',
+    sub:'Every package Procurement Manager takes commercial governance from this line whilst sitting inside their contract team.' }
+].forEach(f => {
+  const panel = el('div', 'fnpanel ' + f.cls);
+  const header = el('header', null,
+    '<div><h3>' + f.title + '</h3><p class="fnsub">' + f.sub + '</p></div>' +
+    '<span class="fncount">' + PACKAGES.length + ' post' + (PACKAGES.length === 1 ? '' : 's') + '</span>');
+  panel.appendChild(header);
+  const row = el('div', 'fnrow');
+  const def = ROWS.find(r => r.id === f.id);
+  PACKAGES.forEach(p => {
+    const c = el('div', 'cell core');
+    c.style.setProperty('--pkg', p.colour);
+    c.innerHTML =
+      '<span class="cpkg">' + p.ref + '</span>' +
+      '<span class="crole">' + def.role + '</span>' +
+      '<span class="cname">&nbsp;</span>' +
+      '<span class="cdesc">Sits in the ' + p.ref + ' contract team.</span>';
+    row.appendChild(c);
+  });
+  panel.appendChild(row);
+  fnpanels.appendChild(panel);
+});
+
+const sharedPanel = el('div', 'fnpanel shared');
+sharedPanel.appendChild(el('header', null,
+  '<div><h3>Shared delivery services</h3>' +
+  '<p class="fnsub">Tasked into packages rather than embedded in them. No contract column owns these posts.</p></div>' +
+  '<span class="fncount">' + SHARED.length + ' functions</span>'));
+const sharedRow = el('div', 'fnrow');
+SHARED.forEach(s => {
+  sharedRow.appendChild(el('div', 'cell',
+    '<span class="crole">' + s.role + '</span>' +
+    '<span class="cname">&nbsp;</span>' +
+    '<span class="cdesc">' + s.desc + '</span>'));
+});
+sharedPanel.appendChild(sharedRow);
+fnpanels.appendChild(sharedPanel);
+
+/* ============================================================
+   INTERACTION
+   ============================================================ */
+const clearBtn = $('#btn-clear');
+const note = $('#focusnote');
+let focused = null;
+
+function setFocus(ref) {
+  focused = (focused === ref) ? null : ref;
+  matrix.classList.toggle('focused', focused !== null);
+  matrix.querySelectorAll('[data-col]').forEach(n => {
+    n.classList.toggle('on', focused === null || n.dataset.col === focused);
+  });
+  matrix.querySelectorAll('.pkghead').forEach(b => {
+    b.setAttribute('aria-pressed', String(b.dataset.col === focused));
+  });
+  clearBtn.hidden = focused === null;
+  note.textContent = focused
+    ? 'Showing the ' + focused + ' team only.'
+    : 'Select a contract header to isolate its team.';
+}
+
+matrix.querySelectorAll('.pkghead').forEach(b => {
+  b.addEventListener('click', () => setFocus(b.dataset.col));
+});
+clearBtn.addEventListener('click', () => setFocus(focused));
+
+const viewContract = $('#view-contract');
+const viewFunction = $('#view-function');
+const btnC = $('#btn-contract');
+const btnF = $('#btn-function');
+
+function setView(mode) {
+  const byContract = mode === 'contract';
+  viewContract.hidden = !byContract;
+  viewFunction.hidden = byContract;
+  btnC.setAttribute('aria-pressed', String(byContract));
+  btnF.setAttribute('aria-pressed', String(!byContract));
+  note.style.visibility = byContract ? 'visible' : 'hidden';
+  clearBtn.hidden = !byContract || focused === null;
+}
+btnC.addEventListener('click', () => setView('contract'));
+btnF.addEventListener('click', () => setView('function'));
+</script>
+</body>
+</html>
