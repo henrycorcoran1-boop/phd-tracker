@@ -1,0 +1,7 @@
+# The skill's catalog-summary.json records sha256 hashes of the data files
+# below, computed over their bytes. A CRLF checkout produces different hashes
+# than an LF one, which makes the skill's validate_data.py fail on Windows.
+# Pin these to LF so verification is reproducible everywhere.
+.claude/skills/ui-ux-pro-max/data/*.csv         text eol=lf
+.claude/skills/ui-ux-pro-max/data/*.json        text eol=lf
+.claude/skills/ui-ux-pro-max/data/stacks/*.csv  text eol=lf
