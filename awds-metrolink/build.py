@@ -640,23 +640,10 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 
     def band(kicker: str, title: str) -> str:
         return (f'<header class="band"><img src="{logo}" alt="MetroLink"><div class="t"><p class="kicker">{esc(kicker)}</p>'
-                f'<h1>{esc(title)}</h1></div><div class="meta"><strong>Prepared by AtkinsRéalis for MetroLink</strong><br>'
-                f'Henry Corcoran, AWDS Project Lead<br>Issue 1 · {REPORT_DATE}</div></header>')
+                f'<h1>{esc(title)}</h1></div></header>')
 
     def foot(section: str) -> str:
-        return (f'<footer class="foot"><span>AWDS Timeline of Change and Team KPI Summary · {esc(section)}</span>'
-                f'<span>Source: {esc(SOURCE)}</span></footer>')
-
-    tiles = [
-        ("Contract packages", f"7 <small>to</small> {CURRENT_COUNT}", "Original seven to the current list (Appendix A)"),
-        ("Formal change notices actioned", str(len(CHANGE_NOTICES)), ", ".join(CHANGE_NOTICES)),
-        ("Scope packs issued for C01 acceptance", str(len(C01_PACKS)), ", ".join(C01_PACKS)),
-        ("Physical works delivered", "2", "Nevinstown House demolition; Railway Order baseline monitors"),
-        ("Contract forms absorbed on M160", "3", "GCC to PWC-CF5/CF11 to NEC, January to March 2026"),
-        ("CP responsibilities taken on", str(len(ABSORBED)), "Conditions of contract, master programme, market engagement, Stage Gate 5A, RO monitoring, interfaces"),
-    ]
-    tiles_html = "".join(f'<div class="tile"><p class="l">{esc(l)}</p><p class="v">{v}</p><p class="s">{esc(s)}</p></div>'
-                         for l, v, s in tiles)
+        return ""
 
     absorbed_html = "".join(f'<li>{esc(a)} <span class="note">({esc(d)})</span></li>' for a, d in ABSORBED)
     returned_html = "".join(f'<li>{esc(r)}</li>' for r in RETURNED)
@@ -673,45 +660,12 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 
 <!-- ============================================================ page 1 -->
 <section class="page">
-{band("Advance Works Design Services · MetroLink", "AWDS Timeline of Change and Team KPI Summary")}
-<div class="body">
-<h2>Purpose</h2>
-<p class="lede">This note records the changes instructed on the Advance Works Design Services (AWDS) commission between December 2023 and September 2026, and what the AtkinsRéalis team delivered through them. It supports the team’s key performance indicators, of which Adaptability and Delivery is the headline measure. Every date, reference and count is taken from the AWDS Timeline of Change record dated {REPORT_DATE}, reproduced in full in Appendices A to C.</p>
-
-<h2 style="margin-top:16px">At a glance</h2>
-<div class="kpis">{tiles_html}</div>
-
-<div class="two" style="margin-top:14px">
-<div>
-<h3>What changed</h3>
-<p>The main civils package structure was reorganised three times in five months: M110 split North and South (CN-059, May 2025), the M140 and M150 boundaries redrawn (CN-061, June 2025), and all three packages recombined and re-split into six (CN-068, September 2025). Heritage left the package list in February 2024 and returned as M190 in September 2025 under a different contract form. M160 changed contract form twice between January and March 2026. Three items descoped in 2023 and 2024 returned to scope in 2025 and 2026.</p>
-<h3>What was delivered</h3>
-<p>Nine scope packs were issued for C01 acceptance between December 2025 and August 2026. Nevinstown House was designed, procured, supervised and demolished within six months of instruction. When the M160 appointment could not meet the Railway Order baseline-monitoring obligation, the team was instructed in April 2026 to procure and install the monitors itself; installation completed in September 2026.</p>
-</div>
-<div>
-<h3>How to read this document</h3>
-<ul>
-<li><strong>Page 2</strong> is the timeline. Each lane is a package family or programme area. Orange circles are changes instructed, blue diamonds are items delivered by AtkinsRéalis, red rings are items descoped. Dates are at month level, as recorded in the source.</li>
-<li><strong>Pages 3 and 4</strong> set out the KPI summary, led by Adaptability and Delivery, with the evidence for each measure and a proposed definition for reporting going forward.</li>
-<li><strong>Appendices</strong> carry the backup data: the package evolution (A), the dated change register (B), items without a recorded month (C) and a glossary (D).</li>
-</ul>
-<h3>Responsibilities taken on from the Client Partner</h3>
-<ul>{absorbed_html}</ul>
-</div>
-</div>
-</div>
-{foot("Summary")}
-</section>
-
-<!-- ============================================================ page 2 -->
-<section class="page">
-{band("Timeline of change · December 2023 to September 2026", "Instructed change and AtkinsRéalis delivery, by package")}
+{band("Advance Works Design Services · MetroLink · December 2023 to September 2026", "AWDS Timeline of Change: instructed change and AtkinsRéalis delivery, by package")}
 <div class="body">
 {legend_html()}
 {timeline_svg()}
-<p class="note" style="margin-top:8px">{n_events} dated events: {n_changes} changes instructed, {n_deliv} items delivered, {n_events - n_changes - n_deliv} descoped. Items without a recorded month (CN-031 draft CEMPs, M135 and M138 C01 issue, market engagement, Stage Gate 5A) are listed in Appendix C. Hover a marker on screen for the register entry.</p>
+<p class="note" style="margin-top:8px">{n_events} dated events: {n_changes} changes instructed, {n_deliv} items delivered, {n_events - n_changes - n_deliv} descoped. Dates are at month level, as recorded in the {SOURCE}. Items without a recorded month (CN-031 draft CEMPs, M135 and M138 C01 issue, market engagement, Stage Gate 5A) are listed in Appendix C.</p>
 </div>
-{foot("Timeline")}
 </section>
 
 <!-- ============================================================ page 3 -->
