@@ -317,6 +317,7 @@ CURRENT_GROUPS = [
     ("Instructed works and services", ["Nevinstown House demolition", "DAA design works", "Environmental baseline monitoring"]),
 ]
 CURRENT_COUNT = sum(len(g[1]) for g in CURRENT_GROUPS)
+PCT_INCREASE = round((CURRENT_COUNT - 7) / 7 * 100)
 
 # Durations from instruction to issue or completion (month-level dates from the source).
 DURATIONS = [
@@ -369,7 +370,7 @@ def timeline_svg() -> str:
            f'aria-labelledby="tl-title tl-desc" font-family="\'Libre Franklin\',\'Franklin Gothic Medium\',\'Helvetica Neue\',Arial,sans-serif">',
            '<title id="tl-title">AWDS timeline of change, December 2023 to September 2026</title>',
            '<desc id="tl-desc">Ten lanes, one per package family or programme area, with dated markers for changes instructed, '
-           'items delivered by AtkinsRéalis and items descoped. The same events are listed in Appendix B.</desc>']
+           'items delivered by AtkinsRéalis and items descoped. The same events are listed in Appendix A.</desc>']
 
     # lane backgrounds
     for i, lane in enumerate(LANES):
@@ -595,6 +596,11 @@ p{{margin:0 0 8px}}
 .tile .v small{{font-size:14px;font-weight:500;color:var(--muted)}}
 .tile .s{{font-size:10px;color:var(--muted);margin:5px 0 0;line-height:1.3}}
 .two{{display:grid;grid-template-columns:1fr 1fr;gap:22px}}
+.front{{display:grid;grid-template-columns:250px 1fr 1.2fr;gap:22px;margin-top:14px;align-items:start}}
+.hero{{background:var(--navy);color:#fff;padding:22px 20px 18px;border-top:4px solid var(--orange)}}
+.hero .hl{{font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 6px;opacity:.85}}
+.hero .hv{{font-size:58px;font-weight:600;line-height:1;margin:0 0 14px;color:var(--orange);font-variant-numeric:proportional-nums;letter-spacing:-.02em}}
+.hero .hs{{font-size:13px;margin:0 0 4px;padding-top:4px;border-top:1px solid rgba(255,255,255,.18)}}
 .three{{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:18px}}
 ul{{margin:4px 0 8px 18px;padding:0}}
 li{{margin:0 0 4px}}
@@ -658,13 +664,39 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 </head>
 <body>
 
-<!-- ============================================================ page 1 -->
+<!-- ============================================================ front page -->
+<section class="page">
+{band("Advance Works Design Services · MetroLink · December 2023 to September 2026", "AWDS Timeline of Change and Team KPI Summary")}
+<div class="body">
+<p class="lede">The AWDS commission began with seven contract packages. Through instructed change between December 2023 and September 2026 the list has grown to {CURRENT_COUNT}: the main civils packages were restructured three times, Heritage and sewer relining were removed and then reinstated, and new works were instructed at Nevinstown House, Dublin Airport and under the M20 minor works. This note records those changes, what the AtkinsRéalis team delivered through them, and the team’s KPIs, led by Adaptability and Delivery.</p>
+<div class="front">
+<div class="hero">
+<p class="hl">Increase in contract packages</p>
+<p class="hv">+{PCT_INCREASE}%</p>
+<p class="hs">7 original packages</p>
+<p class="hs">{CURRENT_COUNT} current packages</p>
+<p class="hs">{CURRENT_COUNT / 7:.1f} times the original count</p>
+</div>
+<div>
+<h3 style="margin-top:0">Original contract packages (7)</h3>
+<table><thead><tr><th style="width:16%">Package</th><th>What happened to it</th></tr></thead><tbody>{original_rows()}</tbody></table>
+</div>
+<div>
+<h3 style="margin-top:0">Current contract packages ({CURRENT_COUNT})</h3>
+<table><thead><tr><th style="width:38%">Group</th><th>Packages</th><th style="width:9%">No.</th></tr></thead><tbody>{current_rows()}</tbody></table>
+<p class="note" style="margin-top:6px">M20 Minor Works is counted as its seven lots. M143 and M144 (sewer relining, reintroduced August 2026) are included. M111 sits outside the six packages created under CN-068.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ============================================================ timeline -->
 <section class="page">
 {band("Advance Works Design Services · MetroLink · December 2023 to September 2026", "AWDS Timeline of Change: instructed change and AtkinsRéalis delivery, by package")}
 <div class="body">
 {legend_html()}
 {timeline_svg()}
-<p class="note" style="margin-top:8px">{n_events} dated events: {n_changes} changes instructed, {n_deliv} items delivered, {n_events - n_changes - n_deliv} descoped. Dates are at month level, as recorded in the {SOURCE}. Items without a recorded month (CN-031 draft CEMPs, M135 and M138 C01 issue, market engagement, Stage Gate 5A) are listed in Appendix C.</p>
+<p class="note" style="margin-top:8px">{n_events} dated events: {n_changes} changes instructed, {n_deliv} items delivered, {n_events - n_changes - n_deliv} descoped. Dates are at month level, as recorded in the {SOURCE}. Items without a recorded month (CN-031 draft CEMPs, M135 and M138 C01 issue, market engagement, Stage Gate 5A) are listed in Appendix B.</p>
 </div>
 </section>
 
@@ -678,7 +710,7 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 <p><strong>Definition.</strong> The team’s capacity to absorb instructed change without loss of output. Measured by instructions actioned against scope packs issued for acceptance and works completed in the same period.</p>
 <p><strong>Evidence to {REPORT_DATE}.</strong></p>
 <ul class="evid">
-<li>{len(CHANGE_NOTICES)} formal change notices and a further {n_other_instr} dated instructions and notifications actioned (Appendix B).</li>
+<li>{len(CHANGE_NOTICES)} formal change notices and a further {n_other_instr} dated instructions and notifications actioned (Appendix A).</li>
 <li>Package count from 7 to {CURRENT_COUNT}; three restructurings of the main civils packages between May and September 2025.</li>
 <li>{len(C01_PACKS)} scope packs issued for C01 acceptance; 2 physical works packages completed.</li>
 <li>M160 issued for C01 under each of three contract forms in seven months.</li>
@@ -714,7 +746,7 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 <section class="page">
 {band("Team KPI summary", "KPI framework for the AWDS team")}
 <div class="body">
-<p class="lede">Five measures, led by Adaptability and Delivery. Each is defined so that it can be reported from the change register and the document issue record without additional data collection. Evidence to date is drawn from Appendices B and C; the proposed measure is the definition for quarterly reporting going forward.</p>
+<p class="lede">Five measures, led by Adaptability and Delivery. Each is defined so that it can be reported from the change register and the document issue record without additional data collection. Evidence to date is drawn from Appendices A and B; the proposed measure is the definition for quarterly reporting going forward.</p>
 <table class="kpi" style="margin-top:10px">
 <thead><tr><th style="width:17%">KPI</th><th style="width:25%">What it measures</th><th style="width:33%">Evidence to {REPORT_DATE}</th><th>Proposed reporting measure</th></tr></thead>
 <tbody>
@@ -726,33 +758,14 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 </tbody>
 </table>
 <h3>Reading the headline measure</h3>
-<p>Adaptability and Delivery is reported as a pair: the count of instructions closed in the period, and the count of packs issued for acceptance or works completed in the same period. Read together they show whether output was sustained while the package structure changed. The register in Appendix B is the audit trail for both counts.</p>
+<p>Adaptability and Delivery is reported as a pair: the count of instructions closed in the period, and the count of packs issued for acceptance or works completed in the same period. Read together they show whether output was sustained while the package structure changed. The register in Appendix A is the audit trail for both counts.</p>
 </div>
 {foot("KPI framework")}
 </section>
 
 <!-- ============================================================ appendix A -->
 <section class="page">
-{band("Appendix A", f"Package evolution: original seven to current {CURRENT_COUNT}")}
-<div class="body">
-<div class="two">
-<div>
-<h3>Original contract packages (7)</h3>
-<table><thead><tr><th style="width:14%">Package</th><th>What happened to it</th></tr></thead><tbody>{original_rows()}</tbody></table>
-</div>
-<div>
-<h3>Current contract packages ({CURRENT_COUNT})</h3>
-<table><thead><tr><th style="width:38%">Group</th><th>Packages</th><th style="width:9%">No.</th></tr></thead><tbody>{current_rows()}</tbody></table>
-<p class="note" style="margin-top:8px">M20 Minor Works is counted as its seven lots. M143 and M144 (sewer relining, reintroduced August 2026) are included. M111 sits outside the six packages created under CN-068.</p>
-</div>
-</div>
-</div>
-{foot("Appendix A")}
-</section>
-
-<!-- ============================================================ appendix B -->
-<section class="page">
-{band("Appendix B", "Change register: dated events, December 2023 to September 2026")}
+{band("Appendix A", "Change register: dated events, December 2023 to September 2026")}
 <div class="body">
 <table>
 <thead><tr><th style="width:7%">Date</th><th style="width:8%">Reference</th><th style="width:14%">Package / area</th><th style="width:12%">Type</th><th style="width:31%">Event</th><th>AtkinsRéalis response and status</th></tr></thead>
@@ -760,12 +773,12 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 </table>
 <p class="note" style="margin-top:8px">Dates are given to the month, as recorded in the source. Volume 2B for M161 was developed by the CP and issued to AtkinsRéalis in February 2026; the expected date stated in the source is not reproduced here pending confirmation.</p>
 </div>
-{foot("Appendix B")}
+{foot("Appendix A")}
 </section>
 
-<!-- ============================================================ appendix C -->
+<!-- ============================================================ appendix B -->
 <section class="page">
-{band("Appendix C", "Further items requiring the team to adapt approach and resources")}
+{band("Appendix B", "Further items requiring the team to adapt approach and resources")}
 <div class="body">
 <table>
 <thead><tr><th style="width:7%">Reference</th><th style="width:16%">Item</th><th style="width:40%">Change</th><th>AtkinsRéalis response</th></tr></thead>
@@ -773,12 +786,12 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 </table>
 <p class="note" style="margin-top:8px">These items have no month recorded in the source and are therefore not plotted on the timeline.</p>
 </div>
-{foot("Appendix C")}
+{foot("Appendix B")}
 </section>
 
-<!-- ============================================================ appendix D -->
+<!-- ============================================================ appendix C -->
 <section class="page">
-{band("Appendix D", "Glossary and source")}
+{band("Appendix C", "Glossary and source")}
 <div class="body">
 <div class="two">
 <div>
@@ -791,7 +804,7 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 <div class="two" style="margin-top:14px">
 <div>
 <h3 style="margin-top:0">Source and method</h3>
-<p>All content is drawn from the {SOURCE}. Events with a recorded month are plotted on the timeline and listed in Appendix B; events without one are listed in Appendix C. Counts on the summary page are derived from those lists: the package count from Appendix A, change notices and C01 issues from Appendix B, and elapsed durations from the difference between month-level dates.</p>
+<p>All content is drawn from the {SOURCE}. Events with a recorded month are plotted on the timeline and listed in Appendix A; events without one are listed in Appendix B. Counts are derived from those lists: the package count from the front page, change notices and C01 issues from Appendix A, and elapsed durations from the difference between month-level dates.</p>
 </div>
 <div>
 <h3 style="margin-top:0">Marker key</h3>
@@ -800,7 +813,7 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 </div>
 </div>
 </div>
-{foot("Appendix D")}
+{foot("Appendix C")}
 </section>
 
 </body>
