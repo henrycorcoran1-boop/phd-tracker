@@ -596,6 +596,13 @@ p{{margin:0 0 8px}}
 .tile .v small{{font-size:14px;font-weight:500;color:var(--muted)}}
 .tile .s{{font-size:10px;color:var(--muted);margin:5px 0 0;line-height:1.3}}
 .two{{display:grid;grid-template-columns:1fr 1fr;gap:22px}}
+.kcards{{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:14px}}
+.kcard{{border:1px solid var(--border);border-top:3px solid var(--orange);padding:12px 13px 11px;background:var(--tint)}}
+.kcard .kn{{font-size:11px;font-weight:600;color:var(--orange);letter-spacing:.1em;margin:0 0 4px}}
+.kcard h3{{margin:0 0 6px;font-size:13.5px}}
+.kcard p{{font-size:11.5px;margin:0 0 6px}}
+.kcard .kr{{font-size:10.5px;color:var(--muted);margin:0}}
+.kcard:first-child{{border-top-color:var(--navy);background:#fff}}
 .front{{display:grid;grid-template-columns:250px 1fr 1.2fr;gap:22px;margin-top:14px;align-items:start}}
 .hero{{background:var(--navy);color:#fff;padding:22px 20px 18px;border-top:4px solid var(--orange)}}
 .hero .hl{{font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 6px;opacity:.85}}
@@ -700,67 +707,33 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 </div>
 </section>
 
-<!-- ============================================================ page 3 -->
+<!-- ============================================================ KPIs -->
 <section class="page">
-{band("Team KPI summary", "Adaptability and Delivery")}
+{band("Team KPI summary", "Team KPIs")}
 <div class="body">
-<div class="two">
-<div class="card">
-<h3>Headline KPI: Adaptability and Delivery</h3>
-<p><strong>Definition.</strong> The team’s capacity to absorb instructed change without loss of output. Measured by instructions actioned against scope packs issued for acceptance and works completed in the same period.</p>
-<p><strong>Evidence to {REPORT_DATE}.</strong></p>
-<ul class="evid">
-<li>{len(CHANGE_NOTICES)} formal change notices and a further {n_other_instr} dated instructions and notifications actioned (Appendix A).</li>
-<li>Package count from 7 to {CURRENT_COUNT}; three restructurings of the main civils packages between May and September 2025.</li>
-<li>{len(C01_PACKS)} scope packs issued for C01 acceptance; 2 physical works packages completed.</li>
-<li>M160 issued for C01 under each of three contract forms in seven months.</li>
-<li>Descoped items returned and delivered: {", ".join(RETURNED)}.</li>
-</ul>
-</div>
-<div class="two">
-<div>
-<h3 style="margin-top:0">Scope absorbed beyond the Conditions of Engagement</h3>
-<ul>{absorbed_html}</ul>
-</div>
-<div>
-<h3 style="margin-top:0">Output in development at report date</h3>
-<ul>
-<li>M111 (TBM portal) designed and procured; awaiting ITT award.</li>
-<li>M130 awaiting contract award.</li>
-<li>M20 Minor Works: 7 lots being scoped and designed (CN-086).</li>
-<li>Dublin Airport advance works detailed design (CN-093).</li>
-<li>More than 100 draft CEMPs (CN-031).</li>
-</ul>
-</div>
-</div>
+<p class="lede">Five measures for the AWDS team, led by Adaptability and Delivery. Each is defined so that it can be reported from the change register and the document issue record without additional data collection. The evidence behind them is in Appendices A and B.</p>
+<div class="kcards">
+<div class="kcard"><p class="kn">01</p><h3>Adaptability and Delivery</h3><p>The team’s capacity to absorb instructed change whilst sustaining output.</p><p class="kr">Reported as instructions closed against packs issued for acceptance and works completed, per quarter.</p></div>
+<div class="kcard"><p class="kn">02</p><h3>Responsiveness</h3><p>Elapsed time from an instruction to the resulting issue or completion.</p><p class="kr">Reported as months from instruction to C01 issue per package, and to completion per works item.</p></div>
+<div class="kcard"><p class="kn">03</p><h3>Scope absorption</h3><p>Responsibilities taken on beyond the Conditions of Engagement scope.</p><p class="kr">Reported as a register of absorbed responsibilities: item, instructing party, date and resource effect.</p></div>
+<div class="kcard"><p class="kn">04</p><h3>Team approach</h3><p>Taking on work that sits outside any formal allocation so that it gets done, for the benefit of the project.</p><p class="kr">Reported as recorded instances, reviewed quarterly, with the project outcome each secured.</p></div>
+<div class="kcard"><p class="kn">05</p><h3>Leadership</h3><p>Leading interfaces, engagements and approach on the client’s behalf where no lead was in place.</p><p class="kr">Reported as areas led, the party on whose behalf, and whether each was carried to a conclusion.</p></div>
 </div>
 
-<h3 style="margin-top:16px">Responsiveness: instruction to issue or completion</h3>
-{durations_svg()}
-<p class="note">Elapsed months between the month-level dates recorded in the source. Bars are ordered shortest to longest.</p>
+<h3 style="margin-top:18px">What the measures mean</h3>
+<div class="two">
+<div>
+<p><strong>Adaptability and Delivery.</strong> A design and procurement commission on a programme of this scale changes shape as the client’s strategy, consents and market conditions develop. This measure asks whether output continued whilst the package structure changed. A team that absorbs change and still issues packs for acceptance protects the programme’s critical path; a team that pauses to re-plan after each instruction does not. Read with the change register, it shows the relationship between instructions received and documents issued.</p>
+<p><strong>Responsiveness.</strong> The interval between an instruction and the resulting issue is the clearest signal of how a team is organised. Short intervals show that resources, review routes and templates are ready when an instruction arrives. Longer intervals usually trace to inputs the team does not control, so the measure is read alongside the register to separate the two causes.</p>
+<p><strong>Scope absorption.</strong> Every commission has a defined scope. When responsibilities transfer from other parties, the team either absorbs them or the work stalls. The measure keeps a record of what has been taken on, when and at whose request, so that the resource effect is visible and the scope of services can be kept current.</p>
 </div>
-{foot("KPI summary")}
-</section>
-
-<!-- ============================================================ page 4 -->
-<section class="page">
-{band("Team KPI summary", "KPI framework for the AWDS team")}
-<div class="body">
-<p class="lede">Five measures, led by Adaptability and Delivery. Each is defined so that it can be reported from the change register and the document issue record without additional data collection. Evidence to date is drawn from Appendices A and B; the proposed measure is the definition for quarterly reporting going forward.</p>
-<table class="kpi" style="margin-top:10px">
-<thead><tr><th style="width:17%">KPI</th><th style="width:25%">What it measures</th><th style="width:33%">Evidence to {REPORT_DATE}</th><th>Proposed reporting measure</th></tr></thead>
-<tbody>
-<tr><td>1. Adaptability and Delivery</td><td>Instructed change absorbed without loss of output.</td><td>{len(CHANGE_NOTICES)} change notices actioned; {len(C01_PACKS)} packs issued for C01; 2 works delivered; package count 7 to {CURRENT_COUNT}.</td><td>Per quarter: instructions received, instructions closed, packs issued for C01, packs accepted.</td></tr>
-<tr><td>2. Responsiveness</td><td>Elapsed time from instruction to issue or completion.</td><td>4 to 11 months across the seven measured items (chart above).</td><td>Months from instruction to C01 issue, per package; months from instruction to completion, per works item.</td></tr>
-<tr><td>3. Scope absorption</td><td>Responsibilities taken on beyond the CoE scope.</td><td>{len(ABSORBED)} responsibilities transferred from the CP (listed above).</td><td>Register of absorbed responsibilities: item, instructing party, date, resource effect.</td></tr>
-<tr><td>4. Quality at issue</td><td>Reviews closed before a pack is issued for acceptance.</td><td>M160 issued after peer review close-out (Dec 2025). M161 IDC held and all comments incorporated before issue (Jul 2026).</td><td>Share of packs issued with IDC and peer review comments closed; review rounds per pack.</td></tr>
-<tr><td>5. Interface leadership</td><td>Interfaces and engagements led by the team on the client’s behalf.</td><td>BusConnects and DAA interfaces led by AR staff; market engagement led in 2023; 2025 interviews and first MetroLink roadshow supported.</td><td>Interfaces led; engagements delivered; actions closed.</td></tr>
-</tbody>
-</table>
-<h3>Reading the headline measure</h3>
-<p>Adaptability and Delivery is reported as a pair: the count of instructions closed in the period, and the count of packs issued for acceptance or works completed in the same period. Read together they show whether output was sustained while the package structure changed. The register in Appendix A is the audit trail for both counts.</p>
+<div>
+<p><strong>Team approach.</strong> Some work does not sit cleanly with any party. This measure records the team’s willingness to take on such work so that it gets done, judged on whether the project benefited rather than on whether the work fell within the allocation. It is deliberately qualitative: the value lies in the pattern of behaviour, not in a count.</p>
+<p><strong>Leadership.</strong> Beyond producing documents, the team is asked to lead: interfaces with other programmes and stakeholders, market engagement, and the setting of an approach where none exists. The measure looks at where the team has taken the lead on the client’s behalf and whether those areas were carried through to a conclusion.</p>
+<p><strong>Reading the set together.</strong> The first three measures are quantitative and can be tracked quarter on quarter. The last two are qualitative and are evidenced by recorded examples. Taken together they describe a team judged not only on what it was contracted to produce but on how it behaved when the commission changed around it.</p>
 </div>
-{foot("KPI framework")}
+</div>
+</div>
 </section>
 
 <!-- ============================================================ appendix A -->
