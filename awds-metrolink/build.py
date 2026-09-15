@@ -596,13 +596,19 @@ p{{margin:0 0 8px}}
 .tile .v small{{font-size:14px;font-weight:500;color:var(--muted)}}
 .tile .s{{font-size:10px;color:var(--muted);margin:5px 0 0;line-height:1.3}}
 .two{{display:grid;grid-template-columns:1fr 1fr;gap:22px}}
-.kcards{{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:14px}}
+.kcards{{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:12px}}
+.keykpi{{display:grid;grid-template-columns:200px 1fr 300px;gap:22px;align-items:start;margin-top:14px;border:1px solid var(--border);border-left:5px solid var(--navy);background:#fff;padding:12px 16px 10px}}
+.keykpi .kn{{font-size:11px;font-weight:600;color:var(--navy);letter-spacing:.1em;text-transform:uppercase;margin:0 0 2px}}
+.keykpi h3{{margin:0;font-size:24px}}
+.keykpi p{{font-size:11.5px;margin:0}}
+.keykpi .kr{{font-size:10.5px;color:var(--muted)}}
+.three3{{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}}
 .kcard{{border:1px solid var(--border);border-top:3px solid var(--orange);padding:12px 13px 11px;background:var(--tint)}}
 .kcard .kn{{font-size:11px;font-weight:600;color:var(--orange);letter-spacing:.1em;margin:0 0 4px}}
 .kcard h3{{margin:0 0 6px;font-size:13.5px}}
 .kcard p{{font-size:11.5px;margin:0 0 6px}}
 .kcard .kr{{font-size:10.5px;color:var(--muted);margin:0}}
-.kcard:first-child{{border-top-color:var(--navy);background:#fff}}
+
 .front{{display:grid;grid-template-columns:250px 1fr 1.2fr;gap:22px;margin-top:14px;align-items:start}}
 .hero{{background:var(--navy);color:#fff;padding:22px 20px 18px;border-top:4px solid var(--orange)}}
 .hero .hl{{font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 6px;opacity:.85}}
@@ -647,6 +653,9 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
   h2{{font-size:14px;margin-bottom:6px}}
   h3{{margin-top:10px}}
   .foot{{margin-top:12px}}
+  .three3 p,.kcard p,.keykpi p{{font-size:11px}}
+  .kcard{{padding:10px 12px 9px}}
+  .keykpi{{padding:10px 14px 8px}}
 }}
 @media screen and (max-width:820px){{.kpis{{grid-template-columns:repeat(3,1fr)}}.two,.three{{grid-template-columns:1fr}}.band .meta{{display:none}}}}
 """
@@ -675,7 +684,7 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 <section class="page">
 {band("Advance Works Design Services · MetroLink · December 2023 to September 2026", "AWDS Timeline of Change and Team KPI Summary")}
 <div class="body">
-<p class="lede">The AWDS commission began with seven contract packages. Through instructed change between December 2023 and September 2026 the list has grown to {CURRENT_COUNT}: the main civils packages were restructured three times, Heritage and sewer relining were removed and then reinstated, and new works were instructed at Nevinstown House, Dublin Airport and under the M20 minor works. This note records those changes, what the AtkinsRéalis team delivered through them, and the team’s KPIs, led by Adaptability and Delivery.</p>
+<p class="lede">The AWDS commission began with seven contract packages. Through instructed change between December 2023 and September 2026 the list has grown to {CURRENT_COUNT}: the main civils packages were restructured three times, Heritage and sewer relining were removed and then reinstated, and new works were instructed at Nevinstown House, Dublin Airport and under the M20 minor works. This note records those changes, what the AtkinsRéalis team delivered through them, and the team’s KPIs, led by Delivery.</p>
 <div class="front">
 <div class="hero">
 <p class="hl">Increase in contract packages</p>
@@ -711,26 +720,35 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 <section class="page">
 {band("Team KPI summary", "Team KPIs")}
 <div class="body">
-<p class="lede">Five measures for the AWDS team, led by Adaptability and Delivery. Each is defined so that it can be reported from the change register and the document issue record without additional data collection. The evidence behind them is in Appendices A and B.</p>
+<p class="lede">One key measure, Delivery, and five supporting measures. Each can be reported from the change register and the document issue record; the evidence is in Appendices A and B.</p>
+<div class="keykpi">
+<div class="kk1"><p class="kn">Key KPI</p><h3>Delivery</h3></div>
+<div class="kk2"><p>Tangible outputs produced for the project: designs, scope and pricing documents, tender packs, procurements run to award, works supervised to completion, and advice acted upon. The team designs, procures, supervises and advises; this measure counts what it has produced, not the meetings it has attended.</p></div>
+<div class="kk3"><p class="kr">Reported as designs and packs issued for acceptance, procurements completed, works completed and advisory outputs adopted, per quarter.</p></div>
+</div>
 <div class="kcards">
-<div class="kcard"><p class="kn">01</p><h3>Adaptability and Delivery</h3><p>The team’s capacity to absorb instructed change whilst sustaining output.</p><p class="kr">Reported as instructions closed against packs issued for acceptance and works completed, per quarter.</p></div>
+<div class="kcard"><p class="kn">01</p><h3>Adaptability</h3><p>The team’s capacity to absorb instructed change whilst sustaining output.</p><p class="kr">Reported as instructions closed against outputs delivered in the same quarter.</p></div>
 <div class="kcard"><p class="kn">02</p><h3>Responsiveness</h3><p>Elapsed time from an instruction to the resulting issue or completion.</p><p class="kr">Reported as months from instruction to C01 issue per package, and to completion per works item.</p></div>
 <div class="kcard"><p class="kn">03</p><h3>Scope absorption</h3><p>Responsibilities taken on beyond the Conditions of Engagement scope.</p><p class="kr">Reported as a register of absorbed responsibilities: item, instructing party, date and resource effect.</p></div>
 <div class="kcard"><p class="kn">04</p><h3>Team approach</h3><p>Taking on work that sits outside any formal allocation so that it gets done, for the benefit of the project.</p><p class="kr">Reported as recorded instances, reviewed quarterly, with the project outcome each secured.</p></div>
 <div class="kcard"><p class="kn">05</p><h3>Leadership</h3><p>Leading interfaces, engagements and approach on the client’s behalf where no lead was in place.</p><p class="kr">Reported as areas led, the party on whose behalf, and whether each was carried to a conclusion.</p></div>
 </div>
 
-<h3 style="margin-top:18px">What the measures mean</h3>
-<div class="two">
+<h3 style="margin-top:16px">What the measures mean</h3>
+<div class="three3">
 <div>
-<p><strong>Adaptability and Delivery.</strong> A design and procurement commission on a programme of this scale changes shape as the client’s strategy, consents and market conditions develop. This measure asks whether output continued whilst the package structure changed. A team that absorbs change and still issues packs for acceptance protects the programme’s critical path; a team that pauses to re-plan after each instruction does not. Read with the change register, it shows the relationship between instructions received and documents issued.</p>
+<p><strong>Delivery.</strong> The commission produces things: designs, scope and pricing documents, tender packs, procurements run to award, works supervised to completion, and advice that is acted upon. This measure counts those outputs. It separates a team that delivers tangible products from one whose contribution is attendance and comment. It is the key measure because the other five describe how the team works; this one records what it has produced.</p>
+<p><strong>Adaptability.</strong> A design and procurement commission on a programme of this scale changes shape as the client’s strategy, consents and market conditions develop. This measure asks whether output continued whilst the package structure changed. A team that absorbs change and keeps delivering protects the programme’s critical path; a team that pauses to re-plan after each instruction does not.</p>
+</div>
+<div>
 <p><strong>Responsiveness.</strong> The interval between an instruction and the resulting issue is the clearest signal of how a team is organised. Short intervals show that resources, review routes and templates are ready when an instruction arrives. Longer intervals usually trace to inputs the team does not control, so the measure is read alongside the register to separate the two causes.</p>
 <p><strong>Scope absorption.</strong> Every commission has a defined scope. When responsibilities transfer from other parties, the team either absorbs them or the work stalls. The measure keeps a record of what has been taken on, when and at whose request, so that the resource effect is visible and the scope of services can be kept current.</p>
 </div>
 <div>
 <p><strong>Team approach.</strong> Some work does not sit cleanly with any party. This measure records the team’s willingness to take on such work so that it gets done, judged on whether the project benefited rather than on whether the work fell within the allocation. It is deliberately qualitative: the value lies in the pattern of behaviour, not in a count.</p>
 <p><strong>Leadership.</strong> Beyond producing documents, the team is asked to lead: interfaces with other programmes and stakeholders, market engagement, and the setting of an approach where none exists. The measure looks at where the team has taken the lead on the client’s behalf and whether those areas were carried through to a conclusion.</p>
-<p><strong>Reading the set together.</strong> The first three measures are quantitative and can be tracked quarter on quarter. The last two are qualitative and are evidenced by recorded examples. Taken together they describe a team judged not only on what it was contracted to produce but on how it behaved when the commission changed around it.</p>
+<p><strong>Reading the set together.</strong> Delivery and the first three supporting measures are quantitative and tracked quarter on quarter. Team approach and Leadership are qualitative, evidenced by recorded examples.</p>
+
 </div>
 </div>
 </div>
