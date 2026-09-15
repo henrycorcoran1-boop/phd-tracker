@@ -645,7 +645,7 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 """
 
     def band(kicker: str, title: str) -> str:
-        return (f'<header class="band"><img src="{logo}" alt="MetroLink"><div class="t"><p class="kicker">{esc(kicker)}</p>'
+        return (f'<header class="band"><img src="{logo}" alt="MetroLink"><div class="t">'
                 f'<h1>{esc(title)}</h1></div></header>')
 
     def foot(section: str) -> str:
@@ -765,7 +765,7 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 
 <!-- ============================================================ appendix A -->
 <section class="page">
-{band("Appendix A", "Change register: dated events, December 2023 to September 2026")}
+{band("Appendix A", "Appendix A: Change register: dated events, December 2023 to September 2026")}
 <div class="body">
 <table>
 <thead><tr><th style="width:7%">Date</th><th style="width:8%">Reference</th><th style="width:14%">Package / area</th><th style="width:12%">Type</th><th style="width:31%">Event</th><th>AtkinsRéalis response and status</th></tr></thead>
@@ -778,7 +778,7 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 
 <!-- ============================================================ appendix B -->
 <section class="page">
-{band("Appendix B", "Further items requiring the team to adapt approach and resources")}
+{band("Appendix B", "Appendix B: Further items requiring the team to adapt approach and resources")}
 <div class="body">
 <table>
 <thead><tr><th style="width:7%">Reference</th><th style="width:16%">Item</th><th style="width:40%">Change</th><th>AtkinsRéalis response</th></tr></thead>
@@ -791,7 +791,7 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 
 <!-- ============================================================ appendix C -->
 <section class="page">
-{band("Appendix C", "Glossary and source")}
+{band("Appendix C", "Appendix C: Glossary and source")}
 <div class="body">
 <div class="two">
 <div>
