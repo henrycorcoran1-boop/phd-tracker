@@ -716,6 +716,59 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 </div>
 </section>
 
+<!-- ============================================================ appendix A -->
+<section class="page">
+{band("Appendix A", "Appendix A: Change register: dated events, December 2023 to September 2026")}
+<div class="body">
+<table>
+<thead><tr><th style="width:7%">Date</th><th style="width:8%">Reference</th><th style="width:14%">Package / area</th><th style="width:12%">Type</th><th style="width:31%">Event</th><th>AtkinsRéalis response and status</th></tr></thead>
+<tbody>{register_rows()}</tbody>
+</table>
+<p class="note" style="margin-top:8px">Dates are given to the month, as recorded in the source. Volume 2B for M161 was developed by the CP and issued to AtkinsRéalis in February 2026; the expected date stated in the source is not reproduced here pending confirmation.</p>
+</div>
+{foot("Appendix A")}
+</section>
+
+<!-- ============================================================ appendix B -->
+<section class="page">
+{band("Appendix B", "Appendix B: Further items requiring the team to adapt approach and resources")}
+<div class="body">
+<table>
+<thead><tr><th style="width:7%">Reference</th><th style="width:16%">Item</th><th style="width:40%">Change</th><th>AtkinsRéalis response</th></tr></thead>
+<tbody>{undated_rows()}</tbody>
+</table>
+<p class="note" style="margin-top:8px">These items have no month recorded in the source and are therefore not plotted on the timeline.</p>
+</div>
+{foot("Appendix B")}
+</section>
+
+<!-- ============================================================ appendix C -->
+<section class="page">
+{band("Appendix C", "Appendix C: Glossary and source")}
+<div class="body">
+<div class="two">
+<div>
+<table><thead><tr><th style="width:24%">Term</th><th>Meaning</th></tr></thead><tbody>{glossary_rows(0)}</tbody></table>
+</div>
+<div>
+<table><thead><tr><th style="width:24%">Term</th><th>Meaning</th></tr></thead><tbody>{glossary_rows(1)}</tbody></table>
+</div>
+</div>
+<div class="two" style="margin-top:14px">
+<div>
+<h3 style="margin-top:0">Source and method</h3>
+<p>All content is drawn from the {SOURCE}. Events with a recorded month are plotted on the timeline and listed in Appendix A; events without one are listed in Appendix B. Counts are derived from those lists: the package count from the front page, change notices and C01 issues from Appendix A, and elapsed durations from the difference between month-level dates.</p>
+</div>
+<div>
+<h3 style="margin-top:0">Marker key</h3>
+{legend_html()}
+<p class="note">Colours follow the MetroLink palette. The three marker colours were checked for colour-vision separation and contrast; marker shape carries the same distinction for greyscale printing.</p>
+</div>
+</div>
+</div>
+{foot("Appendix C")}
+</section>
+
 <!-- ============================================================ KPIs -->
 <section class="page">
 {band("Team KPI summary", "Team KPIs")}
@@ -791,59 +844,6 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 </div>
 </div>
 </div>
-</section>
-
-<!-- ============================================================ appendix A -->
-<section class="page">
-{band("Appendix A", "Appendix A: Change register: dated events, December 2023 to September 2026")}
-<div class="body">
-<table>
-<thead><tr><th style="width:7%">Date</th><th style="width:8%">Reference</th><th style="width:14%">Package / area</th><th style="width:12%">Type</th><th style="width:31%">Event</th><th>AtkinsRéalis response and status</th></tr></thead>
-<tbody>{register_rows()}</tbody>
-</table>
-<p class="note" style="margin-top:8px">Dates are given to the month, as recorded in the source. Volume 2B for M161 was developed by the CP and issued to AtkinsRéalis in February 2026; the expected date stated in the source is not reproduced here pending confirmation.</p>
-</div>
-{foot("Appendix A")}
-</section>
-
-<!-- ============================================================ appendix B -->
-<section class="page">
-{band("Appendix B", "Appendix B: Further items requiring the team to adapt approach and resources")}
-<div class="body">
-<table>
-<thead><tr><th style="width:7%">Reference</th><th style="width:16%">Item</th><th style="width:40%">Change</th><th>AtkinsRéalis response</th></tr></thead>
-<tbody>{undated_rows()}</tbody>
-</table>
-<p class="note" style="margin-top:8px">These items have no month recorded in the source and are therefore not plotted on the timeline.</p>
-</div>
-{foot("Appendix B")}
-</section>
-
-<!-- ============================================================ appendix C -->
-<section class="page">
-{band("Appendix C", "Appendix C: Glossary and source")}
-<div class="body">
-<div class="two">
-<div>
-<table><thead><tr><th style="width:24%">Term</th><th>Meaning</th></tr></thead><tbody>{glossary_rows(0)}</tbody></table>
-</div>
-<div>
-<table><thead><tr><th style="width:24%">Term</th><th>Meaning</th></tr></thead><tbody>{glossary_rows(1)}</tbody></table>
-</div>
-</div>
-<div class="two" style="margin-top:14px">
-<div>
-<h3 style="margin-top:0">Source and method</h3>
-<p>All content is drawn from the {SOURCE}. Events with a recorded month are plotted on the timeline and listed in Appendix A; events without one are listed in Appendix B. Counts are derived from those lists: the package count from the front page, change notices and C01 issues from Appendix A, and elapsed durations from the difference between month-level dates.</p>
-</div>
-<div>
-<h3 style="margin-top:0">Marker key</h3>
-{legend_html()}
-<p class="note">Colours follow the MetroLink palette. The three marker colours were checked for colour-vision separation and contrast; marker shape carries the same distinction for greyscale printing.</p>
-</div>
-</div>
-</div>
-{foot("Appendix C")}
 </section>
 
 </body>
