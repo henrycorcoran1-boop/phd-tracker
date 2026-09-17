@@ -716,6 +716,45 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 </div>
 </section>
 
+<!-- ============================================================ evidence -->
+<section class="page">
+{band("Team KPI summary", "Delivery and responsiveness: the record to date")}
+<div class="body">
+<p class="lede">The outputs produced against the key Delivery measure, and the elapsed time from each instruction to the resulting issue or completion. Every item is traceable to the change register in Appendix A.</p>
+
+<h3 style="margin-top:14px">Responsiveness: instruction to issue or completion</h3>
+{durations_svg()}
+<p class="note">Elapsed months between the month-level dates recorded in the source. Bars are ordered shortest to longest.</p>
+
+<div class="three3" style="margin-top:16px">
+<div>
+<h3 style="margin-top:0">Delivered to date</h3>
+<ul>
+<li><strong>{len(C01_PACKS)} scope packs issued for C01 acceptance:</strong> {", ".join(C01_PACKS)}.</li>
+<li><strong>2 works packages completed:</strong> Nevinstown House demolition (Dec 2025); Railway Order baseline monitors procured, installed and managed (Sep 2026).</li>
+<li><strong>Procurement documents produced:</strong> ITN, PQQ and associated ITT requirements (Oct 2024).</li>
+<li><strong>M160 issued for C01 under each of three contract forms</strong> in seven months.</li>
+</ul>
+</div>
+<div>
+<h3 style="margin-top:0">Scope absorbed beyond the Conditions of Engagement</h3>
+<ul>{absorbed_html}</ul>
+</div>
+<div>
+<h3 style="margin-top:0">In development at report date</h3>
+<ul>
+<li>M111 (TBM portal) designed and procured; awaiting ITT award.</li>
+<li>M130 awaiting contract award.</li>
+<li>M20 Minor Works: 7 lots being scoped and designed (CN-086).</li>
+<li>Dublin Airport advance works detailed design (CN-093).</li>
+<li>More than 100 draft CEMPs (CN-031).</li>
+</ul>
+<p class="note">Descoped items returned and delivered: {", ".join(RETURNED)}.</p>
+</div>
+</div>
+</div>
+</section>
+
 <!-- ============================================================ appendix A -->
 <section class="page">
 {band("Appendix A", "Appendix A: Change register: dated events, December 2023 to September 2026")}
@@ -802,45 +841,6 @@ table.kpi td:first-child{{font-weight:600;color:var(--navy);white-space:nowrap}}
 <p><strong>Leadership.</strong> Beyond producing documents, the team is asked to lead: interfaces with other programmes and stakeholders, market engagement, and the setting of an approach where none exists. The measure looks at where the team has taken the lead on the client’s behalf and whether those areas were carried through to a conclusion.</p>
 <p><strong>Reading the set together.</strong> Delivery and the first three supporting measures are quantitative and tracked quarter on quarter. Team approach and Leadership are qualitative, evidenced by recorded examples.</p>
 
-</div>
-</div>
-</div>
-</section>
-
-<!-- ============================================================ evidence -->
-<section class="page">
-{band("Team KPI summary", "Delivery and responsiveness: the record to date")}
-<div class="body">
-<p class="lede">The outputs produced against the key Delivery measure, and the elapsed time from each instruction to the resulting issue or completion. Every item is traceable to the change register in Appendix A.</p>
-
-<h3 style="margin-top:14px">Responsiveness: instruction to issue or completion</h3>
-{durations_svg()}
-<p class="note">Elapsed months between the month-level dates recorded in the source. Bars are ordered shortest to longest.</p>
-
-<div class="three3" style="margin-top:16px">
-<div>
-<h3 style="margin-top:0">Delivered to date</h3>
-<ul>
-<li><strong>{len(C01_PACKS)} scope packs issued for C01 acceptance:</strong> {", ".join(C01_PACKS)}.</li>
-<li><strong>2 works packages completed:</strong> Nevinstown House demolition (Dec 2025); Railway Order baseline monitors procured, installed and managed (Sep 2026).</li>
-<li><strong>Procurement documents produced:</strong> ITN, PQQ and associated ITT requirements (Oct 2024).</li>
-<li><strong>M160 issued for C01 under each of three contract forms</strong> in seven months.</li>
-</ul>
-</div>
-<div>
-<h3 style="margin-top:0">Scope absorbed beyond the Conditions of Engagement</h3>
-<ul>{absorbed_html}</ul>
-</div>
-<div>
-<h3 style="margin-top:0">In development at report date</h3>
-<ul>
-<li>M111 (TBM portal) designed and procured; awaiting ITT award.</li>
-<li>M130 awaiting contract award.</li>
-<li>M20 Minor Works: 7 lots being scoped and designed (CN-086).</li>
-<li>Dublin Airport advance works detailed design (CN-093).</li>
-<li>More than 100 draft CEMPs (CN-031).</li>
-</ul>
-<p class="note">Descoped items returned and delivered: {", ".join(RETURNED)}.</p>
 </div>
 </div>
 </div>
